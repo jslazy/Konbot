@@ -1,0 +1,4 @@
+# only needed to regenerate icons/panel:  python tools/make_assets.py
+pillow
+numpy
+scipy

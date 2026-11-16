@@ -1,0 +1,19 @@
+{
+  "server_id": 1547650379448188999,
+  "vc_data.guilds": {},
+  "vc_data.selfroles": {},
+  "vc_data.vcs": {},
+  "vc_data.mutes": {},
+  "vc_data.guild_owners": [],
+  "vc_data.vc_setup": {},
+  "afk_data.afk": {
+    "1537639385879683212": {
+      "reason": "gg blazu rich sheru",
+      "since": 1794792001.0317106,
+      "guild_id": 1547650379448188999,
+      "old_nick": "T-MOD | Ruler",
+      "mentions": []
+    }
+  },
+  "afk_data.tag": true
+}

@@ -1,0 +1,136 @@
+{
+  "afk": {
+    "1433650059043405959": {
+      "reason": "AFK",
+      "since": 1794399701.4202316,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Dark DeadSoul",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1570051404062658685",
+          "content": "No"
+        },
+        {
+          "author": "Dark DeadSoul",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1570051437218758779",
+          "content": "Kha se du"
+        },
+        {
+          "author": "MOD | TacticalShower",
+          "channel_id": 1568343826425323692,
+          "url": "https://discord.com/channels/1547650379448188999/1568343826425323692/1570507857902833827",
+          "content": "<@1433650059043405959> why my cutie inactive lately"
+        },
+        {
+          "author": "Raven",
+          "channel_id": 1571029761864499311,
+          "url": "https://discord.com/channels/1547650379448188999/1571029761864499311/1571037671315472415",
+          "content": "g.m <@1433650059043405959>"
+        },
+        {
+          "author": "HM | TacticalShower",
+          "channel_id": 1568343746247139419,
+          "url": "https://discord.com/channels/1547650379448188999/1568343746247139419/1571344506693885994",
+          "content": "<@1433650059043405959> bro where are you"
+        },
+        {
+          "author": "HM | TacticalShower",
+          "channel_id": 1568343826425323692,
+          "url": "https://discord.com/channels/1547650379448188999/1568343826425323692/1571710355380510773",
+          "content": "Why <@1433650059043405959> no online now"
+        }
+      ]
+    },
+    "1567891350710657266": {
+      "reason": "Baad ma aaugi",
+      "since": 1794467114.6361542,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
+    },
+    "1512822379061969028": {
+      "reason": "sone ja raha",
+      "since": 1794505670.9405162,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
+    },
+    "1502235313081290855": {
+      "reason": "AFK",
+      "since": 1794672900.8998067,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "🜲 SeNvaTor 'メD | 神",
+          "channel_id": 1571183592875495605,
+          "url": "https://discord.com/channels/1488690726870057165/1571183592875495605/1571196779662147657",
+          "content": "Bauna"
+        },
+        {
+          "author": "SkyCat",
+          "channel_id": 1571183592875495605,
+          "url": "https://discord.com/channels/1488690726870057165/1571183592875495605/1571196829754851340",
+          "content": "Yes"
+        }
+      ]
+    },
+    "1028298097664733215": {
+      "reason": "AFK",
+      "since": 1794775475.5481703,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Lazy",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1571662220977504261",
+          "content": "<@1028298097664733215>"
+        },
+        {
+          "author": "Lazy",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1571681279630516336",
+          "content": "<@1028298097664733215> kya laga bachwa afk karoge hamka pta nahi chalega"
+        },
+        {
+          "author": "Lazy",
+          "channel_id": 1488691409744695417,
+          "url": "https://discord.com/channels/1488690726870057165/1488691409744695417/1571681409473712129",
+          "content": "$profile <@1028298097664733215>"
+        },
+        {
+          "author": "🜲 SeNvaTor 'メD | 神",
+          "channel_id": 1570388866702245948,
+          "url": "https://discord.com/channels/1488690726870057165/1570388866702245948/1571691413492736082",
+          "content": "<:Kool:1569605493607890995> tum logo ko kaise jeetne dunga <@1299765230011678834>"
+        },
+        {
+          "author": "🜲 SeNvaTor 'メD | 神",
+          "channel_id": 1570388866702245948,
+          "url": "https://discord.com/channels/1488690726870057165/1570388866702245948/1571694703961964628",
+          "content": "<@1028298097664733215> <@1299765230011678834> juari ka aura <:Kool:1569605493607890995>"
+        },
+        {
+          "author": "🜲 SeNvaTor 'メD | 神",
+          "channel_id": 1570388866702245948,
+          "url": "https://discord.com/channels/1488690726870057165/1570388866702245948/1571695367139889175",
+          "content": "<@1028298097664733215> <@1299765230011678834>"
+        }
+      ]
+    },
+    "1537639385879683212": {
+      "reason": "gg blazu rich sheru",
+      "since": 1794792001.0317106,
+      "guild_id": 1547650379448188999,
+      "old_nick": "T-MOD | Ruler",
+      "mentions": []
+    }
+  },
+  "tag": {
+    "1488690726870057165": false
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "server_id": 1488690726870057165,
+  "vc_data.guilds": {
+    "create": 1488691385266864208
+  },
+  "vc_data.selfroles": {
+    "channel": 1488691387653161131,
+    "message": 1570315881425141783,
+    "title": "Self Roles :",
+    "title_emoji": "<:Spider_Diamond:1570309161198293013>",
+    "footer": "Click the buttons below to toggle your roles.",
+    "color": 4906624,
+    "banner": "1488690726870057165.gif",
+    "roles": [
+      {
+        "role": 1488691267574698006,
+        "label": "Event Ping",
+        "emoji": "<:cal2:1570309163999821864>",
+        "line": "Event Ping",
+        "line_emoji": "<:cal2:1570309163999821864>"
+      },
+      {
+        "role": 1488691305323167774,
+        "label": "Fun Ping",
+        "emoji": "<:senpai_wow:1570309166965465138>",
+        "line": "Fun Ping",
+        "line_emoji": "<:senpai_wow:1570309166965465138>"
+      },
+      {
+        "role": 1488691271101972531,
+        "label": "Giveaway Ping",
+        "emoji": "<:Spider_Diamond:1570309161198293013>",
+        "line": "Giveaway Ping",
+        "line_emoji": "<:Spider_Diamond:1570309161198293013>"
+      },
+      {
+        "role": 1488691273446719489,
+        "label": "Social Feeds",
+        "emoji": "<:Spider_blue_verified:1570309169720987720>",
+        "line": "Social Feeds",
+        "line_emoji": "<:Spider_blue_verified:1570309169720987720>"
+      }
+    ]
+  },
+  "vc_data.vcs": {},
+  "vc_data.mutes": {},
+  "vc_data.guild_owners": [
+    1262248731353546763,
+    1154489620499800127
+  ],
+  "vc_data.vc_setup": {
+    "create": {
+      "id": 1488691385266864208,
+      "name": "🍀ゝCustom Vc⌝",
+      "type": "voice",
+      "category_id": 1488691343382286338,
+      "category": "╰ •〢Custom VCs",
+      "position": 6,
+      "bitrate": 64000,
+      "user_limit": 1
+    }
+  },
+  "afk_data.afk": {
+    "1433650059043405959": {
+      "reason": "AFK",
+      "since": 1794399701.4202316,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Dark DeadSoul",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1570051404062658685",
+          "content": "No"
+        },
+        {
+          "author": "Dark DeadSoul",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1570051437218758779",
+          "content": "Kha se du"
+        },
+        {
+          "author": "MOD | TacticalShower",
+          "channel_id": 1568343826425323692,
+          "url": "https://discord.com/channels/1547650379448188999/1568343826425323692/1570507857902833827",
+          "content": "<@1433650059043405959> why my cutie inactive lately"
+        },
+        {
+          "author": "Raven",
+          "channel_id": 1571029761864499311,
+          "url": "https://discord.com/channels/1547650379448188999/1571029761864499311/1571037671315472415",
+          "content": "g.m <@1433650059043405959>"
+        },
+        {
+          "author": "HM | TacticalShower",
+          "channel_id": 1568343746247139419,
+          "url": "https://discord.com/channels/1547650379448188999/1568343746247139419/1571344506693885994",
+          "content": "<@1433650059043405959> bro where are you"
+        },
+        {
+          "author": "HM | TacticalShower",
+          "channel_id": 1568343826425323692,
+          "url": "https://discord.com/channels/1547650379448188999/1568343826425323692/1571710355380510773",
+          "content": "Why <@1433650059043405959> no online now"
+        }
+      ]
+    },
+    "1567891350710657266": {
+      "reason": "Baad ma aaugi",
+      "since": 1794467114.6361542,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
+    },
+    "1512822379061969028": {
+      "reason": "sone ja raha",
+      "since": 1794505670.9405162,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
+    },
+    "1502235313081290855": {
+      "reason": "AFK",
+      "since": 1794672900.8998067,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "🜲 SeNvaTor 'メD | 神",
+          "channel_id": 1571183592875495605,
+          "url": "https://discord.com/channels/1488690726870057165/1571183592875495605/1571196779662147657",
+          "content": "Bauna"
+        },
+        {
+          "author": "SkyCat",
+          "channel_id": 1571183592875495605,
+          "url": "https://discord.com/channels/1488690726870057165/1571183592875495605/1571196829754851340",
+          "content": "Yes"
+        }
+      ]
+    },
+    "1028298097664733215": {
+      "reason": "AFK",
+      "since": 1794775475.5481703,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Lazy",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1571662220977504261",
+          "content": "<@1028298097664733215>"
+        },
+        {
+          "author": "Lazy",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1571681279630516336",
+          "content": "<@1028298097664733215> kya laga bachwa afk karoge hamka pta nahi chalega"
+        },
+        {
+          "author": "Lazy",
+          "channel_id": 1488691409744695417,
+          "url": "https://discord.com/channels/1488690726870057165/1488691409744695417/1571681409473712129",
+          "content": "$profile <@1028298097664733215>"
+        },
+        {
+          "author": "🜲 SeNvaTor 'メD | 神",
+          "channel_id": 1570388866702245948,
+          "url": "https://discord.com/channels/1488690726870057165/1570388866702245948/1571691413492736082",
+          "content": "<:Kool:1569605493607890995> tum logo ko kaise jeetne dunga <@1299765230011678834>"
+        },
+        {
+          "author": "🜲 SeNvaTor 'メD | 神",
+          "channel_id": 1570388866702245948,
+          "url": "https://discord.com/channels/1488690726870057165/1570388866702245948/1571694703961964628",
+          "content": "<@1028298097664733215> <@1299765230011678834> juari ka aura <:Kool:1569605493607890995>"
+        },
+        {
+          "author": "🜲 SeNvaTor 'メD | 神",
+          "channel_id": 1570388866702245948,
+          "url": "https://discord.com/channels/1488690726870057165/1570388866702245948/1571695367139889175",
+          "content": "<@1028298097664733215> <@1299765230011678834>"
+        }
+      ]
+    }
+  },
+  "afk_data.tag": false
+}

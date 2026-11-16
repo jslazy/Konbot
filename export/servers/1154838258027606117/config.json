@@ -1,0 +1,40 @@
+{
+  "server": {
+    "id": 1154838258027606117,
+    "name": "Lazy",
+    "bot_is_in_server": true,
+    "owner_id": 650534818517483526,
+    "members": 9
+  },
+  "custom_vc": {
+    "join_to_create_channel": null,
+    "interface_channel": null,
+    "interface_message_id": null,
+    "saved_setup (last known, survives channel deletion)": {
+      "join_to_create": null,
+      "interface": null,
+      "panel_message_id": null
+    },
+    "other_keys": {},
+    "active_custom_vcs": {}
+  },
+  "self_roles": null,
+  "points_settings": null,
+  "shop": {
+    "settings": null,
+    "items": []
+  },
+  "no_prefix": null,
+  "aliases": null,
+  "role_commands": null,
+  "autoreact": null,
+  "aura": null,
+  "tictactoe": null,
+  "extra_owners": [],
+  "afk": {
+    "tag_enabled": true,
+    "users": {}
+  },
+  "all_settings_raw": {},
+  "players_in_database": 2
+}

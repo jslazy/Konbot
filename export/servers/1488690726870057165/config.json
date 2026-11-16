@@ -1,0 +1,356 @@
+{
+  "server": {
+    "id": 1488690726870057165,
+    "name": "Dark Spider's Web",
+    "bot_is_in_server": true,
+    "owner_id": 1400039022855852113,
+    "members": 149
+  },
+  "custom_vc": {
+    "join_to_create_channel": 1488691385266864208,
+    "interface_channel": null,
+    "interface_message_id": null,
+    "saved_setup (last known, survives channel deletion)": {
+      "join_to_create": {
+        "id": 1488691385266864208,
+        "name": "🍀ゝCustom Vc⌝",
+        "type": "voice",
+        "category_id": 1488691343382286338,
+        "category": "╰ •〢Custom VCs",
+        "position": 6,
+        "bitrate": 64000,
+        "user_limit": 1,
+        "currently_set": true,
+        "exists_now": true
+      },
+      "interface": null,
+      "panel_message_id": null
+    },
+    "other_keys": {},
+    "active_custom_vcs": {}
+  },
+  "self_roles": {
+    "channel": 1488691387653161131,
+    "message": 1570315881425141783,
+    "title": "Self Roles :",
+    "title_emoji": "<:Spider_Diamond:1570309161198293013>",
+    "footer": "Click the buttons below to toggle your roles.",
+    "color": 4906624,
+    "banner": "1488690726870057165.gif",
+    "roles": [
+      {
+        "role": 1488691267574698006,
+        "label": "Event Ping",
+        "emoji": "<:cal2:1570309163999821864>",
+        "line": "Event Ping",
+        "line_emoji": "<:cal2:1570309163999821864>"
+      },
+      {
+        "role": 1488691305323167774,
+        "label": "Fun Ping",
+        "emoji": "<:senpai_wow:1570309166965465138>",
+        "line": "Fun Ping",
+        "line_emoji": "<:senpai_wow:1570309166965465138>"
+      },
+      {
+        "role": 1488691271101972531,
+        "label": "Giveaway Ping",
+        "emoji": "<:Spider_Diamond:1570309161198293013>",
+        "line": "Giveaway Ping",
+        "line_emoji": "<:Spider_Diamond:1570309161198293013>"
+      },
+      {
+        "role": 1488691273446719489,
+        "label": "Social Feeds",
+        "emoji": "<:Spider_blue_verified:1570309169720987720>",
+        "line": "Social Feeds",
+        "line_emoji": "<:Spider_blue_verified:1570309169720987720>"
+      }
+    ]
+  },
+  "points_settings": {
+    "chat_enabled": true,
+    "chat_msgs": 25,
+    "chat_points": 1,
+    "chat_everywhere": true,
+    "vc_enabled": true,
+    "vc_mins": 1,
+    "vc_points": 1,
+    "vc_need_others": false,
+    "cooldown": 2,
+    "channel_rules": {},
+    "disabled_channels": [],
+    "enabled_channels": [],
+    "vc_disabled_channels": []
+  },
+  "shop": {
+    "settings": null,
+    "items": [
+      {
+        "id": 7,
+        "guild_id": 1488690726870057165,
+        "role_id": 1570572186958172180,
+        "price": 250,
+        "stock": 4,
+        "emoji": "<:Kartik_what:1570284014797852802>",
+        "position": 1
+      },
+      {
+        "id": 1,
+        "guild_id": 1488690726870057165,
+        "role_id": 1488691208019771402,
+        "price": 500,
+        "stock": 4,
+        "emoji": "<:Kool:1569605493607890995>",
+        "position": 2
+      },
+      {
+        "id": 2,
+        "guild_id": 1488690726870057165,
+        "role_id": 1488691206375608330,
+        "price": 500,
+        "stock": 3,
+        "emoji": "<:cute:1569605481364852909>",
+        "position": 3
+      },
+      {
+        "id": 3,
+        "guild_id": 1488690726870057165,
+        "role_id": 1488691206891503758,
+        "price": 500,
+        "stock": 4,
+        "emoji": "<:cute:1569605481364852909>",
+        "position": 4
+      },
+      {
+        "id": 4,
+        "guild_id": 1488690726870057165,
+        "role_id": 1488691203858890833,
+        "price": 500,
+        "stock": 4,
+        "emoji": "<:Spider_Sparkle:1569557530735026359>",
+        "position": 5
+      },
+      {
+        "id": 5,
+        "guild_id": 1488690726870057165,
+        "role_id": 1488691204785963128,
+        "price": 1000,
+        "stock": 5,
+        "emoji": "<:Spider_Sparkle:1569557530735026359>",
+        "position": 6
+      },
+      {
+        "id": 6,
+        "guild_id": 1488690726870057165,
+        "role_id": 1488691205637279785,
+        "price": 2000,
+        "stock": 4,
+        "emoji": "<:Spider_Sparkle:1569557530735026359>",
+        "position": 7
+      }
+    ]
+  },
+  "no_prefix": {
+    "role": 1569999856171229255,
+    "users": [
+      1262248731353546763,
+      1418875905085935637
+    ]
+  },
+  "aliases": null,
+  "role_commands": {
+    "setmemer": {
+      "role": 1488691235970351105,
+      "allowed": null
+    },
+    "sethomies": {
+      "role": 1488691239678378015,
+      "allowed": null
+    },
+    "setguest": {
+      "role": 1488691229838540904,
+      "allowed": null
+    },
+    "setog": {
+      "role": 1488691230861951078,
+      "allowed": null
+    }
+  },
+  "autoreact": {
+    "roles": [
+      1570572186958172180,
+      1570053759848153189,
+      1488691208019771402,
+      1488691206891503758,
+      1488691206375608330
+    ],
+    "users": {
+      "1262248731353546763": [
+        "<:Cat_meow:1569605495222964265>"
+      ],
+      "650534818517483526": [
+        "<a:scrajj:1570284076609568919>"
+      ],
+      "1425991437396217960": [
+        "<:RainyMM_Naksh_goodboy:1570285035989508096>"
+      ],
+      "1154489620499800127": [
+        "<a:69_Partner:1570285042175971438>"
+      ],
+      "1548153523709943863": [
+        "<a:Madira_eating:1570284028093792286>"
+      ],
+      "743845224287043665": [
+        "<a:Cat:1570284005067198464>"
+      ],
+      "1086203964300730449": [
+        "<a:Oliviaaa_nooooo:1570284034532188210>"
+      ]
+    }
+  },
+  "aura": {
+    "members": {
+      "650534818517483526": 100,
+      "1262248731353546763": 99
+    },
+    "roles": {},
+    "random": true
+  },
+  "tictactoe": {
+    "channel": 1570649429768413285
+  },
+  "extra_owners": [
+    {
+      "id": 1262248731353546763,
+      "name": "Anshu >_< (anshumanfr_)",
+      "found": true
+    },
+    {
+      "id": 1154489620499800127,
+      "name": "Dark Ojas (darkojas)",
+      "found": true
+    }
+  ],
+  "afk": {
+    "tag_enabled": false,
+    "users": {
+      "1433650059043405959": {
+        "reason": "AFK",
+        "since": 1794399701.4202316,
+        "old_nick": null,
+        "mentions_waiting": 6
+      },
+      "1567891350710657266": {
+        "reason": "Baad ma aaugi",
+        "since": 1794467114.6361542,
+        "old_nick": null,
+        "mentions_waiting": 0
+      },
+      "1512822379061969028": {
+        "reason": "sone ja raha",
+        "since": 1794505670.9405162,
+        "old_nick": null,
+        "mentions_waiting": 0
+      },
+      "1502235313081290855": {
+        "reason": "AFK",
+        "since": 1794672900.8998067,
+        "old_nick": null,
+        "mentions_waiting": 2
+      },
+      "1028298097664733215": {
+        "reason": "AFK",
+        "since": 1794775475.5481703,
+        "old_nick": null,
+        "mentions_waiting": 6
+      }
+    }
+  },
+  "all_settings_raw": {
+    "aura": {
+      "members": {
+        "650534818517483526": 100,
+        "1262248731353546763": 99
+      },
+      "roles": {},
+      "random": true
+    },
+    "autoreact": {
+      "roles": [
+        1570572186958172180,
+        1570053759848153189,
+        1488691208019771402,
+        1488691206891503758,
+        1488691206375608330
+      ],
+      "users": {
+        "1262248731353546763": [
+          "<:Cat_meow:1569605495222964265>"
+        ],
+        "650534818517483526": [
+          "<a:scrajj:1570284076609568919>"
+        ],
+        "1425991437396217960": [
+          "<:RainyMM_Naksh_goodboy:1570285035989508096>"
+        ],
+        "1154489620499800127": [
+          "<a:69_Partner:1570285042175971438>"
+        ],
+        "1548153523709943863": [
+          "<a:Madira_eating:1570284028093792286>"
+        ],
+        "743845224287043665": [
+          "<a:Cat:1570284005067198464>"
+        ],
+        "1086203964300730449": [
+          "<a:Oliviaaa_nooooo:1570284034532188210>"
+        ]
+      }
+    },
+    "noprefix": {
+      "role": 1569999856171229255,
+      "users": [
+        1262248731353546763,
+        1418875905085935637
+      ]
+    },
+    "points": {
+      "chat_enabled": true,
+      "chat_msgs": 25,
+      "chat_points": 1,
+      "chat_everywhere": true,
+      "vc_enabled": true,
+      "vc_mins": 1,
+      "vc_points": 1,
+      "vc_need_others": false,
+      "cooldown": 2,
+      "channel_rules": {},
+      "disabled_channels": [],
+      "enabled_channels": [],
+      "vc_disabled_channels": []
+    },
+    "rolecmds": {
+      "setmemer": {
+        "role": 1488691235970351105,
+        "allowed": null
+      },
+      "sethomies": {
+        "role": 1488691239678378015,
+        "allowed": null
+      },
+      "setguest": {
+        "role": 1488691229838540904,
+        "allowed": null
+      },
+      "setog": {
+        "role": 1488691230861951078,
+        "allowed": null
+      }
+    },
+    "tictactoe": {
+      "channel": 1570649429768413285
+    }
+  },
+  "players_in_database": 119
+}

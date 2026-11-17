@@ -372,6 +372,16 @@ class SelfRoles(commands.Cog):
                 except Exception as e:
                     log.warning("could not restore self-role buttons for %s: %r", gid, e)
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        """Old banner FILES (data/selfrole/*.gif ...) become a link once, then the file is deleted - so backups carry
+        links, not images."""
+        for gid, c in list(self.all().items()):
+            if c.get("banner") and not (c.get("banner_url") or c.get("banner_ref")):
+                guild = self.bot.get_guild(int(gid))
+                if guild is not None:
+                    await self.migrate_legacy_banner(guild)
+
     # ---------- banner (stored as a LINK only) ----------
     def has_banner(self, cfg: dict) -> bool:
         return bool(cfg.get("banner_url") or cfg.get("banner_ref") or self.legacy_path(cfg))

@@ -92,6 +92,7 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
 - **`$point config`** redesigned: *Main* page (chat / VC rules, switches) + *Channels* page (menus to switch points OFF in channels /
   categories, ON-only mode, voice channels, custom rules). Quick commands: `$point disable [#channel]`, `$point enable [#channel]`.
 - **Tic Tac Toe** (plain-text challenge with Accept / Deny, game embed from the first move, X blue / O red, result in the message text): `/tictactoe admin #channel` (admins) sets the channel, `/tictactoe play @member` (or `$ttt play @member`) works only there.
+- **BlackTea** (word-bomb game, custom Leafy icons): `$blacktea [easy|medium|hard]` (alias `$bt`) works only in the channel set with `$blacktea channel #channel` / `$setblacktea`; `$blacktea stop`, `$blacktea reset`.
 - **`$leafyping`** (redesigned, custom icons) and **`$leafyinfo`** (servers, total members, stats; server list = bot owner only).
   `$leafy` alone no longer pings, it shows a short intro.
 - **`$pb`** says "Successfully purged N bot messages." and also removes the no-prefix commands (plain `afk`, `profile` ...).

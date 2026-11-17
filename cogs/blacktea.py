@@ -32,6 +32,7 @@ from discord import app_commands
 from discord.ext import commands
 
 from core.config import BASE, DATA_DIR, PREFIX
+from core.icons import I
 
 log = logging.getLogger("leafy.blacktea")
 
@@ -47,11 +48,11 @@ MAX_PLAYERS = 20
 LIVES = 3
 
 MODES = {
-    "easy":   {"label": "Easy",   "emoji": "🟢", "seconds": 15, "n": 2, "lo": 1500, "hi": 10**9, "min_len": 3,
+    "easy":   {"label": "Easy",   "icon": "thumbs_up", "seconds": 15, "n": 2, "lo": 1500, "hi": 10**9, "min_len": 3,
                "info": "2 letters · 15s per turn"},
-    "medium": {"label": "Medium", "emoji": "🟡", "seconds": 10, "n": 3, "lo": 150,  "hi": 3000,  "min_len": 3,
+    "medium": {"label": "Medium", "icon": "bolt", "seconds": 10, "n": 3, "lo": 150,  "hi": 3000,  "min_len": 3,
                "info": "3 letters · 10s per turn"},
-    "hard":   {"label": "Hard",   "emoji": "🔴", "seconds": 7,  "n": 3, "lo": 50,   "hi": 160,   "min_len": 4,
+    "hard":   {"label": "Hard",   "icon": "fire", "seconds": 7,  "n": 3, "lo": 50,   "hi": 160,   "min_len": 4,
                "info": "3 rare letters · 7s per turn · words 4+ letters"},
 }
 DEFAULT_MODE = "medium"
@@ -60,7 +61,18 @@ NO_PING = discord.AllowedMentions.none()
 
 
 def hearts(n: int) -> str:
-    return "❤️" * n + "🖤" * (LIVES - n)
+    return I.s("heart") * n + I.s("heart_broken") * (LIVES - n)
+
+
+async def react(message: discord.Message, name: str, fallback: str):
+    """React with the custom icon; if Discord refuses it, fall back to the unicode emoji."""
+    try:
+        await message.add_reaction(I.e(name) or fallback)
+    except discord.HTTPException:
+        try:
+            await message.add_reaction(fallback)
+        except discord.HTTPException:
+            pass
 
 
 # ------------------------------------------------------------------ settings
@@ -97,7 +109,7 @@ class LobbyView(discord.ui.View):
     def is_host(self, member) -> bool:
         return member.id == self.game.host.id or member.guild_permissions.manage_guild
 
-    @discord.ui.button(label="Join", emoji="🍵", style=discord.ButtonStyle.success)
+    @discord.ui.button(label="Join", emoji=I.e("user_add"), style=discord.ButtonStyle.success)
     async def join(self, interaction: discord.Interaction, button: discord.ui.Button):
         g = self.game
         if interaction.user.id in g.players:
@@ -107,7 +119,7 @@ class LobbyView(discord.ui.View):
         g.players.append(interaction.user.id)
         await interaction.response.edit_message(embed=g.lobby_embed(), view=self)
 
-    @discord.ui.button(label="Leave", emoji="🚪", style=discord.ButtonStyle.secondary)
+    @discord.ui.button(label="Leave", emoji=I.e("logout"), style=discord.ButtonStyle.secondary)
     async def leave(self, interaction: discord.Interaction, button: discord.ui.Button):
         g = self.game
         if interaction.user.id == g.host.id:
@@ -118,7 +130,7 @@ class LobbyView(discord.ui.View):
         g.players.remove(interaction.user.id)
         await interaction.response.edit_message(embed=g.lobby_embed(), view=self)
 
-    @discord.ui.button(label="Start now", emoji="▶️", style=discord.ButtonStyle.primary)
+    @discord.ui.button(label="Start now", emoji=I.e("play"), style=discord.ButtonStyle.primary)
     async def start(self, interaction: discord.Interaction, button: discord.ui.Button):
         if not self.is_host(interaction.user):
             return await interaction.response.send_message("Only the host can start early.", ephemeral=True)
@@ -128,7 +140,7 @@ class LobbyView(discord.ui.View):
         await interaction.response.defer()
 
     @discord.ui.select(placeholder="Difficulty (host only)", row=1, options=[
-        discord.SelectOption(label=m["label"], value=k, emoji=m["emoji"], description=m["info"])
+        discord.SelectOption(label=m["label"], value=k, emoji=I.e(m["icon"]), description=m["info"])
         for k, m in MODES.items()])
     async def mode_select(self, interaction: discord.Interaction, select: discord.ui.Select):
         if not self.is_host(interaction.user):
@@ -166,17 +178,17 @@ class Game:
     # ----- embeds -----
     def lobby_embed(self) -> discord.Embed:
         c = self.cfg
-        e = discord.Embed(title="🍵 BlackTea", color=TEA, description=(
+        e = discord.Embed(title=f"{I.s('leaf')} BlackTea", color=TEA, description=(
             f"A word is hiding in every turn - **find it before the tea gets cold!**\n\n"
             f"**How to play**\n"
-            f"• You get **{LIVES}** ❤️ lives.\n"
+            f"• You get **{LIVES}** {I.s('heart')} lives.\n"
             f"• On your turn the bot shows some letters - send a **real English word** containing them "
             f"within **{c['seconds']}s**.\n"
             f"• No answer = you lose a life. Words can't be repeated.\n"
-            f"• Last one standing wins 🏆"))
-        e.add_field(name="Difficulty", value=f"{c['emoji']} **{c['label']}**\n{c['info']}", inline=True)
+            f"• Last one standing wins {I.s('trophy')}"))
+        e.add_field(name="Difficulty", value=f"{I.s(c['icon'])} **{c['label']}**\n{c['info']}", inline=True)
         e.add_field(name="Starts", value=f"<t:{self.start_ts}:R>", inline=True)
-        names = "\n".join(f"{i}. <@{uid}>" + (" 👑" if uid == self.host.id else "")
+        names = "\n".join(f"{i}. <@{uid}>" + (f" {I.s('crown')}" if uid == self.host.id else "")
                           for i, uid in enumerate(self.players, 1))
         e.add_field(name=f"Players ({len(self.players)}/{MAX_PLAYERS})", value=names, inline=False)
         e.set_footer(text="Press Join to play · the host can pick the difficulty or start early")
@@ -187,13 +199,13 @@ class Game:
         e = discord.Embed(color=TEA, description=(
             f"<@{self.current}>, send a word containing\n"
             f"# `{self.fragment.upper()}`\n"
-            f"⏳ ends <t:{self.deadline}:R>"))
+            f"{I.s('hourglass')} ends <t:{self.deadline}:R>"))
         board = "\n".join(
-            ("▶️ " if uid == self.current else "▫️ ") + f"<@{uid}> {hearts(self.lives[uid])}"
+            (f"{I.s('play')} " if uid == self.current else "▫️ ") + f"<@{uid}> {hearts(self.lives[uid])}"
             for uid in self.order)
         e.add_field(name="Players", value=board, inline=False)
         e.set_footer(text=f"{c['label']} mode · turn {rnd} · words used: {len(self.used)}")
-        e.title = "🍵 BlackTea"
+        e.title = f"{I.s('leaf')} BlackTea"
         return e
 
     # ----- flow -----
@@ -203,7 +215,7 @@ class Game:
             if self.stopped:
                 return
             if len(self.players) < 2:
-                await self.channel.send("🍵 Not enough players joined - BlackTea cancelled.")
+                await self.channel.send(f"{I.s('leaf')} Not enough players joined - BlackTea cancelled.")
                 return
             await self.play()
         except asyncio.CancelledError:
@@ -211,7 +223,7 @@ class Game:
         except Exception:
             log.exception("BlackTea crashed in channel %s", self.channel.id)
             try:
-                await self.channel.send("⚠️ BlackTea hit an error and stopped.")
+                await self.channel.send(f"{I.s('warning')} BlackTea hit an error and stopped.")
             except discord.HTTPException:
                 pass
         finally:
@@ -231,11 +243,11 @@ class Game:
             item.disabled = True
         e = self.lobby_embed()
         if self.stopped:
-            e.title, e.color = "🍵 BlackTea - cancelled", RED
+            e.title, e.color = f"{I.s('leaf')} BlackTea - cancelled", RED
         elif len(self.players) < 2:
-            e.title, e.color = "🍵 BlackTea - cancelled (not enough players)", RED
+            e.title, e.color = f"{I.s('leaf')} BlackTea - cancelled (not enough players)", RED
         else:
-            e.title = "🍵 BlackTea - started!"
+            e.title = f"{I.s('leaf')} BlackTea - started!"
         e.remove_field(1)    # the countdown field
         try:
             await self.lobby_msg.edit(embed=e, view=self.view)
@@ -278,30 +290,30 @@ class Game:
                 if len(word) > len(longest):
                     longest = word
                 idx += 1
-                text = f"✅ <@{uid}> · **{word}** (`{frag.upper()}`)"
+                text = f"{I.s('check')} <@{uid}> · **{word}** (`{frag.upper()}`)"
             else:
                 self.lives[uid] -= 1
                 left = self.lives[uid]
                 if left <= 0:
-                    text = f"⏰ <@{uid}> ran out of time on `{frag.upper()}`"
+                    text = f"{I.s('clock')} <@{uid}> ran out of time on `{frag.upper()}`"
                     self.order.remove(uid)       # idx now already points at the next player
                 else:
                     idx += 1
-                    text = f"⏰ <@{uid}> ran out of time on `{frag.upper()}` - {hearts(left)}"
+                    text = f"{I.s('clock')} <@{uid}> ran out of time on `{frag.upper()}` - {hearts(left)}"
             try:
                 await msg.edit(content=text, embed=None, allowed_mentions=NO_PING)
             except discord.HTTPException:
                 pass
             if not word and self.lives[uid] <= 0:
-                await self.channel.send(f"💀 <@{uid}> is out!", allowed_mentions=NO_PING)
+                await self.channel.send(f"{I.s('skull')} <@{uid}> is out!", allowed_mentions=NO_PING)
             await asyncio.sleep(1.2)
 
         if self.stopped:
-            await self.channel.send("🛑 BlackTea was stopped.")
+            await self.channel.send(f"{I.s('stop')} BlackTea was stopped.")
             return
         winner = self.order[0]
-        e = discord.Embed(title="🍵 BlackTea", color=WIN,
-                          description=f"🏆 <@{winner}> wins with {hearts(self.lives[winner])} left!")
+        e = discord.Embed(title=f"{I.s('leaf')} BlackTea", color=WIN,
+                          description=f"{I.s('trophy')} <@{winner}> wins with {hearts(self.lives[winner])} left!")
         e.add_field(name="Turns", value=str(rnd), inline=True)
         e.add_field(name="Words played", value=str(len(self.used)), inline=True)
         if longest:
@@ -317,13 +329,13 @@ class Game:
         c = self.cfg
         try:
             if word in self.used:
-                return await message.add_reaction("🔁")
+                return await react(message, "repeat", "🔁")
             if (self.fragment not in word or len(word) < c["min_len"]
                     or word not in self.cog.words):
-                return await message.add_reaction("❌")
+                return await react(message, "cross", "❌")
             self.answer = word
             self.answer_event.set()
-            await message.add_reaction("✅")
+            await react(message, "check", "✅")
         except discord.HTTPException:
             pass
 
@@ -411,7 +423,7 @@ class BlackTea(commands.Cog):
                 return await ctx.send(f"No BlackTea channel yet - set one with `{PREFIX}blacktea channel #channel`.")
             return await ctx.send("An admin hasn't set a BlackTea channel yet.")
         if ctx.channel.id != cid:
-            return await ctx.send(f"🍵 BlackTea only works in <#{cid}>.", ephemeral=True)
+            return await ctx.send(f"{I.s('leaf')} BlackTea only works in <#{cid}>.", ephemeral=True)
         if ctx.channel.id in self.games:
             return await ctx.send("A BlackTea game is already running here - join it or wait for it to finish.",
                                   ephemeral=True)
@@ -423,7 +435,7 @@ class BlackTea(commands.Cog):
         game = Game(self, ctx.channel, ctx.author, mode)
         self.games[ctx.channel.id] = game
         if ctx.interaction:
-            await ctx.send("🍵 Opening the lobby...", ephemeral=True)
+            await ctx.send(f"{I.s('leaf')} Opening the lobby...", ephemeral=True)
         game.task = asyncio.create_task(game.run())
 
     @blacktea.command(name="channel", description="(Admin) Set the channel where BlackTea works")
@@ -437,7 +449,7 @@ class BlackTea(commands.Cog):
                                   f"{channel.mention} first.")
         self.settings["channels"][str(ctx.guild.id)] = channel.id
         save_settings(self.settings)
-        await ctx.send(f"🍵 BlackTea will now work only in {channel.mention}. Start a game there with "
+        await ctx.send(f"{I.s('leaf')} BlackTea will now work only in {channel.mention}. Start a game there with "
                        f"`{PREFIX}blacktea`.")
 
     @commands.command(name="setblacktea", description="(Admin) Set the BlackTea channel")
@@ -453,7 +465,7 @@ class BlackTea(commands.Cog):
         if self.settings["channels"].pop(str(ctx.guild.id), None) is None:
             return await ctx.send("No BlackTea channel was set.")
         save_settings(self.settings)
-        await ctx.send("🍵 BlackTea channel removed.")
+        await ctx.send(f"{I.s('leaf')} BlackTea channel removed.")
 
     @blacktea.command(name="stop", description="Stop the running BlackTea game (host or admin)")
     @commands.guild_only()
@@ -466,7 +478,7 @@ class BlackTea(commands.Cog):
         game.stopped = True
         game.start_event.set()
         game.answer_event.set()
-        await ctx.send("🛑 Stopping BlackTea...", ephemeral=True)
+        await ctx.send(f"{I.s('stop')} Stopping BlackTea...", ephemeral=True)
 
 
 async def setup(bot):

@@ -25,6 +25,7 @@ FALLBACK = {
     "heart": "💚", "message": "💬", "mic": "🎙️",
     "play": "▶️", "terminal": "💻", "star_fill": "⭐", "gift": "🎁", "link": "🔗",
     "image": "🖼️", "palette": "🎨", "upload": "📤", "tag": "🏷️", "diamond": "💠",     # self-role editor
+    "heart_broken": "🖤", "skull": "💀", "stop": "🛑", "repeat": "🔁",
     "fire": "🔥", "gamepad": "🎮", "target": "🎯", "folder": "📁", "user_star": "🌟", "grid": "🔲",   # aura / games / info
 }
 

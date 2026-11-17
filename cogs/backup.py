@@ -120,7 +120,7 @@ def build_zip(base: Path, db_snapshot: Optional[str], meta: dict, cfg_export: Op
 
 # ------------------------------------------------------------------ $backupload: merge data zips into the live bot
 UPLOAD_LIMIT = 64 * 1024 * 1024
-DATA_ENTRY = re.compile(r"(?:^|/)data/((?:leafy\.db|vc_data\.json|afk_data\.json|selfrole/[^/]+))$")
+DATA_ENTRY = re.compile(r"(?:^|/)data/((?:leafy\.db|vc_data\.json|afk_data\.json|blacktea\.json|selfrole/[^/]+))$")
 
 
 def _cols(c: sqlite3.Connection, schema: str, table: str) -> list[str]:
@@ -514,18 +514,44 @@ class Backup(commands.Cog):
             n = self.merge_afk(json.loads(z.read(found["afk_data.json"])))
             if n:
                 out["AFK"] = n
+        if "blacktea.json" in found:
+            if self.merge_blacktea(json.loads(z.read(found["blacktea.json"]))):
+                out["BlackTea channels"] = 1
+        # Banners are saved as LINKS (banner_url / banner_ref inside vc_data.json, merged above). Only an OLD backup
+        # still carries the image file: it is turned into a link right away and the file is deleted again, so no
+        # GIF / image stays in data/ or in the next backup.
+        sr = self.bot.get_cog("SelfRoles")
         for rel, name in found.items():
             if not rel.startswith("selfrole/") or "/" in rel[len("selfrole/"):]:
                 continue
             fn = Path(rel).name
             dest = DATA_DIR / "selfrole" / fn
             if fn.lower().endswith((".gif", ".png", ".jpg", ".jpeg", ".webp")) and not dest.exists():
+                gid = Path(fn).stem
+                cfg = (self.store.data.get("selfroles") or {}).get(gid) or {}
+                if cfg.get("banner_url") or cfg.get("banner_ref"):
+                    continue                                    # a link exists already - the file is not needed
                 data = z.read(name)
                 if len(data) <= 12 * 1024 * 1024:
                     dest.parent.mkdir(exist_ok=True)
                     dest.write_bytes(data)
+                    guild = self.bot.get_guild(int(gid)) if gid.isdigit() else None
+                    if sr is not None and guild is not None:
+                        await sr.migrate_legacy_banner(guild)   # upload once -> keep the link -> delete the file
                     out["banners"] = out.get("banners", 0) + 1
         return out
+
+    def merge_blacktea(self, inc: dict) -> bool:
+        cog = self.bot.get_cog("BlackTea")
+        if cog is None or not isinstance(inc.get("channels"), dict):
+            return False
+        before = json.dumps(cog.settings, sort_keys=True)
+        deep_fill(cog.settings.setdefault("channels", {}), inc["channels"])      # live values win
+        if json.dumps(cog.settings, sort_keys=True) == before:
+            return False
+        from cogs.blacktea import save_settings
+        save_settings(cog.settings)
+        return True
 
     def merge_store(self, inc: dict) -> bool:
         d = self.store.data

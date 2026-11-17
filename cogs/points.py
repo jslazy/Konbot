@@ -15,6 +15,7 @@ from core.ui import FieldsModal, OwnedView, parse_int
 DEFAULTS = {
     "chat_enabled": True, "chat_msgs": 50, "chat_points": 1, "chat_everywhere": True,
     "vc_enabled": True, "vc_mins": 5, "vc_points": 1, "vc_need_others": True,
+    "vc_need_muted": True,      # voice points ONLY while the member is muted / deafened (mic off)
     "cooldown": 5,
     "channel_rules": {},        # "<channel_id>": {"msgs": 50, "points": 1}
     "disabled_channels": [],    # chat points are NOT counted here (channel or whole category)
@@ -113,7 +114,7 @@ class PointConfigView(OwnedView):
             f"{I.s('message')} **Chat {onoff(c['chat_enabled'])}** · {c['chat_msgs']} msgs = {c['chat_points']} pt · "
             f"cooldown {c['cooldown']}s · everywhere {onoff(c['chat_everywhere'])}\n"
             f"{I.s('mic')} **Voice {onoff(c['vc_enabled'])}** · {c['vc_mins']} min = {c['vc_points']} pt · "
-            f"needs 2+ people {onoff(c['vc_need_others'])}\n"
+            f"needs 2+ people {onoff(c['vc_need_others'])} · only when mic off/deaf {onoff(c['vc_need_muted'])}\n"
             f"{I.s('lock')} Points off in **{off}** channel(s) · custom rules **{len(c['channel_rules'])}**"))
 
     def embed_channels(self) -> discord.Embed:
@@ -171,6 +172,7 @@ class PointConfigView(OwnedView):
             self._btn(f"VC: {onoff(c['vc_enabled'])}", "mic", self.t_vc, 1,
                       discord.ButtonStyle.success if c["vc_enabled"] else discord.ButtonStyle.danger)
             self._btn(f"VC needs others: {onoff(c['vc_need_others'])}", "users", self.t_others, 2)
+            self._btn(f"Only mic off/deaf: {onoff(c['vc_need_muted'])}", "mute", self.t_muted, 2)
             self._btn("Channels", "lock", self.go_channels, 3, discord.ButtonStyle.primary)
             self._btn("Close", "cross", self.close, 3)
         else:
@@ -300,6 +302,9 @@ class PointConfigView(OwnedView):
     async def t_others(self, i):
         self.cfg["vc_need_others"] = not self.cfg["vc_need_others"]; self.save(); await self.push(i)
 
+    async def t_muted(self, i):
+        self.cfg["vc_need_muted"] = not self.cfg["vc_need_muted"]; self.save(); await self.push(i)
+
     async def close(self, interaction):
         self.stop()
         await interaction.response.edit_message(view=None)
@@ -395,7 +400,13 @@ class Points(commands.Cog):
                     continue
                 for m in humans:
                     vs = m.voice
-                    if vs is None or vs.afk or vs.deaf or vs.self_deaf:
+                    if vs is None or vs.afk:
+                        continue
+                    if cfg["vc_need_muted"]:
+                        # points only while the mic is off or the member is deafened (self or server)
+                        if not (vs.self_mute or vs.mute or vs.self_deaf or vs.deaf):
+                            continue
+                    elif vs.deaf or vs.self_deaf:               # old rule (switch OFF): everyone except deafened
                         continue
                     rows.append((guild.id, m.id, secs, cfg["vc_mins"] * 60, cfg["vc_points"]))
         if rows:

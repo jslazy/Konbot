@@ -4,20 +4,26 @@ $selfrole setup   open the editor (add / edit / remove roles, banner, title, foo
 $setsr [#channel] choose the channel where the self-role message lives (posts it there)
 $editsr           same editor.  Attach / reply to an image or GIF to use it as the banner,
                   or press the Banner button and upload a file (or paste a link).
+
+Banner storage: the image/GIF itself is NOT kept in data/ any more. Only a LINK is saved in the data
+(cfg["banner_url"], plus cfg["banner_ref"] = the Discord message that hosts an uploaded file, so a fresh link can
+always be fetched - Discord CDN links expire).  Set ASSET_CHANNEL_ID in .env to host uploads in a private channel.
 """
 import asyncio
+import io
 import logging
 import re
 import time
 from pathlib import Path
 from typing import Optional
+from urllib.parse import urlparse
 
 import aiohttp
 import discord
 from discord.ext import commands
 
 from core import ratelimit
-from core.config import BLURPLE, DATA_DIR, GREEN, PREFIX
+from core.config import ASSET_CHANNEL_ID, BLURPLE, DATA_DIR, GREEN, PREFIX
 from core.errors import VCError
 from core.icons import I, err, ok
 from core.ui import FieldsModal, OwnedView, replied_message, to_partial
@@ -25,10 +31,9 @@ from core.ui import FieldsModal, OwnedView, replied_message, to_partial
 log = logging.getLogger("leafy.selfroles")
 
 MAX_ROLES = 20                                  # 5 buttons per row, 4 rows (Discord allows 40 components / message)
-MAX_BANNER = 4 * 1024 * 1024                    # keeps the automatic backup (10 MB webhook limit) small
+MAX_BANNER = 8 * 1024 * 1024                    # Discord upload limit for the hosting message (no longer part of the backup)
 MAX_BANNER_MB = MAX_BANNER // (1024 * 1024)
-BANNER_DIR = DATA_DIR / "selfrole"
-BANNER_DIR.mkdir(exist_ok=True)
+BANNER_DIR = DATA_DIR / "selfrole"               # OLD place of banner files - only read once to migrate them to a link
 CUSTOM_EMOJI = re.compile(r"<a?:\w{2,32}:\d{15,25}>")
 
 
@@ -46,7 +51,7 @@ def sniff_ext(data: bytes) -> Optional[str]:
 
 
 DEFAULT = {"channel": None, "message": None, "title": "Self Roles :", "title_emoji": "🍃",
-           "footer": "Click the buttons below to toggle your roles.", "color": GREEN, "banner": None, "roles": []}
+           "footer": "Click the buttons below to toggle your roles.", "color": GREEN, "banner": None, "banner_url": None, "banner_ref": None, "roles": []}
 
 
 def emoji_or_none(text: str) -> Optional[str]:
@@ -92,7 +97,7 @@ class BannerModal(discord.ui.Modal):
 
     async def on_submit(self, interaction: discord.Interaction):
         await interaction.response.defer(ephemeral=True)
-        cog, gid = self.editor.cog, self.editor.guild.id
+        cog = self.editor.cog
         try:
             files = list(self.upload.values)
             link = (self.link.value or "").strip()
@@ -100,9 +105,9 @@ class BannerModal(discord.ui.Modal):
                 att = files[0]
                 if att.size > MAX_BANNER:
                     raise VCError(f"That file is over **{MAX_BANNER_MB} MB**.")
-                cog.store_banner(gid, await att.read())
+                await cog.store_banner(self.editor.guild, await att.read(), self.editor.fallback_channel())
             elif link:
-                await cog.set_banner_url(gid, link)
+                await cog.set_banner_url(self.editor.guild, link, self.editor.fallback_channel())
             else:
                 raise VCError("Upload a file or paste a link. (**Remove banner** deletes it.)")
         except VCError as e:
@@ -153,6 +158,9 @@ class SelfRoleEditor(OwnedView):
             f"**Roles ({len(cfg['roles'])}/{MAX_ROLES})**\n" + ("\n".join(rows) or "*none yet. Tap **Add role***")))
         e.set_footer(text=f"The posted message updates by itself · {PREFIX}editsr + image/GIF = new banner")
         return e
+
+    def fallback_channel(self):
+        return getattr(getattr(self, "message", None), "channel", None)
 
     async def refresh(self):
         if self.message:
@@ -274,10 +282,10 @@ class SelfRoleEditor(OwnedView):
     @discord.ui.button(label="Remove banner", style=discord.ButtonStyle.secondary, row=1)
     async def banner_off_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
         cfg = self.cog.cfg(self.guild.id)
-        if not cfg["banner"]:
+        if not self.cog.has_banner(cfg):
             return await interaction.response.send_message(err("No banner to remove."), ephemeral=True)
         await interaction.response.defer(ephemeral=True)
-        self.cog.drop_banner(self.guild.id)
+        await self.cog.drop_banner(self.guild)
         await self.saved(interaction, "Banner removed.")
 
     @discord.ui.button(label="Title", style=discord.ButtonStyle.secondary, row=1)
@@ -359,79 +367,160 @@ class SelfRoles(commands.Cog):
         for gid, c in list(self.all().items()):
             if c.get("message") and c.get("roles"):
                 try:
-                    view, _ = self.build_view(self.cfg(int(gid)), with_file=False)
+                    view = self.build_view(self.cfg(int(gid)))
                     self.bot.add_view(view, message_id=c["message"])
                 except Exception as e:
                     log.warning("could not restore self-role buttons for %s: %r", gid, e)
 
-    # ---------- banner ----------
-    def banner_path(self, cfg: dict) -> Optional[Path]:
+    # ---------- banner (stored as a LINK only) ----------
+    def has_banner(self, cfg: dict) -> bool:
+        return bool(cfg.get("banner_url") or cfg.get("banner_ref") or self.legacy_path(cfg))
+
+    def legacy_path(self, cfg: dict) -> Optional[Path]:
+        """Old versions kept the file in data/selfrole/. It is moved to a link on the next publish."""
         if not cfg.get("banner"):
             return None
         p = BANNER_DIR / cfg["banner"]
         return p if p.exists() else None
 
-    def drop_banner(self, gid: int):
-        c = self.cfg(gid)
-        if c["banner"]:
-            (BANNER_DIR / c["banner"]).unlink(missing_ok=True)
-        c["banner"] = None
-        self.save()
-
     def banner_info(self, cfg: dict) -> str:
-        p = self.banner_path(cfg)
-        if p is None:
-            return "*none*" + (" (file missing - upload it again)" if cfg.get("banner") else "")
-        kb = p.stat().st_size / 1024
-        size = f"{kb / 1024:.1f} MB" if kb >= 1024 else f"{kb:.0f} KB"
-        return f"{I.s('check')} set · `{p.suffix[1:].upper()}` · {size}"
+        if cfg.get("banner_ref"):
+            return f"{I.s('check')} set · hosted in Discord (only the link is saved)"
+        if cfg.get("banner_url"):
+            return f"{I.s('check')} set · link saved"
+        if self.legacy_path(cfg):
+            return f"{I.s('check')} set · old file (will turn into a link on the next update)"
+        return "*none*"
 
-    def store_banner(self, gid: int, data: bytes):
-        """Validate (real file type from the bytes) and save the banner. Replaces the old one."""
+    def host_channel(self, guild: discord.Guild, fallback=None) -> discord.abc.Messageable:
+        """Where uploaded banners are hosted: ASSET_CHANNEL_ID (private storage channel) > self-role channel > here."""
+        for cid in (ASSET_CHANNEL_ID, self.cfg(guild.id).get("channel")):
+            ch = guild.get_channel(cid) if cid else None
+            if isinstance(ch, discord.TextChannel) and ch.permissions_for(guild.me).send_messages \
+                    and ch.permissions_for(guild.me).attach_files:
+                return ch
+        if fallback is not None:
+            return fallback
+        raise VCError("I need a channel to host the image. Set `ASSET_CHANNEL_ID` in `.env` or run `"
+                      f"{PREFIX}setsr #channel` first.")
+
+    async def _forget_host(self, guild: discord.Guild, ref: Optional[dict]):
+        """Delete the old hosting message (best effort)."""
+        if not ref:
+            return
+        ch = guild.get_channel(ref.get("c", 0))
+        if ch:
+            try:
+                await ch.get_partial_message(ref["m"]).delete()
+            except discord.HTTPException:
+                pass
+
+    async def store_banner(self, guild: discord.Guild, data: bytes, fallback=None):
+        """Validate the bytes (real file type), upload them ONCE to the hosting channel and keep only the link."""
         ext = sniff_ext(data)
         if ext is None:
             raise VCError("Banner must be a PNG, JPG, GIF or WEBP image file.")
         if len(data) > MAX_BANNER:
             raise VCError(f"That image is over **{MAX_BANNER_MB} MB**.")
-        c = self.cfg(gid)
-        name = f"{gid}.{ext}"
-        tmp = BANNER_DIR / (name + ".tmp")
-        tmp.write_bytes(data)                                   # write first, so a failed save never loses the old banner
-        if c["banner"] and c["banner"] != name:
+        c = self.cfg(guild.id)
+        ch = self.host_channel(guild, fallback)
+        msg = await ch.send(f"Self-role banner for **{guild.name}** (storage - don't delete)",
+                            file=discord.File(io.BytesIO(data), filename=f"banner_{guild.id}.{ext}"))
+        old = c.get("banner_ref")
+        c["banner_ref"] = {"c": msg.channel.id, "m": msg.id}
+        c["banner_url"] = msg.attachments[0].url
+        if c.get("banner"):                                     # old local file is not needed any more
             (BANNER_DIR / c["banner"]).unlink(missing_ok=True)
-        tmp.replace(BANNER_DIR / name)
-        c["banner"] = name
+            c["banner"] = None
         self.save()
+        await self._forget_host(guild, old)
 
-    async def set_banner_url(self, gid: int, url: str):
-        if not url.startswith(("http://", "https://")):
-            raise VCError("Give an image link starting with `https://`.")
+    async def _probe_image(self, url: str) -> bytes:
+        """Download only the first bytes to check the link is a real image. Returns those bytes."""
         try:
             async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=20),
                                              headers={"User-Agent": "Mozilla/5.0 (Leafy bot)"}) as s:
                 async with s.get(url) as r:
                     if r.status != 200:
-                        raise VCError("I couldn't download that image. The link may have expired.")
-                    if (r.content_length or 0) > MAX_BANNER:
-                        raise VCError(f"That image is over **{MAX_BANNER_MB} MB**.")
-                    data = bytearray()
-                    async for chunk in r.content.iter_chunked(64 * 1024):   # read the WHOLE file (read(n) can return a partial chunk)
-                        data += chunk
-                        if len(data) > MAX_BANNER:
-                            raise VCError(f"That image is over **{MAX_BANNER_MB} MB**.")
+                        raise VCError("I couldn't open that link. It may have expired.")
+                    return await r.content.read(32)
         except (aiohttp.ClientError, asyncio.TimeoutError):
-            raise VCError("I couldn't download that image.")
-        self.store_banner(gid, bytes(data))
+            raise VCError("I couldn't open that link.")
+
+    async def set_banner_url(self, guild: discord.Guild, url: str, fallback=None):
+        if not url.startswith(("http://", "https://")):
+            raise VCError("Give an image link starting with `https://`.")
+        host = (urlparse(url).hostname or "").lower()
+        if host.endswith(("discordapp.com", "discordapp.net", "discord.com")):
+            # Discord links expire after a while -> download once and re-host it, so the saved link keeps working
+            data = bytearray()
+            try:
+                async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=30),
+                                                 headers={"User-Agent": "Mozilla/5.0 (Leafy bot)"}) as s:
+                    async with s.get(url) as r:
+                        if r.status != 200:
+                            raise VCError("I couldn't download that image. The link may have expired.")
+                        async for chunk in r.content.iter_chunked(64 * 1024):
+                            data += chunk
+                            if len(data) > MAX_BANNER:
+                                raise VCError(f"That image is over **{MAX_BANNER_MB} MB**.")
+            except (aiohttp.ClientError, asyncio.TimeoutError):
+                raise VCError("I couldn't download that image.")
+            return await self.store_banner(guild, bytes(data), fallback)
+        head = await self._probe_image(url)
+        if sniff_ext(head) is None:
+            raise VCError("That link isn't a direct PNG / JPG / GIF / WEBP image.")
+        c = self.cfg(guild.id)
+        old = c.get("banner_ref")
+        c["banner_url"], c["banner_ref"] = url, None             # a normal link: just save the link, nothing else
+        if c.get("banner"):
+            (BANNER_DIR / c["banner"]).unlink(missing_ok=True)
+            c["banner"] = None
+        self.save()
+        await self._forget_host(guild, old)
+
+    async def drop_banner(self, guild: discord.Guild):
+        c = self.cfg(guild.id)
+        await self._forget_host(guild, c.get("banner_ref"))
+        if c.get("banner"):
+            (BANNER_DIR / c["banner"]).unlink(missing_ok=True)
+        c["banner"] = c["banner_url"] = c["banner_ref"] = None
+        self.save()
+
+    async def migrate_legacy_banner(self, guild: discord.Guild):
+        """Old local banner file -> upload once, keep the link, delete the file (so data/ and backups stay small)."""
+        c = self.cfg(guild.id)
+        p = self.legacy_path(c)
+        if p is None or c.get("banner_ref") or c.get("banner_url"):
+            return
+        try:
+            await self.store_banner(guild, p.read_bytes())
+            log.info("self-role banner of %s moved from a file to a link", guild.id)
+        except (VCError, discord.HTTPException, OSError) as e:
+            log.warning("could not migrate the banner of %s: %r", guild.id, e)
+
+    async def banner_link(self, guild: discord.Guild, cfg: dict) -> Optional[str]:
+        """The link to show. For Discord-hosted uploads a fresh link is fetched from the hosting message."""
+        ref = cfg.get("banner_ref")
+        if ref:
+            ch = guild.get_channel(ref.get("c", 0))
+            if ch:
+                try:
+                    msg = await ch.fetch_message(ref["m"])
+                    if msg.attachments:
+                        if msg.attachments[0].url != cfg.get("banner_url"):
+                            cfg["banner_url"] = msg.attachments[0].url
+                            self.save()
+                except discord.HTTPException:
+                    pass
+        return cfg.get("banner_url")
 
     # ---------- the message ----------
-    def build_view(self, cfg: dict, with_file: bool = True):
-        """-> (LayoutView, File | None)"""
-        items, file = [], None
-        banner = self.banner_path(cfg)
-        if banner:
-            name = f"banner_{int(time.time())}{banner.suffix}"      # new name per post -> Discord never shows a stale/blank image
-            file = discord.File(banner, filename=name) if with_file else None
-            items += [discord.ui.MediaGallery(discord.MediaGalleryItem(f"attachment://{name}")),
+    def build_view(self, cfg: dict, banner_url: Optional[str] = None):
+        """-> LayoutView. The banner is shown from a link (nothing is uploaded with the message)."""
+        items = []
+        if banner_url:
+            items += [discord.ui.MediaGallery(discord.MediaGalleryItem(banner_url)),
                       discord.ui.Separator()]
         head = f"{cfg['title_emoji'] + ' ' if cfg['title_emoji'] else ''}__{cfg['title']}__"
         items += [discord.ui.TextDisplay(f"## {head}"), discord.ui.Separator()]
@@ -447,7 +536,7 @@ class SelfRoles(commands.Cog):
             for entry in cfg["roles"][i:i + 5]:
                 row.add_item(RoleButton(entry))
             view.add_item(row)
-        return view, file
+        return view
 
     async def publish(self, guild: discord.Guild) -> discord.Message:
         cfg = self.cfg(guild.id)
@@ -459,19 +548,18 @@ class SelfRoles(commands.Cog):
         perms = ch.permissions_for(guild.me)
         if not (perms.view_channel and perms.send_messages and perms.attach_files):
             raise VCError(f"I need **View Channel, Send Messages and Attach Files** in {ch.mention}.")
+        await self.migrate_legacy_banner(guild)
+        url = await self.banner_link(guild, cfg)
         try:
             msg = None
+            view = self.build_view(cfg, url)
             if cfg["message"]:
-                view, file = self.build_view(cfg)
                 try:
-                    msg = await ch.get_partial_message(cfg["message"]).edit(
-                        view=view, attachments=[file] if file else [])
+                    msg = await ch.get_partial_message(cfg["message"]).edit(view=view, attachments=[])
                 except discord.NotFound:
                     msg = None
             if msg is None:
-                view, file = self.build_view(cfg)               # fresh File object
-                msg = await ch.send(view=view, files=[file] if file else [],
-                                    allowed_mentions=discord.AllowedMentions.none())
+                msg = await ch.send(view=view, allowed_mentions=discord.AllowedMentions.none())
         except discord.HTTPException as e:
             raise VCError(f"Discord said no: {e.text}\nCheck the emojis and banner.")
         cfg["message"] = msg.id
@@ -545,7 +633,7 @@ class SelfRoles(commands.Cog):
         if img is not None:
             if img.size > MAX_BANNER:
                 raise VCError(f"That image is over **{MAX_BANNER_MB} MB**.")
-            self.store_banner(ctx.guild.id, await img.read())
+            await self.store_banner(ctx.guild, await img.read(), ctx.channel)
             note = ok("Banner updated.")
             await self.sync(ctx.guild)
         view = SelfRoleEditor(self, ctx)

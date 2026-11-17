@@ -35,6 +35,7 @@ ICON_DIR = BASE / "assets" / "icons"
 PANEL_IMAGE = BASE / "assets" / "panel.png"
 
 DB_FILE = DATA_DIR / "leafy.db"                    # points, profiles, shop, purchases, settings
+ASSET_CHANNEL_ID = int(os.getenv("ASSET_CHANNEL_ID", "0") or 0)    # private channel that hosts uploaded banners/GIFs (only their LINK is saved in data/)
 BACKUP_WEBHOOK = os.getenv("BACKUP_WEBHOOK", "").strip().strip("\"'").strip()
 BACKUP_REDACT = os.getenv("BACKUP_REDACT", "0").strip().lower() in ("1", "true", "yes", "on")   # 1 = remove token/webhook from the backup zip (default: keep them)
 BACKUP_MODE = os.getenv("BACKUP_MODE", "new").strip().lower()    # new = new message each time + delete the previous one, keep = keep every message

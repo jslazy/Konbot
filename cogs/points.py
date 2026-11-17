@@ -43,7 +43,7 @@ def clean_badge(bot, raw: str) -> str:
         return str(e) if e else m.group(0)
     name = _SHORTCODE.sub(sub, name)
     if not name:
-        raise VCError("Please give the badge a name or an emoji.")
+        raise VCError("Give the badge a name or an emoji.")
     if len(name) > BADGE_MAX:
         raise VCError(f"That badge is too long (max **{BADGE_MAX}** characters).")
     return name
@@ -130,7 +130,7 @@ class PointConfigView(OwnedView):
         rules = [f"<#{cid}> · **{r['msgs']}** msgs = **{r['points']}** pt" for cid, r in c["channel_rules"].items()]
         e.add_field(name=f"{I.s('tag')} Custom rules", inline=False,
                     value="\n".join(rules[:10]) + (f"\n+{len(rules) - 10} more" if len(rules) > 10 else "") if rules else "*none*")
-        e.set_footer(text="Pick channels in the menus. Un-select a channel to switch its points back on.")
+        e.set_footer(text="Un-select a channel to turn its points back on.")
         return e
 
     # ----- components -----
@@ -264,12 +264,12 @@ class PointConfigView(OwnedView):
                 ("Messages needed", str(cur["msgs"]), 6, True), ("Points awarded", str(cur["points"]), 4, True)], cb))
         sel.callback = picked
         view.add_item(sel)
-        await interaction.response.send_message("Pick the channel that should have its own rule:", view=view, ephemeral=True)
+        await interaction.response.send_message("Pick a channel:", view=view, ephemeral=True)
 
     async def remove_rule(self, interaction):
         rules = self.cfg["channel_rules"]
         if not rules:
-            return await interaction.response.send_message(err("There are no channel rules."), ephemeral=True)
+            return await interaction.response.send_message(err("No channel rules yet."), ephemeral=True)
         opts = []
         for cid, r in list(rules.items())[:25]:
             ch = self.guild.get_channel(int(cid))
@@ -285,7 +285,7 @@ class PointConfigView(OwnedView):
             await self.refresh_message()
         sel.callback = picked
         view.add_item(sel)
-        await interaction.response.send_message("Which rule should be removed?", view=view, ephemeral=True)
+        await interaction.response.send_message("Remove which rule?", view=view, ephemeral=True)
 
     # ----- toggles -----
     async def t_chat(self, i):
@@ -435,7 +435,7 @@ class Points(commands.Cog):
         rows = self.db.leaderboard(ctx.guild.id, 10)
         lines = [f"{i}. <@{r['user_id']}> — `{r['points']}` pts | `{r['chat_total']}` msgs"
                  for i, r in enumerate(rows, 1)]
-        embed = discord.Embed(description="\n".join(lines) or "Nobody has any points yet. Start chatting!",
+        embed = discord.Embed(description="\n".join(lines) or "No points yet. Start chatting!",
                               color=BLURPLE, timestamp=discord.utils.utcnow())
         icon = ctx.guild.icon.url if ctx.guild.icon else self.bot.user.display_avatar.url
         embed.set_author(name="🏆 Top 10 Leaderboard", icon_url=icon)
@@ -472,7 +472,7 @@ class Points(commands.Cog):
                 c["vc_disabled_channels"].append(ch.id)
             c["enabled_channels"] = [x for x in c["enabled_channels"] if x != ch.id]
         self.save_cfg(ctx.guild.id, c)
-        await ctx.reply(ok("Points are now **OFF** in " + ", ".join(ch.mention for ch in channels) + "."),
+        await ctx.reply(ok("Points off in " + ", ".join(ch.mention for ch in channels) + "."),
                         mention_author=False)
 
     @point.command(name="enable", aliases=["on"])
@@ -487,7 +487,7 @@ class Points(commands.Cog):
             if not c["chat_everywhere"] and ch.id not in c["enabled_channels"]:
                 c["enabled_channels"].append(ch.id)
         self.save_cfg(ctx.guild.id, c)
-        await ctx.reply(ok("Points are now **ON** in " + ", ".join(ch.mention for ch in channels) + "."),
+        await ctx.reply(ok("Points on in " + ", ".join(ch.mention for ch in channels) + "."),
                         mention_author=False)
 
     @point.command(name="add")
@@ -495,28 +495,28 @@ class Points(commands.Cog):
     async def point_add(self, ctx, member: discord.Member, amount: commands.Range[int, 1, 10_000_000]):
         """$point add @user <amount>"""
         new = self.db.add_points(ctx.guild.id, member.id, amount, f"admin add by {ctx.author.id}")
-        await ctx.reply(ok(f"Added **{amount}** points to {member.mention}. New balance: **{new}**."), mention_author=False)
+        await ctx.reply(ok(f"Gave {member.mention} **{amount}** points. Now **{new}**."), mention_author=False)
 
     @point.command(name="remove")
     @commands.has_permissions(manage_guild=True)
     async def point_remove(self, ctx, member: discord.Member, amount: commands.Range[int, 1, 10_000_000]):
         """$point remove @user <amount>"""
         new = self.db.add_points(ctx.guild.id, member.id, -amount, f"admin remove by {ctx.author.id}")
-        await ctx.reply(ok(f"Removed **{amount}** points from {member.mention}. New balance: **{new}**."), mention_author=False)
+        await ctx.reply(ok(f"Took **{amount}** points from {member.mention}. Now **{new}**."), mention_author=False)
 
     @point.command(name="set")
     @commands.has_permissions(manage_guild=True)
     async def point_set(self, ctx, member: discord.Member, amount: commands.Range[int, 0, 100_000_000]):
         """$point set @user <amount>"""
         new = self.db.set_points(ctx.guild.id, member.id, amount)
-        await ctx.reply(ok(f"{member.mention} now has **{new}** points."), mention_author=False)
+        await ctx.reply(ok(f"{member.mention} has **{new}** points now."), mention_author=False)
 
     @point.command(name="reset")
     @commands.has_permissions(manage_guild=True)
     async def point_reset(self, ctx, member: discord.Member):
         """$point reset @user - wipe points, progress and badges."""
         self.db.reset_user(ctx.guild.id, member.id)
-        await ctx.reply(ok(f"Reset all data for {member.mention}."), mention_author=False)
+        await ctx.reply(ok(f"Reset {member.mention}."), mention_author=False)
 
     # ---------- badges ----------
     @commands.group(name="badge", invoke_without_command=True)
@@ -534,7 +534,7 @@ class Points(commands.Cog):
         """$badge give @user <name>"""
         name = clean_badge(self.bot, name)
         if not self.db.add_badge(ctx.guild.id, member.id, name):
-            raise VCError("They already have that badge.")
+            raise VCError("They already have it.")
         await ctx.reply(ok(f"Gave {show_badge(name)} to {member.mention}."), mention_author=False)
 
     @badge.command(name="remove")

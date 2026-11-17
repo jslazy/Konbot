@@ -4,7 +4,7 @@
     "name": "The Blaze Nebula | Drag GW",
     "bot_is_in_server": true,
     "owner_id": 1519731963244580987,
-    "members": 853
+    "members": 882
   },
   "custom_vc": {
     "join_to_create_channel": null,
@@ -55,7 +55,8 @@
       1340198074387267634,
       1554945105981603880,
       829689719633215498,
-      1537639385879683212
+      1537639385879683212,
+      1554280108632842295
     ]
   },
   "aliases": null,
@@ -74,10 +75,22 @@
   "afk": {
     "tag_enabled": true,
     "users": {
-      "1537639385879683212": {
-        "reason": "gg blazu rich sheru",
-        "since": 1794792001.0317106,
-        "old_nick": "T-MOD | Ruler",
+      "1543476735469691002": {
+        "reason": "AFK",
+        "since": 1794852977.2210464,
+        "old_nick": "T-MOD | Batak sir 🦆",
+        "mentions_waiting": 0
+      },
+      "829689719633215498": {
+        "reason": "sojao",
+        "since": 1794856991.8949466,
+        "old_nick": null,
+        "mentions_waiting": 4
+      },
+      "1538573910839140575": {
+        "reason": "don't ping lemme study tmrw is my paper",
+        "since": 1794858776.0990083,
+        "old_nick": null,
         "mentions_waiting": 0
       }
     }
@@ -103,9 +116,10 @@
         1340198074387267634,
         1554945105981603880,
         829689719633215498,
-        1537639385879683212
+        1537639385879683212,
+        1554280108632842295
       ]
     }
   },
-  "players_in_database": 239
+  "players_in_database": 276
 }

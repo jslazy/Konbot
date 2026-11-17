@@ -64,6 +64,12 @@ class Leafy(commands.Bot):
         """Server-less check = real bot owner only. Use is_owner_in(user, guild_id) for owner commands."""
         return await super().is_owner(user)
 
+    def is_owner_fast(self, user_id: int, gid) -> bool:
+        """Same as is_owner_in but without await (the owner id is loaded once at startup)."""
+        if user_id == self.owner_id or user_id in (self.owner_ids or ()):
+            return True
+        return gid is not None and user_id in self.store.owners(gid)
+
     def migrate_legacy_owners(self):
         """Old versions kept ONE global extra-owner list. Move each person to the server(s) where the database shows
         them (no-prefix list first, then points); the global list is emptied so nothing leaks between servers."""
@@ -165,6 +171,10 @@ class Leafy(commands.Bot):
         self.store.load()
         self.migrate_legacy_owners()
         await I.load(self)                       # upload/load custom icons
+        try:
+            await super().is_owner(self.user)    # loads the owner id once, so is_owner_fast works
+        except Exception as e:
+            log.warning("could not load the owner id: %r", e)
 
         from cogs.vc import VCService            # imported here so icons exist first
         from cogs.interface import PanelView

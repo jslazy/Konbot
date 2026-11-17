@@ -142,6 +142,7 @@
 - **users**:
   - `1262248731353546763` → Anshu >_< (anshumanfr_)
   - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
+  - `650534818517483526` → Lazy (jslazy)
 
 ### Aliases
 
@@ -189,7 +190,7 @@
 ### Aura ($aura config)
 
 - **members**:
-  - **650534818517483526** → Lazy (jslazy): 100
+  - **650534818517483526** → Lazy (jslazy): 0
   - **1262248731353546763** → Anshu >_< (anshumanfr_): 99
 - **roles**: *(empty)*
 - **random**: yes
@@ -218,27 +219,32 @@
     - **since**: 1794399701 (2026-11-11 12:21 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 6
-  - **1567891350710657266** → Its_Riya (.its_riya):
-    - **reason**: Baad ma aaugi
-    - **since**: 1794467115 (2026-11-12 07:05 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 0
   - **1512822379061969028** → Onlyforyou (thedeadsabaru):
     - **reason**: sone ja raha
     - **since**: 1794505671 (2026-11-12 17:47 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 0
+  - **1567891350710657266** → Its_Riya (.its_riya):
+    - **reason**: `<:Roast:1569605305011015711>`
+    - **since**: 1794849840 (2026-11-16 17:24 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 0
+  - **1476239945172648142** → THUNDER (thunderz_gamer1):
+    - **reason**: AFK
+    - **since**: 1794850391 (2026-11-16 17:33 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 1
   - **1502235313081290855** → Dark (soulcathehe):
-    - **reason**: AFK
-    - **since**: 1794672901 (2026-11-14 16:15 UTC)
+    - **reason**: gn
+    - **since**: 1794852924 (2026-11-16 18:15 UTC)
     - **old_nick**: *none*
-    - **mentions_waiting**: 2
-  - **1028298097664733215** → Nope {>.<} (nontastic_player):
+    - **mentions_waiting**: 1
+  - **1425991437396217960** → TheSKY (sky_bauni):
     - **reason**: AFK
-    - **since**: 1794775476 (2026-11-15 20:44 UTC)
+    - **since**: 1794857743 (2026-11-16 19:35 UTC)
     - **old_nick**: *none*
-    - **mentions_waiting**: 6
+    - **mentions_waiting**: 0
 
 ### Players
 
-- 119 players stored in `data/leafy.db` (full list: `export/players_1488690726870057165.csv`)
+- 127 players stored in `data/leafy.db` (full list: `export/players_1488690726870057165.csv`)

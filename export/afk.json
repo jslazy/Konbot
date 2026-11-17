@@ -44,13 +44,6 @@
         }
       ]
     },
-    "1567891350710657266": {
-      "reason": "Baad ma aaugi",
-      "since": 1794467114.6361542,
-      "guild_id": 1488690726870057165,
-      "old_nick": null,
-      "mentions": []
-    },
     "1512822379061969028": {
       "reason": "sone ja raha",
       "since": 1794505670.9405162,
@@ -58,75 +51,92 @@
       "old_nick": null,
       "mentions": []
     },
+    "1567891350710657266": {
+      "reason": "<:Roast:1569605305011015711>",
+      "since": 1794849840.3807216,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
+    },
+    "1476239945172648142": {
+      "reason": "AFK",
+      "since": 1794850390.7491822,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Lazy",
+          "channel_id": 1571917188183363594,
+          "url": "https://discord.com/channels/1488690726870057165/1571917188183363594/1571941261680574676",
+          "content": "thunder mc kya hoa?"
+        }
+      ]
+    },
     "1502235313081290855": {
-      "reason": "AFK",
-      "since": 1794672900.8998067,
+      "reason": "gn",
+      "since": 1794852923.8723984,
       "guild_id": 1488690726870057165,
       "old_nick": null,
       "mentions": [
         {
-          "author": "🜲 SeNvaTor 'メD | 神",
-          "channel_id": 1571183592875495605,
-          "url": "https://discord.com/channels/1488690726870057165/1571183592875495605/1571196779662147657",
-          "content": "Bauna"
-        },
-        {
-          "author": "SkyCat",
-          "channel_id": 1571183592875495605,
-          "url": "https://discord.com/channels/1488690726870057165/1571183592875495605/1571196829754851340",
-          "content": "Yes"
+          "author": "TheSKY",
+          "channel_id": 1571917188183363594,
+          "url": "https://discord.com/channels/1488690726870057165/1571917188183363594/1571951848339013683",
+          "content": "Gn"
         }
       ]
     },
-    "1028298097664733215": {
+    "1543476735469691002": {
       "reason": "AFK",
-      "since": 1794775475.5481703,
-      "guild_id": 1488690726870057165,
-      "old_nick": null,
-      "mentions": [
-        {
-          "author": "Lazy",
-          "channel_id": 1488691402039627776,
-          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1571662220977504261",
-          "content": "<@1028298097664733215>"
-        },
-        {
-          "author": "Lazy",
-          "channel_id": 1488691402039627776,
-          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1571681279630516336",
-          "content": "<@1028298097664733215> kya laga bachwa afk karoge hamka pta nahi chalega"
-        },
-        {
-          "author": "Lazy",
-          "channel_id": 1488691409744695417,
-          "url": "https://discord.com/channels/1488690726870057165/1488691409744695417/1571681409473712129",
-          "content": "$profile <@1028298097664733215>"
-        },
-        {
-          "author": "🜲 SeNvaTor 'メD | 神",
-          "channel_id": 1570388866702245948,
-          "url": "https://discord.com/channels/1488690726870057165/1570388866702245948/1571691413492736082",
-          "content": "<:Kool:1569605493607890995> tum logo ko kaise jeetne dunga <@1299765230011678834>"
-        },
-        {
-          "author": "🜲 SeNvaTor 'メD | 神",
-          "channel_id": 1570388866702245948,
-          "url": "https://discord.com/channels/1488690726870057165/1570388866702245948/1571694703961964628",
-          "content": "<@1028298097664733215> <@1299765230011678834> juari ka aura <:Kool:1569605493607890995>"
-        },
-        {
-          "author": "🜲 SeNvaTor 'メD | 神",
-          "channel_id": 1570388866702245948,
-          "url": "https://discord.com/channels/1488690726870057165/1570388866702245948/1571695367139889175",
-          "content": "<@1028298097664733215> <@1299765230011678834>"
-        }
-      ]
-    },
-    "1537639385879683212": {
-      "reason": "gg blazu rich sheru",
-      "since": 1794792001.0317106,
+      "since": 1794852977.2210464,
       "guild_id": 1547650379448188999,
-      "old_nick": "T-MOD | Ruler",
+      "old_nick": "T-MOD | Batak sir 🦆",
+      "mentions": []
+    },
+    "829689719633215498": {
+      "reason": "sojao",
+      "since": 1794856991.8949466,
+      "guild_id": 1547650379448188999,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Blaze OG",
+          "channel_id": 1568343843382759494,
+          "url": "https://discord.com/channels/1547650379448188999/1568343843382759494/1572013230807589048",
+          "content": "!warn <@829689719633215498>"
+        },
+        {
+          "author": "Blaze OG",
+          "channel_id": 1571937584077349026,
+          "url": "https://discord.com/channels/1547650379448188999/1571937584077349026/1572013303830679573",
+          "content": "!warn <@829689719633215498>"
+        },
+        {
+          "author": "Blaze OG",
+          "channel_id": 1571937584077349026,
+          "url": "https://discord.com/channels/1547650379448188999/1571937584077349026/1572013734468132947",
+          "content": "!cases <@829689719633215498>"
+        },
+        {
+          "author": "Blaze OG",
+          "channel_id": 1571937584077349026,
+          "url": "https://discord.com/channels/1547650379448188999/1571937584077349026/1572013778927751239",
+          "content": "!userinfo <@829689719633215498>"
+        }
+      ]
+    },
+    "1425991437396217960": {
+      "reason": "AFK",
+      "since": 1794857743.2378263,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
+    },
+    "1538573910839140575": {
+      "reason": "don't ping lemme study tmrw is my paper",
+      "since": 1794858776.0990083,
+      "guild_id": 1547650379448188999,
+      "old_nick": null,
       "mentions": []
     }
   },

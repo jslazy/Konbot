@@ -4,7 +4,7 @@
     "name": "Dark Spider's Web",
     "bot_is_in_server": true,
     "owner_id": 1400039022855852113,
-    "members": 149
+    "members": 172
   },
   "custom_vc": {
     "join_to_create_channel": 1488691385266864208,
@@ -155,7 +155,8 @@
     "role": 1569999856171229255,
     "users": [
       1262248731353546763,
-      1418875905085935637
+      1418875905085935637,
+      650534818517483526
     ]
   },
   "aliases": null,
@@ -211,7 +212,7 @@
   },
   "aura": {
     "members": {
-      "650534818517483526": 100,
+      "650534818517483526": 0,
       "1262248731353546763": 99
     },
     "roles": {},
@@ -241,36 +242,42 @@
         "old_nick": null,
         "mentions_waiting": 6
       },
-      "1567891350710657266": {
-        "reason": "Baad ma aaugi",
-        "since": 1794467114.6361542,
-        "old_nick": null,
-        "mentions_waiting": 0
-      },
       "1512822379061969028": {
         "reason": "sone ja raha",
         "since": 1794505670.9405162,
         "old_nick": null,
         "mentions_waiting": 0
       },
-      "1502235313081290855": {
-        "reason": "AFK",
-        "since": 1794672900.8998067,
+      "1567891350710657266": {
+        "reason": "<:Roast:1569605305011015711>",
+        "since": 1794849840.3807216,
         "old_nick": null,
-        "mentions_waiting": 2
+        "mentions_waiting": 0
       },
-      "1028298097664733215": {
+      "1476239945172648142": {
         "reason": "AFK",
-        "since": 1794775475.5481703,
+        "since": 1794850390.7491822,
         "old_nick": null,
-        "mentions_waiting": 6
+        "mentions_waiting": 1
+      },
+      "1502235313081290855": {
+        "reason": "gn",
+        "since": 1794852923.8723984,
+        "old_nick": null,
+        "mentions_waiting": 1
+      },
+      "1425991437396217960": {
+        "reason": "AFK",
+        "since": 1794857743.2378263,
+        "old_nick": null,
+        "mentions_waiting": 0
       }
     }
   },
   "all_settings_raw": {
     "aura": {
       "members": {
-        "650534818517483526": 100,
+        "650534818517483526": 0,
         "1262248731353546763": 99
       },
       "roles": {},
@@ -312,7 +319,8 @@
       "role": 1569999856171229255,
       "users": [
         1262248731353546763,
-        1418875905085935637
+        1418875905085935637,
+        650534818517483526
       ]
     },
     "points": {
@@ -352,5 +360,5 @@
       "channel": 1570649429768413285
     }
   },
-  "players_in_database": 119
+  "players_in_database": 127
 }

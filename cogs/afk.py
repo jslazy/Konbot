@@ -119,9 +119,8 @@ class AFK(commands.Cog):
         chunk = mentions[start:start + MENTIONS_PER_PAGE]
         text = "\n".join(f"**#{start + i}** [Jump to Message]({m['url']})" for i, m in enumerate(chunk, 1)) or "None"
         embed = discord.Embed(
-            description=(f"{I.s('stopwatch')} **Time Away:** {fmt_duration(away)}\n"
-                         f"{I.s('message')} **Reason:** {data['reason']}\n\n"
-                         f"**Mentions (Page {page + 1}/{pages}):**\n{text}"),
+            description=(f"{I.s('stopwatch')} Away for **{fmt_duration(away)}** · {data['reason']}\n\n"
+                         f"**Mentions ({page + 1}/{pages}):**\n{text}"),
             color=BLURPLE)
         embed.set_author(name=f"Welcome back, {member.name}!", icon_url=member.display_avatar.url)
         embed.set_footer(text=f"{total} total mentions | {now_footer()}")
@@ -155,9 +154,8 @@ class AFK(commands.Cog):
                         "content": (message.content[:100] or "[no text]").replace("\n", " "),
                     })
                     embeds.append(discord.Embed(
-                        description=(f"{I.s('warning')} **{user.name}** is currently AFK\n"
-                                     f"**Reason:** {data['reason']}\n"
-                                     f"**Since:** <t:{int(data['since'])}:R>"),
+                        description=(f"{I.s('warning')} **{user.name}** is AFK: {data['reason']}\n"
+                                     f"Since <t:{int(data['since'])}:R>"),
                         color=BLURPLE))
             if embeds:
                 self.save()
@@ -174,14 +172,13 @@ class AFK(commands.Cog):
         reason = reason.strip() or "AFK"
         n = afk_len(reason)
         if n > AFK_MAX:
-            return await ctx.reply(f"{I.s('cross')} AFK reason can be at most **{AFK_MAX}** characters "
-                                   f"(yours is {n}). Each emoji counts as 1.", mention_author=False,
+            return await ctx.reply(f"{I.s('cross')} Keep the reason under **{AFK_MAX}** characters (yours is {n}).", mention_author=False,
                                    allowed_mentions=discord.AllowedMentions.none())
         data = {"reason": reason, "since": time.time(), "guild_id": ctx.guild.id, "old_nick": None, "mentions": []}
         self.afk[ctx.author.id] = data
         await self.set_afk_nick(ctx.author, data)
         self.save()
-        await ctx.reply(embed=discord.Embed(description=f"{I.s('check')} **AFK Status Set:** {reason}", color=BLURPLE),
+        await ctx.reply(embed=discord.Embed(description=f"{I.s('check')} You're AFK: {reason}", color=BLURPLE),
                         mention_author=False)
 
     @commands.command(name="afktag")
@@ -197,10 +194,10 @@ class AFK(commands.Cog):
         elif state.lower() in ("off", "disable", "false"):
             new = False
         else:
-            return await ctx.reply(f"{I.s('cross')} Use: `{ctx.prefix}afktag on` ya `{ctx.prefix}afktag off`", mention_author=False)
+            return await ctx.reply(f"{I.s('cross')} Use `{ctx.prefix}afktag on` or `{ctx.prefix}afktag off`.", mention_author=False)
         self.tag_enabled[ctx.guild.id] = new
         self.save()
-        await ctx.reply(embed=discord.Embed(description=f"{I.s('check')} **AFK Tag:** {'ON' if new else 'OFF'}", color=BLURPLE),
+        await ctx.reply(embed=discord.Embed(description=f"{I.s('check')} AFK tag is **{'on' if new else 'off'}**.", color=BLURPLE),
                         mention_author=False)
 
 

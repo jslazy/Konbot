@@ -69,7 +69,7 @@ def fmt(seconds: float) -> str:
 
 
 def limited_text(retry_after: float) -> str:
-    return f"{I.s('hourglass')} Slow down! Try again in **{fmt(retry_after)}**."
+    return f"{I.s('hourglass')} Slow down. Try again in **{fmt(retry_after)}**."
 
 
 async def command_check(ctx: commands.Context) -> bool:

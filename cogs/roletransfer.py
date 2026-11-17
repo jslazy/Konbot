@@ -23,7 +23,7 @@ def leafy_admin():
             return True
         if ctx.guild and ctx.author.guild_permissions.administrator:
             return True
-        raise VCError("Only **Leafy admins** can use `$transfer`.")
+        raise commands.CheckFailure("not allowed")      # no rights = no reply
     return commands.check(predicate)
 
 
@@ -46,7 +46,7 @@ class ConfirmView(OwnedView):
         if self.skipped:
             e.add_field(name=f"{I.s('warning')} Skipped ({len(self.skipped)})", inline=False,
                         value="\n".join(self.skipped[:8])[:1024])
-        e.set_footer(text="Press Confirm within 60 seconds.")
+        e.set_footer(text="Confirm within 60 seconds.")
         return e
 
     @discord.ui.button(label="Confirm", style=discord.ButtonStyle.success)
@@ -60,12 +60,12 @@ class ConfirmView(OwnedView):
             await self.source.remove_roles(*self.roles, reason=reason)
         except discord.Forbidden:
             return await interaction.edit_original_response(embed=discord.Embed(
-                description=err("I couldn't move the roles. Move my role above them and give me **Manage Roles**."),
+                description=err("I can't move them. I need **Manage Roles** and a higher role."),
                 color=0xED4245))
         except discord.HTTPException as e:
             return await interaction.edit_original_response(embed=discord.Embed(
-                description=err(f"Discord refused: {e.text or e.status}"), color=0xED4245))
-        e = discord.Embed(title=f"{I.s('check')} Roles transferred", color=GREEN, description=(
+                description=err(f"Discord said no: {e.text or e.status}"), color=0xED4245))
+        e = discord.Embed(title=f"{I.s('check')} Roles moved", color=GREEN, description=(
             f"{self.source.mention} → {self.target.mention}\n\n{role_list(self.roles)}"))
         if self.skipped:
             e.add_field(name=f"{I.s('warning')} Skipped ({len(self.skipped)})", inline=False,
@@ -81,7 +81,7 @@ class ConfirmView(OwnedView):
     async def on_timeout(self):
         if self.message:
             try:
-                await self.message.edit(embed=discord.Embed(description=f"{I.s('hourglass')} Transfer expired.",
+                await self.message.edit(embed=discord.Embed(description=f"{I.s('hourglass')} Expired.",
                                                             color=BLURPLE), view=None)
             except discord.HTTPException:
                 pass
@@ -100,10 +100,10 @@ class RoleTransfer(commands.Cog):
         if source.id == target.id:
             raise VCError("Pick two different members.")
         if target.bot:
-            raise VCError("I won't move roles onto a bot.")
+            raise VCError("I can't move roles onto a bot.")
         g, me = ctx.guild, ctx.guild.me
         if not me.guild_permissions.manage_roles:
-            raise VCError("I need the **Manage Roles** permission.")
+            raise VCError("I need **Manage Roles**.")
 
         bypass = ctx.author.id == g.owner_id or await self.bot.is_owner_in(ctx.author, g.id)
         wanted = list(roles) or [r for r in source.roles if not r.is_default()]
@@ -122,7 +122,7 @@ class RoleTransfer(commands.Cog):
             else:
                 movable.append(r)
         if not movable:
-            raise VCError("There is no role I can move." + (f"\n{skipped[0]}" if skipped else ""))
+            raise VCError("There's no role I can move." + (f"\n{skipped[0]}" if skipped else ""))
         view = ConfirmView(ctx, source, target, movable, skipped)
         view.message = await ctx.reply(embed=view.preview(), view=view, mention_author=False,
                                        allowed_mentions=discord.AllowedMentions.none())

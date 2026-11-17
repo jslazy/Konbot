@@ -96,7 +96,7 @@ class ShopConfigView(OwnedView):
             role = self.guild.get_role(it["role_id"])
             lines.append(f"`{n}.` {it['emoji'] or ''} {role.mention if role else '*deleted role*'} — "
                          f"`{it['price']}` pts · stock `{stock_text(it['stock'])}`")
-        body = "\n".join(lines) if lines else "The shop is empty. Press **Add Item**."
+        body = "\n".join(lines) if lines else "The shop is empty. Tap **Add Item**."
         body += f"\n-# Stock `-1` = unlimited, `0` = sold out · **Position** changes the order"
         e = discord.Embed(title="Shop Configuration", color=GREEN, description=body)
         return e
@@ -108,7 +108,7 @@ class ShopConfigView(OwnedView):
     # ----- add -----
     async def add_item_btn(self, interaction: discord.Interaction):
         if len(self.cog.db.shop_list(self.guild.id)) >= MAX_ITEMS:
-            return await interaction.response.send_message(err(f"The shop can hold {MAX_ITEMS} items."), ephemeral=True)
+            return await interaction.response.send_message(err(f"The shop is full ({MAX_ITEMS} items)."), ephemeral=True)
         view = discord.ui.View(timeout=120)
         sel = discord.ui.RoleSelect(placeholder="Select the role to sell...")
 
@@ -116,7 +116,7 @@ class ShopConfigView(OwnedView):
             role = sel.values[0]
             if not role.is_assignable():
                 return await i.response.send_message(
-                    err("I can't give that role. Move my role above it (and it must not be managed/@everyone)."),
+                    err("I can't give that role. Move my role above it."),
                     ephemeral=True)
 
             async def cb(i2, v):
@@ -132,7 +132,7 @@ class ShopConfigView(OwnedView):
                 ("Emoji (optional)", "", 64, False)], cb))
         sel.callback = picked
         view.add_item(sel)
-        await interaction.response.send_message("Which role do you want to sell?", view=view, ephemeral=True)
+        await interaction.response.send_message("Which role?", view=view, ephemeral=True)
 
     # ----- edit / remove -----
     def _item_select(self, placeholder, handler):
@@ -158,12 +158,12 @@ class ShopConfigView(OwnedView):
         async def handler(i: discord.Interaction, item_id: int):
             it = self.cog.db.shop_get(self.guild.id, item_id)
             if not it:
-                return await i.response.send_message(err("That item no longer exists."), ephemeral=True)
+                return await i.response.send_message(err("That item is gone."), ephemeral=True)
 
             async def cb(i2, v):
                 self.cog.db.shop_update(self.guild.id, item_id, parse_int(v[0], 1, 10_000_000, "Price"),
                                         parse_int(v[1], -1, 1_000_000, "Stock"), clean_emoji(v[2]))
-                await i2.response.send_message(ok("Item updated."), ephemeral=True)
+                await i2.response.send_message(ok("Updated."), ephemeral=True)
                 await self.refresh()
             await i.response.send_modal(FieldsModal("Edit item", [
                 ("Price (points)", str(it["price"]), 8, True), ("Stock (-1 = unlimited)", str(it["stock"]), 7, True),
@@ -181,7 +181,7 @@ class ShopConfigView(OwnedView):
         view = self._item_select("Select an item to remove...", handler)
         if view is None:
             return await interaction.response.send_message(err("The shop is empty."), ephemeral=True)
-        await interaction.response.send_message("Which item should be removed?", view=view, ephemeral=True)
+        await interaction.response.send_message("Remove which item?", view=view, ephemeral=True)
 
     async def position_btn(self, interaction):
         total = len(self.cog.db.shop_list(self.guild.id))
@@ -189,7 +189,7 @@ class ShopConfigView(OwnedView):
         async def handler(i: discord.Interaction, item_id: int):
             it = self.cog.db.shop_get(self.guild.id, item_id)
             if not it:
-                return await i.response.send_message(err("That item no longer exists."), ephemeral=True)
+                return await i.response.send_message(err("That item is gone."), ephemeral=True)
             cur = next((n for n, x in enumerate(self.cog.db.shop_list(self.guild.id), 1) if x["id"] == item_id), 1)
 
             async def cb(i2, v):
@@ -201,7 +201,7 @@ class ShopConfigView(OwnedView):
         view = self._item_select("Select the role to move...", handler)
         if view is None:
             return await interaction.response.send_message(err("The shop is empty."), ephemeral=True)
-        await interaction.response.send_message("Which role should move?", view=view, ephemeral=True)
+        await interaction.response.send_message("Move which role?", view=view, ephemeral=True)
 
     async def thumb_btn(self, interaction):
         cur = self.cog.shop_settings(self.guild.id).get("thumbnail", "")
@@ -209,11 +209,11 @@ class ShopConfigView(OwnedView):
         async def cb(i, v):
             url = v[0]
             if url and not url.startswith(("http://", "https://")):
-                raise VCError("Please give a direct image link starting with `https://` (or leave empty to reset).")
+                raise VCError("Give a direct image link starting with `https://`, or leave it empty to reset.")
             s = self.cog.shop_settings(self.guild.id)
             s["thumbnail"] = url
             self.cog.db.set_settings(self.guild.id, "shop", s)
-            await i.response.send_message(ok("Shop thumbnail updated."), ephemeral=True)
+            await i.response.send_message(ok("Thumbnail updated."), ephemeral=True)
         await interaction.response.send_modal(FieldsModal("Shop thumbnail", [
             ("Image URL (empty = server icon)", cur, 400, False)], cb))
 
@@ -246,8 +246,8 @@ class Shop(commands.Cog):
                 value=str(it["id"]),
                 description=f"Price: {it['price']} pts — Stock: {stock_text(it['stock']) if it['stock'] else 0}"[:100],
                 emoji=to_partial(it["emoji"])))
-        desc = "Select a role to purchase:\n\n" + ("\n\n".join(blocks) if blocks else
-                                                    "The shop is empty right now.")
+        desc = "Pick a role to buy:\n\n" + ("\n\n".join(blocks) if blocks else
+                                                    "The shop is empty.")
         if member is not None:                      # "Your Balance" (custom wallet icon) at the bottom of the shop
             bal = self.db.user(guild.id, member.id)["points"]
             desc = desc[:3900] + f"\n\n### Your Balance\n{I.s('wallet')} **{bal}** Points"
@@ -274,7 +274,7 @@ class Shop(commands.Cog):
         it = self.db.shop_get(guild.id, item_id)
         role = guild.get_role(it["role_id"]) if it else None
         if not it or role is None:
-            return await interaction.response.send_message(err("That item is no longer available."), ephemeral=True)
+            return await interaction.response.send_message(err("That item isn't available anymore."), ephemeral=True)
         bal = self.db.user(guild.id, member.id)["points"]
         sold_out = it["stock"] == 0
         embed = discord.Embed(
@@ -282,7 +282,7 @@ class Shop(commands.Cog):
             description=(f"### Price\n{I.s('coins')} {it['price']} Points\n"
                          f"### Stock\n{I.s('gift_box')} {stock_long(it['stock'])}\n"
                          f"### Your Balance\n{I.s('wallet')} {bal} Points\n\n"
-                         f"Transactions are final once the purchase button is clicked."),
+                         f"No refunds after you tap Purchase."),
             color=RED if sold_out else GREEN)
         await interaction.response.send_message(embed=embed, view=ItemView(self, it, role, member, bal), ephemeral=True)
 
@@ -294,32 +294,32 @@ class Shop(commands.Cog):
             it = self.db.shop_get(guild.id, item_id)
             role = guild.get_role(it["role_id"]) if it else None
             if not it or role is None:
-                return await interaction.response.edit_message(content=err("That item is no longer available."),
+                return await interaction.response.edit_message(content=err("That item isn't available anymore."),
                                                                embed=None, view=None)
             if role in member.roles:
                 return await interaction.response.edit_message(content=err("You already own that role."), embed=None, view=None)
             if not role.is_assignable():
                 return await interaction.response.edit_message(
-                    content=err("I can't give that role right now. Ask an admin to move my role above it."),
+                    content=err("I can't give that role right now. Ask an admin to move my role up."),
                     embed=None, view=None)
             status, item, bal = self.db.buy(guild.id, member.id, item_id)
             if status == "soldout":
-                return await interaction.response.edit_message(content=err("Sorry, that item just sold out."), embed=None, view=None)
+                return await interaction.response.edit_message(content=err("Sold out just now."), embed=None, view=None)
             if status == "poor":
                 return await interaction.response.edit_message(
-                    content=err(f"You need **{item['price'] - bal}** more points (you have **{bal}**)."), embed=None, view=None)
+                    content=err(f"You're **{item['price'] - bal}** points short (you have **{bal}**)."), embed=None, view=None)
             if status != "ok":
-                return await interaction.response.edit_message(content=err("That item is no longer available."), embed=None, view=None)
+                return await interaction.response.edit_message(content=err("That item isn't available anymore."), embed=None, view=None)
             try:
                 await member.add_roles(role, reason="Point shop purchase")
             except discord.HTTPException:
                 self.db.refund(guild.id, member.id, item)
                 return await interaction.response.edit_message(
-                    content=err("I couldn't give you the role, so you were **not** charged."), embed=None, view=None)
+                    content=err("I couldn't give you the role. You weren't charged."), embed=None, view=None)
         embed = discord.Embed(
             title=f"{I.s('check')} Purchase Successful",
             description=f"You bought {role.mention} for **{item['price']}** points.\n"
-                        f"{I.s('wallet')} New balance: **{bal}** points.", color=GREEN)
+                        f"{I.s('wallet')} Balance: **{bal}** points.", color=GREEN)
         await interaction.response.edit_message(embed=embed, view=None)
 
     # ---------- $pointshop ----------

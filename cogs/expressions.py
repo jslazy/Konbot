@@ -107,7 +107,7 @@ class UndoView(OwnedView):
                     pass
         sel.callback = picked
         view.add_item(sel)
-        await interaction.response.send_message(f"Which {self.kind}s should be removed?", view=view, ephemeral=True)
+        await interaction.response.send_message(f"Remove which {self.kind}s?", view=view, ephemeral=True)
 
     async def on_timeout(self):
         if self.message:
@@ -130,13 +130,13 @@ class Expressions(commands.Cog):
             alive = {e.id for e in pool}
             targets = [i for i in self.last.get((ctx.guild.id, kind), []) if i.id in alive]
             if not targets:
-                raise VCError(f"There is nothing to undo. I only remember the last {kind}s added since I started.")
+                raise VCError(f"Nothing to undo. I only remember {kind}s added since I started.")
         else:
             ids = {int(i) for _, _, i in CUSTOM.findall(words)}
             names = {w.lower().strip(":") for w in words.split() if not CUSTOM.fullmatch(w)}
             targets = [e for e in pool if e.id in ids or e.name.lower() in names]
             if not targets:
-                raise VCError(f"I couldn't find that {kind} in this server.\nUse `${'ae' if kind == 'emoji' else 'as'} remove "
+                raise VCError(f"That {kind} isn't in this server.\nUse `${'ae' if kind == 'emoji' else 'as'} remove "
                               + ("<emoji or name>`" if kind == "emoji" else "<name>`"))
         async with ctx.typing():
             n = await delete_items(targets, reason)
@@ -147,7 +147,7 @@ class Expressions(commands.Cog):
     def check_perms(ctx: commands.Context):
         me = ctx.guild.me.guild_permissions
         if not (me.manage_expressions or me.manage_emojis_and_stickers):
-            raise VCError("I need the **Manage Expressions** permission to add emojis and stickers.")
+            raise VCError("I need **Manage Expressions**.")
 
     # ---------- $ae ----------
     @commands.command(name="addemoji", aliases=["ae", "addemoj"])
@@ -173,8 +173,7 @@ class Expressions(commands.Cog):
             for anim, name, eid in CUSTOM.findall(src or ""):
                 found.setdefault(int(eid), (name, bool(anim)))
         if not found:
-            raise VCError("I couldn't find any custom emoji.\n"
-                          "**Reply** to a message that has emojis and type `$ae`.")
+            raise VCError("No custom emoji found. Reply to a message that has some and type `$ae`.")
         todo = list(found.items())[:MAX_EMOJIS]
 
         added, failed, added_obj = [], [], []
@@ -231,7 +230,7 @@ class Expressions(commands.Cog):
         stickers = list(msg.stickers) if msg is not None else []
         stickers = stickers or list(ctx.message.stickers)
         if not stickers:
-            raise VCError("I couldn't find a sticker.\n**Reply** to a message that has a sticker and type `$as`.")
+            raise VCError("No sticker found. Reply to a message that has one and type `$as`.")
 
         added, failed = [], []
         async with ctx.typing():

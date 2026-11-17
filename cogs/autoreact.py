@@ -124,10 +124,10 @@ class Autoreact(commands.Cog):
         active = len(self.cfg(guild.id)["users"])
         e = discord.Embed(title=f"{I.s('settings')} Auto Reacter - Config", color=BLURPLE, description=(
             f"{I.s('crown')} **Roles that can use `{PREFIX}ar`:**\n"
-            + (" ".join(r.mention for r in roles) if roles else "*none yet - pick roles below*")
+            + (" ".join(r.mention for r in roles) if roles else "*none yet*")
             + f"\n\n{I.s('shield_check')} Admins (**Manage Server**) can always use it.\n"
               f"{I.s('users')} Active autoreacters: **{active}**"))
-        e.set_footer(text="Pick roles in the menus below. Also: $ar config add/remove @role · $ar config clear")
+        e.set_footer(text="Or: $ar config add/remove @role · $ar config clear")
         return e
 
     # ---------- the actual reacting ----------
@@ -184,7 +184,7 @@ class Autoreact(commands.Cog):
             "Pick **one emoji** and I'll react with it every time someone **@mentions you**.",
             "",
             f"{I.s('heart')} **Your emoji:** {mine[0] if mine else '*not set yet*'}",
-            f"{I.s('shield_check')} **Access:** " + ("✅ you can use it" if allowed else "❌ ask an admin to give your role access"),
+            f"{I.s('shield_check')} **Access:** " + ("✅ you can use it" if allowed else "❌ ask an admin"),
             "",
             "**How to use**",
             f"`{PREFIX}ar 🔥` · set your emoji",
@@ -193,7 +193,7 @@ class Autoreact(commands.Cog):
         if ctx.author.guild_permissions.manage_guild:
             lines += ["", "**Admin**", f"`{PREFIX}ar config` · choose which roles can use it"]
         e = discord.Embed(title=f"{I.s('sparkles')} Auto Reacter", color=GREEN, description="\n".join(lines))
-        e.set_footer(text="1 emoji per person · I only react when you're pinged")
+        e.set_footer(text="1 emoji each · I react when you're pinged")
         await ctx.reply(embed=e, mention_author=False)
 
     async def resolve_plain_emoji(self, ctx: commands.Context, text: str) -> str:
@@ -218,8 +218,7 @@ class Autoreact(commands.Cog):
             em = pool[0] if pool else next((e for e in await self._app_emojis() if e.name.lower() == name), None)
         if em is None:
             if t.isdigit() or t.startswith(":"):
-                raise VCError(f"I couldn't find that emoji. I can only use emojis from servers **I am in**.\n"
-                              f"Try the emoji's exact name (`{PREFIX}ar :name:`) or its emoji ID.")
+                raise VCError("I can't find that emoji. I can only use emojis from servers I'm in.")
             return text                                         # a plain word that isn't an emoji -> normal error below
         return str(em)
 
@@ -231,44 +230,41 @@ class Autoreact(commands.Cog):
 
     async def set_emoji(self, ctx: commands.Context, emojis: str):
         if not self.can_use(ctx.author):
-            raise VCError("You don't have access to **Auto Reacter** yet.\n"
-                          "Ask an admin to give your role access.")
+            raise VCError("Auto Reacter isn't open to you yet. Ask an admin.")
         emojis = emojis.strip()
         c = self.cfg(ctx.guild.id)
         if emojis.lower() in OFF_WORDS:
             if c["users"].pop(str(ctx.author.id), None) is None:
-                raise VCError("You don't have an autoreact set.")
+                raise VCError("You haven't set an autoreact.")
             self.save(ctx.guild.id)
-            return await ctx.reply(ok("Auto Reacter is now **off** for you."), mention_author=False)
+            return await ctx.reply(ok("Auto Reacter is **off**."), mention_author=False)
 
         perms = ctx.channel.permissions_for(ctx.guild.me)
         if not (perms.add_reactions and perms.read_message_history):
-            raise VCError("I need **Add Reactions** and **Read Message History** in this channel.")
+            raise VCError("I need **Add Reactions** and **Read Message History** here.")
 
         emojis = await self.resolve_plain_emoji(ctx, emojis)       # ":name:" / emoji id (members without Nitro) -> <:name:id>
         tokens = CUSTOM_EMOJI.sub(r" \1 ", emojis).split()
         tokens = list(dict.fromkeys(tokens))
         if len(tokens) > MAX_EMOJIS:
-            raise VCError(f"Only **1 emoji** is allowed.\nTry: `{PREFIX}ar 🔥`")
+            raise VCError(f"Just **1 emoji**, like `{PREFIX}ar 🔥`")
         tok = tokens[0]
         try:                                     # real test: Discord itself tells us if the emoji is usable
             await ctx.message.add_reaction(tok)
         except discord.HTTPException:
             if CUSTOM_EMOJI.fullmatch(tok) and not perms.external_emojis:
-                raise VCError("I need the **Use External Emojis** permission to react with emojis from other servers.")
-            raise VCError(f"I can't use {tok if CUSTOM_EMOJI.fullmatch(tok) else f'`{tok}`'}.\n"
-                          "Use a normal emoji, or a custom emoji from a server I'm in.")
+                raise VCError("I need **Use External Emojis** for that one.")
+            raise VCError(f"I can't use {tok if CUSTOM_EMOJI.fullmatch(tok) else f'`{tok}`'}. Use a normal emoji or one from a server I'm in.")
         c["users"][str(ctx.author.id)] = [tok]
         self.save(ctx.guild.id)
-        await ctx.reply(ok(f"All set! I'll react with {tok} whenever someone mentions you.\n"
-                           f"Turn it off any time with `{PREFIX}ar off`."), mention_author=False)
+        await ctx.reply(ok(f"Done. I'll react with {tok} when someone pings you. Turn off: `{PREFIX}ar off`"), mention_author=False)
 
     @autoreacter.command(name="setup", aliases=["set", "on"])
     @commands.guild_only()
     async def au_setup(self, ctx: commands.Context, *, emoji: str = ""):
         """$ar setup <emoji> - same as `$ar <emoji>`"""
         if not emoji.strip():
-            raise VCError(f"Tell me which emoji to use.\nExample: `{PREFIX}ar 🔥`")
+            raise VCError(f"Which emoji? Like `{PREFIX}ar 🔥`")
         await self.set_emoji(ctx, emoji)
 
     @autoreacter.command(name="off", aliases=["disable", "stop"])
@@ -277,9 +273,9 @@ class Autoreact(commands.Cog):
         """$ar off - turn your autoreact off"""
         c = self.cfg(ctx.guild.id)
         if c["users"].pop(str(ctx.author.id), None) is None:
-            raise VCError("You don't have an autoreact set.")
+            raise VCError("You haven't set an autoreact.")
         self.save(ctx.guild.id)
-        await ctx.reply(ok("Auto Reacter is now **off** for you."), mention_author=False)
+        await ctx.reply(ok("Auto Reacter is **off**."), mention_author=False)
 
     # ---------- $ar config ----------
     @autoreacter.group(name="config", aliases=["cfg", "roles"], invoke_without_command=True)
@@ -296,15 +292,14 @@ class Autoreact(commands.Cog):
         """$ar config add @role [@role ...] - give roles access to `$ar setup`"""
         roles = [r for r in roles if not r.is_default()]
         if not roles:
-            raise VCError("Mention at least one role: `$ar config add @Role`.")
+            raise VCError("Mention a role: `$ar config add @Role`.")
         c = self.cfg(ctx.guild.id)
         new = [r for r in roles if r.id not in c["roles"]]
         if len(c["roles"]) + len(new) > MAX_ROLES:
-            raise VCError(f"You can add at most {MAX_ROLES} roles.")
+            raise VCError(f"Max {MAX_ROLES} roles.")
         c["roles"].extend(r.id for r in new)
         self.save(ctx.guild.id)
-        await ctx.reply(ok(f"Added {' '.join(r.mention for r in new) or 'nothing new'} - they can now use "
-                           f"`{PREFIX}ar`."), mention_author=False,
+        await ctx.reply(ok(f"Added {' '.join(r.mention for r in new) or 'nothing new'}. They can use `{PREFIX}ar` now."), mention_author=False,
                         allowed_mentions=discord.AllowedMentions.none())
 
     @au_config.command(name="remove", aliases=["delete", "del"])
@@ -314,7 +309,7 @@ class Autoreact(commands.Cog):
         c = self.cfg(ctx.guild.id)
         gone = [r for r in roles if r.id in c["roles"]]
         if not gone:
-            raise VCError("None of those roles have access.")
+            raise VCError("None of those roles had access.")
         c["roles"] = [i for i in c["roles"] if i not in {r.id for r in gone}]
         self.save(ctx.guild.id)
         await ctx.reply(ok(f"Removed {' '.join(r.mention for r in gone)}."), mention_author=False,
@@ -326,7 +321,7 @@ class Autoreact(commands.Cog):
         """$ar config clear - remove all roles (only admins keep access)"""
         self.cfg(ctx.guild.id)["roles"] = []
         self.save(ctx.guild.id)
-        await ctx.reply(ok("All roles removed. Only admins can use `$ar setup` now."), mention_author=False)
+        await ctx.reply(ok("All roles removed. Only admins can use it now."), mention_author=False)
 
 
 async def setup(bot):

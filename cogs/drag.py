@@ -24,7 +24,7 @@ class DragView(discord.ui.View):
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
         if interaction.user.id != self.owner.id:
             await interaction.response.send_message(
-                f"{I.s('cross')} Only {self.owner.mention} can answer this request.",
+                f"{I.s('cross')} Only {self.owner.mention} can answer this.",
                 ephemeral=True, allowed_mentions=discord.AllowedMentions.none())
             return False
         return True
@@ -33,7 +33,7 @@ class DragView(discord.ui.View):
         if self.message:
             try:
                 await self.message.edit(
-                    embed=result_embed("Drag Request: Expired", f"{I.s('hourglass')} No response in time."), view=None)
+                    embed=result_embed("Drag Request", f"{I.s('hourglass')} No answer, so it expired."), view=None)
             except discord.HTTPException:
                 pass
 
@@ -52,24 +52,24 @@ class DragView(discord.ui.View):
         )
         if not still_ok:
             return await interaction.followup.send(embed=result_embed(
-                "Drag Request: Failed",
-                f"{I.s('cross')} Relocation failed: One or more members are no longer in a voice session."))
+                "Drag Request",
+                f"{I.s('cross')} Couldn't move them. Someone left voice."))
         try:
             await r.move_to(ch, reason=f"Drag request approved by {self.owner}")
         except discord.HTTPException:
             return await interaction.followup.send(embed=result_embed(
-                "Drag Request: Failed",
-                f"{I.s('cross')} Relocation failed: One or more members are no longer in a voice session."))
+                "Drag Request",
+                f"{I.s('cross')} Couldn't move them. Someone left voice."))
         await interaction.followup.send(embed=result_embed(
-            "Drag Request: Success",
-            f"{I.s('check')} **{r.name}** has been successfully relocated to **{ch.name}**.", GREEN))
+            "Drag Request",
+            f"{I.s('check')} Moved **{r.name}** to **{ch.name}**.", GREEN))
 
     @discord.ui.button(label="Deny", style=discord.ButtonStyle.secondary)
     async def deny(self, interaction: discord.Interaction, _):
         self.stop()
         await interaction.response.edit_message(
-            embed=result_embed("Drag Request: Denied",
-                               f"{I.s('cross')} **{self.owner.display_name}** denied the request."),
+            embed=result_embed("Drag Request",
+                               f"{I.s('cross')} **{self.owner.display_name}** said no."),
             view=None)
 
 
@@ -84,34 +84,34 @@ class Drag(commands.Cog):
     async def dragme(self, ctx: commands.Context, user: discord.Member):
         me = ctx.author
         if not me.voice or not me.voice.channel:
-            raise VCError("You must be in a voice channel to use this.")
+            raise VCError("Join a voice channel first.")
         if user.id == me.id or user.bot:
-            raise VCError("Pick another (non-bot) member.")
+            raise VCError("Pick another member (not a bot).")
         if not user.voice or not user.voice.channel:
-            raise VCError("That user is not in a voice channel.")
+            raise VCError("They're not in a voice channel.")
         ch = user.voice.channel
         rec = self.store.vc(ch.id)
         if not rec:
-            raise VCError("That user is not in a custom VC.")
+            raise VCError("They're not in a custom VC.")
         if me.voice.channel.id == ch.id:
-            raise VCError("You are already in that channel.")
+            raise VCError("You're already there.")
         if me.id in rec["banned"]:
-            raise VCError("You are banned from that voice channel.")
+            raise VCError("You're banned from that VC.")
         if rec.get("block_drags"):
-            raise VCError("That VC owner has blocked drag requests.")
+            raise VCError("That VC owner blocked drag requests.")
         owner = ctx.guild.get_member(rec["owner"])
         if owner is None:
-            raise VCError("I couldn't find the owner of that VC.")
+            raise VCError("I can't find that VC's owner.")
         ra = ratelimit.check("drag", me.id)
         if ra:
-            raise VCError(f"You can send another drag request in **{ratelimit.fmt(ra)}**.")
+            raise VCError(f"Try again in **{ratelimit.fmt(ra)}**.")
 
         if owner.id == me.id:  # (can't happen: you'd already be in it) kept for safety
             return
         embed = discord.Embed(
             title="Drag Request",
-            description=(f"{me.mention} wants to be dragged to your channel (**{ch.name}**).\n\n"
-                         f"{owner.mention}, do you allow this?"),
+            description=(f"{me.mention} wants to join **{ch.name}**.\n"
+                         f"{owner.mention}, allow it?"),
             color=BLURPLE, timestamp=discord.utils.utcnow())
         view = DragView(me, owner, ch)
         view.message = await ctx.reply(

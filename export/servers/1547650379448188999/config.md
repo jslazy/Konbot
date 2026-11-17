@@ -47,7 +47,7 @@
 
 - **role**: *none*
 - **users**:
-  - `1385099857781329961` → D3adB9y (d3adb9y1113)
+  - `1385099857781329961` → ♤ 𝑎𝑙𝒐𝑛𝑒𝐟𝐨𝑥 ✿ (d3adb9y1113)
   - `1538573910839140575` → Patrick Badmosh (patrickbadmosh)
   - `1504536783898021908` → T-Mod | om pandey (om61006)
   - `1562817118641062029` → Raven (_raven.exe09)
@@ -55,8 +55,9 @@
   - `1519731963244580987` → Blaze OG (btwkartikxz)
   - `1340198074387267634` → HM | TacticalShower (.mlx_rinn)
   - `1554945105981603880` → Mexzon (mexzon_0205)
-  - `829689719633215498` → Raven (_alwaysafineshyt)
-  - `1537639385879683212` → [AFK] T-MOD | Ruler (hellruler08457)
+  - `829689719633215498` → [AFK] Vortex (_alwaysafineshyt)
+  - `1537639385879683212` → T-MOD | Ruler (hellruler08457)
+  - `1554280108632842295` → Arnav || sellin ids (.arnav.gg)
 
 ### Aliases
 
@@ -89,12 +90,22 @@
 
 - **tag_enabled**: yes
 - **users**:
-  - **1537639385879683212** → [AFK] T-MOD | Ruler (hellruler08457):
-    - **reason**: gg blazu rich sheru
-    - **since**: 1794792001 (2026-11-16 01:20 UTC)
-    - **old_nick**: T-MOD | Ruler
+  - **1543476735469691002** → [AFK] T-MOD | Batak sir 🦆 (ryomentheog.):
+    - **reason**: AFK
+    - **since**: 1794852977 (2026-11-16 18:16 UTC)
+    - **old_nick**: T-MOD | Batak sir 🦆
+    - **mentions_waiting**: 0
+  - **829689719633215498** → [AFK] Vortex (_alwaysafineshyt):
+    - **reason**: sojao
+    - **since**: 1794856992 (2026-11-16 19:23 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 4
+  - **1538573910839140575** → Patrick Badmosh (patrickbadmosh):
+    - **reason**: don't ping lemme study tmrw is my paper
+    - **since**: 1794858776 (2026-11-16 19:52 UTC)
+    - **old_nick**: *none*
     - **mentions_waiting**: 0
 
 ### Players
 
-- 239 players stored in `data/leafy.db` (full list: `export/players_1547650379448188999.csv`)
+- 276 players stored in `data/leafy.db` (full list: `export/players_1547650379448188999.csv`)

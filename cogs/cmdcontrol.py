@@ -164,7 +164,7 @@ class CmdControl(commands.Cog):
         if cmd is not None and len(t.split()) == len(cmd.qualified_name.split()):   # get_command ignores extra words
             
             if root_of(cmd).qualified_name in PROTECTED:
-                raise VCError(f"`{PREFIX}{cmd.qualified_name}` can't be turned off (so you can never lock yourself out).")
+                raise VCError(f"`{PREFIX}{cmd.qualified_name}` can't be turned off.")
             return cmd.qualified_name
         for cog in self.catalog():                      # category by its name: "points", "custom vc"
             if t in (cog.lower(), category_label(cog).lower()):
@@ -195,7 +195,7 @@ class CmdControl(commands.Cog):
         for k, ids in sorted(rules.items()):
             lines.append(f"{self.label(k)} → " + " · ".join(where(guild, i) for i in ids[:8])
                          + (f" +{len(ids) - 8} more" if len(ids) > 8 else ""))
-        text = "\n".join(lines) or "*Nothing is turned off - every command works everywhere.*"
+        text = "\n".join(lines) or "*Nothing is off. Everything works everywhere.*"
         e = discord.Embed(title=f"{I.s('lock')} Disabled commands", color=BLURPLE, description=text[:4000])
         if note:
             e.add_field(name="Done", value=note[:1000], inline=False)
@@ -206,10 +206,9 @@ class CmdControl(commands.Cog):
         chans = ", ".join(where(guild, c) for c in cids)
         if changed == 0:
             if disable:
-                return err(f"{names} {'is' if len(keys) == 1 else 'are'} already turned off in {chans}.")
-            return err(f"{names} wasn't turned off directly in {chans}. If it is off because the whole **category** "
-                       f"is off, enable the category itself.")
-        return ok(f"{'Disabled' if disable else 'Enabled'} {names} in {chans}.")
+                return err(f"{names} {'is' if len(keys) == 1 else 'are'} already off in {chans}.")
+            return err(f"{names} isn't off directly in {chans}. If the whole category is off, enable the category.")
+        return ok(f"{names} {'off' if disable else 'on'} in {chans}.")
 
     async def run_text(self, ctx: commands.Context, args: str, disable: bool):
         g = ctx.guild
@@ -223,20 +222,19 @@ class CmdControl(commands.Cog):
         if word == "reset" and len(tokens) == 1:
             self.rules(g.id).clear()
             self.save(g.id)
-            return await ctx.reply(ok("Every command is enabled everywhere again."), mention_author=False)
+            return await ctx.reply(ok("Everything is back on."), mention_author=False)
         if word in ("enable", "on", "remove") and disable:          # "$db enable profile #chat"
             return await self.run_text(ctx, " ".join(tokens[1:]), False)
 
         keys, rest = self.parse_keys(tokens)
         if not keys:
-            raise VCError(f"I don't know the command `{tokens[0]}`. Use `{PREFIX}db` to pick from a menu.")
+            raise VCError(f"I don't know `{tokens[0]}`. Use `{PREFIX}db` for a menu.")
         cids = []
         for tok in rest:
             try:
                 ch = await commands.GuildChannelConverter().convert(ctx, tok)
             except commands.BadArgument:
-                raise VCError(f"I couldn't find the channel / category `{tok}`. Mention the channel, or paste the ID "
-                              f"(for a category: right-click it -> Copy ID).")
+                raise VCError(f"I can't find `{tok}`. Mention the channel or paste its ID.")
             if ch.id not in cids:
                 cids.append(ch.id)
         if not cids:
@@ -287,8 +285,8 @@ class CmdControl(commands.Cog):
     async def slash_run(self, interaction: discord.Interaction, command, channel, disable: bool):
         perms = interaction.user.guild_permissions
         if not (perms.manage_guild or await self.bot.is_owner_in(interaction.user, interaction.guild_id)):
-            return await interaction.response.send_message(err("You need **Manage Server** permission to use this."),
-                                                           ephemeral=True)
+            await interaction.response.defer(ephemeral=True)        # no rights = no reply
+            return await interaction.delete_original_response()
         g = interaction.guild
         if not command:
             view = DisableView(self, interaction.user)
@@ -298,7 +296,7 @@ class CmdControl(commands.Cog):
         try:
             key = self.resolve(command)
             if key is None:
-                raise VCError(f"I don't know the command `{command}`. Pick one from the list that pops up.")
+                raise VCError(f"I don't know `{command}`. Pick one from the list.")
         except VCError as e:
             return await interaction.response.send_message(err(str(e)), ephemeral=True)
         cid = channel.id if channel is not None else interaction.channel_id
@@ -369,7 +367,7 @@ class DisableView(OwnedView):
         for cog, cmds in list(cat.items())[:24]:
             opts.append(discord.SelectOption(label=category_label(cog)[:100], value=cog,
                                              description=f"{len(cmds)} commands", default=self.cat == cog))
-        s0 = discord.ui.Select(placeholder="1. Pick a category...", options=opts, row=0)
+        s0 = discord.ui.Select(placeholder="1. Category...", options=opts, row=0)
         s0.callback = self.pick_cat
         self.add_item(s0)
 
@@ -387,14 +385,14 @@ class DisableView(OwnedView):
                 copts.append(discord.SelectOption(label=f"{PREFIX}{c.qualified_name}"[:100], value=c.qualified_name,
                                                   description=(d[:100] or None), default=c.qualified_name in self.keys))
             self.shown = {o.value for o in copts}
-            s1 = discord.ui.Select(placeholder="2. Pick the commands...", options=copts, min_values=0,
+            s1 = discord.ui.Select(placeholder="2. Commands...", options=copts, min_values=0,
                                    max_values=len(copts), row=1)
             s1.callback = self.pick_cmds
             self.add_item(s1)
 
         # row 2 - channels / categories
         shown = [ch for ch in (self.guild.get_channel(i) for i in self.cids[:25]) if ch is not None]
-        s2 = discord.ui.ChannelSelect(placeholder="3. Pick channels / whole categories...", channel_types=CHANNEL_TYPES,
+        s2 = discord.ui.ChannelSelect(placeholder="3. Channels or categories...", channel_types=CHANNEL_TYPES,
                                       min_values=0, max_values=25, default_values=shown, row=2)
         s2.callback = lambda i, s=s2: self.pick_chans(i, s)
         self.add_item(s2)
@@ -446,9 +444,9 @@ class DisableView(OwnedView):
 
     async def act(self, interaction: discord.Interaction, disable: bool):
         if not self.keys:
-            return await interaction.response.send_message(err("Pick at least one command first."), ephemeral=True)
+            return await interaction.response.send_message(err("Pick a command first."), ephemeral=True)
         if not self.cids:
-            return await interaction.response.send_message(err("Pick at least one channel or category first."),
+            return await interaction.response.send_message(err("Pick a channel or category first."),
                                                            ephemeral=True)
         changed = self.cog.apply(self.guild.id, self.keys, self.cids, disable)
         await self.push(interaction, self.cog.result_text(self.guild, self.keys, self.cids, disable, changed))

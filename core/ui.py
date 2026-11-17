@@ -10,7 +10,7 @@ def parse_int(text: str, lo: int, hi: int, name: str) -> int:
     except ValueError:
         raise VCError(f"**{name}** must be a number.")
     if not lo <= n <= hi:
-        raise VCError(f"**{name}** must be between **{lo}** and **{hi}**.")
+        raise VCError(f"**{name}** must be {lo}-{hi}.")
     return n
 
 
@@ -36,7 +36,7 @@ def clean_emoji(text: str):
         return str(I.map[text])
     pe = to_partial(text)
     if pe is None:
-        raise VCError("That emoji isn't valid. Use a normal emoji or a custom one like `<:name:123456>`.")
+        raise VCError("That emoji doesn't work. Use a normal one or `<:name:123456>`.")
     return str(pe)
 
 
@@ -73,7 +73,7 @@ class OwnedView(discord.ui.View):
 
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
         if interaction.user.id != self.invoker_id:
-            await interaction.response.send_message(err("This menu isn't for you."), ephemeral=True)
+            await interaction.response.send_message(err("That menu isn't yours."), ephemeral=True)
             return False
         return True
 

@@ -53,18 +53,19 @@ DESC = {
     "addsticker": "Reply to a message to add its sticker (Undo / Remove buttons)",
     "purgebot": "Delete bot + command messages (default 10, max 500)",
     "purgemember": "Delete a member's messages: `$p @member 50` or reply + `$p` (default 10, max 500)",
-    "customvc": "Set the join-to-create channel", "interface": "Post the voice control panel",
+    "customvc": "Set the join-to-create channel", "customvc config": "Who can't be vc-banned, kicked or muted", "interface": "Post the voice control panel",
     "sync": "Sync slash commands", "backup": "Backup status", "backup refresh": "Back up right now",
+    "backupload": "Attach data zip(s) to merge them into the bot", "backup config": "Send the readable config + players list",
     "leafy": "About Leafy", "leafyping": "Latency, uptime and status", "leafyinfo": "Servers, members and bot stats",
-    "aura": "Show your aura (or @member's)", "aura config": "Fix aura of members / roles, random on/off",
+    "aura": "Show your aura (or @member's)", "aura config": "Fix aura, random on/off, switch a person off",
     "transfer": "Move roles from one member to another (Leafy admins)",
     "tictactoe": "Tic Tac Toe info", "tictactoe play": "Challenge a member (only in the game channel)",
     "tictactoe admin": "Set the Tic Tac Toe channel",
     "point enable": "Count points in a channel again", "point disable": "Stop counting points in a channel",
     "disablecommand": "Turn commands off in channels / whole categories (`$db`, no arguments = menu)",
     "enablecommand": "Turn commands back on (`$eb`)",
-    "adminhelp": "This menu", "leafyextra": "Give a member Leafy owner permission (this server only)",
-    "leafyextra remove": "Take owner permission away", "leafyextra list": "Show the extra owners",
+    "adminhelp": "This menu", "leafyextra": "Give a member Leafy owner rights (this server only)",
+    "leafyextra remove": "Take owner rights away", "leafyextra list": "Show the extra owners",
 }
 
 SECTIONS = (("member", "Everyone"), ("admin", "Admins"), ("owner", "Owner"))
@@ -137,7 +138,7 @@ class HelpView(OwnedView):
         rows = [f"{I.s(icon)} **{title}** {sum(len(v) for v in secs.values())}" for key, (title, icon, secs) in self.pages.items()]
         pairs = ["  ·  ".join(rows[i:i + 2]) for i in range(0, len(rows), 2)]      # two categories per line = small embed
         return discord.Embed(title=f"{I.s('leaf')} Leafy Help", color=GREEN,
-                             description=f"Prefix `{PREFIX}`  ·  `<x>` required  ·  `[x]` optional\n\n" + "\n".join(pairs))
+                             description=f"Prefix `{PREFIX}` · `<x>` needed · `[x]` optional\n\n" + "\n".join(pairs))
 
     def page(self, key) -> discord.Embed:
         title, icon, secs = self.pages[key]
@@ -280,7 +281,7 @@ class Meta(commands.Cog):
     @commands.command(name="adminhelp", aliases=["help", "ahelp"])
     @commands.guild_only()
     async def adminhelp(self, ctx: commands.Context):
-        """Commands you can use (admin / owner commands only show up for admins / owners)."""
+        """Commands you can use (admin / owner commands only show for admins / owners)."""
         pages: dict[str, tuple] = {}
         for cmd in sorted(self.bot.walk_commands(), key=lambda c: c.qualified_name):
             if cmd.name == "rolecmd":                      # internal dispatcher for custom role commands
@@ -313,12 +314,11 @@ class Meta(commands.Cog):
             raise VCError(f"{member.mention} is already the bot owner.")
         extra = self.bot.extra_owners(ctx.guild.id)
         if member.id in extra:
-            raise VCError(f"{member.mention} already has owner permission here.")
+            raise VCError(f"{member.mention} is already an owner here.")
         extra.append(member.id)
         self.bot.store.save_soon()
-        await ctx.reply(ok(f"{member.mention} now has **Leafy owner** permission in **{ctx.guild.name}** only "
-                           f"(`{PREFIX}sync`, `{PREFIX}backup`, no rate limits). Other servers are not affected. "
-                           f"Remove with `{PREFIX}leafyextra remove @user`."),
+        await ctx.reply(ok(f"{member.mention} is a **Leafy owner** in **{ctx.guild.name}** only. "
+                           f"Undo: `{PREFIX}leafyextra remove @user`."),
                         mention_author=False, allowed_mentions=discord.AllowedMentions.none())
 
     @leafyextra.command(name="remove", aliases=["delete", "del"])
@@ -328,10 +328,10 @@ class Meta(commands.Cog):
         """$leafyextra remove @member"""
         extra = self.bot.extra_owners(ctx.guild.id)
         if member.id not in extra:
-            raise VCError(f"{member.mention} doesn't have owner permission in this server.")
+            raise VCError(f"{member.mention} isn't an owner here.")
         extra.remove(member.id)
         self.bot.store.save_soon()
-        await ctx.reply(ok(f"Removed owner permission of {member.mention} in **{ctx.guild.name}**."), mention_author=False,
+        await ctx.reply(ok(f"{member.mention} is no longer an owner here."), mention_author=False,
                         allowed_mentions=discord.AllowedMentions.none())
 
     @leafyextra.command(name="list")
@@ -342,7 +342,7 @@ class Meta(commands.Cog):
         extra = self.bot.extra_owners(ctx.guild.id)
         text = "\n".join(f"<@{i}>" for i in extra) if extra else "*nobody yet*"
         e = discord.Embed(title=f"{I.s('crown')} Extra owners · {ctx.guild.name}", description=text, color=BLURPLE)
-        e.set_footer(text=f"{PREFIX}leafyextra @user to add · {PREFIX}leafyextra remove @user · only for this server")
+        e.set_footer(text=f"{PREFIX}leafyextra @user to add · {PREFIX}leafyextra remove @user · this server only")
         await ctx.reply(embed=e, mention_author=False, allowed_mentions=discord.AllowedMentions.none())
 
 

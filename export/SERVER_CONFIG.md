@@ -8,7 +8,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **name**: Leavy#9118
   - **id**: `1569712165932236842` → Leavy#9118
 - **voice_mutes_running**: *(empty)*
-- **slash_sync_hash**: 57437f68e49e9ad011003111988c11d535940c8a
+- **slash_sync_hash**: 60991de76d6e4f118c46ff18d34a94f01fbf57dc
 
 ## Lazy  (`1154838258027606117`)
 
@@ -216,6 +216,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 - **users**:
   - `1262248731353546763` → Anshu >_< (anshumanfr_)
   - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
+  - `650534818517483526` → Lazy (jslazy)
 
 ### Aliases
 
@@ -263,7 +264,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Aura ($aura config)
 
 - **members**:
-  - **650534818517483526** → Lazy (jslazy): 100
+  - **650534818517483526** → Lazy (jslazy): 0
   - **1262248731353546763** → Anshu >_< (anshumanfr_): 99
 - **roles**: *(empty)*
 - **random**: yes
@@ -292,30 +293,35 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **since**: 1794399701 (2026-11-11 12:21 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 6
-  - **1567891350710657266** → Its_Riya (.its_riya):
-    - **reason**: Baad ma aaugi
-    - **since**: 1794467115 (2026-11-12 07:05 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 0
   - **1512822379061969028** → Onlyforyou (thedeadsabaru):
     - **reason**: sone ja raha
     - **since**: 1794505671 (2026-11-12 17:47 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 0
+  - **1567891350710657266** → Its_Riya (.its_riya):
+    - **reason**: `<:Roast:1569605305011015711>`
+    - **since**: 1794849840 (2026-11-16 17:24 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 0
+  - **1476239945172648142** → THUNDER (thunderz_gamer1):
+    - **reason**: AFK
+    - **since**: 1794850391 (2026-11-16 17:33 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 1
   - **1502235313081290855** → Dark (soulcathehe):
-    - **reason**: AFK
-    - **since**: 1794672901 (2026-11-14 16:15 UTC)
+    - **reason**: gn
+    - **since**: 1794852924 (2026-11-16 18:15 UTC)
     - **old_nick**: *none*
-    - **mentions_waiting**: 2
-  - **1028298097664733215** → Nope {>.<} (nontastic_player):
+    - **mentions_waiting**: 1
+  - **1425991437396217960** → TheSKY (sky_bauni):
     - **reason**: AFK
-    - **since**: 1794775476 (2026-11-15 20:44 UTC)
+    - **since**: 1794857743 (2026-11-16 19:35 UTC)
     - **old_nick**: *none*
-    - **mentions_waiting**: 6
+    - **mentions_waiting**: 0
 
 ### Players
 
-- 119 players stored in `data/leafy.db` (full list: `export/players_1488690726870057165.csv`)
+- 127 players stored in `data/leafy.db` (full list: `export/players_1488690726870057165.csv`)
 
 ## The Blaze Nebula | Drag GW  (`1547650379448188999`)
 
@@ -364,7 +370,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - **role**: *none*
 - **users**:
-  - `1385099857781329961` → D3adB9y (d3adb9y1113)
+  - `1385099857781329961` → ♤ 𝑎𝑙𝒐𝑛𝑒𝐟𝐨𝑥 ✿ (d3adb9y1113)
   - `1538573910839140575` → Patrick Badmosh (patrickbadmosh)
   - `1504536783898021908` → T-Mod | om pandey (om61006)
   - `1562817118641062029` → Raven (_raven.exe09)
@@ -372,8 +378,9 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - `1519731963244580987` → Blaze OG (btwkartikxz)
   - `1340198074387267634` → HM | TacticalShower (.mlx_rinn)
   - `1554945105981603880` → Mexzon (mexzon_0205)
-  - `829689719633215498` → Raven (_alwaysafineshyt)
-  - `1537639385879683212` → [AFK] T-MOD | Ruler (hellruler08457)
+  - `829689719633215498` → [AFK] Vortex (_alwaysafineshyt)
+  - `1537639385879683212` → T-MOD | Ruler (hellruler08457)
+  - `1554280108632842295` → Arnav || sellin ids (.arnav.gg)
 
 ### Aliases
 
@@ -406,12 +413,22 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - **tag_enabled**: yes
 - **users**:
-  - **1537639385879683212** → [AFK] T-MOD | Ruler (hellruler08457):
-    - **reason**: gg blazu rich sheru
-    - **since**: 1794792001 (2026-11-16 01:20 UTC)
-    - **old_nick**: T-MOD | Ruler
+  - **1543476735469691002** → [AFK] T-MOD | Batak sir 🦆 (ryomentheog.):
+    - **reason**: AFK
+    - **since**: 1794852977 (2026-11-16 18:16 UTC)
+    - **old_nick**: T-MOD | Batak sir 🦆
+    - **mentions_waiting**: 0
+  - **829689719633215498** → [AFK] Vortex (_alwaysafineshyt):
+    - **reason**: sojao
+    - **since**: 1794856992 (2026-11-16 19:23 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 4
+  - **1538573910839140575** → Patrick Badmosh (patrickbadmosh):
+    - **reason**: don't ping lemme study tmrw is my paper
+    - **since**: 1794858776 (2026-11-16 19:52 UTC)
+    - **old_nick**: *none*
     - **mentions_waiting**: 0
 
 ### Players
 
-- 239 players stored in `data/leafy.db` (full list: `export/players_1547650379448188999.csv`)
+- 276 players stored in `data/leafy.db` (full list: `export/players_1547650379448188999.csv`)

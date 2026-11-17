@@ -57,7 +57,7 @@ def emoji_or_none(text: str) -> Optional[str]:
     if CUSTOM_EMOJI.fullmatch(text):
         return text
     if len(text) > 16 or text.isascii():          # plain words / ':name:' are not emojis
-        raise VCError(f"`{text}` isn't an emoji. Use a normal emoji (🔥) or a custom one from a server I'm in.")
+        raise VCError(f"`{text}` isn't an emoji. Use a normal one (🔥) or one from a server I'm in.")
     return text
 
 
@@ -99,21 +99,21 @@ class BannerModal(discord.ui.Modal):
             if files:
                 att = files[0]
                 if att.size > MAX_BANNER:
-                    raise VCError(f"That file is bigger than **{MAX_BANNER_MB} MB**. Please use a smaller one.")
+                    raise VCError(f"That file is over **{MAX_BANNER_MB} MB**.")
                 cog.store_banner(gid, await att.read())
             elif link:
                 await cog.set_banner_url(gid, link)
             else:
-                raise VCError("Upload a file or paste a link first (use **Remove banner** to delete it).")
+                raise VCError("Upload a file or paste a link. (**Remove banner** deletes it.)")
         except VCError as e:
             return await interaction.followup.send(err(str(e)), ephemeral=True)
         except discord.HTTPException:
-            return await interaction.followup.send(err("I couldn't read that file. Please try again."), ephemeral=True)
+            return await interaction.followup.send(err("I couldn't read that file. Try again."), ephemeral=True)
         await self.editor.saved(interaction, "Banner updated.")
 
     async def on_error(self, interaction: discord.Interaction, error: Exception):
         log.exception("banner modal failed", exc_info=error)
-        text = err("Something went wrong while saving the banner.")
+        text = err("Couldn't save the banner.")
         if interaction.response.is_done():
             await interaction.followup.send(text, ephemeral=True)
         else:
@@ -145,13 +145,13 @@ class SelfRoleEditor(OwnedView):
                         f"      button: {r.get('emoji') or ''} {r['label']}")
         title = f"{cfg['title_emoji'] + ' ' if cfg['title_emoji'] else ''}{cfg['title']}"
         e = discord.Embed(title=f"{I.s('settings')} Self Roles - Editor", color=cfg["color"], description=(
-            f"{I.s('message')} **Channel:** {ch.mention if ch else f'not set - use `{PREFIX}setsr #channel`'}\n"
+            f"{I.s('message')} **Channel:** {ch.mention if ch else f'not set (`{PREFIX}setsr #channel`)'}\n"
             f"{I.s('image')} **Banner:** {self.cog.banner_info(cfg)}\n"
             f"{I.s('edit')} **Title:** {title}\n"
             f"{I.s('info')} **Footer:** {cfg['footer'] or '*none*'}\n"
             f"{I.s('palette')} **Colour:** `#{cfg['color']:06X}`\n\n"
-            f"**Roles ({len(cfg['roles'])}/{MAX_ROLES})**\n" + ("\n".join(rows) or "*none yet - press **Add role***")))
-        e.set_footer(text=f"Changes update the posted message automatically · {PREFIX}editsr + image/GIF = new banner")
+            f"**Roles ({len(cfg['roles'])}/{MAX_ROLES})**\n" + ("\n".join(rows) or "*none yet. Tap **Add role***")))
+        e.set_footer(text=f"The posted message updates by itself · {PREFIX}editsr + image/GIF = new banner")
         return e
 
     async def refresh(self):
@@ -183,22 +183,21 @@ class SelfRoleEditor(OwnedView):
     async def add_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
         cfg = self.cog.cfg(self.guild.id)
         if len(cfg["roles"]) >= MAX_ROLES:
-            return await interaction.response.send_message(err(f"You can add at most {MAX_ROLES} roles."), ephemeral=True)
+            return await interaction.response.send_message(err(f"Max {MAX_ROLES} roles."), ephemeral=True)
         view = discord.ui.View(timeout=120)
-        sel = discord.ui.RoleSelect(placeholder="Select the role members can toggle...")
+        sel = discord.ui.RoleSelect(placeholder="Pick the role...")
 
         async def picked(i: discord.Interaction):
             role = sel.values[0]
             if any(r["role"] == role.id for r in cfg["roles"]):
-                return await i.response.send_message(err("That role is already in the list."), ephemeral=True)
+                return await i.response.send_message(err("Already in the list."), ephemeral=True)
             if not role.is_assignable():
                 return await i.response.send_message(
-                    err("I can't give that role. Move my role above it (and it can't be @everyone / a bot role)."),
+                    err("I can't give that role. Move my role above it."),
                     ephemeral=True)
             if risky(role):
                 return await i.response.send_message(
-                    err("That role has powerful permissions (Administrator / Manage ...). "
-                        "It can't be a self role."), ephemeral=True)
+                    err("That role has strong permissions, so it can't be a self role."), ephemeral=True)
 
             async def cb(i2: discord.Interaction, v):
                 entry = {"role": role.id, "label": v[0], "emoji": emoji_or_none(v[1]),
@@ -210,7 +209,7 @@ class SelfRoleEditor(OwnedView):
             await i.response.send_modal(self._entry_modal(f"Add: {role.name}", default, cb))
         sel.callback = picked
         view.add_item(sel)
-        await interaction.response.send_message("Which role should members be able to toggle?", view=view, ephemeral=True)
+        await interaction.response.send_message("Which role?", view=view, ephemeral=True)
 
     def _pick_view(self, placeholder: str, handler, multi: bool = False):
         cfg = self.cog.cfg(self.guild.id)
@@ -244,8 +243,8 @@ class SelfRoleEditor(OwnedView):
             await i.response.send_modal(self._entry_modal("Edit role", entry, cb))
         view = self._pick_view("Which role do you want to edit?", handler)
         if view is None:
-            return await interaction.response.send_message(err("There are no roles yet."), ephemeral=True)
-        await interaction.response.send_message("Pick a role to edit (button text, line text and both emojis):",
+            return await interaction.response.send_message(err("No roles yet."), ephemeral=True)
+        await interaction.response.send_message("Pick a role to edit:",
                                                 view=view, ephemeral=True)
 
     @discord.ui.button(label="Remove role", style=discord.ButtonStyle.danger, row=0)
@@ -262,8 +261,8 @@ class SelfRoleEditor(OwnedView):
             await self.refresh()
         view = self._pick_view("Which roles should be removed?", handler, multi=True)
         if view is None:
-            return await interaction.response.send_message(err("There are no roles yet."), ephemeral=True)
-        await interaction.response.send_message("Pick the roles to remove:", view=view, ephemeral=True)
+            return await interaction.response.send_message(err("No roles yet."), ephemeral=True)
+        await interaction.response.send_message("Pick roles to remove:", view=view, ephemeral=True)
 
     # ----- look of the message -----
     @discord.ui.button(label="Banner", style=discord.ButtonStyle.secondary, row=1)
@@ -276,7 +275,7 @@ class SelfRoleEditor(OwnedView):
     async def banner_off_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
         cfg = self.cog.cfg(self.guild.id)
         if not cfg["banner"]:
-            return await interaction.response.send_message(err("There is no banner."), ephemeral=True)
+            return await interaction.response.send_message(err("No banner to remove."), ephemeral=True)
         await interaction.response.defer(ephemeral=True)
         self.cog.drop_banner(self.guild.id)
         await self.saved(interaction, "Banner removed.")
@@ -287,7 +286,7 @@ class SelfRoleEditor(OwnedView):
 
         async def cb(i: discord.Interaction, v):
             if not v[0]:
-                raise VCError("The title can't be empty.")
+                raise VCError("Title can't be empty.")
             cfg["title"], cfg["title_emoji"] = v[0], emoji_or_none(v[1])
             self.cog.save()
             await self.saved(i, "Title updated.")
@@ -391,9 +390,9 @@ class SelfRoles(commands.Cog):
         """Validate (real file type from the bytes) and save the banner. Replaces the old one."""
         ext = sniff_ext(data)
         if ext is None:
-            raise VCError("The banner must be a PNG, JPG, GIF or WEBP image (a direct image file, not a web page).")
+            raise VCError("Banner must be a PNG, JPG, GIF or WEBP image file.")
         if len(data) > MAX_BANNER:
-            raise VCError(f"That image is bigger than **{MAX_BANNER_MB} MB**. Please use a smaller one.")
+            raise VCError(f"That image is over **{MAX_BANNER_MB} MB**.")
         c = self.cfg(gid)
         name = f"{gid}.{ext}"
         tmp = BANNER_DIR / (name + ".tmp")
@@ -406,20 +405,20 @@ class SelfRoles(commands.Cog):
 
     async def set_banner_url(self, gid: int, url: str):
         if not url.startswith(("http://", "https://")):
-            raise VCError("Please give an image link starting with `https://`.")
+            raise VCError("Give an image link starting with `https://`.")
         try:
             async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=20),
                                              headers={"User-Agent": "Mozilla/5.0 (Leafy bot)"}) as s:
                 async with s.get(url) as r:
                     if r.status != 200:
-                        raise VCError("I couldn't download that image (the link may have expired).")
+                        raise VCError("I couldn't download that image. The link may have expired.")
                     if (r.content_length or 0) > MAX_BANNER:
-                        raise VCError(f"That image is bigger than **{MAX_BANNER_MB} MB**. Please use a smaller one.")
+                        raise VCError(f"That image is over **{MAX_BANNER_MB} MB**.")
                     data = bytearray()
                     async for chunk in r.content.iter_chunked(64 * 1024):   # read the WHOLE file (read(n) can return a partial chunk)
                         data += chunk
                         if len(data) > MAX_BANNER:
-                            raise VCError(f"That image is bigger than **{MAX_BANNER_MB} MB**. Please use a smaller one.")
+                            raise VCError(f"That image is over **{MAX_BANNER_MB} MB**.")
         except (aiohttp.ClientError, asyncio.TimeoutError):
             raise VCError("I couldn't download that image.")
         self.store_banner(gid, bytes(data))
@@ -454,9 +453,9 @@ class SelfRoles(commands.Cog):
         cfg = self.cfg(guild.id)
         ch = guild.get_channel(cfg["channel"]) if cfg["channel"] else None
         if not isinstance(ch, discord.TextChannel):
-            raise VCError(f"Set the channel first: `{PREFIX}setsr #channel`.")
+            raise VCError(f"Set a channel first: `{PREFIX}setsr #channel`.")
         if not cfg["roles"]:
-            raise VCError("Add at least one role first.")
+            raise VCError("Add a role first.")
         perms = ch.permissions_for(guild.me)
         if not (perms.view_channel and perms.send_messages and perms.attach_files):
             raise VCError(f"I need **View Channel, Send Messages and Attach Files** in {ch.mention}.")
@@ -474,7 +473,7 @@ class SelfRoles(commands.Cog):
                 msg = await ch.send(view=view, files=[file] if file else [],
                                     allowed_mentions=discord.AllowedMentions.none())
         except discord.HTTPException as e:
-            raise VCError(f"Discord refused the message: {e.text}\nCheck your emojis and the banner image.")
+            raise VCError(f"Discord said no: {e.text}\nCheck the emojis and banner.")
         cfg["message"] = msg.id
         self.save()
         return msg
@@ -512,19 +511,19 @@ class SelfRoles(commands.Cog):
         await interaction.response.defer(ephemeral=True)
         role = guild.get_role(role_id)
         if role is None or not any(r["role"] == role_id for r in cfg["roles"]):
-            return await interaction.followup.send(err("That role isn't available any more."), ephemeral=True)
+            return await interaction.followup.send(err("That role is gone."), ephemeral=True)
         if not guild.me.guild_permissions.manage_roles or not role.is_assignable() or risky(role):
             return await interaction.followup.send(
-                err("I can't manage that role right now. Please tell an admin."), ephemeral=True)
+                err("I can't manage that role right now. Tell an admin."), ephemeral=True)
         try:
             if role in member.roles:
                 await member.remove_roles(role, reason="Self role")
                 text = f"{I.s('minus')} Removed {role.mention}."
             else:
                 await member.add_roles(role, reason="Self role")
-                text = ok(f"You now have {role.mention}.")
+                text = ok(f"You have {role.mention} now.")
         except discord.HTTPException:
-            text = err("Something went wrong. Please try again.")
+            text = err("Something broke. Try again.")
         await interaction.followup.send(text, ephemeral=True, allowed_mentions=discord.AllowedMentions.none())
 
     @commands.Cog.listener()
@@ -545,7 +544,7 @@ class SelfRoles(commands.Cog):
         note = ""
         if img is not None:
             if img.size > MAX_BANNER:
-                raise VCError(f"That image is bigger than **{MAX_BANNER_MB} MB**. Please use a smaller one.")
+                raise VCError(f"That image is over **{MAX_BANNER_MB} MB**.")
             self.store_banner(ctx.guild.id, await img.read())
             note = ok("Banner updated.")
             await self.sync(ctx.guild)
@@ -558,10 +557,10 @@ class SelfRoles(commands.Cog):
     async def selfrole(self, ctx: commands.Context):
         """Self roles: banner, role list and toggle buttons."""
         e = discord.Embed(title=f"{I.s('crown')} Self Roles", color=BLURPLE, description=(
-            "Members click a button to get or remove a role.\n\n"
-            f"`{PREFIX}selfrole setup` · open the editor (roles, banner, title, footer, emojis)\n"
-            f"`{PREFIX}setsr #channel` · choose where the message is posted\n"
-            f"`{PREFIX}editsr` · edit it later (attach an image = new banner)"))
+            "Members tap a button to get or drop a role.\n\n"
+            f"`{PREFIX}selfrole setup` · open the editor\n"
+            f"`{PREFIX}setsr #channel` · pick the channel\n"
+            f"`{PREFIX}editsr` · edit later (attach an image = new banner)"))
         await ctx.reply(embed=e, mention_author=False)
 
     @selfrole.command(name="setup")
@@ -588,12 +587,11 @@ class SelfRoles(commands.Cog):
         cfg["channel"] = channel.id
         self.save()
         if not cfg["roles"]:
-            return await ctx.reply(ok(f"Self-role channel set to {channel.mention}.\n"
-                                      f"Now add roles with `{PREFIX}selfrole setup` - the message posts automatically."),
+            return await ctx.reply(ok(f"Self-role channel is {channel.mention}. Add roles with `{PREFIX}selfrole setup`."),
                                    mention_author=False)
         async with ctx.typing():
             msg = await self.publish(ctx.guild)
-        await ctx.reply(ok(f"Self roles posted in {channel.mention}: {msg.jump_url}"), mention_author=False)
+        await ctx.reply(ok(f"Posted in {channel.mention}: {msg.jump_url}"), mention_author=False)
 
     @commands.command(name="editsr", aliases=["esr"])
     @commands.has_permissions(manage_guild=True)

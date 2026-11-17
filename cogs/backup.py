@@ -1,14 +1,16 @@
-"""Webhook backup.
+"""Webhook backup - TWO zips in one small message.
 
-BACKUP_WEBHOOK (in .env) gets a detailed message with the FULL zip of the whole bot (code, assets, data/ folder,
-.env INCLUDING the token and the webhook - set BACKUP_REDACT=1 in .env if you want them removed). It is sent automatically:
-  - once when the bot starts,
-  - every 30 seconds after that (no command needed),
-  - once more when the bot stops (status = offline).
-Every backup is a NEW message; the previous backup message is deleted so the channel does not fill up.
-BACKUP_MODE=keep in .env keeps every message instead of deleting the previous one.
+  leafy_code.zip   code, assets, .env (token + webhook stay in unless BACKUP_REDACT=1), export/ (readable config)
+  leafy_data.zip   data/ only: database, VC / AFK / self-role data  (upload it back with `$backupload`)
+
+Sent when the bot starts, every 30 seconds, and when it stops. Each backup is a new message; the previous one is
+deleted (BACKUP_MODE=keep keeps them all).
+
+`$backupload` (owner) - attach one or more data zips (or old full backups): everything inside data/ is merged
+into the running bot. Nothing is overwritten blindly: new rows are added, existing ones keep the bigger value.
 """
 import asyncio
+import copy
 import hashlib
 import io
 import json
@@ -16,6 +18,7 @@ import logging
 import os
 import platform
 import re
+import sqlite3
 import tempfile
 import time
 import zipfile
@@ -27,7 +30,7 @@ import discord
 from discord.ext import commands, tasks
 
 from core import checks, export
-from core.config import AFK_FILE, BACKUP_MODE, BACKUP_REDACT, BACKUP_WEBHOOK, BASE, BLURPLE, GREEN
+from core.config import PREFIX, AFK_FILE, BACKUP_MODE, BACKUP_REDACT, BACKUP_WEBHOOK, BASE, BLURPLE, DATA_DIR, GREEN
 from core.errors import VCError
 from core.icons import I, ok
 
@@ -61,18 +64,19 @@ def iter_files(base: Path):
 
 
 def build_zip(base: Path, db_snapshot: Optional[str], meta: dict, cfg_export: Optional[dict] = None):
-    """Runs in a worker thread -> dict(zip, digest, files{name:(size,sha1)}, raw_total).
-    cfg_export = result of core.export.collect() (readable server config) - the player / database exports are made here."""
+    """Runs in a worker thread -> dict(code, data, digest, files{name:(size,sha1)}, raw_total, env_keys, env_removed).
+    code zip = everything except data/; data zip = data/ (+ a consistent database snapshot)."""
     digest = hashlib.sha256()
-    buf = io.BytesIO()
+    code_buf, data_buf = io.BytesIO(), io.BytesIO()
     files: dict[str, tuple[int, str]] = {}
     env_keys, env_removed = [], []
-    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as z:
+    with zipfile.ZipFile(code_buf, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as cz, \
+            zipfile.ZipFile(data_buf, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as dz:
         def add(name: str, data: bytes):
             h = hashlib.sha1(data).hexdigest()
             files[name] = (len(data), h)
             digest.update(name.encode() + b"\0" + h.encode())
-            z.writestr(name, data)
+            (dz if name.startswith("data/") else cz).writestr(name, data)
 
         for name, p in iter_files(base):
             try:
@@ -82,7 +86,7 @@ def build_zip(base: Path, db_snapshot: Optional[str], meta: dict, cfg_export: Op
             if p.name == ".env":
                 text = data.decode("utf-8", "replace")
                 env_keys = ENV_KEY.findall(text)
-                if BACKUP_REDACT:                       # default: token + webhook stay in the backup
+                if BACKUP_REDACT:                       # default: token + webhook stay in the code zip
                     env_removed = [k for k in env_keys if re.search("TOKEN|SECRET|PASSWORD|WEBHOOK", k, re.I)]
                     data = redact_env(data)
             add(name, data)
@@ -100,14 +104,128 @@ def build_zip(base: Path, db_snapshot: Optional[str], meta: dict, cfg_export: Op
             if db_snapshot:
                 for name, data in export.db_extras(db_snapshot, cfg_export["names"]).items():
                     add(name, data)
-        manifest = {
-            **meta, "files": [{"path": n, "size": s, "sha1": h} for n, (s, h) in sorted(files.items())],
+        listing = [{"path": n, "size": s, "sha1": h} for n, (s, h) in sorted(files.items())]
+        code_files = [f for f in listing if not f["path"].startswith("data/")]
+        data_files = [f for f in listing if f["path"].startswith("data/")]
+        cz.writestr("BACKUP_MANIFEST.json", json.dumps({
+            **meta, "kind": "code", "files": code_files,
             "restore": ["unzip", "put your DISCORD_TOKEN (and BACKUP_WEBHOOK) back into .env",
-                        "pip install -r requirements.txt", "python main.py"],
-        }
-        z.writestr("BACKUP_MANIFEST.json", json.dumps(manifest, indent=2))
-    return {"zip": buf.getvalue(), "digest": digest.hexdigest(), "files": files, "env_keys": env_keys,
-            "env_removed": env_removed, "raw_total": sum(s for s, _ in files.values())}
+                        "pip install -r requirements.txt", "python main.py",
+                        "then send leafy_data.zip with $backupload to bring the data back"]}, indent=2))
+        dz.writestr("DATA_MANIFEST.json", json.dumps({**meta, "kind": "data", "files": data_files,
+                                                      "restore": ["send this zip with $backupload"]}, indent=2))
+    return {"code": code_buf.getvalue(), "data": data_buf.getvalue(), "digest": digest.hexdigest(), "files": files,
+            "env_keys": env_keys, "env_removed": env_removed, "raw_total": sum(s for s, _ in files.values())}
+
+
+# ------------------------------------------------------------------ $backupload: merge data zips into the live bot
+UPLOAD_LIMIT = 64 * 1024 * 1024
+DATA_ENTRY = re.compile(r"(?:^|/)data/((?:leafy\.db|vc_data\.json|afk_data\.json|selfrole/[^/]+))$")
+
+
+def _cols(c: sqlite3.Connection, schema: str, table: str) -> list[str]:
+    return [r[1] for r in c.execute(f"PRAGMA {schema}.table_info({table})")]
+
+
+def merge_db(live: sqlite3.Connection, src_path: str) -> dict:
+    """Merge a backup database into the live one. Returns {table: rows added/changed}."""
+    added: dict[str, int] = {}
+    chk = sqlite3.connect(src_path)
+    try:
+        if chk.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
+            raise VCError("That database file is damaged.")
+    finally:
+        chk.close()
+    live.commit()
+    live.execute("ATTACH DATABASE ? AS src", (src_path,))
+    try:
+        tables = {r[0] for r in live.execute("SELECT name FROM src.sqlite_master WHERE type='table'")}
+        with live:
+            def n(table):
+                return live.execute(f"SELECT COUNT(*) FROM main.{table}").fetchone()[0]
+
+            if "users" in tables:
+                before = n("users")
+                cols = [c for c in _cols(live, "src", "users") if c in _cols(live, "main", "users")]
+                keep = [c for c in cols if c not in ("guild_id", "user_id")]
+                live.execute(
+                    f"INSERT INTO main.users({','.join(cols)}) SELECT {','.join(cols)} FROM src.users WHERE true "
+                    f"ON CONFLICT(guild_id,user_id) DO UPDATE SET "
+                    + ",".join(f"{c}=MAX({c},excluded.{c})" for c in keep))
+                added["players"] = n("users") - before
+            if "channel_progress" in tables:
+                live.execute(
+                    "INSERT INTO main.channel_progress(guild_id,user_id,channel_id,progress,total) "
+                    "SELECT guild_id,user_id,channel_id,progress,total FROM src.channel_progress WHERE true "
+                    "ON CONFLICT(guild_id,user_id,channel_id) DO UPDATE SET "
+                    "progress=MAX(progress,excluded.progress), total=MAX(total,excluded.total)")
+            if "badges" in tables:
+                before = n("badges")
+                live.execute("INSERT OR IGNORE INTO main.badges SELECT guild_id,user_id,badge FROM src.badges")
+                added["badges"] = n("badges") - before
+            if "shop_items" in tables:
+                before = n("shop_items")
+                has_pos = "position" in _cols(live, "src", "shop_items")
+                live.execute(
+                    "INSERT OR IGNORE INTO main.shop_items(guild_id,role_id,price,stock,emoji,position) "
+                    f"SELECT guild_id,role_id,price,stock,emoji,{'position' if has_pos else 'NULL'} FROM src.shop_items")
+                live.execute(
+                    "UPDATE shop_items SET position=(SELECT COUNT(*) FROM shop_items s2 WHERE "
+                    "s2.guild_id=shop_items.guild_id AND s2.id<=shop_items.id) WHERE position IS NULL")
+                added["shop items"] = n("shop_items") - before
+            if "purchases" in tables:
+                before = n("purchases")
+                live.execute(
+                    "INSERT INTO main.purchases(guild_id,user_id,role_id,price,ts) "
+                    "SELECT s.guild_id,s.user_id,s.role_id,s.price,s.ts FROM src.purchases s WHERE NOT EXISTS("
+                    "SELECT 1 FROM main.purchases p WHERE p.guild_id=s.guild_id AND p.user_id=s.user_id "
+                    "AND p.role_id=s.role_id AND p.ts=s.ts)")
+                added["purchases"] = n("purchases") - before
+            if "point_log" in tables:
+                live.execute(
+                    "INSERT INTO main.point_log(guild_id,user_id,delta,reason,ts) "
+                    "SELECT s.guild_id,s.user_id,s.delta,s.reason,s.ts FROM src.point_log s WHERE NOT EXISTS("
+                    "SELECT 1 FROM main.point_log p WHERE p.guild_id=s.guild_id AND p.user_id=s.user_id "
+                    "AND p.delta=s.delta AND p.ts=s.ts)")
+            if "settings" in tables:
+                touched = 0
+                for gid, key, val in live.execute("SELECT guild_id,key,value FROM src.settings").fetchall():
+                    try:
+                        incoming = json.loads(val)
+                    except ValueError:
+                        continue
+                    row = live.execute("SELECT value FROM main.settings WHERE guild_id=? AND key=?", (gid, key)).fetchone()
+                    if row is None:
+                        live.execute("INSERT INTO main.settings(guild_id,key,value) VALUES(?,?,?)", (gid, key, val))
+                        touched += 1
+                        continue
+                    try:
+                        current = json.loads(row[0])
+                    except ValueError:
+                        current = {}
+                    merged = deep_fill(copy.deepcopy(current), incoming)
+                    if merged != current:
+                        live.execute("UPDATE main.settings SET value=? WHERE guild_id=? AND key=?",
+                                     (json.dumps(merged), gid, key))
+                        touched += 1
+                added["settings"] = touched
+    finally:
+        live.execute("DETACH DATABASE src")
+    return added
+
+
+def deep_fill(live, incoming):
+    """Add what is missing in `live` from `incoming` (live values win; lists are joined without duplicates)."""
+    if isinstance(live, dict) and isinstance(incoming, dict):
+        for k, v in incoming.items():
+            live[k] = deep_fill(live[k], v) if k in live else copy.deepcopy(v)
+        return live
+    if isinstance(live, list) and isinstance(incoming, list):
+        for v in incoming:
+            if v not in live:
+                live.append(copy.deepcopy(v))
+        return live
+    return live
 
 
 def human(n: float) -> str:
@@ -193,8 +311,6 @@ class Backup(commands.Cog):
                     self.bot.db.snapshot(snap.name)
                     cfg_export = self.export_config()
                     info = await asyncio.to_thread(build_zip, BASE, snap.name, meta, cfg_export)
-                    info["summary"] = cfg_export["summary"] if cfg_export else []
-                    info["vc_lines"] = cfg_export["vc_lines"] if cfg_export else []
                 finally:
                     Path(snap.name).unlink(missing_ok=True)
                 self._fp = self.fingerprint()
@@ -224,68 +340,16 @@ class Backup(commands.Cog):
             log.warning("config export failed (backup continues without it): %r", e, exc_info=True)
             return None
 
-    def changes(self, files: dict) -> list[str]:
-        if not self._prev_files:
-            return []
-        out = []
-        for n, (size, h) in sorted(files.items()):
-            old = self._prev_files.get(n)
-            if old is None:
-                out.append(f"+ {n} ({human(size)})")
-            elif old[1] != h:
-                out.append(f"~ {n} ({human(old[0])} → {human(size)})")
-        for n in sorted(set(self._prev_files) - set(files)):
-            out.append(f"- {n}")
-        return out
-
-    def embed(self, status, reason, info, counter, changed: list[str], zip_size, skipped: bool) -> discord.Embed:
-        b, db = self.bot, self.bot.db.counts()
+    def embed(self, status, reason, info, counter, skipped: bool) -> discord.Embed:
         online = status == "online"
-        files = info["files"]
         now = int(time.time())
-        data_files = [f"`{n}` - {human(s)}" for n, (s, _) in sorted(files.items()) if n.startswith("data/")]
-        code = sum(1 for n in files if n.endswith(".py"))
-        assets = sum(1 for n in files if n.startswith("assets/"))
-        e = discord.Embed(
-            title=f"Leafy Backup #{counter}", color=GREEN if online else 0xED4245,
-            timestamp=discord.utils.utcnow(),
-            description=(f"**Status:** {'Online' if online else 'Offline - bot stopped'}\n"
-                         f"**Reason:** {REASONS.get(reason, reason)}\n"
-                         f"**Backed up:** <t:{now}:F> (<t:{now}:R>)"
-                         + ("\nThe zip is too large to upload - only this status was sent." if skipped else "")))
-        e.add_field(name="Package", inline=False, value=(
-            f"**Files:** {len(files)} (code `{code}` | assets `{assets}` | data `{len(data_files)}`)\n"
-            f"**Zip size:** {human(zip_size)} | **Unpacked:** {human(info['raw_total'])}\n"
-            f"**Includes:** every bot file, `.env` (token + webhook), `data/` folder (db, VC / self-role / AFK data, banner), `BACKUP_MANIFEST.json`\n"
-            f"**Readable export:** `export/SERVER_CONFIG.md` + `.json` (every channel / role setting with names), "
-            f"`export/custom_vc_channels.json` (join-to-create + panel channels), "
-            f"`export/db_dump.json` (every database row), `export/players_<server>.csv`\n"
-            f"**Per server:** `export/servers/<server id>/` = config + saved data + every database row of that server"))
-        if info.get("vc_lines"):
-            e.add_field(name="Custom VC channels saved", inline=False,
-                        value="\n".join(info["vc_lines"][:6])[:1024])
-        if info.get("summary"):
-            e.add_field(name="Server setup saved", inline=False,
-                        value="\n".join(info["summary"][:5])[:1024])
-        e.add_field(name="Data files", inline=False, value="\n".join(data_files)[:1024] or "none")
-        if changed:
-            more = f"\n... and {len(changed) - 12} more" if len(changed) > 12 else ""
-            e.add_field(name=f"Changes since last backup ({len(changed)})", inline=False,
-                        value="```diff\n" + "\n".join(changed[:12]) + more + "\n```")
-        else:
-            e.add_field(name="Changes since last backup", inline=False,
-                        value="No file changes" if self._prev_files else "First backup of this session")
-        e.add_field(name="Bot data", inline=True, value=(
-            f"Servers: `{len(b.guilds)}`\nUsers (points): `{db['users']}`\nShop items: `{db['items']}`\n"
-            f"Purchases: `{db['purchases']}`\nCustom VCs: `{len(self.store.data['vcs'])}`"))
-        e.add_field(name="Bot", inline=True, value=(
-            f"Latency: `{b.latency * 1000:.0f} ms`\nUptime: `{self.fmt_up()}`\nPython: `{platform.python_version()}`\n"
-            f"discord.py: `{discord.__version__}`\nMode: `{BACKUP_MODE}`"))
-        keys = info["env_keys"]
-        e.add_field(name=".env", inline=False, value=(
-            f"Keys: {', '.join(f'`{k}`' for k in keys) if keys else 'no .env found'}\n"
-            f"Removed from backup: {', '.join(f'`{k}`' for k in info['env_removed']) or 'nothing (token + webhook are in the zip)'}"))
-        e.set_footer(text=f"Automatic backup every {INTERVAL} seconds | also when the bot starts and stops | $backup refresh = now")
+        db = self.bot.db.counts()
+        e = discord.Embed(title=f"Leafy Backup #{counter}", color=GREEN if online else 0xED4245,
+                          timestamp=discord.utils.utcnow())
+        e.description = (f"{'Online' if online else 'Offline'} · {REASONS.get(reason, reason)} · <t:{now}:R>\n"
+                         f"Code `{human(len(info['code']))}` · Data `{human(len(info['data']))}`"
+                         + (f"\n{I.s('warning')} Too big to upload, status only." if skipped else ""))
+        e.set_footer(text=f"{len(self.bot.guilds)} servers · {db['users']} players · {len(self.store.data['vcs'])} VCs")
         return e
 
     def fmt_up(self) -> str:
@@ -296,48 +360,57 @@ class Backup(commands.Cog):
         return " ".join(x for x in (f"{d}d" if d else "", f"{h}h" if h else "", f"{m}m" if m else "", f"{s}s") if x)
 
     async def _push(self, status, reason, info, counter):
-        data = info["zip"]
-        skipped = len(data) > WEBHOOK_LIMIT
-        embed = self.embed(status, reason, info, counter, self.changes(info["files"]), len(data), skipped)
+        code, data = info["code"], info["data"]
+        skipped = len(code) > WEBHOOK_LIMIT or len(data) > WEBHOOK_LIMIT
         wh = discord.Webhook.from_url(BACKUP_WEBHOOK, session=self.session)
         avatar = self.bot.user.display_avatar.url
-        try:                                       # every backup = new message with the FULL zip attached
-            fkw = {} if skipped else {"file": discord.File(io.BytesIO(data), filename="leafy_backup.zip")}
-            m = await wh.send(embed=embed, wait=True, username="Leafy Backup", avatar_url=avatar, **fkw)
+        kw = dict(wait=True, username="Leafy Backup", avatar_url=avatar)
+        sent = []
+        embed = self.embed(status, reason, info, counter, skipped)
+        try:
+            if skipped:
+                sent.append(await wh.send(embed=embed, **kw))
+            elif len(code) + len(data) <= WEBHOOK_LIMIT:            # both zips in ONE message
+                sent.append(await wh.send(embed=embed, files=[discord.File(io.BytesIO(code), "leafy_code.zip"),
+                                                              discord.File(io.BytesIO(data), "leafy_data.zip")], **kw))
+            else:                                                    # too big together: data first, then code
+                sent.append(await wh.send(embed=embed, file=discord.File(io.BytesIO(data), "leafy_data.zip"), **kw))
+                sent.append(await wh.send(file=discord.File(io.BytesIO(code), "leafy_code.zip"), **kw))
         except discord.HTTPException as e:
             if e.status != 413:
                 raise
-            m = await wh.send(embed=self.embed(status, reason, info, counter, [], len(data), True), wait=True,
-                              username="Leafy Backup", avatar_url=avatar)
+            sent = [await wh.send(embed=self.embed(status, reason, info, counter, True), **kw)]
+            skipped = True
         old = self.cfg.get("webhook_message")
-        self.cfg["webhook_message"] = m.id
-        if BACKUP_MODE != "keep" and old and old != m.id:      # keep the channel clean: only the latest backup stays
-            try:
-                await wh.delete_message(old)
-            except discord.HTTPException:
-                pass
+        old = old if isinstance(old, list) else ([old] if old else [])
+        self.cfg["webhook_message"] = [m.id for m in sent]
+        if BACKUP_MODE != "keep":                                    # only the latest backup stays in the channel
+            for mid in old:
+                if mid not in self.cfg["webhook_message"]:
+                    try:
+                        await wh.delete_message(mid)
+                    except discord.HTTPException:
+                        pass
         if not skipped:
             self._last_digest = info["digest"]
         self._prev_files = info["files"]
         self.cfg["count"] = counter
         self.store.save_soon()
 
-    # ---------- $backup (bot owner only) ----------
+    # ---------- $backup (owner) ----------
     @commands.group(name="backup", invoke_without_command=True)
     @checks.is_owner()
     async def backup(self, ctx: commands.Context):
         """Backup status. `$backup refresh` = back up right now (owner only)."""
         lines = [
-            f"{I.s('link')} **Webhook:** "
-            + ("configured (`BACKUP_WEBHOOK` in .env)" if BACKUP_WEBHOOK
-               else "**not set** — add `BACKUP_WEBHOOK=https://discord.com/api/webhooks/...` to `.env` and restart"),
-            f"{I.s('gift_box')} **Backups sent:** {self.cfg.get('count', 0)}",
-            f"{I.s('clock')} **Last backup:** {f'<t:{int(self.last_ok)}:R>' if self.last_ok else 'not yet'}",
-            f"{I.s('bolt')} **Triggers:** automatic every {INTERVAL} seconds · on bot start · on bot stop · `$backup refresh`",
-            f"{I.s('settings')} **Mode:** `{BACKUP_MODE}` (`BACKUP_MODE=keep` in .env = don't delete the previous backup message)",
+            f"{I.s('link')} Webhook: " + ("set" if BACKUP_WEBHOOK else "**not set** (add `BACKUP_WEBHOOK` to `.env`)"),
+            f"{I.s('gift_box')} Backups sent: **{self.cfg.get('count', 0)}**",
+            f"{I.s('clock')} Last: {f'<t:{int(self.last_ok)}:R>' if self.last_ok else 'not yet'}",
+            f"{I.s('bolt')} Every **{INTERVAL}s**, on start and on stop",
+            f"{I.s('upload')} Bring data back with `{PREFIX}backupload` + `leafy_data.zip`",
         ]
         if self.last_error:
-            lines.append(f"{I.s('warning')} **Last error:** `{self.last_error[:200]}`")
+            lines.append(f"{I.s('warning')} Last error: `{self.last_error[:200]}`")
         await ctx.reply(embed=discord.Embed(title="Backup", description="\n".join(lines), color=BLURPLE),
                         mention_author=False)
 
@@ -348,14 +421,13 @@ class Backup(commands.Cog):
         async with ctx.typing():
             exp = self.export_config()
             if exp is None:
-                raise VCError("Couldn't build the config export - see the bot log.")
+                raise VCError("I couldn't build the export. Check the bot log.")
             files = [discord.File(io.BytesIO(exp["md"]), filename="SERVER_CONFIG.md")]
             if ctx.guild:
                 extras = await asyncio.to_thread(self._players_csv, ctx.guild.id, exp["names"])
                 if extras:
                     files.append(discord.File(io.BytesIO(extras), filename=f"players_{ctx.guild.id}.csv"))
-        await ctx.reply(ok("Everything the bot has saved for the servers + the player list:"), files=files,
-                        mention_author=False)
+        await ctx.reply(ok("Here you go."), files=files, mention_author=False)
 
     def _players_csv(self, gid: int, names: dict) -> Optional[bytes]:
         snap = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
@@ -371,11 +443,135 @@ class Backup(commands.Cog):
     async def backup_refresh(self, ctx: commands.Context):
         """Back up right now."""
         if not BACKUP_WEBHOOK:
-            raise VCError("Add `BACKUP_WEBHOOK=...` to `.env` and restart the bot first.")
+            raise VCError("Add `BACKUP_WEBHOOK` to `.env` and restart me first.")
         async with ctx.typing():
             good = await self.refresh("online", "manual")
-        await ctx.reply(ok("Backup sent to the webhook.") if good else f"{I.s('cross')} Backup failed: `{self.last_error}`",
+        await ctx.reply(ok("Backup sent.") if good else f"{I.s('cross')} Backup failed: `{self.last_error}`",
                         mention_author=False)
+
+    # ---------- $backupload (owner): merge data zip(s) into the running bot ----------
+    @commands.command(name="backupload", aliases=["bload", "bupload"])
+    @checks.is_owner()
+    async def backupload(self, ctx: commands.Context):
+        """Attach one or more data zips (or reply to a message that has them). Data is merged automatically."""
+        atts = list(ctx.message.attachments)
+        ref = ctx.message.reference
+        if ref is not None:
+            msg = ref.resolved if isinstance(ref.resolved, discord.Message) else None
+            if msg is None and ref.message_id:
+                try:
+                    msg = await ctx.channel.fetch_message(ref.message_id)
+                except discord.HTTPException:
+                    msg = None
+            if msg is not None:
+                atts += list(msg.attachments)
+        atts = [a for a in atts if a.filename.lower().endswith(".zip")]
+        if not atts:
+            raise VCError("Attach a data zip with the command, or reply to a message that has one.")
+        lines = []
+        async with ctx.typing():
+            for a in atts[:10]:
+                if a.size > UPLOAD_LIMIT:
+                    lines.append(f"{I.s('cross')} `{a.filename}` is too big.")
+                    continue
+                try:
+                    raw = await a.read()
+                    got = await self.merge_zip(raw)
+                except VCError as e:
+                    lines.append(f"{I.s('cross')} `{a.filename}`: {e}")
+                    continue
+                except (zipfile.BadZipFile, OSError, sqlite3.Error, ValueError) as e:
+                    log.warning("backupload failed for %s: %r", a.filename, e, exc_info=True)
+                    lines.append(f"{I.s('cross')} `{a.filename}` couldn't be read.")
+                    continue
+                lines.append(f"{I.s('check')} `{a.filename}`: " + (", ".join(f"{v} {k}" for k, v in got.items() if v) or "nothing new"))
+        self.reset_caches()
+        await ctx.reply("\n".join(lines), mention_author=False)
+
+    async def merge_zip(self, raw: bytes) -> dict:
+        z = zipfile.ZipFile(io.BytesIO(raw))
+        found: dict[str, str] = {}
+        for name in z.namelist():
+            m = DATA_ENTRY.search(name.replace("\\", "/"))
+            if m and ".." not in name.split("/") and not name.endswith("/"):
+                found[m.group(1)] = name
+        if not found:
+            raise VCError("No `data/` folder inside.")
+        out: dict[str, int] = {}
+        if "leafy.db" in found:
+            tmp = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
+            try:
+                tmp.write(z.read(found["leafy.db"]))
+                tmp.close()
+                for k, v in merge_db(self.bot.db.conn, tmp.name).items():
+                    out[k] = out.get(k, 0) + v
+            finally:
+                Path(tmp.name).unlink(missing_ok=True)
+        if "vc_data.json" in found:
+            if self.merge_store(json.loads(z.read(found["vc_data.json"]))):
+                out["VC / server settings"] = 1
+        if "afk_data.json" in found:
+            n = self.merge_afk(json.loads(z.read(found["afk_data.json"])))
+            if n:
+                out["AFK"] = n
+        for rel, name in found.items():
+            if not rel.startswith("selfrole/") or "/" in rel[len("selfrole/"):]:
+                continue
+            fn = Path(rel).name
+            dest = DATA_DIR / "selfrole" / fn
+            if fn.lower().endswith((".gif", ".png", ".jpg", ".jpeg", ".webp")) and not dest.exists():
+                data = z.read(name)
+                if len(data) <= 12 * 1024 * 1024:
+                    dest.parent.mkdir(exist_ok=True)
+                    dest.write_bytes(data)
+                    out["banners"] = out.get("banners", 0) + 1
+        return out
+
+    def merge_store(self, inc: dict) -> bool:
+        d = self.store.data
+        before = json.dumps(d, sort_keys=True, default=str)
+        for key in ("guilds", "selfroles", "vc_setup", "guild_owners"):
+            if isinstance(inc.get(key), dict):
+                d[key] = deep_fill(d.setdefault(key, {}), inc[key])
+        if isinstance(inc.get("extra_owners"), list):
+            d["extra_owners"] = deep_fill(d.setdefault("extra_owners", []), inc["extra_owners"])
+        now = time.time()
+        for k, exp in (inc.get("mutes") or {}).items():          # only mutes that are still running
+            if k not in d["mutes"] and isinstance(exp, (int, float)) and exp > now:
+                d["mutes"][k] = exp
+        for cid, rec in (inc.get("vcs") or {}).items():          # only VCs that still exist
+            if cid not in d["vcs"] and self.bot.get_channel(int(cid)) is not None:
+                d["vcs"][cid] = rec
+        changed = json.dumps(d, sort_keys=True, default=str) != before
+        if changed:
+            self.store.save_soon()
+        return changed
+
+    def merge_afk(self, inc: dict) -> int:
+        cog = self.bot.get_cog("AFK")
+        if cog is None:
+            return 0
+        n = 0
+        for k, v in (inc.get("afk") or {}).items():
+            if int(k) not in cog.afk:
+                cog.afk[int(k)] = v
+                n += 1
+        for k, v in (inc.get("tag") or {}).items():
+            cog.tag_enabled.setdefault(int(k), v)
+        if n:
+            cog.save()
+        return n
+
+    def reset_caches(self):
+        """Settings were merged in the database: drop every in-memory copy so the bot re-reads them."""
+        for owner in (self.bot, *self.bot.cogs.values()):
+            for attr in ("_noprefix", "_aliases", "_rolecmds", "_cfg", "_cache", "_rules", "_customvc"):
+                cache = getattr(owner, attr, None)
+                if isinstance(cache, dict):
+                    cache.clear()
+        svc = getattr(self.bot, "vc_service", None)
+        if svc is not None:
+            svc.reset_cache()
 
 
 async def setup(bot):

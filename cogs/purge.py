@@ -72,7 +72,7 @@ class Purge(commands.Cog):
         ch = ctx.channel
         perms = ch.permissions_for(ctx.guild.me)
         if not (perms.manage_messages and perms.read_message_history):
-            raise VCError("I need **Manage Messages** and **Read Message History** in this channel.")
+            raise VCError("I need **Manage Messages** and **Read Message History** here.")
 
         prefixes = (PREFIX,)
 
@@ -96,9 +96,9 @@ class Purge(commands.Cog):
                 else:
                     await ch.delete_messages(chunk, reason=f"purgebot by {ctx.author} ({ctx.author.id})")
         except discord.HTTPException as e:
-            raise VCError(f"Couldn't delete the messages: {e.text or e.status}")
+            raise VCError(f"Couldn't delete: {e.text or e.status}")
 
-        text = f"{I.s('check')} **Successfully purged** {len(found)} bot message{'s' if len(found) != 1 else ''}."
+        text = f"{I.s('check')} Deleted **{len(found)}** bot message{'s' if len(found) != 1 else ''}."
         if clamped:
             text += f" (max is {MAX})"
         if skipped_old:
@@ -135,13 +135,13 @@ class Purge(commands.Cog):
                     continue
                 except commands.BadArgument:
                     pass
-            raise VCError("Use `$p @member [amount]`, or reply to the member's message and type `$p [amount]`.")
+            raise VCError("Use `$p @member [amount]`, or reply to their message with `$p`.")
         if member is None:
             ref = await replied_message(ctx)
             if ref is not None:
                 member = ctx.guild.get_member(ref.author.id)
                 if member is None:
-                    raise VCError("That member isn't in this server anymore.")
+                    raise VCError("They left the server.")
         if member is None:
             return await ctx.invoke(profile, member=None)            # plain `$p` = your profile
         if amount < 1:
@@ -151,7 +151,7 @@ class Purge(commands.Cog):
         ch = ctx.channel
         perms = ch.permissions_for(ctx.guild.me)
         if not (perms.manage_messages and perms.read_message_history):
-            raise VCError("I need **Manage Messages** and **Read Message History** in this channel.")
+            raise VCError("I need **Manage Messages** and **Read Message History** here.")
 
         limit_age = discord.utils.utcnow() - timedelta(days=14) + timedelta(minutes=5)
         found, skipped_old = [], 0
@@ -174,9 +174,9 @@ class Purge(commands.Cog):
                 else:
                     await ch.delete_messages(chunk, reason=f"purgemember by {ctx.author} ({ctx.author.id})")
         except discord.HTTPException as e:
-            raise VCError(f"Couldn't delete the messages: {e.text or e.status}")
+            raise VCError(f"Couldn't delete: {e.text or e.status}")
 
-        text = f"{I.s('check')} **Successfully purged** {len(found)} message{'s' if len(found) != 1 else ''} from {member.mention}."
+        text = f"{I.s('check')} Deleted **{len(found)}** message{'s' if len(found) != 1 else ''} from {member.mention}."
         if clamped:
             text += f" (max is {MAX})"
         if skipped_old:

@@ -1,5 +1,6 @@
 """Custom (join-to-create) voice channels: service + commands + events."""
 import asyncio
+import contextvars
 import logging
 import re
 from typing import Optional
@@ -16,7 +17,9 @@ from core.icons import I, ok
 
 log = logging.getLogger("leafy.vc")
 
-NOT_IN_VC = "You must be in your custom VC to manage it."
+NOT_IN_VC = "Join your custom VC first."
+CHAT_VC = contextvars.ContextVar("chat_vc", default=None)     # the voice channel whose chat a command was typed in
+CFG_KEY = "customvc"
 
 
 def parse_duration(text: str) -> int:
@@ -26,11 +29,11 @@ def parse_duration(text: str) -> int:
         return int(text) * 60
     parts = re.findall(r"(\d+)\s*([smhd])", text)
     if not parts or re.sub(r"(\d+)\s*([smhd])", "", text).strip():
-        raise VCError("Invalid duration. Use something like `30s`, `10m`, `2h`.")
+        raise VCError("Try something like `30s`, `10m` or `2h`.")
     mult = {"s": 1, "m": 60, "h": 3600, "d": 86400}
     secs = sum(int(n) * mult[u] for n, u in parts)
     if secs < 5 or secs > 86400:
-        raise VCError("Duration must be between 5 seconds and 24 hours.")
+        raise VCError("Pick between 5 seconds and 24 hours.")
     return secs
 
 
@@ -50,16 +53,59 @@ class VCService:
         self.bot = bot
         self.store = bot.store
         self._creating: set[int] = set()
+        self._cfg: dict[int, dict] = {}
 
     # ---------- helpers ----------
+    def is_god(self, member) -> bool:
+        """Leafy owners (bot owner + $leafyextra of this server) can manage EVERY custom VC."""
+        return self.bot.is_owner_fast(member.id, member.guild.id)
+
     def owned(self, member: discord.Member):
+        """-> (channel, record) of the VC `member` may manage.
+        Normal members: only the VC they own and sit in. Leafy owners: any custom VC - the one they sit in,
+        or the one whose chat they typed the command in."""
         vs = member.voice
-        if not vs or not vs.channel:
+        here = vs.channel if vs and vs.channel else None
+        if self.is_god(member):
+            for ch in (here, CHAT_VC.get()):
+                if ch is not None and ch.guild.id == member.guild.id and self.store.vc(ch.id):
+                    return ch, self.store.vc(ch.id)
+            raise VCError("Join a custom VC, or use the command in its chat.")
+        if here is None:
             raise VCError(NOT_IN_VC)
-        rec = self.store.vc(vs.channel.id)
-        if not rec or rec["owner"] != member.id:
-            raise VCError(NOT_IN_VC)
-        return vs.channel, rec
+        rec = self.store.vc(here.id)
+        if not rec:
+            raise VCError("This isn't a custom VC.")
+        if rec["owner"] != member.id:
+            raise VCError("Only this VC's owner can do that.")
+        return here, rec
+
+    # ---------- $customvc config (who can't be vc-banned / kicked / muted) ----------
+    def cfg(self, gid: int) -> dict:
+        c = self._cfg.get(gid)
+        if c is None:
+            raw = self.bot.db.get_settings(gid, CFG_KEY)
+            c = self._cfg[gid] = {"roles": [int(r) for r in raw.get("roles", [])], "admins": raw.get("admins", True)}
+        return c
+
+    def save_cfg(self, gid: int):
+        self.bot.db.set_settings(gid, CFG_KEY, self.cfg(gid))
+
+    def reset_cache(self):
+        self._cfg.clear()
+
+    def protected(self, target: discord.Member) -> bool:
+        """True = this member can't be vc-banned, kicked or muted."""
+        if target.id == target.guild.owner_id or self.is_god(target):
+            return True
+        c = self.cfg(target.guild.id)
+        if c["admins"] and target.guild_permissions.administrator:
+            return True
+        return any(r.id in c["roles"] for r in getattr(target, "roles", ()))
+
+    def guard(self, actor: discord.Member, target: discord.Member, verb: str):
+        if self.protected(target) and not self.is_god(actor):
+            raise VCError(f"You can't {verb} {target.display_name}.")
 
     async def _ov(self, ch, target, reason: str, **perms):
         ov = ch.overwrites_for(target)
@@ -69,8 +115,8 @@ class VCService:
     @staticmethod
     def _http(e: discord.HTTPException) -> VCError:
         if isinstance(e, discord.Forbidden):
-            return VCError("I don't have permission to do that. Please check my role / channel permissions.")
-        return VCError(f"Discord error: {e.text or e.status}")
+            return VCError("I'm missing a permission for that.")
+        return VCError(f"Discord said no: {e.text or e.status}")
 
     # ---------- lock / hide ----------
     async def lock(self, member):
@@ -79,7 +125,7 @@ class VCService:
             await self._ov(ch, ch.guild.default_role, "VC locked", connect=False)
         except discord.HTTPException as e:
             raise self._http(e)
-        return "Locked your voice channel."
+        return "VC locked."
 
     async def unlock(self, member):
         ch, _ = self.owned(member)
@@ -87,7 +133,7 @@ class VCService:
             await self._ov(ch, ch.guild.default_role, "VC unlocked", connect=None)
         except discord.HTTPException as e:
             raise self._http(e)
-        return "Unlocked your voice channel."
+        return "VC unlocked."
 
     async def hide(self, member):
         ch, _ = self.owned(member)
@@ -95,7 +141,7 @@ class VCService:
             await self._ov(ch, ch.guild.default_role, "VC hidden", view_channel=False)
         except discord.HTTPException as e:
             raise self._http(e)
-        return "Your voice channel is now hidden."
+        return "VC hidden."
 
     async def unhide(self, member):
         ch, _ = self.owned(member)
@@ -103,7 +149,7 @@ class VCService:
             await self._ov(ch, ch.guild.default_role, "VC unhidden", view_channel=None)
         except discord.HTTPException as e:
             raise self._http(e)
-        return "Your voice channel is now visible."
+        return "VC visible again."
 
     # ---------- member actions ----------
     async def kick(self, member, target: discord.Member):
@@ -111,12 +157,13 @@ class VCService:
         if target.id == member.id:
             raise VCError("You can't kick yourself.")
         if target not in ch.members:
-            raise VCError("That user is not in your VC.")
+            raise VCError("They're not in this VC.")
+        self.guard(member, target, "kick")
         try:
             await target.move_to(None, reason=f"VC kick by {member}")
         except discord.HTTPException as e:
             raise self._http(e)
-        return f"**{target.display_name}** has been kicked from the session."
+        return f"Kicked **{target.display_name}**."
 
     async def ban(self, member, target: discord.Member):
         ch, rec = self.owned(member)
@@ -124,6 +171,7 @@ class VCService:
             raise VCError("You can't ban yourself.")
         if target.bot:
             raise VCError("You can't ban a bot.")
+        self.guard(member, target, "ban")
         try:
             await self._ov(ch, target, f"VC ban by {member}", connect=False, view_channel=False)
             if target.id not in rec["banned"]:
@@ -133,19 +181,19 @@ class VCService:
                 await target.move_to(None, reason=f"VC ban by {member}")
         except discord.HTTPException as e:
             raise self._http(e)
-        return f"**{target.display_name}** has been banned and removed from the session."
+        return f"Banned **{target.display_name}** from this VC."
 
     async def unban(self, member, target: discord.abc.User):
         ch, rec = self.owned(member)
         if target.id not in rec["banned"]:
-            raise VCError("That user is not banned from your VC.")
+            raise VCError("They aren't banned here.")
         try:
             await self._ov(ch, discord.Object(id=target.id), f"VC unban by {member}", connect=None, view_channel=None)
         except discord.HTTPException as e:
             raise self._http(e)
         rec["banned"].remove(target.id)
         self.store.save_soon()
-        return f"**{getattr(target, 'display_name', target.name)}** has been unbanned."
+        return f"Unbanned **{getattr(target, 'display_name', target.name)}**."
 
     async def permit(self, member, target: discord.Member):
         ch, rec = self.owned(member)
@@ -156,13 +204,13 @@ class VCService:
         if target.id in rec["banned"]:
             rec["banned"].remove(target.id)
             self.store.save_soon()
-        return f"**{target.display_name}** can now join your voice channel."
+        return f"**{target.display_name}** can join now."
 
     async def permit_all(self, member):
         ch, rec = self.owned(member)
-        targets = [m for m in ch.members if m.id != member.id]
+        targets = [m for m in ch.members if m.id != rec["owner"]]
         if not targets:
-            raise VCError("There is nobody else in your VC to permit.")
+            raise VCError("Nobody else is in the VC.")
         try:
             for m in targets:
                 await self._ov(ch, m, f"VC permit all by {member}", connect=True, view_channel=True)
@@ -172,18 +220,18 @@ class VCService:
         except discord.HTTPException as e:
             raise self._http(e)
         self.store.save_soon()
-        return f"Permitted **{len(targets)}** member(s) in your voice channel."
+        return f"Permitted **{len(targets)}** member(s)."
 
     async def transfer(self, member, target: discord.Member):
         ch, rec = self.owned(member)
-        if target.id == member.id:
-            raise VCError("You already own this VC.")
+        if target.id == rec["owner"]:
+            raise VCError("They already own this VC.")
         if target.bot:
-            raise VCError("You can't transfer ownership to a bot.")
+            raise VCError("A bot can't own a VC.")
         if target not in ch.members:
-            raise VCError("That user is not in your VC.")
-        await self.set_owner(ch, rec, target, old=member)
-        return f"Ownership transferred to **{target.display_name}**."
+            raise VCError("They're not in this VC.")
+        await self.set_owner(ch, rec, target, old=ch.guild.get_member(rec["owner"]))
+        return f"**{target.display_name}** is the new owner."
 
     async def set_owner(self, ch, rec, new: discord.Member, old=None):
         try:
@@ -202,26 +250,26 @@ class VCService:
     async def limit(self, member, n: int):
         ch, _ = self.owned(member)
         if not 0 <= n <= 99:
-            raise VCError("The limit must be between **0** (unlimited) and **99**.")
+            raise VCError("Limit must be 0-99 (0 = no limit).")
         try:
             await ch.edit(user_limit=n, reason=f"VC limit by {member}")
         except discord.HTTPException as e:
             raise self._http(e)
-        return "Removed the user limit." if n == 0 else f"User limit set to **{n}**."
+        return "Limit removed." if n == 0 else f"Limit set to **{n}**."
 
     async def rename(self, member, name: str):
         ch, _ = self.owned(member)
         new = name.strip()[:100]          # exactly what the owner typed - no automatic prefix
         if not new:
-            raise VCError("Please give a valid name.")
+            raise VCError("Give me a name.")
         ra = ratelimit.check("rename", ch.id)
         if ra:
-            raise VCError(f"Discord only allows 2 renames per 10 minutes. Try again in **{ratelimit.fmt(ra)}**.")
+            raise VCError(f"Discord allows 2 renames per 10 minutes. Try again in **{ratelimit.fmt(ra)}**.")
         try:
             await ch.edit(name=new, reason=f"VC rename by {member}")
         except discord.HTTPException as e:
             raise self._http(e)
-        return f"Voice channel renamed to **{new}**."
+        return f"Renamed to **{new}**."
 
     async def status(self, member, text: str):
         ch, _ = self.owned(member)
@@ -232,42 +280,43 @@ class VCService:
                 json={"status": text or None},
             )
         except discord.Forbidden:
-            raise VCError("I need the **Set Voice Channel Status** permission for that.")
+            raise VCError("I need the **Set Voice Channel Status** permission.")
         except discord.HTTPException as e:
             raise self._http(e)
-        return f"VC status updated to: **{text}**" if text else "VC status cleared."
+        return f"Status set: **{text}**" if text else "Status cleared."
 
     async def bitrate(self, member, kbps: int):
         ch, _ = self.owned(member)
         top = ch.guild.bitrate_limit // 1000
         if not 8 <= kbps <= top:
-            raise VCError(f"Bitrate must be between **8** and **{int(top)}** kbps for this server.")
+            raise VCError(f"Bitrate must be 8-{int(top)} kbps here.")
         try:
             await ch.edit(bitrate=kbps * 1000, reason=f"VC bitrate by {member}")
         except discord.HTTPException as e:
             raise self._http(e)
-        return f"Bitrate set to **{kbps} kbps**."
+        return f"Bitrate is now **{kbps} kbps**."
 
     async def mute(self, member, target: discord.Member, seconds: int):
         ch, _ = self.owned(member)
         if target.id == member.id:
             raise VCError("You can't mute yourself.")
         if target not in ch.members:
-            raise VCError("That user is not in your VC.")
+            raise VCError("They're not in this VC.")
+        self.guard(member, target, "mute")
         try:
             await target.edit(mute=True, reason=f"VC mute by {member}")
         except discord.HTTPException as e:
             raise self._http(e)
         self.store.data["mutes"][f"{ch.guild.id}:{target.id}"] = discord.utils.utcnow().timestamp() + seconds
         self.store.save_soon()
-        return f"**{target.display_name}** has been server-muted for **{fmt_secs(seconds)}**."
+        return f"Muted **{target.display_name}** for **{fmt_secs(seconds)}**."
 
     async def toggle_drags(self, member):
         _, rec = self.owned(member)
         rec["block_drags"] = not rec.get("block_drags", False)
         self.store.save_soon()
-        return ("Drag requests are now **blocked** for your VC." if rec["block_drags"]
-                else "Drag requests are now **allowed** for your VC.")
+        return ("Drag requests are **blocked**." if rec["block_drags"]
+                else "Drag requests are **allowed**.")
 
     # ---------- create / cleanup ----------
     async def create_for(self, member: discord.Member, create_ch: discord.VoiceChannel):
@@ -332,7 +381,7 @@ class VCService:
             try:
                 await self.set_owner(ch, rec, new, old=member)
                 emb = discord.Embed(
-                    description=f"{I.s('crown')} {new.mention} is now the owner of this VC.", color=BLURPLE)
+                    description=f"{I.s('crown')} {new.mention} owns this VC now.", color=BLURPLE)
                 await ch.send(embed=emb, allowed_mentions=discord.AllowedMentions.none())
             except (VCError, discord.HTTPException):
                 pass
@@ -356,6 +405,8 @@ class VC(commands.Cog):
     # ---------- plumbing ----------
     async def _run(self, ctx: commands.Context, op, *args):
         await ctx.defer()
+        if isinstance(ctx.channel, discord.VoiceChannel):      # Leafy owners can type in a VC's chat to manage it
+            CHAT_VC.set(ctx.channel)
         msg = await op(ctx.author, *args)
         await ctx.reply(ok(msg), mention_author=False)
 
@@ -442,7 +493,7 @@ class VC(commands.Cog):
         elif isinstance(ctx.channel, discord.VoiceChannel) and self.store.vc(ctx.channel.id):
             ch = ctx.channel
         if ch is None:
-            raise VCError("This isn't a custom voice channel.")
+            raise VCError("This isn't a custom VC.")
         rec = self.store.vc(ch.id)
         owner = ctx.guild.get_member(rec["owner"])
         owner_name = owner.name if owner else "Unknown"
@@ -527,7 +578,7 @@ class VC(commands.Cog):
             if msg is not None:
                 user = ctx.guild.get_member(msg.author.id)
         if user is None:
-            raise VCError("Reply to the user's message or mention them: `$vctransfer @user`.")
+            raise VCError("Mention someone or reply to them: `$vctransfer @user`.")
         await self._run(ctx, self.svc.transfer, user)
 
     @commands.hybrid_command(name="vcmute", aliases=['vcm'], description="Server-mute user for a duration")

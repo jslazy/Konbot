@@ -207,6 +207,7 @@ def collect(bot, afk_data: dict) -> dict:
             "role_commands": raw_settings.get("rolecmds"),
             "autoreact": raw_settings.get("autoreact"),
             "aura": raw_settings.get("aura"),
+            "custom_vc_rules": raw_settings.get("customvc"),
             "tictactoe": raw_settings.get("tictactoe"),
             "extra_owners": [res.ref(i) for i in st.get("guild_owners", {}).get(str(gid), [])],
             "afk": {"tag_enabled": afk_data.get("tag", {}).get(str(gid), True), "users": afk_view},
@@ -219,6 +220,7 @@ def collect(bot, afk_data: dict) -> dict:
         title = g.name if g else f"(server {gid} - bot not in it)"
         lines = [f"## {title}  (`{gid}`)", ""]
         for head, key in (("Custom VC (join-to-create + control panel + live VCs)", "custom_vc"),
+                          ("Custom VC protection ($customvc config)", "custom_vc_rules"),
                           ("Self roles ($setsr / $editsr)", "self_roles"),
                           ("Points ($point config)", "points_settings"), ("Point shop", "shop"),
                           ("No-prefix", "no_prefix"), ("Aliases", "aliases"), ("Role commands ($giverole)", "role_commands"),

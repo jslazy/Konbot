@@ -3,27 +3,27 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 650534818517483526,
-   "points": 491,
-   "chat_total": 1549,
-   "chat_progress": 13,
-   "vc_total": 36421,
-   "vc_progress": 1
+   "points": 572,
+   "chat_total": 1732,
+   "chat_progress": 21,
+   "vc_total": 40899,
+   "vc_progress": 39
   },
   {
    "guild_id": 1488690726870057165,
    "user_id": 1425991437396217960,
-   "points": 689,
-   "chat_total": 1566,
-   "chat_progress": 15,
-   "vc_total": 37660,
-   "vc_progress": 40
+   "points": 837,
+   "chat_total": 2006,
+   "chat_progress": 5,
+   "vc_total": 45442,
+   "vc_progress": 22
   },
   {
    "guild_id": 1488690726870057165,
    "user_id": 1476239945172648142,
    "points": 48,
-   "chat_total": 18,
-   "chat_progress": 0,
+   "chat_total": 41,
+   "chat_progress": 23,
    "vc_total": 1832,
    "vc_progress": 32
   },
@@ -31,8 +31,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1502959831772823762,
    "points": 73,
-   "chat_total": 379,
-   "chat_progress": 9,
+   "chat_total": 383,
+   "chat_progress": 13,
    "vc_total": 1534,
    "vc_progress": 34
   },
@@ -58,8 +58,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 750644305101586453,
    "points": 279,
-   "chat_total": 537,
-   "chat_progress": 21,
+   "chat_total": 538,
+   "chat_progress": 22,
    "vc_total": 4547,
    "vc_progress": 47
   },
@@ -120,11 +120,11 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1262248731353546763,
-   "points": 783,
-   "chat_total": 2262,
-   "chat_progress": 7,
-   "vc_total": 30421,
-   "vc_progress": 1
+   "points": 915,
+   "chat_total": 2777,
+   "chat_progress": 22,
+   "vc_total": 37196,
+   "vc_progress": 56
   },
   {
    "guild_id": 1154838258027606117,
@@ -148,8 +148,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1297140568207527966,
    "points": 37,
-   "chat_total": 231,
-   "chat_progress": 7,
+   "chat_total": 236,
+   "chat_progress": 12,
    "vc_total": 324,
    "vc_progress": 24
   },
@@ -201,20 +201,20 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1418875905085935637,
-   "points": 399,
-   "chat_total": 2760,
-   "chat_progress": 15,
-   "vc_total": 14772,
-   "vc_progress": 12
+   "points": 446,
+   "chat_total": 3540,
+   "chat_progress": 20,
+   "vc_total": 15774,
+   "vc_progress": 54
   },
   {
    "guild_id": 1488690726870057165,
    "user_id": 743845224287043665,
-   "points": 80,
-   "chat_total": 162,
-   "chat_progress": 21,
-   "vc_total": 18554,
-   "vc_progress": 14
+   "points": 88,
+   "chat_total": 170,
+   "chat_progress": 4,
+   "vc_total": 18966,
+   "vc_progress": 6
   },
   {
    "guild_id": 1488690726870057165,
@@ -237,9 +237,9 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1487686406674448475,
-   "points": 342,
-   "chat_total": 155,
-   "chat_progress": 24,
+   "points": 343,
+   "chat_total": 164,
+   "chat_progress": 8,
    "vc_total": 19881,
    "vc_progress": 21
   },
@@ -247,8 +247,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1372788934530175039,
    "points": 5,
-   "chat_total": 109,
-   "chat_progress": 8,
+   "chat_total": 111,
+   "chat_progress": 10,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -265,8 +265,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1409148182944022699,
    "points": 0,
-   "chat_total": 12,
-   "chat_progress": 12,
+   "chat_total": 13,
+   "chat_progress": 13,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -336,9 +336,9 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1088001174457831465,
-   "points": 64,
-   "chat_total": 273,
-   "chat_progress": 23,
+   "points": 71,
+   "chat_total": 442,
+   "chat_progress": 17,
    "vc_total": 3242,
    "vc_progress": 2
   },
@@ -355,8 +355,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1470337465926549535,
    "points": 0,
-   "chat_total": 32,
-   "chat_progress": 15,
+   "chat_total": 34,
+   "chat_progress": 17,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -372,9 +372,9 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1522850358655975491,
-   "points": 2,
-   "chat_total": 57,
-   "chat_progress": 7,
+   "points": 3,
+   "chat_total": 89,
+   "chat_progress": 14,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -408,9 +408,9 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 883620221112434718,
-   "points": 88,
-   "chat_total": 421,
-   "chat_progress": 19,
+   "points": 89,
+   "chat_total": 450,
+   "chat_progress": 23,
    "vc_total": 59,
    "vc_progress": 59
   },
@@ -480,9 +480,9 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1519731963244580987,
-   "points": 8,
-   "chat_total": 220,
-   "chat_progress": 17,
+   "points": 12,
+   "chat_total": 327,
+   "chat_progress": 24,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -508,8 +508,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1094575639920640141,
    "points": 2,
-   "chat_total": 62,
-   "chat_progress": 12,
+   "chat_total": 64,
+   "chat_progress": 14,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -525,9 +525,9 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1289777294570684416,
-   "points": 0,
-   "chat_total": 4,
-   "chat_progress": 4,
+   "points": 3,
+   "chat_total": 82,
+   "chat_progress": 7,
    "vc_total": 59,
    "vc_progress": 59
   },
@@ -580,8 +580,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1463853665264599092,
    "points": 0,
-   "chat_total": 18,
-   "chat_progress": 18,
+   "chat_total": 20,
+   "chat_progress": 20,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -607,8 +607,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1543476735469691002,
    "points": 0,
-   "chat_total": 11,
-   "chat_progress": 11,
+   "chat_total": 12,
+   "chat_progress": 12,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -633,20 +633,20 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1299765230011678834,
-   "points": 202,
-   "chat_total": 625,
-   "chat_progress": 0,
-   "vc_total": 10648,
-   "vc_progress": 28
+   "points": 332,
+   "chat_total": 1006,
+   "chat_progress": 6,
+   "vc_total": 17575,
+   "vc_progress": 55
   },
   {
    "guild_id": 1488690726870057165,
    "user_id": 1191766539389644883,
-   "points": 14,
-   "chat_total": 100,
-   "chat_progress": 0,
-   "vc_total": 648,
-   "vc_progress": 48
+   "points": 82,
+   "chat_total": 143,
+   "chat_progress": 18,
+   "vc_total": 4654,
+   "vc_progress": 34
   },
   {
    "guild_id": 1488690726870057165,
@@ -660,27 +660,27 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1567891350710657266,
-   "points": 0,
-   "chat_total": 15,
-   "chat_progress": 15,
-   "vc_total": 30,
-   "vc_progress": 30
+   "points": 13,
+   "chat_total": 44,
+   "chat_progress": 19,
+   "vc_total": 737,
+   "vc_progress": 17
   },
   {
    "guild_id": 1547650379448188999,
    "user_id": 650534818517483526,
-   "points": 0,
-   "chat_total": 20,
-   "chat_progress": 20,
+   "points": 1,
+   "chat_total": 78,
+   "chat_progress": 28,
    "vc_total": 0,
    "vc_progress": 0
   },
   {
    "guild_id": 1547650379448188999,
    "user_id": 1519731963244580987,
-   "points": 60,
-   "chat_total": 3000,
-   "chat_progress": 0,
+   "points": 76,
+   "chat_total": 3838,
+   "chat_progress": 38,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -697,8 +697,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1504536783898021908,
    "points": 8,
-   "chat_total": 426,
-   "chat_progress": 26,
+   "chat_total": 438,
+   "chat_progress": 38,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -706,17 +706,17 @@
    "guild_id": 1547650379448188999,
    "user_id": 1562817118641062029,
    "points": 10,
-   "chat_total": 506,
-   "chat_progress": 6,
+   "chat_total": 507,
+   "chat_progress": 7,
    "vc_total": 0,
    "vc_progress": 0
   },
   {
    "guild_id": 1547650379448188999,
    "user_id": 1340198074387267634,
-   "points": 14,
-   "chat_total": 714,
-   "chat_progress": 14,
+   "points": 20,
+   "chat_total": 1008,
+   "chat_progress": 8,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -742,8 +742,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1513085640642920458,
    "points": 0,
-   "chat_total": 3,
-   "chat_progress": 3,
+   "chat_total": 4,
+   "chat_progress": 4,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -760,17 +760,17 @@
    "guild_id": 1547650379448188999,
    "user_id": 1385099857781329961,
    "points": 9,
-   "chat_total": 468,
-   "chat_progress": 18,
+   "chat_total": 477,
+   "chat_progress": 27,
    "vc_total": 0,
    "vc_progress": 0
   },
   {
    "guild_id": 1547650379448188999,
    "user_id": 1568120942629101598,
-   "points": 3,
-   "chat_total": 165,
-   "chat_progress": 15,
+   "points": 4,
+   "chat_total": 242,
+   "chat_progress": 42,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -831,9 +831,9 @@
   {
    "guild_id": 1547650379448188999,
    "user_id": 1247715119748874259,
-   "points": 0,
-   "chat_total": 35,
-   "chat_progress": 35,
+   "points": 1,
+   "chat_total": 69,
+   "chat_progress": 19,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -867,9 +867,9 @@
   {
    "guild_id": 1547650379448188999,
    "user_id": 1311075280961409036,
-   "points": 1,
-   "chat_total": 75,
-   "chat_progress": 25,
+   "points": 2,
+   "chat_total": 100,
+   "chat_progress": 0,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -886,8 +886,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1373941121708982373,
    "points": 0,
-   "chat_total": 22,
-   "chat_progress": 22,
+   "chat_total": 24,
+   "chat_progress": 24,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -931,8 +931,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1481844118563852401,
    "points": 1,
-   "chat_total": 58,
-   "chat_progress": 8,
+   "chat_total": 68,
+   "chat_progress": 18,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -949,8 +949,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 747773209666912266,
    "points": 0,
-   "chat_total": 11,
-   "chat_progress": 11,
+   "chat_total": 12,
+   "chat_progress": 12,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -966,18 +966,18 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1502235313081290855,
-   "points": 19,
-   "chat_total": 16,
-   "chat_progress": 16,
-   "vc_total": 1182,
-   "vc_progress": 42
+   "points": 41,
+   "chat_total": 78,
+   "chat_progress": 3,
+   "vc_total": 2333,
+   "vc_progress": 53
   },
   {
    "guild_id": 1547650379448188999,
    "user_id": 1457357777071640846,
-   "points": 0,
-   "chat_total": 20,
-   "chat_progress": 20,
+   "points": 1,
+   "chat_total": 50,
+   "chat_progress": 0,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -994,8 +994,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1537283372559241257,
    "points": 0,
-   "chat_total": 8,
-   "chat_progress": 8,
+   "chat_total": 17,
+   "chat_progress": 17,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1021,17 +1021,17 @@
    "guild_id": 1547650379448188999,
    "user_id": 1538573910839140575,
    "points": 3,
-   "chat_total": 166,
-   "chat_progress": 16,
+   "chat_total": 197,
+   "chat_progress": 47,
    "vc_total": 0,
    "vc_progress": 0
   },
   {
    "guild_id": 1547650379448188999,
    "user_id": 1252468682890678324,
-   "points": 2,
-   "chat_total": 139,
-   "chat_progress": 39,
+   "points": 3,
+   "chat_total": 179,
+   "chat_progress": 29,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1047,18 +1047,18 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1414153115602518067,
-   "points": 13,
-   "chat_total": 343,
-   "chat_progress": 18,
+   "points": 14,
+   "chat_total": 350,
+   "chat_progress": 0,
    "vc_total": 29,
    "vc_progress": 29
   },
   {
    "guild_id": 1547650379448188999,
    "user_id": 1556600326617042959,
-   "points": 6,
-   "chat_total": 317,
-   "chat_progress": 17,
+   "points": 13,
+   "chat_total": 656,
+   "chat_progress": 6,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1119,18 +1119,18 @@
   {
    "guild_id": 1547650379448188999,
    "user_id": 1497891194808827905,
-   "points": 1,
-   "chat_total": 83,
-   "chat_progress": 33,
+   "points": 2,
+   "chat_total": 100,
+   "chat_progress": 0,
    "vc_total": 0,
    "vc_progress": 0
   },
   {
    "guild_id": 1547650379448188999,
    "user_id": 1554280108632842295,
-   "points": 3,
-   "chat_total": 179,
-   "chat_progress": 29,
+   "points": 5,
+   "chat_total": 290,
+   "chat_progress": 40,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1146,9 +1146,9 @@
   {
    "guild_id": 1547650379448188999,
    "user_id": 1167780321706655767,
-   "points": 4,
-   "chat_total": 223,
-   "chat_progress": 23,
+   "points": 6,
+   "chat_total": 304,
+   "chat_progress": 4,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1156,8 +1156,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1039155760749355019,
    "points": 0,
-   "chat_total": 14,
-   "chat_progress": 14,
+   "chat_total": 25,
+   "chat_progress": 25,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1165,8 +1165,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1559490658597605462,
    "points": 1,
-   "chat_total": 61,
-   "chat_progress": 11,
+   "chat_total": 62,
+   "chat_progress": 12,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1192,8 +1192,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1242939991542202405,
    "points": 1,
-   "chat_total": 72,
-   "chat_progress": 22,
+   "chat_total": 73,
+   "chat_progress": 23,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1255,8 +1255,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1419333367312158867,
    "points": 0,
-   "chat_total": 7,
-   "chat_progress": 7,
+   "chat_total": 45,
+   "chat_progress": 45,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1327,8 +1327,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1325097845640007733,
    "points": 0,
-   "chat_total": 18,
-   "chat_progress": 18,
+   "chat_total": 30,
+   "chat_progress": 30,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1372,17 +1372,17 @@
    "guild_id": 1547650379448188999,
    "user_id": 1478252151330574336,
    "points": 1,
-   "chat_total": 50,
-   "chat_progress": 0,
+   "chat_total": 83,
+   "chat_progress": 33,
    "vc_total": 0,
    "vc_progress": 0
   },
   {
    "guild_id": 1547650379448188999,
    "user_id": 1520263916629000284,
-   "points": 0,
-   "chat_total": 20,
-   "chat_progress": 20,
+   "points": 1,
+   "chat_total": 51,
+   "chat_progress": 1,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1398,9 +1398,9 @@
   {
    "guild_id": 1547650379448188999,
    "user_id": 1479036753460334612,
-   "points": 0,
-   "chat_total": 41,
-   "chat_progress": 41,
+   "points": 1,
+   "chat_total": 56,
+   "chat_progress": 6,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1488,9 +1488,9 @@
   {
    "guild_id": 1547650379448188999,
    "user_id": 1472419085693485066,
-   "points": 3,
-   "chat_total": 155,
-   "chat_progress": 5,
+   "points": 4,
+   "chat_total": 215,
+   "chat_progress": 15,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1525,17 +1525,17 @@
    "guild_id": 1547650379448188999,
    "user_id": 1518352620765581403,
    "points": 0,
-   "chat_total": 1,
-   "chat_progress": 1,
+   "chat_total": 3,
+   "chat_progress": 3,
    "vc_total": 0,
    "vc_progress": 0
   },
   {
    "guild_id": 1488690726870057165,
    "user_id": 1361968064735739945,
-   "points": 4,
-   "chat_total": 103,
-   "chat_progress": 3,
+   "points": 6,
+   "chat_total": 155,
+   "chat_progress": 5,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1543,8 +1543,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1473667943186305172,
    "points": 1,
-   "chat_total": 44,
-   "chat_progress": 19,
+   "chat_total": 46,
+   "chat_progress": 21,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1578,9 +1578,9 @@
   {
    "guild_id": 1547650379448188999,
    "user_id": 1542950046511923382,
-   "points": 1,
-   "chat_total": 73,
-   "chat_progress": 23,
+   "points": 2,
+   "chat_total": 143,
+   "chat_progress": 43,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1597,8 +1597,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1324777554594500730,
    "points": 0,
-   "chat_total": 3,
-   "chat_progress": 3,
+   "chat_total": 5,
+   "chat_progress": 5,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1606,8 +1606,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1554104265356615733,
    "points": 0,
-   "chat_total": 12,
-   "chat_progress": 12,
+   "chat_total": 34,
+   "chat_progress": 34,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1632,9 +1632,9 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1028298097664733215,
-   "points": 22,
-   "chat_total": 516,
-   "chat_progress": 16,
+   "points": 25,
+   "chat_total": 598,
+   "chat_progress": 23,
    "vc_total": 30179,
    "vc_progress": 59
   },
@@ -1642,8 +1642,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 929148978157727745,
    "points": 0,
-   "chat_total": 1,
-   "chat_progress": 1,
+   "chat_total": 3,
+   "chat_progress": 3,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1704,9 +1704,9 @@
   {
    "guild_id": 1547650379448188999,
    "user_id": 1537639385879683212,
-   "points": 3,
-   "chat_total": 171,
-   "chat_progress": 21,
+   "points": 5,
+   "chat_total": 287,
+   "chat_progress": 37,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1714,8 +1714,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1518974889036353665,
    "points": 0,
-   "chat_total": 28,
-   "chat_progress": 28,
+   "chat_total": 30,
+   "chat_progress": 30,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1777,8 +1777,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1422294161180197027,
    "points": 0,
-   "chat_total": 16,
-   "chat_progress": 16,
+   "chat_total": 18,
+   "chat_progress": 18,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1794,11 +1794,11 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 1379734798515568692,
-   "points": 1,
-   "chat_total": 1,
-   "chat_progress": 1,
-   "vc_total": 89,
-   "vc_progress": 29
+   "points": 3,
+   "chat_total": 6,
+   "chat_progress": 6,
+   "vc_total": 236,
+   "vc_progress": 56
   },
   {
    "guild_id": 1488690726870057165,
@@ -1831,8 +1831,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1405201420348821605,
    "points": 3,
-   "chat_total": 184,
-   "chat_progress": 34,
+   "chat_total": 186,
+   "chat_progress": 36,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1867,8 +1867,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1546416423264325645,
    "points": 0,
-   "chat_total": 8,
-   "chat_progress": 8,
+   "chat_total": 21,
+   "chat_progress": 21,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1930,8 +1930,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1554945105981603880,
    "points": 0,
-   "chat_total": 19,
-   "chat_progress": 19,
+   "chat_total": 20,
+   "chat_progress": 20,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -1966,8 +1966,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1543476735469691002,
    "points": 0,
-   "chat_total": 15,
-   "chat_progress": 15,
+   "chat_total": 26,
+   "chat_progress": 26,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2002,8 +2002,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1376954961421930537,
    "points": 0,
-   "chat_total": 45,
-   "chat_progress": 45,
+   "chat_total": 47,
+   "chat_progress": 47,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2020,8 +2020,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1423532703776641054,
    "points": 2,
-   "chat_total": 101,
-   "chat_progress": 1,
+   "chat_total": 104,
+   "chat_progress": 4,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2047,8 +2047,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1566815333447372985,
    "points": 0,
-   "chat_total": 13,
-   "chat_progress": 13,
+   "chat_total": 14,
+   "chat_progress": 14,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2065,8 +2065,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1510196640177455227,
    "points": 0,
-   "chat_total": 2,
-   "chat_progress": 2,
+   "chat_total": 6,
+   "chat_progress": 6,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2092,8 +2092,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1222502100748206130,
    "points": 1,
-   "chat_total": 66,
-   "chat_progress": 16,
+   "chat_total": 67,
+   "chat_progress": 17,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2101,8 +2101,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1522479418294009957,
    "points": 0,
-   "chat_total": 17,
-   "chat_progress": 17,
+   "chat_total": 32,
+   "chat_progress": 32,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2128,17 +2128,17 @@
    "guild_id": 1547650379448188999,
    "user_id": 1530500465815716020,
    "points": 0,
-   "chat_total": 4,
-   "chat_progress": 4,
+   "chat_total": 5,
+   "chat_progress": 5,
    "vc_total": 0,
    "vc_progress": 0
   },
   {
    "guild_id": 1547650379448188999,
    "user_id": 1538350290045247488,
-   "points": 1,
-   "chat_total": 85,
-   "chat_progress": 35,
+   "points": 2,
+   "chat_total": 122,
+   "chat_progress": 22,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2146,8 +2146,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1521321444775301251,
    "points": 1,
-   "chat_total": 50,
-   "chat_progress": 0,
+   "chat_total": 72,
+   "chat_progress": 22,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2218,8 +2218,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1511060725303345308,
    "points": 0,
-   "chat_total": 5,
-   "chat_progress": 5,
+   "chat_total": 7,
+   "chat_progress": 7,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2263,8 +2263,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1385099857781329961,
    "points": 1,
-   "chat_total": 35,
-   "chat_progress": 10,
+   "chat_total": 36,
+   "chat_progress": 11,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2326,8 +2326,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1562561530518700094,
    "points": 1,
-   "chat_total": 59,
-   "chat_progress": 9,
+   "chat_total": 69,
+   "chat_progress": 19,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2614,8 +2614,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1540767735846408225,
    "points": 4,
-   "chat_total": 221,
-   "chat_progress": 21,
+   "chat_total": 228,
+   "chat_progress": 28,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2677,17 +2677,17 @@
    "guild_id": 1547650379448188999,
    "user_id": 1335708405226147851,
    "points": 0,
-   "chat_total": 2,
-   "chat_progress": 2,
+   "chat_total": 5,
+   "chat_progress": 5,
    "vc_total": 0,
    "vc_progress": 0
   },
   {
    "guild_id": 1547650379448188999,
    "user_id": 1060971535390736484,
-   "points": 0,
-   "chat_total": 23,
-   "chat_progress": 23,
+   "points": 1,
+   "chat_total": 92,
+   "chat_progress": 42,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2757,9 +2757,9 @@
   {
    "guild_id": 1547650379448188999,
    "user_id": 829689719633215498,
-   "points": 3,
-   "chat_total": 175,
-   "chat_progress": 25,
+   "points": 5,
+   "chat_total": 262,
+   "chat_progress": 12,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2767,8 +2767,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1509613646647525446,
    "points": 3,
-   "chat_total": 171,
-   "chat_progress": 21,
+   "chat_total": 193,
+   "chat_progress": 43,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2830,8 +2830,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1521451311550169152,
    "points": 0,
-   "chat_total": 18,
-   "chat_progress": 18,
+   "chat_total": 22,
+   "chat_progress": 22,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2875,8 +2875,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1489612170236002505,
    "points": 0,
-   "chat_total": 9,
-   "chat_progress": 9,
+   "chat_total": 19,
+   "chat_progress": 19,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2893,8 +2893,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1449608749676499177,
    "points": 0,
-   "chat_total": 10,
-   "chat_progress": 10,
+   "chat_total": 11,
+   "chat_progress": 11,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2911,17 +2911,17 @@
    "guild_id": 1488690726870057165,
    "user_id": 1265708179266994292,
    "points": 0,
-   "chat_total": 2,
-   "chat_progress": 2,
+   "chat_total": 3,
+   "chat_progress": 3,
    "vc_total": 0,
    "vc_progress": 0
   },
   {
    "guild_id": 1488690726870057165,
    "user_id": 829689719633215498,
-   "points": 0,
-   "chat_total": 8,
-   "chat_progress": 8,
+   "points": 1,
+   "chat_total": 26,
+   "chat_progress": 1,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -2965,8 +2965,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1545404917399683153,
    "points": 0,
-   "chat_total": 3,
-   "chat_progress": 3,
+   "chat_total": 19,
+   "chat_progress": 19,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -3046,8 +3046,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1454743646351130837,
    "points": 0,
-   "chat_total": 6,
-   "chat_progress": 6,
+   "chat_total": 12,
+   "chat_progress": 12,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -3091,8 +3091,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1508227716695068796,
    "points": 0,
-   "chat_total": 5,
-   "chat_progress": 5,
+   "chat_total": 18,
+   "chat_progress": 18,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -3127,8 +3127,8 @@
    "guild_id": 1488690726870057165,
    "user_id": 1538573910839140575,
    "points": 0,
-   "chat_total": 7,
-   "chat_progress": 7,
+   "chat_total": 16,
+   "chat_progress": 16,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -3154,8 +3154,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1528167038697079044,
    "points": 0,
-   "chat_total": 8,
-   "chat_progress": 8,
+   "chat_total": 20,
+   "chat_progress": 20,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -3163,8 +3163,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1505591236667510905,
    "points": 0,
-   "chat_total": 5,
-   "chat_progress": 5,
+   "chat_total": 8,
+   "chat_progress": 8,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -3172,8 +3172,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1373450895660159066,
    "points": 1,
-   "chat_total": 60,
-   "chat_progress": 10,
+   "chat_total": 80,
+   "chat_progress": 30,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -3181,8 +3181,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1477465052356546613,
    "points": 0,
-   "chat_total": 7,
-   "chat_progress": 7,
+   "chat_total": 8,
+   "chat_progress": 8,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -3190,8 +3190,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1494360293403525142,
    "points": 0,
-   "chat_total": 24,
-   "chat_progress": 24,
+   "chat_total": 47,
+   "chat_progress": 47,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -3199,8 +3199,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1424410478368653335,
    "points": 1,
-   "chat_total": 53,
-   "chat_progress": 3,
+   "chat_total": 65,
+   "chat_progress": 15,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -3217,8 +3217,8 @@
    "guild_id": 1547650379448188999,
    "user_id": 1499322396820242446,
    "points": 0,
-   "chat_total": 1,
-   "chat_progress": 1,
+   "chat_total": 5,
+   "chat_progress": 5,
    "vc_total": 0,
    "vc_progress": 0
   },
@@ -3239,6 +3239,411 @@
    "chat_progress": 4,
    "vc_total": 0,
    "vc_progress": 0
+  },
+  {
+   "guild_id": 1488690726870057165,
+   "user_id": 1556600326617042959,
+   "points": 0,
+   "chat_total": 5,
+   "chat_progress": 5,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1448687557889228811,
+   "points": 0,
+   "chat_total": 10,
+   "chat_progress": 10,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1304874981611667456,
+   "points": 0,
+   "chat_total": 11,
+   "chat_progress": 11,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1488690726870057165,
+   "user_id": 1536636111722643457,
+   "points": 2,
+   "chat_total": 61,
+   "chat_progress": 11,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1505912696548360314,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1447873356669124721,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1488690726870057165,
+   "user_id": 1333706119809335348,
+   "points": 1,
+   "chat_total": 28,
+   "chat_progress": 3,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1488690726870057165,
+   "user_id": 1556201850049536021,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1514498444201431040,
+   "points": 0,
+   "chat_total": 6,
+   "chat_progress": 6,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1432039474438865087,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1488690726870057165,
+   "user_id": 1559612682305273950,
+   "points": 0,
+   "chat_total": 2,
+   "chat_progress": 2,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1488690726870057165,
+   "user_id": 1519318498080456847,
+   "points": 0,
+   "chat_total": 2,
+   "chat_progress": 2,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1459292876625285251,
+   "points": 0,
+   "chat_total": 21,
+   "chat_progress": 21,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1453669953835237397,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1431925909191135322,
+   "points": 0,
+   "chat_total": 39,
+   "chat_progress": 39,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1383112703698014339,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1429543726262390985,
+   "points": 0,
+   "chat_total": 11,
+   "chat_progress": 11,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1342560572633518102,
+   "points": 0,
+   "chat_total": 7,
+   "chat_progress": 7,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1411257252530225236,
+   "points": 0,
+   "chat_total": 4,
+   "chat_progress": 4,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1422594639453618217,
+   "points": 0,
+   "chat_total": 2,
+   "chat_progress": 2,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1233725223350571039,
+   "points": 0,
+   "chat_total": 2,
+   "chat_progress": 2,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "points": 47,
+   "chat_total": 53,
+   "chat_progress": 3,
+   "vc_total": 2706,
+   "vc_progress": 6
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1568257620702134273,
+   "points": 0,
+   "chat_total": 30,
+   "chat_progress": 30,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1539024551122313287,
+   "points": 0,
+   "chat_total": 11,
+   "chat_progress": 11,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1420381619222478868,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1490677075714117722,
+   "points": 0,
+   "chat_total": 3,
+   "chat_progress": 3,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1555266049195384997,
+   "points": 0,
+   "chat_total": 9,
+   "chat_progress": 9,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1408349069667078164,
+   "points": 0,
+   "chat_total": 19,
+   "chat_progress": 19,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1521579729247797379,
+   "points": 0,
+   "chat_total": 5,
+   "chat_progress": 5,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1524891049267302531,
+   "points": 0,
+   "chat_total": 23,
+   "chat_progress": 23,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1569724008830738502,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1530185317427052616,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1262082267849687174,
+   "points": 0,
+   "chat_total": 2,
+   "chat_progress": 2,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1405468186731872266,
+   "points": 0,
+   "chat_total": 12,
+   "chat_progress": 12,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1330110230083928176,
+   "points": 0,
+   "chat_total": 4,
+   "chat_progress": 4,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1124572911789949009,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1566886269353590816,
+   "points": 0,
+   "chat_total": 8,
+   "chat_progress": 8,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1351265369217568879,
+   "points": 0,
+   "chat_total": 4,
+   "chat_progress": 4,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1513109706837594146,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1307406007244427284,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1377637428273090633,
+   "points": 0,
+   "chat_total": 3,
+   "chat_progress": 3,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1548314157542277130,
+   "points": 0,
+   "chat_total": 4,
+   "chat_progress": 4,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1354322876962177045,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1547650379448188999,
+   "user_id": 1412699471292272701,
+   "points": 0,
+   "chat_total": 1,
+   "chat_progress": 1,
+   "vc_total": 0,
+   "vc_progress": 0
+  },
+  {
+   "guild_id": 1488690726870057165,
+   "user_id": 1515150827508203613,
+   "points": 1,
+   "chat_total": 3,
+   "chat_progress": 3,
+   "vc_total": 87,
+   "vc_progress": 27
   }
  ],
  "channel_progress": [
@@ -3324,7 +3729,7 @@
   {
    "guild_id": 1488690726870057165,
    "user_id": 650534818517483526,
-   "badge": "<:yekrlopehle:1570284061941829"
+   "badge": "<:yekrlopehle:1570284061941829>"
   }
  ],
  "shop_items": [
@@ -3516,17 +3921,6 @@
   },
   {
    "guild_id": 1488690726870057165,
-   "key": "noprefix",
-   "value": {
-    "role": 1569999856171229255,
-    "users": [
-     1262248731353546763,
-     1418875905085935637
-    ]
-   }
-  },
-  {
-   "guild_id": 1488690726870057165,
    "key": "autoreact",
    "value": {
     "roles": [
@@ -3581,18 +3975,6 @@
    }
   },
   {
-   "guild_id": 1488690726870057165,
-   "key": "aura",
-   "value": {
-    "members": {
-     "650534818517483526": 100,
-     "1262248731353546763": 99
-    },
-    "roles": {},
-    "random": true
-   }
-  },
-  {
    "guild_id": 1547650379448188999,
    "key": "autoreact",
    "value": {
@@ -3602,6 +3984,18 @@
       "<a:Oliviaaa_nooooo:1570865411195543645>"
      ]
     }
+   }
+  },
+  {
+   "guild_id": 1488690726870057165,
+   "key": "noprefix",
+   "value": {
+    "role": 1569999856171229255,
+    "users": [
+     1262248731353546763,
+     1418875905085935637,
+     650534818517483526
+    ]
    }
   },
   {
@@ -3619,8 +4013,21 @@
      1340198074387267634,
      1554945105981603880,
      829689719633215498,
-     1537639385879683212
+     1537639385879683212,
+     1554280108632842295
     ]
+   }
+  },
+  {
+   "guild_id": 1488690726870057165,
+   "key": "aura",
+   "value": {
+    "members": {
+     "650534818517483526": 0,
+     "1262248731353546763": 99
+    },
+    "roles": {},
+    "random": true
    }
   }
  ],
@@ -55512,6 +55919,6214 @@
    "delta": 1,
    "reason": "chat",
    "ts": 1794795489.9232144
+  },
+  {
+   "id": 6487,
+   "guild_id": 1488690726870057165,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794803020.4816885
+  },
+  {
+   "id": 6488,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794803593.7047026
+  },
+  {
+   "id": 6489,
+   "guild_id": 1488690726870057165,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794803893.8273323
+  },
+  {
+   "id": 6490,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794804010.0367599
+  },
+  {
+   "id": 6491,
+   "guild_id": 1547650379448188999,
+   "user_id": 1556600326617042959,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794804011.395598
+  },
+  {
+   "id": 6492,
+   "guild_id": 1547650379448188999,
+   "user_id": 1537639385879683212,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794804534.7704253
+  },
+  {
+   "id": 6493,
+   "guild_id": 1547650379448188999,
+   "user_id": 829689719633215498,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794805422.368948
+  },
+  {
+   "id": 6494,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794805705.5002472
+  },
+  {
+   "id": 6495,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794808204.9459403
+  },
+  {
+   "id": 6496,
+   "guild_id": 1547650379448188999,
+   "user_id": 1538350290045247488,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794808671.099669
+  },
+  {
+   "id": 6497,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794809756.8784838
+  },
+  {
+   "id": 6498,
+   "guild_id": 1547650379448188999,
+   "user_id": 829689719633215498,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794810056.8979774
+  },
+  {
+   "id": 6499,
+   "guild_id": 1547650379448188999,
+   "user_id": 1556600326617042959,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794810316.2269192
+  },
+  {
+   "id": 6500,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794810486.280559
+  },
+  {
+   "id": 6501,
+   "guild_id": 1547650379448188999,
+   "user_id": 1554280108632842295,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794810992.2620022
+  },
+  {
+   "id": 6502,
+   "guild_id": 1547650379448188999,
+   "user_id": 1340198074387267634,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794811165.3237317
+  },
+  {
+   "id": 6503,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794812294.8733602
+  },
+  {
+   "id": 6504,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794812481.9099073
+  },
+  {
+   "id": 6505,
+   "guild_id": 1488690726870057165,
+   "user_id": 1536636111722643457,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794813508.421847
+  },
+  {
+   "id": 6506,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794815110.8445954
+  },
+  {
+   "id": 6507,
+   "guild_id": 1488690726870057165,
+   "user_id": 1028298097664733215,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794815842.695127
+  },
+  {
+   "id": 6508,
+   "guild_id": 1547650379448188999,
+   "user_id": 1556600326617042959,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794816231.8064249
+  },
+  {
+   "id": 6509,
+   "guild_id": 1547650379448188999,
+   "user_id": 1167780321706655767,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794816912.177964
+  },
+  {
+   "id": 6510,
+   "guild_id": 1547650379448188999,
+   "user_id": 1556600326617042959,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794819759.182102
+  },
+  {
+   "id": 6511,
+   "guild_id": 1547650379448188999,
+   "user_id": 1479036753460334612,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794820131.1069267
+  },
+  {
+   "id": 6512,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794820745.4325066
+  },
+  {
+   "id": 6513,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794821084.3927727
+  },
+  {
+   "id": 6514,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794821244.0391963
+  },
+  {
+   "id": 6515,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794821397.0519376
+  },
+  {
+   "id": 6516,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794821593.6852033
+  },
+  {
+   "id": 6517,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794821893.9494689
+  },
+  {
+   "id": 6518,
+   "guild_id": 1547650379448188999,
+   "user_id": 1340198074387267634,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794822187.8676667
+  },
+  {
+   "id": 6519,
+   "guild_id": 1547650379448188999,
+   "user_id": 1537639385879683212,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794822998.83308
+  },
+  {
+   "id": 6520,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794823986.6238756
+  },
+  {
+   "id": 6521,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794824923.1660013
+  },
+  {
+   "id": 6522,
+   "guild_id": 1488690726870057165,
+   "user_id": 743845224287043665,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794824983.1675425
+  },
+  {
+   "id": 6523,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825013.171284
+  },
+  {
+   "id": 6524,
+   "guild_id": 1488690726870057165,
+   "user_id": 743845224287043665,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825043.1679432
+  },
+  {
+   "id": 6525,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825073.164609
+  },
+  {
+   "id": 6526,
+   "guild_id": 1488690726870057165,
+   "user_id": 1088001174457831465,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794825080.7289214
+  },
+  {
+   "id": 6527,
+   "guild_id": 1488690726870057165,
+   "user_id": 743845224287043665,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825103.1661081
+  },
+  {
+   "id": 6528,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825133.1776588
+  },
+  {
+   "id": 6529,
+   "guild_id": 1488690726870057165,
+   "user_id": 743845224287043665,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825163.167477
+  },
+  {
+   "id": 6530,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794825171.909414
+  },
+  {
+   "id": 6531,
+   "guild_id": 1488690726870057165,
+   "user_id": 743845224287043665,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794825190.9569938
+  },
+  {
+   "id": 6532,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825193.1664584
+  },
+  {
+   "id": 6533,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794825205.8902752
+  },
+  {
+   "id": 6534,
+   "guild_id": 1488690726870057165,
+   "user_id": 743845224287043665,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825223.1648924
+  },
+  {
+   "id": 6535,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825253.1656544
+  },
+  {
+   "id": 6536,
+   "guild_id": 1488690726870057165,
+   "user_id": 743845224287043665,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825283.1671374
+  },
+  {
+   "id": 6537,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825313.1668165
+  },
+  {
+   "id": 6538,
+   "guild_id": 1488690726870057165,
+   "user_id": 743845224287043665,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825343.1659496
+  },
+  {
+   "id": 6539,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825373.1763642
+  },
+  {
+   "id": 6540,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794825433.1667123
+  },
+  {
+   "id": 6541,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794825505.329822
+  },
+  {
+   "id": 6542,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794825720.082073
+  },
+  {
+   "id": 6543,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794825854.1464658
+  },
+  {
+   "id": 6544,
+   "guild_id": 1488690726870057165,
+   "user_id": 1028298097664733215,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794826040.6633954
+  },
+  {
+   "id": 6545,
+   "guild_id": 1488690726870057165,
+   "user_id": 1088001174457831465,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794826125.3700962
+  },
+  {
+   "id": 6546,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794826218.7203722
+  },
+  {
+   "id": 6547,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794826322.8319368
+  },
+  {
+   "id": 6548,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794826561.8741271
+  },
+  {
+   "id": 6549,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794827605.850427
+  },
+  {
+   "id": 6550,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794827622.2093852
+  },
+  {
+   "id": 6551,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794828133.7027674
+  },
+  {
+   "id": 6552,
+   "guild_id": 1488690726870057165,
+   "user_id": 1088001174457831465,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794828627.8143353
+  },
+  {
+   "id": 6553,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794828662.917044
+  },
+  {
+   "id": 6554,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794828725.7484155
+  },
+  {
+   "id": 6555,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794829506.5454652
+  },
+  {
+   "id": 6556,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794829964.835358
+  },
+  {
+   "id": 6557,
+   "guild_id": 1488690726870057165,
+   "user_id": 1088001174457831465,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794830188.4900787
+  },
+  {
+   "id": 6558,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794830296.5195549
+  },
+  {
+   "id": 6559,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794830381.5140393
+  },
+  {
+   "id": 6560,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794830663.4942434
+  },
+  {
+   "id": 6561,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794830676.512855
+  },
+  {
+   "id": 6562,
+   "guild_id": 1488690726870057165,
+   "user_id": 1289777294570684416,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794830738.7178338
+  },
+  {
+   "id": 6563,
+   "guild_id": 1488690726870057165,
+   "user_id": 1487686406674448475,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794830873.8613873
+  },
+  {
+   "id": 6564,
+   "guild_id": 1488690726870057165,
+   "user_id": 1289777294570684416,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794830942.316652
+  },
+  {
+   "id": 6565,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794831101.366486
+  },
+  {
+   "id": 6566,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794831185.3505552
+  },
+  {
+   "id": 6567,
+   "guild_id": 1488690726870057165,
+   "user_id": 1289777294570684416,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794831211.9251816
+  },
+  {
+   "id": 6568,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794831923.5611975
+  },
+  {
+   "id": 6569,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794832050.4861922
+  },
+  {
+   "id": 6570,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794832779.1661608
+  },
+  {
+   "id": 6571,
+   "guild_id": 1488690726870057165,
+   "user_id": 883620221112434718,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794833601.6550453
+  },
+  {
+   "id": 6572,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794833858.0551014
+  },
+  {
+   "id": 6573,
+   "guild_id": 1488690726870057165,
+   "user_id": 1028298097664733215,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794834311.817922
+  },
+  {
+   "id": 6574,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794835781.7741866
+  },
+  {
+   "id": 6575,
+   "guild_id": 1488690726870057165,
+   "user_id": 1088001174457831465,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794836289.1992984
+  },
+  {
+   "id": 6576,
+   "guild_id": 1547650379448188999,
+   "user_id": 1247715119748874259,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794837911.2308147
+  },
+  {
+   "id": 6577,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794837942.741
+  },
+  {
+   "id": 6578,
+   "guild_id": 1547650379448188999,
+   "user_id": 1472419085693485066,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794838790.503902
+  },
+  {
+   "id": 6579,
+   "guild_id": 1547650379448188999,
+   "user_id": 1060971535390736484,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794838828.7582278
+  },
+  {
+   "id": 6580,
+   "guild_id": 1547650379448188999,
+   "user_id": 1340198074387267634,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794838906.5428648
+  },
+  {
+   "id": 6581,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794838950.822496
+  },
+  {
+   "id": 6582,
+   "guild_id": 1488690726870057165,
+   "user_id": 1088001174457831465,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794838976.7680883
+  },
+  {
+   "id": 6583,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794839493.711777
+  },
+  {
+   "id": 6584,
+   "guild_id": 1488690726870057165,
+   "user_id": 1088001174457831465,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794839549.7519073
+  },
+  {
+   "id": 6585,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794839667.0762842
+  },
+  {
+   "id": 6586,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794840183.9849305
+  },
+  {
+   "id": 6587,
+   "guild_id": 1547650379448188999,
+   "user_id": 1457357777071640846,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794840391.0943737
+  },
+  {
+   "id": 6588,
+   "guild_id": 1547650379448188999,
+   "user_id": 1340198074387267634,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794840607.9157755
+  },
+  {
+   "id": 6589,
+   "guild_id": 1547650379448188999,
+   "user_id": 1252468682890678324,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794840750.9860444
+  },
+  {
+   "id": 6590,
+   "guild_id": 1488690726870057165,
+   "user_id": 829689719633215498,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794840751.6872144
+  },
+  {
+   "id": 6591,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794841957.388436
+  },
+  {
+   "id": 6592,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794842437.860783
+  },
+  {
+   "id": 6593,
+   "guild_id": 1488690726870057165,
+   "user_id": 1333706119809335348,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794842600.031011
+  },
+  {
+   "id": 6594,
+   "guild_id": 1488690726870057165,
+   "user_id": 1522850358655975491,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794842822.03899
+  },
+  {
+   "id": 6595,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794843541.5624084
+  },
+  {
+   "id": 6596,
+   "guild_id": 1488690726870057165,
+   "user_id": 1536636111722643457,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794844190.2105958
+  },
+  {
+   "id": 6597,
+   "guild_id": 1488690726870057165,
+   "user_id": 1361968064735739945,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794844438.4500184
+  },
+  {
+   "id": 6598,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794844661.9404008
+  },
+  {
+   "id": 6599,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794844663.1650321
+  },
+  {
+   "id": 6600,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794844723.1645448
+  },
+  {
+   "id": 6601,
+   "guild_id": 1488690726870057165,
+   "user_id": 1361968064735739945,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794844765.5515506
+  },
+  {
+   "id": 6602,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794844783.1675673
+  },
+  {
+   "id": 6603,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794844843.1669395
+  },
+  {
+   "id": 6604,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794844901.9758656
+  },
+  {
+   "id": 6605,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794844903.1651025
+  },
+  {
+   "id": 6606,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794844963.1668603
+  },
+  {
+   "id": 6607,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845023.1663136
+  },
+  {
+   "id": 6608,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794845029.159363
+  },
+  {
+   "id": 6609,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845083.1846247
+  },
+  {
+   "id": 6610,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845143.1691685
+  },
+  {
+   "id": 6611,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845203.1669624
+  },
+  {
+   "id": 6612,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845203.1669924
+  },
+  {
+   "id": 6613,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845263.1671393
+  },
+  {
+   "id": 6614,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845263.1671607
+  },
+  {
+   "id": 6615,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794845301.54007
+  },
+  {
+   "id": 6616,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845323.1655543
+  },
+  {
+   "id": 6617,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845323.1655777
+  },
+  {
+   "id": 6618,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794845365.4651184
+  },
+  {
+   "id": 6619,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845383.165065
+  },
+  {
+   "id": 6620,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845383.16509
+  },
+  {
+   "id": 6621,
+   "guild_id": 1547650379448188999,
+   "user_id": 1556600326617042959,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794845431.5253956
+  },
+  {
+   "id": 6622,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845443.1653647
+  },
+  {
+   "id": 6623,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845473.1649702
+  },
+  {
+   "id": 6624,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845503.1691265
+  },
+  {
+   "id": 6625,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845533.1659882
+  },
+  {
+   "id": 6626,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845563.1658344
+  },
+  {
+   "id": 6627,
+   "guild_id": 1488690726870057165,
+   "user_id": 1414153115602518067,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794845585.1320271
+  },
+  {
+   "id": 6628,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845593.1653812
+  },
+  {
+   "id": 6629,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845623.1646533
+  },
+  {
+   "id": 6630,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845653.1648188
+  },
+  {
+   "id": 6631,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845683.170261
+  },
+  {
+   "id": 6632,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845713.166102
+  },
+  {
+   "id": 6633,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845743.1650157
+  },
+  {
+   "id": 6634,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845773.1647704
+  },
+  {
+   "id": 6635,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794845799.4373152
+  },
+  {
+   "id": 6636,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845803.1662428
+  },
+  {
+   "id": 6637,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845833.1671746
+  },
+  {
+   "id": 6638,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845863.1659932
+  },
+  {
+   "id": 6639,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845893.165178
+  },
+  {
+   "id": 6640,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845923.1661506
+  },
+  {
+   "id": 6641,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794845950.944427
+  },
+  {
+   "id": 6642,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845953.165673
+  },
+  {
+   "id": 6643,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794845983.1669018
+  },
+  {
+   "id": 6644,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846013.1674848
+  },
+  {
+   "id": 6645,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846043.1668618
+  },
+  {
+   "id": 6646,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846073.1658158
+  },
+  {
+   "id": 6647,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846103.1673074
+  },
+  {
+   "id": 6648,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846133.1648545
+  },
+  {
+   "id": 6649,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846163.166541
+  },
+  {
+   "id": 6650,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846193.1662505
+  },
+  {
+   "id": 6651,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846223.1645405
+  },
+  {
+   "id": 6652,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846253.16565
+  },
+  {
+   "id": 6653,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846283.168541
+  },
+  {
+   "id": 6654,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846313.1654537
+  },
+  {
+   "id": 6655,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846343.1715348
+  },
+  {
+   "id": 6656,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846373.1663148
+  },
+  {
+   "id": 6657,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846403.1690006
+  },
+  {
+   "id": 6658,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846433.165585
+  },
+  {
+   "id": 6659,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794846483.420163
+  },
+  {
+   "id": 6660,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846493.1692476
+  },
+  {
+   "id": 6661,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846493.1692867
+  },
+  {
+   "id": 6662,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794846517.4997878
+  },
+  {
+   "id": 6663,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794846548.8191018
+  },
+  {
+   "id": 6664,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846553.16638
+  },
+  {
+   "id": 6665,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846553.166399
+  },
+  {
+   "id": 6666,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846613.1655092
+  },
+  {
+   "id": 6667,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846613.1655278
+  },
+  {
+   "id": 6668,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794846652.152506
+  },
+  {
+   "id": 6669,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846673.1656873
+  },
+  {
+   "id": 6670,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846673.1657064
+  },
+  {
+   "id": 6671,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846733.1670313
+  },
+  {
+   "id": 6672,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846733.1670527
+  },
+  {
+   "id": 6673,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846763.1659381
+  },
+  {
+   "id": 6674,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846793.1672688
+  },
+  {
+   "id": 6675,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846793.1673055
+  },
+  {
+   "id": 6676,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846823.1672082
+  },
+  {
+   "id": 6677,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846853.1648934
+  },
+  {
+   "id": 6678,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846853.164923
+  },
+  {
+   "id": 6679,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846883.175771
+  },
+  {
+   "id": 6680,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794846906.699941
+  },
+  {
+   "id": 6681,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846913.171094
+  },
+  {
+   "id": 6682,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846913.171117
+  },
+  {
+   "id": 6683,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846943.1671596
+  },
+  {
+   "id": 6684,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846973.171214
+  },
+  {
+   "id": 6685,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794846973.17124
+  },
+  {
+   "id": 6686,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847003.1668646
+  },
+  {
+   "id": 6687,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847033.1656792
+  },
+  {
+   "id": 6688,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847063.1678274
+  },
+  {
+   "id": 6689,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847063.1678813
+  },
+  {
+   "id": 6690,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794847081.3961656
+  },
+  {
+   "id": 6691,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847093.1656282
+  },
+  {
+   "id": 6692,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847123.1651084
+  },
+  {
+   "id": 6693,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847123.1651506
+  },
+  {
+   "id": 6694,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847153.1645803
+  },
+  {
+   "id": 6695,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847183.173744
+  },
+  {
+   "id": 6696,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847183.1737828
+  },
+  {
+   "id": 6697,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847213.164806
+  },
+  {
+   "id": 6698,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847243.1668239
+  },
+  {
+   "id": 6699,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847243.1668618
+  },
+  {
+   "id": 6700,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847273.1647792
+  },
+  {
+   "id": 6701,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794847279.382984
+  },
+  {
+   "id": 6702,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847303.1662467
+  },
+  {
+   "id": 6703,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847303.1662917
+  },
+  {
+   "id": 6704,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847333.1669123
+  },
+  {
+   "id": 6705,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847333.16695
+  },
+  {
+   "id": 6706,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847363.166308
+  },
+  {
+   "id": 6707,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847363.166421
+  },
+  {
+   "id": 6708,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847393.1663136
+  },
+  {
+   "id": 6709,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847393.1663437
+  },
+  {
+   "id": 6710,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847423.1667264
+  },
+  {
+   "id": 6711,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847423.166753
+  },
+  {
+   "id": 6712,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847453.1659148
+  },
+  {
+   "id": 6713,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847453.1659415
+  },
+  {
+   "id": 6714,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847483.1672637
+  },
+  {
+   "id": 6715,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847483.1673067
+  },
+  {
+   "id": 6716,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847483.1673365
+  },
+  {
+   "id": 6717,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847513.1646256
+  },
+  {
+   "id": 6718,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847513.1646743
+  },
+  {
+   "id": 6719,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794847517.6730711
+  },
+  {
+   "id": 6720,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847543.1663656
+  },
+  {
+   "id": 6721,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847543.1664085
+  },
+  {
+   "id": 6722,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847573.1653674
+  },
+  {
+   "id": 6723,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847573.1654124
+  },
+  {
+   "id": 6724,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847573.1654296
+  },
+  {
+   "id": 6725,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847603.1652238
+  },
+  {
+   "id": 6726,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794847611.275059
+  },
+  {
+   "id": 6727,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847633.1657684
+  },
+  {
+   "id": 6728,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847633.1658099
+  },
+  {
+   "id": 6729,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847633.1658278
+  },
+  {
+   "id": 6730,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847663.1651816
+  },
+  {
+   "id": 6731,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847663.1652365
+  },
+  {
+   "id": 6732,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847693.1644626
+  },
+  {
+   "id": 6733,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847693.1644807
+  },
+  {
+   "id": 6734,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847693.1645
+  },
+  {
+   "id": 6735,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847723.1682093
+  },
+  {
+   "id": 6736,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794847729.5274258
+  },
+  {
+   "id": 6737,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794847739.2836113
+  },
+  {
+   "id": 6738,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847753.1661532
+  },
+  {
+   "id": 6739,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847753.1661844
+  },
+  {
+   "id": 6740,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847753.1661952
+  },
+  {
+   "id": 6741,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847783.1654487
+  },
+  {
+   "id": 6742,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847813.1660476
+  },
+  {
+   "id": 6743,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847813.1661515
+  },
+  {
+   "id": 6744,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847813.1661673
+  },
+  {
+   "id": 6745,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847843.1661403
+  },
+  {
+   "id": 6746,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847873.165918
+  },
+  {
+   "id": 6747,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847873.1659718
+  },
+  {
+   "id": 6748,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847873.1659906
+  },
+  {
+   "id": 6749,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847903.1683168
+  },
+  {
+   "id": 6750,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847933.166701
+  },
+  {
+   "id": 6751,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847933.166739
+  },
+  {
+   "id": 6752,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847933.1667535
+  },
+  {
+   "id": 6753,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847963.1655684
+  },
+  {
+   "id": 6754,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847993.1642995
+  },
+  {
+   "id": 6755,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794847993.1643207
+  },
+  {
+   "id": 6756,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848023.1644895
+  },
+  {
+   "id": 6757,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848023.1645176
+  },
+  {
+   "id": 6758,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848053.1697202
+  },
+  {
+   "id": 6759,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848053.1697495
+  },
+  {
+   "id": 6760,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848053.1699107
+  },
+  {
+   "id": 6761,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848083.165929
+  },
+  {
+   "id": 6762,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848083.165949
+  },
+  {
+   "id": 6763,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794848095.5319557
+  },
+  {
+   "id": 6764,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848113.1678689
+  },
+  {
+   "id": 6765,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848113.1678934
+  },
+  {
+   "id": 6766,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848113.1679094
+  },
+  {
+   "id": 6767,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848143.171821
+  },
+  {
+   "id": 6768,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848143.1718478
+  },
+  {
+   "id": 6769,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848173.1660554
+  },
+  {
+   "id": 6770,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848173.1660757
+  },
+  {
+   "id": 6771,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848173.1660879
+  },
+  {
+   "id": 6772,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848203.1660295
+  },
+  {
+   "id": 6773,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848203.1661103
+  },
+  {
+   "id": 6774,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794848205.4195564
+  },
+  {
+   "id": 6775,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848233.165621
+  },
+  {
+   "id": 6776,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848233.1656456
+  },
+  {
+   "id": 6777,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848233.1656594
+  },
+  {
+   "id": 6778,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848263.1677582
+  },
+  {
+   "id": 6779,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848263.1678083
+  },
+  {
+   "id": 6780,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848293.1739733
+  },
+  {
+   "id": 6781,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848293.1739976
+  },
+  {
+   "id": 6782,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848293.1740146
+  },
+  {
+   "id": 6783,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848323.1660452
+  },
+  {
+   "id": 6784,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848353.1657598
+  },
+  {
+   "id": 6785,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848353.1657841
+  },
+  {
+   "id": 6786,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848353.1657965
+  },
+  {
+   "id": 6787,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794848364.9945288
+  },
+  {
+   "id": 6788,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848383.168059
+  },
+  {
+   "id": 6789,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848383.1680944
+  },
+  {
+   "id": 6790,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848413.1662958
+  },
+  {
+   "id": 6791,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848413.1663303
+  },
+  {
+   "id": 6792,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848413.1663451
+  },
+  {
+   "id": 6793,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794848423.0423775
+  },
+  {
+   "id": 6794,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848443.165695
+  },
+  {
+   "id": 6795,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848443.1657379
+  },
+  {
+   "id": 6796,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848473.165471
+  },
+  {
+   "id": 6797,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848473.165504
+  },
+  {
+   "id": 6798,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848473.1655185
+  },
+  {
+   "id": 6799,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848503.1679156
+  },
+  {
+   "id": 6800,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848503.1679506
+  },
+  {
+   "id": 6801,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848533.1667268
+  },
+  {
+   "id": 6802,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848533.1667535
+  },
+  {
+   "id": 6803,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848533.1667671
+  },
+  {
+   "id": 6804,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848563.1651595
+  },
+  {
+   "id": 6805,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848563.1651924
+  },
+  {
+   "id": 6806,
+   "guild_id": 1547650379448188999,
+   "user_id": 1568120942629101598,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794848583.5358212
+  },
+  {
+   "id": 6807,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848593.1656196
+  },
+  {
+   "id": 6808,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848593.1656537
+  },
+  {
+   "id": 6809,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848593.1656678
+  },
+  {
+   "id": 6810,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848623.1646788
+  },
+  {
+   "id": 6811,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848623.1647134
+  },
+  {
+   "id": 6812,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848623.1647482
+  },
+  {
+   "id": 6813,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794848648.9215322
+  },
+  {
+   "id": 6814,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848653.164459
+  },
+  {
+   "id": 6815,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848653.164507
+  },
+  {
+   "id": 6816,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848683.165637
+  },
+  {
+   "id": 6817,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848683.1656728
+  },
+  {
+   "id": 6818,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848683.1656861
+  },
+  {
+   "id": 6819,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848683.1657078
+  },
+  {
+   "id": 6820,
+   "guild_id": 1488690726870057165,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794848696.7424557
+  },
+  {
+   "id": 6821,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848713.1647098
+  },
+  {
+   "id": 6822,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848713.1647673
+  },
+  {
+   "id": 6823,
+   "guild_id": 1547650379448188999,
+   "user_id": 1340198074387267634,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794848729.218877
+  },
+  {
+   "id": 6824,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848743.1672869
+  },
+  {
+   "id": 6825,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848743.1673274
+  },
+  {
+   "id": 6826,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848743.167343
+  },
+  {
+   "id": 6827,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848743.167368
+  },
+  {
+   "id": 6828,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848773.1650453
+  },
+  {
+   "id": 6829,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848773.1650896
+  },
+  {
+   "id": 6830,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848803.1645145
+  },
+  {
+   "id": 6831,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848803.1645668
+  },
+  {
+   "id": 6832,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848803.1645849
+  },
+  {
+   "id": 6833,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848803.1646128
+  },
+  {
+   "id": 6834,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848833.1647933
+  },
+  {
+   "id": 6835,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848833.164841
+  },
+  {
+   "id": 6836,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848863.1649141
+  },
+  {
+   "id": 6837,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848863.164949
+  },
+  {
+   "id": 6838,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848863.1649623
+  },
+  {
+   "id": 6839,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848863.1649852
+  },
+  {
+   "id": 6840,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848893.1646512
+  },
+  {
+   "id": 6841,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848893.1646972
+  },
+  {
+   "id": 6842,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848923.1657267
+  },
+  {
+   "id": 6843,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848923.1658487
+  },
+  {
+   "id": 6844,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848923.1658812
+  },
+  {
+   "id": 6845,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848923.165962
+  },
+  {
+   "id": 6846,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848953.1664176
+  },
+  {
+   "id": 6847,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848953.166465
+  },
+  {
+   "id": 6848,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848983.1660016
+  },
+  {
+   "id": 6849,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848983.1660316
+  },
+  {
+   "id": 6850,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848983.1660519
+  },
+  {
+   "id": 6851,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794848983.1660697
+  },
+  {
+   "id": 6852,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849013.1652281
+  },
+  {
+   "id": 6853,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849013.1652691
+  },
+  {
+   "id": 6854,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849043.166478
+  },
+  {
+   "id": 6855,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849043.1665149
+  },
+  {
+   "id": 6856,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849043.1665478
+  },
+  {
+   "id": 6857,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849043.166627
+  },
+  {
+   "id": 6858,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849073.1702456
+  },
+  {
+   "id": 6859,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849073.1702929
+  },
+  {
+   "id": 6860,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849103.165897
+  },
+  {
+   "id": 6861,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849103.1659374
+  },
+  {
+   "id": 6862,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849103.1659644
+  },
+  {
+   "id": 6863,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849133.1654212
+  },
+  {
+   "id": 6864,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849133.1654453
+  },
+  {
+   "id": 6865,
+   "guild_id": 1547650379448188999,
+   "user_id": 1167780321706655767,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794849140.7361329
+  },
+  {
+   "id": 6866,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849163.1661916
+  },
+  {
+   "id": 6867,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849163.1662512
+  },
+  {
+   "id": 6868,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849163.16627
+  },
+  {
+   "id": 6869,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849163.1662815
+  },
+  {
+   "id": 6870,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849193.1659517
+  },
+  {
+   "id": 6871,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849193.1659834
+  },
+  {
+   "id": 6872,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849193.166018
+  },
+  {
+   "id": 6873,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849223.1647317
+  },
+  {
+   "id": 6874,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849223.1647685
+  },
+  {
+   "id": 6875,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849223.1647952
+  },
+  {
+   "id": 6876,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849223.1648107
+  },
+  {
+   "id": 6877,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794849226.460508
+  },
+  {
+   "id": 6878,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794849249.537354
+  },
+  {
+   "id": 6879,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849253.1674566
+  },
+  {
+   "id": 6880,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849253.168119
+  },
+  {
+   "id": 6881,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849253.16818
+  },
+  {
+   "id": 6882,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794849255.078797
+  },
+  {
+   "id": 6883,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849283.1670735
+  },
+  {
+   "id": 6884,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849283.1671126
+  },
+  {
+   "id": 6885,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849283.1671395
+  },
+  {
+   "id": 6886,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849283.1671538
+  },
+  {
+   "id": 6887,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849313.1667593
+  },
+  {
+   "id": 6888,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849313.1667874
+  },
+  {
+   "id": 6889,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849313.1668098
+  },
+  {
+   "id": 6890,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794849340.4897087
+  },
+  {
+   "id": 6891,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849343.1679358
+  },
+  {
+   "id": 6892,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849343.1679685
+  },
+  {
+   "id": 6893,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849343.167991
+  },
+  {
+   "id": 6894,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849343.168002
+  },
+  {
+   "id": 6895,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849373.1656833
+  },
+  {
+   "id": 6896,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849373.1657858
+  },
+  {
+   "id": 6897,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849403.1666105
+  },
+  {
+   "id": 6898,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849403.166817
+  },
+  {
+   "id": 6899,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849403.1668792
+  },
+  {
+   "id": 6900,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849403.1668952
+  },
+  {
+   "id": 6901,
+   "guild_id": 1488690726870057165,
+   "user_id": 1409568180845805628,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849433.1648433
+  },
+  {
+   "id": 6902,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849433.1648912
+  },
+  {
+   "id": 6903,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794849458.075486
+  },
+  {
+   "id": 6904,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849463.1645563
+  },
+  {
+   "id": 6905,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849463.1645813
+  },
+  {
+   "id": 6906,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849463.1646943
+  },
+  {
+   "id": 6907,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849463.1647189
+  },
+  {
+   "id": 6908,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849493.1646287
+  },
+  {
+   "id": 6909,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849523.1679873
+  },
+  {
+   "id": 6910,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849523.1680136
+  },
+  {
+   "id": 6911,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849523.1680448
+  },
+  {
+   "id": 6912,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849553.1679525
+  },
+  {
+   "id": 6913,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849553.1680036
+  },
+  {
+   "id": 6914,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849553.1680138
+  },
+  {
+   "id": 6915,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849583.1643145
+  },
+  {
+   "id": 6916,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849583.164336
+  },
+  {
+   "id": 6917,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849583.1643512
+  },
+  {
+   "id": 6918,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794849598.8586128
+  },
+  {
+   "id": 6919,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849613.164794
+  },
+  {
+   "id": 6920,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849613.1648586
+  },
+  {
+   "id": 6921,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849613.1648922
+  },
+  {
+   "id": 6922,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849643.1670263
+  },
+  {
+   "id": 6923,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849643.1670668
+  },
+  {
+   "id": 6924,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849643.167084
+  },
+  {
+   "id": 6925,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849673.1662679
+  },
+  {
+   "id": 6926,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849703.1648986
+  },
+  {
+   "id": 6927,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849703.1649165
+  },
+  {
+   "id": 6928,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849703.1649303
+  },
+  {
+   "id": 6929,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849733.1650522
+  },
+  {
+   "id": 6930,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849763.165348
+  },
+  {
+   "id": 6931,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849763.165372
+  },
+  {
+   "id": 6932,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849763.1653879
+  },
+  {
+   "id": 6933,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849793.1656768
+  },
+  {
+   "id": 6934,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849793.1657386
+  },
+  {
+   "id": 6935,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849823.1649528
+  },
+  {
+   "id": 6936,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849823.1649725
+  },
+  {
+   "id": 6937,
+   "guild_id": 1488690726870057165,
+   "user_id": 1567891350710657266,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849823.1649842
+  },
+  {
+   "id": 6938,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794849851.2848985
+  },
+  {
+   "id": 6939,
+   "guild_id": 1547650379448188999,
+   "user_id": 1556600326617042959,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794849852.8553772
+  },
+  {
+   "id": 6940,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849853.1642156
+  },
+  {
+   "id": 6941,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849853.1642535
+  },
+  {
+   "id": 6942,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794849874.4592156
+  },
+  {
+   "id": 6943,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849883.1655986
+  },
+  {
+   "id": 6944,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849883.1656156
+  },
+  {
+   "id": 6945,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794849891.3735785
+  },
+  {
+   "id": 6946,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849913.1668465
+  },
+  {
+   "id": 6947,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849913.1668973
+  },
+  {
+   "id": 6948,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849943.1667628
+  },
+  {
+   "id": 6949,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849943.166785
+  },
+  {
+   "id": 6950,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849973.1675677
+  },
+  {
+   "id": 6951,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849973.1676593
+  },
+  {
+   "id": 6952,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794849973.1676757
+  },
+  {
+   "id": 6953,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850003.1665826
+  },
+  {
+   "id": 6954,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850033.1668618
+  },
+  {
+   "id": 6955,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850033.166889
+  },
+  {
+   "id": 6956,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850033.1669188
+  },
+  {
+   "id": 6957,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850063.1647336
+  },
+  {
+   "id": 6958,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850063.164758
+  },
+  {
+   "id": 6959,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850089.2253556
+  },
+  {
+   "id": 6960,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850093.1654625
+  },
+  {
+   "id": 6961,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850093.1654866
+  },
+  {
+   "id": 6962,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850093.165514
+  },
+  {
+   "id": 6963,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850123.1795664
+  },
+  {
+   "id": 6964,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850123.179595
+  },
+  {
+   "id": 6965,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850153.1652477
+  },
+  {
+   "id": 6966,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850153.165274
+  },
+  {
+   "id": 6967,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850183.1668367
+  },
+  {
+   "id": 6968,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850183.1668613
+  },
+  {
+   "id": 6969,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850213.166827
+  },
+  {
+   "id": 6970,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850213.1668556
+  },
+  {
+   "id": 6971,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850229.2879176
+  },
+  {
+   "id": 6972,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850243.1644728
+  },
+  {
+   "id": 6973,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850273.1665287
+  },
+  {
+   "id": 6974,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850273.1669188
+  },
+  {
+   "id": 6975,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850273.1669352
+  },
+  {
+   "id": 6976,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850292.167721
+  },
+  {
+   "id": 6977,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850298.2943099
+  },
+  {
+   "id": 6978,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850303.1665566
+  },
+  {
+   "id": 6979,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850333.1650004
+  },
+  {
+   "id": 6980,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850333.1650274
+  },
+  {
+   "id": 6981,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850333.165046
+  },
+  {
+   "id": 6982,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850333.1650877
+  },
+  {
+   "id": 6983,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850358.715884
+  },
+  {
+   "id": 6984,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850363.1647992
+  },
+  {
+   "id": 6985,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850384.03266
+  },
+  {
+   "id": 6986,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850393.16431
+  },
+  {
+   "id": 6987,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850393.1643293
+  },
+  {
+   "id": 6988,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850393.1643407
+  },
+  {
+   "id": 6989,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850393.1643586
+  },
+  {
+   "id": 6990,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850423.1656258
+  },
+  {
+   "id": 6991,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850453.1663704
+  },
+  {
+   "id": 6992,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850453.1664162
+  },
+  {
+   "id": 6993,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850453.1664329
+  },
+  {
+   "id": 6994,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850453.1664584
+  },
+  {
+   "id": 6995,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850483.1651852
+  },
+  {
+   "id": 6996,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850513.1648953
+  },
+  {
+   "id": 6997,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850513.16492
+  },
+  {
+   "id": 6998,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850513.1649349
+  },
+  {
+   "id": 6999,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850513.1649601
+  },
+  {
+   "id": 7000,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850543.1812048
+  },
+  {
+   "id": 7001,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850573.167956
+  },
+  {
+   "id": 7002,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850573.1679847
+  },
+  {
+   "id": 7003,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850573.1680112
+  },
+  {
+   "id": 7004,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850588.813213
+  },
+  {
+   "id": 7005,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850598.6608932
+  },
+  {
+   "id": 7006,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850603.1660137
+  },
+  {
+   "id": 7007,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850633.1658266
+  },
+  {
+   "id": 7008,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850633.165859
+  },
+  {
+   "id": 7009,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850633.1659052
+  },
+  {
+   "id": 7010,
+   "guild_id": 1547650379448188999,
+   "user_id": 1311075280961409036,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850656.0952091
+  },
+  {
+   "id": 7011,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850663.1665044
+  },
+  {
+   "id": 7012,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850693.1646934
+  },
+  {
+   "id": 7013,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850693.1647224
+  },
+  {
+   "id": 7014,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850693.1647563
+  },
+  {
+   "id": 7015,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850701.9990897
+  },
+  {
+   "id": 7016,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850723.1667151
+  },
+  {
+   "id": 7017,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850744.867783
+  },
+  {
+   "id": 7018,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850753.1660032
+  },
+  {
+   "id": 7019,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850753.1660464
+  },
+  {
+   "id": 7020,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850783.164801
+  },
+  {
+   "id": 7021,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850783.1648166
+  },
+  {
+   "id": 7022,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794850787.3583057
+  },
+  {
+   "id": 7023,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850813.1675575
+  },
+  {
+   "id": 7024,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850813.16761
+  },
+  {
+   "id": 7025,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850843.1659286
+  },
+  {
+   "id": 7026,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850843.16595
+  },
+  {
+   "id": 7027,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850873.164878
+  },
+  {
+   "id": 7028,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850873.1649263
+  },
+  {
+   "id": 7029,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850903.165762
+  },
+  {
+   "id": 7030,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850903.1657856
+  },
+  {
+   "id": 7031,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850933.1678548
+  },
+  {
+   "id": 7032,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850933.167906
+  },
+  {
+   "id": 7033,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850963.165408
+  },
+  {
+   "id": 7034,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850963.1654334
+  },
+  {
+   "id": 7035,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850993.167702
+  },
+  {
+   "id": 7036,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794850993.1678004
+  },
+  {
+   "id": 7037,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851023.1668816
+  },
+  {
+   "id": 7038,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851023.1669068
+  },
+  {
+   "id": 7039,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851053.1707768
+  },
+  {
+   "id": 7040,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851053.1708243
+  },
+  {
+   "id": 7041,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851083.164646
+  },
+  {
+   "id": 7042,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851083.1646693
+  },
+  {
+   "id": 7043,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851113.1658025
+  },
+  {
+   "id": 7044,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851113.1658475
+  },
+  {
+   "id": 7045,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851143.1704412
+  },
+  {
+   "id": 7046,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851143.1704624
+  },
+  {
+   "id": 7047,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851173.1806293
+  },
+  {
+   "id": 7048,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851173.181104
+  },
+  {
+   "id": 7049,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851203.167405
+  },
+  {
+   "id": 7050,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851203.1674297
+  },
+  {
+   "id": 7051,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851233.1746166
+  },
+  {
+   "id": 7052,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851233.174655
+  },
+  {
+   "id": 7053,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851263.1669478
+  },
+  {
+   "id": 7054,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851263.1669712
+  },
+  {
+   "id": 7055,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851293.1695669
+  },
+  {
+   "id": 7056,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851293.1696162
+  },
+  {
+   "id": 7057,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851323.166439
+  },
+  {
+   "id": 7058,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851323.1664605
+  },
+  {
+   "id": 7059,
+   "guild_id": 1488690726870057165,
+   "user_id": 1191766539389644883,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851353.1702967
+  },
+  {
+   "id": 7060,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851383.1669352
+  },
+  {
+   "id": 7061,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851383.1669593
+  },
+  {
+   "id": 7062,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851383.1669729
+  },
+  {
+   "id": 7063,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851443.1649797
+  },
+  {
+   "id": 7064,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851443.1650047
+  },
+  {
+   "id": 7065,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851443.16502
+  },
+  {
+   "id": 7066,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851503.166608
+  },
+  {
+   "id": 7067,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851503.1666367
+  },
+  {
+   "id": 7068,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794851551.0654447
+  },
+  {
+   "id": 7069,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851563.1648312
+  },
+  {
+   "id": 7070,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851563.1648567
+  },
+  {
+   "id": 7071,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851593.1652036
+  },
+  {
+   "id": 7072,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851623.1655898
+  },
+  {
+   "id": 7073,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851623.1656315
+  },
+  {
+   "id": 7074,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794851630.2605755
+  },
+  {
+   "id": 7075,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851653.1647217
+  },
+  {
+   "id": 7076,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851683.1652522
+  },
+  {
+   "id": 7077,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851713.1647632
+  },
+  {
+   "id": 7078,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851713.1647916
+  },
+  {
+   "id": 7079,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851743.1650066
+  },
+  {
+   "id": 7080,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794851744.469912
+  },
+  {
+   "id": 7081,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851773.164926
+  },
+  {
+   "id": 7082,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851773.164959
+  },
+  {
+   "id": 7083,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851803.1671972
+  },
+  {
+   "id": 7084,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851833.1650782
+  },
+  {
+   "id": 7085,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851833.1651163
+  },
+  {
+   "id": 7086,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851833.1651495
+  },
+  {
+   "id": 7087,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851863.164871
+  },
+  {
+   "id": 7088,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851893.1661592
+  },
+  {
+   "id": 7089,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851893.1662486
+  },
+  {
+   "id": 7090,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851893.166267
+  },
+  {
+   "id": 7091,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851923.1653647
+  },
+  {
+   "id": 7092,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794851953.1381545
+  },
+  {
+   "id": 7093,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851953.1661093
+  },
+  {
+   "id": 7094,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851953.1661537
+  },
+  {
+   "id": 7095,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851953.1661716
+  },
+  {
+   "id": 7096,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794851983.1655464
+  },
+  {
+   "id": 7097,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852013.164966
+  },
+  {
+   "id": 7098,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852013.1650076
+  },
+  {
+   "id": 7099,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852013.1650217
+  },
+  {
+   "id": 7100,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852043.1672983
+  },
+  {
+   "id": 7101,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852073.1651645
+  },
+  {
+   "id": 7102,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852073.1652079
+  },
+  {
+   "id": 7103,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852073.1652255
+  },
+  {
+   "id": 7104,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852103.1663463
+  },
+  {
+   "id": 7105,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852133.1655316
+  },
+  {
+   "id": 7106,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852133.165568
+  },
+  {
+   "id": 7107,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852133.1656206
+  },
+  {
+   "id": 7108,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852163.1676505
+  },
+  {
+   "id": 7109,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794852186.2190084
+  },
+  {
+   "id": 7110,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852193.1660533
+  },
+  {
+   "id": 7111,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852193.16609
+  },
+  {
+   "id": 7112,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852193.1661034
+  },
+  {
+   "id": 7113,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852223.1665056
+  },
+  {
+   "id": 7114,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852253.1654034
+  },
+  {
+   "id": 7115,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852253.1654413
+  },
+  {
+   "id": 7116,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852253.1654565
+  },
+  {
+   "id": 7117,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794852254.385726
+  },
+  {
+   "id": 7118,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852283.1678123
+  },
+  {
+   "id": 7119,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852313.164965
+  },
+  {
+   "id": 7120,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852313.1649961
+  },
+  {
+   "id": 7121,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852313.1650076
+  },
+  {
+   "id": 7122,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852343.1657805
+  },
+  {
+   "id": 7123,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852373.1647086
+  },
+  {
+   "id": 7124,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852373.1647582
+  },
+  {
+   "id": 7125,
+   "guild_id": 1488690726870057165,
+   "user_id": 1379734798515568692,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852373.1647754
+  },
+  {
+   "id": 7126,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852403.167221
+  },
+  {
+   "id": 7127,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852403.167239
+  },
+  {
+   "id": 7128,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852433.1661654
+  },
+  {
+   "id": 7129,
+   "guild_id": 1488690726870057165,
+   "user_id": 1379734798515568692,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852433.1671731
+  },
+  {
+   "id": 7130,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852433.1671941
+  },
+  {
+   "id": 7131,
+   "guild_id": 1547650379448188999,
+   "user_id": 1520263916629000284,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794852457.2592745
+  },
+  {
+   "id": 7132,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852463.1648858
+  },
+  {
+   "id": 7133,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852463.164906
+  },
+  {
+   "id": 7134,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852493.167313
+  },
+  {
+   "id": 7135,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852523.1647182
+  },
+  {
+   "id": 7136,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852553.1664464
+  },
+  {
+   "id": 7137,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852553.1664746
+  },
+  {
+   "id": 7138,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794852573.0999165
+  },
+  {
+   "id": 7139,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852583.165695
+  },
+  {
+   "id": 7140,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852613.169968
+  },
+  {
+   "id": 7141,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852613.1700091
+  },
+  {
+   "id": 7142,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852643.1656625
+  },
+  {
+   "id": 7143,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852673.167311
+  },
+  {
+   "id": 7144,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852673.1673503
+  },
+  {
+   "id": 7145,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852673.1673634
+  },
+  {
+   "id": 7146,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852703.1663508
+  },
+  {
+   "id": 7147,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852733.1652474
+  },
+  {
+   "id": 7148,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852733.165306
+  },
+  {
+   "id": 7149,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852733.1653209
+  },
+  {
+   "id": 7150,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852793.1676888
+  },
+  {
+   "id": 7151,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852793.1677084
+  },
+  {
+   "id": 7152,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852793.1677194
+  },
+  {
+   "id": 7153,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794852828.404185
+  },
+  {
+   "id": 7154,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852853.1664329
+  },
+  {
+   "id": 7155,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852853.1664608
+  },
+  {
+   "id": 7156,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794852873.6414132
+  },
+  {
+   "id": 7157,
+   "guild_id": 1488690726870057165,
+   "user_id": 1502235313081290855,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794852886.1943712
+  },
+  {
+   "id": 7158,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852913.1664228
+  },
+  {
+   "id": 7159,
+   "guild_id": 1488690726870057165,
+   "user_id": 1418875905085935637,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852913.166448
+  },
+  {
+   "id": 7160,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794852940.0944405
+  },
+  {
+   "id": 7161,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794852973.1649578
+  },
+  {
+   "id": 7162,
+   "guild_id": 1547650379448188999,
+   "user_id": 1554280108632842295,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794854048.2893023
+  },
+  {
+   "id": 7163,
+   "guild_id": 1547650379448188999,
+   "user_id": 1340198074387267634,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794854272.5819705
+  },
+  {
+   "id": 7164,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794854440.083862
+  },
+  {
+   "id": 7165,
+   "guild_id": 1547650379448188999,
+   "user_id": 1542950046511923382,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794854662.7388668
+  },
+  {
+   "id": 7166,
+   "guild_id": 1488690726870057165,
+   "user_id": 1425991437396217960,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794854769.9231668
+  },
+  {
+   "id": 7167,
+   "guild_id": 1547650379448188999,
+   "user_id": 1556600326617042959,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794855012.5032742
+  },
+  {
+   "id": 7168,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794855776.9828506
+  },
+  {
+   "id": 7169,
+   "guild_id": 1547650379448188999,
+   "user_id": 1497891194808827905,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794860133.371016
+  },
+  {
+   "id": 7170,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794866723.3393621
+  },
+  {
+   "id": 7171,
+   "guild_id": 1547650379448188999,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794867876.023292
+  },
+  {
+   "id": 7172,
+   "guild_id": 1547650379448188999,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794873961.164521
+  },
+  {
+   "id": 7173,
+   "guild_id": 1488690726870057165,
+   "user_id": 650534818517483526,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794874075.9827936
+  },
+  {
+   "id": 7174,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794878983.166336
+  },
+  {
+   "id": 7175,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879043.1758766
+  },
+  {
+   "id": 7176,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879103.1709878
+  },
+  {
+   "id": 7177,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794879146.3638673
+  },
+  {
+   "id": 7178,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879163.1717186
+  },
+  {
+   "id": 7179,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879223.1669369
+  },
+  {
+   "id": 7180,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879283.1786914
+  },
+  {
+   "id": 7181,
+   "guild_id": 1488690726870057165,
+   "user_id": 1515150827508203613,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879313.1666
+  },
+  {
+   "id": 7182,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879343.1709566
+  },
+  {
+   "id": 7183,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879403.1721144
+  },
+  {
+   "id": 7184,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879463.175633
+  },
+  {
+   "id": 7185,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879523.1661904
+  },
+  {
+   "id": 7186,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879583.1765838
+  },
+  {
+   "id": 7187,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879643.165145
+  },
+  {
+   "id": 7188,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879703.177257
+  },
+  {
+   "id": 7189,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879763.1784303
+  },
+  {
+   "id": 7190,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879823.1717677
+  },
+  {
+   "id": 7191,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879883.1769001
+  },
+  {
+   "id": 7192,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794879943.1751325
+  },
+  {
+   "id": 7193,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880003.1771917
+  },
+  {
+   "id": 7194,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880063.170778
+  },
+  {
+   "id": 7195,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880123.1792734
+  },
+  {
+   "id": 7196,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880183.1667247
+  },
+  {
+   "id": 7197,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880243.1754537
+  },
+  {
+   "id": 7198,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880333.1663957
+  },
+  {
+   "id": 7199,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880393.167947
+  },
+  {
+   "id": 7200,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880453.1673298
+  },
+  {
+   "id": 7201,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880513.2038217
+  },
+  {
+   "id": 7202,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880573.1675942
+  },
+  {
+   "id": 7203,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880633.1665425
+  },
+  {
+   "id": 7204,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880693.169691
+  },
+  {
+   "id": 7205,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880753.1858795
+  },
+  {
+   "id": 7206,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880813.1684995
+  },
+  {
+   "id": 7207,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880873.1723988
+  },
+  {
+   "id": 7208,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880933.1669984
+  },
+  {
+   "id": 7209,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794880993.16966
+  },
+  {
+   "id": 7210,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881053.169092
+  },
+  {
+   "id": 7211,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881113.1695783
+  },
+  {
+   "id": 7212,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881173.170476
+  },
+  {
+   "id": 7213,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881233.1694784
+  },
+  {
+   "id": 7214,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881293.1647944
+  },
+  {
+   "id": 7215,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881353.1681967
+  },
+  {
+   "id": 7216,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881413.1673381
+  },
+  {
+   "id": 7217,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881473.1704254
+  },
+  {
+   "id": 7218,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881533.1694562
+  },
+  {
+   "id": 7219,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881593.1678114
+  },
+  {
+   "id": 7220,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881653.170625
+  },
+  {
+   "id": 7221,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881713.1900532
+  },
+  {
+   "id": 7222,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881773.169375
+  },
+  {
+   "id": 7223,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881863.1657436
+  },
+  {
+   "id": 7224,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881923.178875
+  },
+  {
+   "id": 7225,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794881983.165432
+  },
+  {
+   "id": 7226,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882043.1660645
+  },
+  {
+   "id": 7227,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882103.167839
+  },
+  {
+   "id": 7228,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882163.1671178
+  },
+  {
+   "id": 7229,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882223.1668923
+  },
+  {
+   "id": 7230,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794882262.5321116
+  },
+  {
+   "id": 7231,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882283.1651456
+  },
+  {
+   "id": 7232,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882343.1655002
+  },
+  {
+   "id": 7233,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882403.1667697
+  },
+  {
+   "id": 7234,
+   "guild_id": 1488690726870057165,
+   "user_id": 1519731963244580987,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794882437.244571
+  },
+  {
+   "id": 7235,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882463.1648834
+  },
+  {
+   "id": 7236,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882523.1667967
+  },
+  {
+   "id": 7237,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882583.1646764
+  },
+  {
+   "id": 7238,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882643.1654842
+  },
+  {
+   "id": 7239,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882703.166656
+  },
+  {
+   "id": 7240,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882763.1666827
+  },
+  {
+   "id": 7241,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882823.1677043
+  },
+  {
+   "id": 7242,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882883.1654286
+  },
+  {
+   "id": 7243,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794882943.1670768
+  },
+  {
+   "id": 7244,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883003.182961
+  },
+  {
+   "id": 7245,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883063.1647558
+  },
+  {
+   "id": 7246,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883123.166446
+  },
+  {
+   "id": 7247,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883183.1654458
+  },
+  {
+   "id": 7248,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883243.1653543
+  },
+  {
+   "id": 7249,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883303.1651516
+  },
+  {
+   "id": 7250,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883363.1666007
+  },
+  {
+   "id": 7251,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883423.1658998
+  },
+  {
+   "id": 7252,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883483.16692
+  },
+  {
+   "id": 7253,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883543.1648357
+  },
+  {
+   "id": 7254,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883603.1668723
+  },
+  {
+   "id": 7255,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883663.1668875
+  },
+  {
+   "id": 7256,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794883688.1553078
+  },
+  {
+   "id": 7257,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883753.1800487
+  },
+  {
+   "id": 7258,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883813.1774995
+  },
+  {
+   "id": 7259,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883873.1836674
+  },
+  {
+   "id": 7260,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883933.1646228
+  },
+  {
+   "id": 7261,
+   "guild_id": 1488690726870057165,
+   "user_id": 1299765230011678834,
+   "delta": 1,
+   "reason": "vc",
+   "ts": 1794883993.1670074
+  },
+  {
+   "id": 7262,
+   "guild_id": 1488690726870057165,
+   "user_id": 1262248731353546763,
+   "delta": 1,
+   "reason": "chat",
+   "ts": 1794884889.2541652
   }
  ]
 }

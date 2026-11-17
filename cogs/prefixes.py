@@ -28,7 +28,7 @@ class Prefixes(commands.Cog):
         e = discord.Embed(title=f"{I.s('bolt')} No Prefix", color=BLURPLE, description=(
             f"{I.s('crown')} **Role:** {role.mention if role else 'not set'}\n"
             f"{I.s('users')} **Members:** {users}\n\n"
-            f"People with the role (or added by hand) can use commands **without** `{PREFIX}`, e.g. `profile`, `vclock`.\n"
+            f"They can type commands **without** `{PREFIX}`, like `profile` or `vclock`.\n"
             f"`{PREFIX}noprefix role @Role` · `{PREFIX}noprefix clear` · `{PREFIX}noprefix add @user` · "
             f"`{PREFIX}noprefix remove @user`"))
         await ctx.reply(embed=e, mention_author=False, allowed_mentions=discord.AllowedMentions.none())
@@ -42,7 +42,7 @@ class Prefixes(commands.Cog):
         c = self.bot.noprefix_cfg(ctx.guild.id)
         c["role"] = role.id
         self.bot.save_noprefix(ctx.guild.id)
-        await ctx.reply(ok(f"No-prefix role set to {role.mention}. Members with it can now use commands without `{PREFIX}`."),
+        await ctx.reply(ok(f"No-prefix role is {role.mention}. They can skip `{PREFIX}` now."),
                         mention_author=False, allowed_mentions=discord.AllowedMentions.none())
 
     @noprefix.command(name="clear", aliases=["off", "reset"])
@@ -60,10 +60,10 @@ class Prefixes(commands.Cog):
         """$noprefix add @user - give one member no-prefix access."""
         c = self.bot.noprefix_cfg(ctx.guild.id)
         if member.id in c["users"]:
-            raise VCError("They already have no-prefix access.")
+            raise VCError("They already have no-prefix.")
         c["users"].append(member.id)
         self.bot.save_noprefix(ctx.guild.id)
-        await ctx.reply(ok(f"{member.mention} can now use commands without `{PREFIX}`."),
+        await ctx.reply(ok(f"{member.mention} can skip `{PREFIX}` now."),
                         mention_author=False, allowed_mentions=discord.AllowedMentions.none())
 
     @noprefix.command(name="remove")
@@ -72,10 +72,10 @@ class Prefixes(commands.Cog):
         """$noprefix remove @user"""
         c = self.bot.noprefix_cfg(ctx.guild.id)
         if member.id not in c["users"]:
-            raise VCError("That member wasn't added by hand.")
+            raise VCError("They weren't added by hand.")
         c["users"].remove(member.id)
         self.bot.save_noprefix(ctx.guild.id)
-        await ctx.reply(ok(f"{member.mention} needs the prefix again."), mention_author=False,
+        await ctx.reply(ok(f"{member.mention} needs `{PREFIX}` again."), mention_author=False,
                         allowed_mentions=discord.AllowedMentions.none())
 
     # =================== $alias ===================
@@ -93,7 +93,7 @@ class Prefixes(commands.Cog):
         e = discord.Embed(title=f"{I.s('link')} Command Aliases", color=BLURPLE,
                           description="\n".join(lines) or "No custom aliases yet.\n"
                           f"Create one: `{PREFIX}alias add pa vcpermit all`")
-        e.set_footer(text="Built-in aliases are shown in $adminhelp")
+        e.set_footer(text="Built-in aliases are in $help")
         await ctx.reply(embed=e, mention_author=False)
 
     @alias.command(name="add", aliases=["create", "set"])
@@ -102,19 +102,19 @@ class Prefixes(commands.Cog):
         """$alias add <name> <command> - e.g. `$alias add pa vcpermit all`"""
         name = name.lower().lstrip(PREFIX)
         if not re.fullmatch(r"[a-z0-9_]{1,20}", name):
-            raise VCError("Alias names can only use letters, numbers and `_` (max 20 characters).")
+            raise VCError("Use letters, numbers and `_` only (max 20).")
         if self.bot.get_command(name) is not None:
             raise VCError(f"`{name}` is already a command.")
         command = command.strip().lstrip(PREFIX).strip()
         first = command.split()[0].lower() if command else ""
         if not first or self.bot.get_command(first) is None:
-            raise VCError(f"`{first or command}` isn't a command. See `{PREFIX}adminhelp`.")
+            raise VCError(f"`{first or command}` isn't a command. Check `{PREFIX}help`.")
         a = self.bot.aliases(ctx.guild.id)
         if name not in a and len(a) >= MAX_ALIASES:
-            raise VCError(f"You can have at most {MAX_ALIASES} aliases.")
+            raise VCError(f"Max {MAX_ALIASES} aliases.")
         a[name] = command
         self.bot.save_aliases(ctx.guild.id)
-        await ctx.reply(ok(f"`{PREFIX}{name}` now runs `{PREFIX}{command}`."), mention_author=False)
+        await ctx.reply(ok(f"`{PREFIX}{name}` runs `{PREFIX}{command}` now."), mention_author=False)
 
     @alias.command(name="remove", aliases=["delete", "del"])
     @commands.has_permissions(manage_guild=True)
@@ -123,10 +123,10 @@ class Prefixes(commands.Cog):
         name = name.lower().lstrip(PREFIX)
         a = self.bot.aliases(ctx.guild.id)
         if name not in a:
-            raise VCError("That alias doesn't exist.")
+            raise VCError("No such alias.")
         del a[name]
         self.bot.save_aliases(ctx.guild.id)
-        await ctx.reply(ok(f"Alias `{name}` removed."), mention_author=False)
+        await ctx.reply(ok(f"Removed `{name}`."), mention_author=False)
 
 
 async def setup(bot):

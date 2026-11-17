@@ -14,10 +14,19 @@
 - `data/afk_data.json`: AFK users
 
 ## Backup (webhook only)
-Set `BACKUP_WEBHOOK` in `.env`. The webhook gets one detailed message + `leafy_backup.zip` (all bot files, `data/`, `.env`
-with token + webhook (`BACKUP_REDACT=1` removes them), `BACKUP_MANIFEST.json`). Sent automatically every 30 seconds (as a new message, the previous one is deleted; `BACKUP_MODE=keep` keeps all), at start and when the bot stops. The embed has no emojis.
-`$backup` = status, `$backup refresh` = back up now (bot owner).
-Restore: `python tools/restore.py leafy_backup.zip` (verifies every file + database integrity; the token / webhook come from the backup) → `pip install -r requirements.txt` → `python main.py`. Check only: add `--check`.
+Set `BACKUP_WEBHOOK` in `.env`. Every backup is one small message with **two zips**:
+- `leafy_code.zip` - bot files, assets, `.env` (token + webhook stay in; `BACKUP_REDACT=1` removes them), `export/`
+- `leafy_data.zip` - the `data/` folder only (database, VC / AFK / self-role data)
+
+Sent every 30 seconds (new message, the previous one is deleted; `BACKUP_MODE=keep` keeps all), at start and when the bot stops.
+`$backup` = status, `$backup refresh` = back up now (owner).
+
+**`$backupload`** (owner): attach one or more data zips (`leafy_data.zip`, or an old full backup) and the data is merged into the
+running bot by itself. New players, badges, shop items, purchases and settings are added; if a player exists in both, the bigger
+value wins. Nothing is deleted. You can also reply to a message that has the zip(s).
+
+Restore on a new machine: `python tools/restore.py leafy_code.zip leafy_data.zip` (verifies every file + database) →
+`pip install -r requirements.txt` → `python main.py`. Check only: add `--check`.
 
 Every backup also contains a **readable export** in `export/`: `SERVER_CONFIG.md/.json` (custom-VC join channel + panel, self-role
 channel/message/roles/banner, points, shop, no-prefix, aliases, role commands, autoreact, AFK, extra owners - every ID with the
@@ -107,3 +116,13 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
   - Stored per server in the `settings` table (key `cmd_disable`) -> part of the backup / export.
 - **Badge fix**: `$badge give @user <emoji>` no longer cuts custom emojis (the old 30-character limit left `<:name:id` without `>`).
   Limit is now 100 characters, `:emoji_name:` also works, and old broken badges are repaired automatically on start.
+
+## Update 4
+- **Backup**: code and data are two separate zips, the embed is short, `$backupload` merges data zips into the live bot.
+- **No reply without rights**: someone without the permission who uses an admin / owner command gets no answer at all.
+- **`$aura`**: random aura is a new amount every time, the bar lands on the final value in 3 ticks.
+  `$aura config` has **Disable Person** (pick a member: their aura is off; pick again: back on).
+- **`$customvc config`** (Manage Server): who can't be vc-banned / kicked / muted. Server owner and Leafy owners are always safe,
+  admins are safe by default (toggle), and you can add any roles. `$customvc #voice` still sets the join-to-create channel.
+- **Leafy owners control every custom VC** (all `$vc...` commands): from the VC they sit in, or by typing the command in that VC's own chat.
+- Every Leafy message was rewritten shorter and lighter.

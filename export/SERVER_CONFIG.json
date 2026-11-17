@@ -5,7 +5,7 @@
       "id": 1569712165932236842
     },
     "voice_mutes_running": {},
-    "slash_sync_hash": "57437f68e49e9ad011003111988c11d535940c8a"
+    "slash_sync_hash": "60991de76d6e4f118c46ff18d34a94f01fbf57dc"
   },
   "servers": {
     "1154838258027606117": {
@@ -54,7 +54,7 @@
         "name": "Dark Spider's Web",
         "bot_is_in_server": true,
         "owner_id": 1400039022855852113,
-        "members": 149
+        "members": 172
       },
       "custom_vc": {
         "join_to_create_channel": 1488691385266864208,
@@ -205,7 +205,8 @@
         "role": 1569999856171229255,
         "users": [
           1262248731353546763,
-          1418875905085935637
+          1418875905085935637,
+          650534818517483526
         ]
       },
       "aliases": null,
@@ -261,7 +262,7 @@
       },
       "aura": {
         "members": {
-          "650534818517483526": 100,
+          "650534818517483526": 0,
           "1262248731353546763": 99
         },
         "roles": {},
@@ -291,36 +292,42 @@
             "old_nick": null,
             "mentions_waiting": 6
           },
-          "1567891350710657266": {
-            "reason": "Baad ma aaugi",
-            "since": 1794467114.6361542,
-            "old_nick": null,
-            "mentions_waiting": 0
-          },
           "1512822379061969028": {
             "reason": "sone ja raha",
             "since": 1794505670.9405162,
             "old_nick": null,
             "mentions_waiting": 0
           },
-          "1502235313081290855": {
-            "reason": "AFK",
-            "since": 1794672900.8998067,
+          "1567891350710657266": {
+            "reason": "<:Roast:1569605305011015711>",
+            "since": 1794849840.3807216,
             "old_nick": null,
-            "mentions_waiting": 2
+            "mentions_waiting": 0
           },
-          "1028298097664733215": {
+          "1476239945172648142": {
             "reason": "AFK",
-            "since": 1794775475.5481703,
+            "since": 1794850390.7491822,
             "old_nick": null,
-            "mentions_waiting": 6
+            "mentions_waiting": 1
+          },
+          "1502235313081290855": {
+            "reason": "gn",
+            "since": 1794852923.8723984,
+            "old_nick": null,
+            "mentions_waiting": 1
+          },
+          "1425991437396217960": {
+            "reason": "AFK",
+            "since": 1794857743.2378263,
+            "old_nick": null,
+            "mentions_waiting": 0
           }
         }
       },
       "all_settings_raw": {
         "aura": {
           "members": {
-            "650534818517483526": 100,
+            "650534818517483526": 0,
             "1262248731353546763": 99
           },
           "roles": {},
@@ -362,7 +369,8 @@
           "role": 1569999856171229255,
           "users": [
             1262248731353546763,
-            1418875905085935637
+            1418875905085935637,
+            650534818517483526
           ]
         },
         "points": {
@@ -402,7 +410,7 @@
           "channel": 1570649429768413285
         }
       },
-      "players_in_database": 119
+      "players_in_database": 127
     },
     "1547650379448188999": {
       "server": {
@@ -410,7 +418,7 @@
         "name": "The Blaze Nebula | Drag GW",
         "bot_is_in_server": true,
         "owner_id": 1519731963244580987,
-        "members": 853
+        "members": 882
       },
       "custom_vc": {
         "join_to_create_channel": null,
@@ -461,7 +469,8 @@
           1340198074387267634,
           1554945105981603880,
           829689719633215498,
-          1537639385879683212
+          1537639385879683212,
+          1554280108632842295
         ]
       },
       "aliases": null,
@@ -480,10 +489,22 @@
       "afk": {
         "tag_enabled": true,
         "users": {
-          "1537639385879683212": {
-            "reason": "gg blazu rich sheru",
-            "since": 1794792001.0317106,
-            "old_nick": "T-MOD | Ruler",
+          "1543476735469691002": {
+            "reason": "AFK",
+            "since": 1794852977.2210464,
+            "old_nick": "T-MOD | Batak sir 🦆",
+            "mentions_waiting": 0
+          },
+          "829689719633215498": {
+            "reason": "sojao",
+            "since": 1794856991.8949466,
+            "old_nick": null,
+            "mentions_waiting": 4
+          },
+          "1538573910839140575": {
+            "reason": "don't ping lemme study tmrw is my paper",
+            "since": 1794858776.0990083,
+            "old_nick": null,
             "mentions_waiting": 0
           }
         }
@@ -509,11 +530,12 @@
             1340198074387267634,
             1554945105981603880,
             829689719633215498,
-            1537639385879683212
+            1537639385879683212,
+            1554280108632842295
           ]
         }
       },
-      "players_in_database": 239
+      "players_in_database": 276
     }
   }
 }

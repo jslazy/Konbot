@@ -7,11 +7,50 @@
   "vc_data.guild_owners": [],
   "vc_data.vc_setup": {},
   "afk_data.afk": {
-    "1537639385879683212": {
-      "reason": "gg blazu rich sheru",
-      "since": 1794792001.0317106,
+    "1543476735469691002": {
+      "reason": "AFK",
+      "since": 1794852977.2210464,
       "guild_id": 1547650379448188999,
-      "old_nick": "T-MOD | Ruler",
+      "old_nick": "T-MOD | Batak sir 🦆",
+      "mentions": []
+    },
+    "829689719633215498": {
+      "reason": "sojao",
+      "since": 1794856991.8949466,
+      "guild_id": 1547650379448188999,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Blaze OG",
+          "channel_id": 1568343843382759494,
+          "url": "https://discord.com/channels/1547650379448188999/1568343843382759494/1572013230807589048",
+          "content": "!warn <@829689719633215498>"
+        },
+        {
+          "author": "Blaze OG",
+          "channel_id": 1571937584077349026,
+          "url": "https://discord.com/channels/1547650379448188999/1571937584077349026/1572013303830679573",
+          "content": "!warn <@829689719633215498>"
+        },
+        {
+          "author": "Blaze OG",
+          "channel_id": 1571937584077349026,
+          "url": "https://discord.com/channels/1547650379448188999/1571937584077349026/1572013734468132947",
+          "content": "!cases <@829689719633215498>"
+        },
+        {
+          "author": "Blaze OG",
+          "channel_id": 1571937584077349026,
+          "url": "https://discord.com/channels/1547650379448188999/1571937584077349026/1572013778927751239",
+          "content": "!userinfo <@829689719633215498>"
+        }
+      ]
+    },
+    "1538573910839140575": {
+      "reason": "don't ping lemme study tmrw is my paper",
+      "since": 1794858776.0990083,
+      "guild_id": 1547650379448188999,
+      "old_nick": null,
       "mentions": []
     }
   },

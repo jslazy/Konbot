@@ -3,6 +3,7 @@ import logging
 import traceback
 
 import discord
+from discord import app_commands
 from discord.ext import commands
 
 from core import ratelimit
@@ -14,8 +15,8 @@ log = logging.getLogger("leafy.errors")
 
 # custom wording (taken from the screenshots)
 MISSING = {
-    "vcpermit": "Please provide a valid member to permit.",
-    "vckick": "Please mention a user or provide a valid user ID to kick.",
+    "vcpermit": "Mention someone to permit.",
+    "vckick": "Mention someone to kick.",
 }
 VERB = {"vcban": "ban", "vcunban": "unban", "vctransfer": "transfer ownership to", "vcmute": "mute",
         "dragme": "drag you to"}
@@ -35,8 +36,16 @@ class Errors(commands.Cog):
     async def on_tree_error(self, interaction: discord.Interaction, error):
         error = unwrap(error)
         log.error("slash error: %r", error)
-        text = err("Something went wrong.")
+        if isinstance(error, app_commands.CheckFailure) and not isinstance(error, app_commands.CommandOnCooldown):
+            text = None                                     # no rights = no reply (slash can't be fully silent, so just ack)
+        else:
+            text = err("Something went wrong.")
         try:
+            if text is None:
+                if not interaction.response.is_done():
+                    await interaction.response.defer(ephemeral=True)
+                    await interaction.delete_original_response()
+                return
             if interaction.response.is_done():
                 await interaction.followup.send(text, ephemeral=True)
             else:
@@ -49,14 +58,15 @@ class Errors(commands.Cog):
         error = unwrap(error)
         name = ctx.command.name if ctx.command else ""
 
-        if isinstance(error, (commands.CommandNotFound, commands.NotOwner)):
-            return
+        if isinstance(error, (commands.CommandNotFound, commands.NotOwner, commands.MissingPermissions,
+                              commands.MissingRole, commands.MissingAnyRole)):
+            return          # owner / admin commands used by someone without the rights: no reply at all
         if ctx.interaction is None and ctx.prefix == "":   # no-prefix user typed a normal word -> don't spam errors
             return
         if isinstance(error, ratelimit.RateLimited):
             return await self.send(ctx, ratelimit.limited_text(error.retry_after))
         if isinstance(error, CommandDisabled):
-            return await self.send(ctx, err(f"`{PREFIX}{error.name}` is turned off in this channel."), delete_after=6)
+            return await self.send(ctx, err(f"`{PREFIX}{error.name}` is off here."), delete_after=6)
         if isinstance(error, VCError):
             return await self.send(ctx, err(str(error)))
 
@@ -75,21 +85,18 @@ class Errors(commands.Cog):
             if name in MISSING:
                 return await self.send(ctx, err(MISSING[name]))
             if name in VERB:
-                return await self.send(ctx, err(f"Please mention a user or provide a valid user ID to {VERB[name]}."))
+                return await self.send(ctx, err(f"Mention someone to {VERB[name]}."))
             if isinstance(error, commands.MissingRequiredArgument):
-                return await self.send(ctx, err(f"Missing argument: `{error.param.name}`."))
+                return await self.send(ctx, err(f"I need a `{error.param.name}` for that."))
             return await self.send(ctx, err(str(error)))
-        if isinstance(error, commands.MissingPermissions):
-            perms = ", ".join(p.replace("_", " ").title() for p in error.missing_permissions)
-            return await self.send(ctx, err(f"You need **{perms}** permission to use this."))
         if isinstance(error, commands.NoPrivateMessage):
-            return await self.send(ctx, err("This command only works in a server."))
+            return await self.send(ctx, err("That only works in a server."))
         if isinstance(error, commands.CheckFailure):
             return
 
         log.error("Unhandled error in %s:\n%s", name,
                   "".join(traceback.format_exception(type(error), error, error.__traceback__)))
-        await self.send(ctx, err("Something went wrong. Please try again."))
+        await self.send(ctx, err("Something broke. Try again."))
 
     @staticmethod
     async def send(ctx: commands.Context, text: str, delete_after: float = None):

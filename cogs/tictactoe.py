@@ -42,7 +42,7 @@ class ChallengeView(discord.ui.View):
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
         if interaction.user.id in (self.opponent.id, self.challenger.id):
             return True
-        await interaction.response.send_message(err("This challenge isn't for you."), ephemeral=True)
+        await interaction.response.send_message(err("That challenge isn't yours."), ephemeral=True)
         return False
 
     @discord.ui.button(label="Accept", style=discord.ButtonStyle.success)
@@ -62,7 +62,7 @@ class ChallengeView(discord.ui.View):
         self.done = True
         self.stop()
         self.cog.busy.pop(self.challenger.id, None)
-        text = "The challenge was denied." if interaction.user.id == self.opponent.id else "The challenge was cancelled."
+        text = "Challenge declined." if interaction.user.id == self.opponent.id else "Challenge cancelled."
         await interaction.response.edit_message(content=text, embed=None, view=None)
 
     async def on_timeout(self):
@@ -105,7 +105,7 @@ class GameView(discord.ui.View):
                              description=f"**{p1.display_name}** (X) vs **{p2.display_name}** (O)")
 
     def turn_text(self) -> str:
-        return f"{self.players[self.turn].mention} it's your turn ({self.MARK[self.turn]})."
+        return f"{self.players[self.turn].mention} your turn ({self.MARK[self.turn]})"
 
     def finish(self):
         self.over = True
@@ -117,13 +117,13 @@ class GameView(discord.ui.View):
 
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
         if interaction.user.id not in (p.id for p in self.players):
-            await interaction.response.send_message(err("You're not playing this game."), ephemeral=True)
+            await interaction.response.send_message(err("You're not in this game."), ephemeral=True)
             return False
         return await ratelimit.guard_interaction(interaction, "button")
 
     async def play(self, interaction: discord.Interaction, idx: int):
         if interaction.user.id != self.players[self.turn].id:
-            return await interaction.response.send_message(err("It's not your turn."), ephemeral=True)
+            return await interaction.response.send_message(err("Not your turn."), ephemeral=True)
         if self.board[idx]:
             return await interaction.response.send_message(err("That square is taken."), ephemeral=True)
         mark = self.MARK[self.turn]
@@ -135,7 +135,7 @@ class GameView(discord.ui.View):
         if winner_line(self.board):
             win = self.players[self.turn]
             self.finish()
-            return await interaction.response.edit_message(content=f"{win.mention} Won the game!", embed=self.embed(), view=self)
+            return await interaction.response.edit_message(content=f"{win.mention} wins!", embed=self.embed(), view=self)
         if all(self.board):
             self.finish()
             return await interaction.response.edit_message(content="It's a draw!", embed=self.embed(), view=self)
@@ -169,7 +169,7 @@ class TicTacToe(commands.Cog):
     async def tictactoe(self, ctx: commands.Context):
         """$tictactoe play @member - challenge someone (only in the Tic Tac Toe channel)."""
         ch = self.channel_id(ctx.guild.id)
-        where = f"<#{ch}>" if ch else "*not set - an admin must run* `/tictactoe admin`"
+        where = f"<#{ch}>" if ch else "*not set. An admin can use* `/tictactoe admin`"
         await ctx.reply(embed=discord.Embed(color=BLURPLE, title=f"{I.s('gamepad')} Tic Tac Toe", description=(
             f"**Channel:** {where}\n`/tictactoe play @member` or `$ttt play @member`")), mention_author=False)
 
@@ -183,7 +183,7 @@ class TicTacToe(commands.Cog):
         if not (perms.send_messages and perms.embed_links):
             raise VCError(f"I need **Send Messages** and **Embed Links** in {channel.mention}.")
         self.bot.db.set_settings(ctx.guild.id, KEY, {"channel": channel.id})
-        await ctx.reply(ok(f"Tic Tac Toe can now be played only in {channel.mention}."), mention_author=False)
+        await ctx.reply(ok(f"Tic Tac Toe now lives in {channel.mention}."), mention_author=False)
 
     @tictactoe.command(name="play", description="Challenge a member to Tic Tac Toe")
     @app_commands.describe(opponent="Member you want to play against")
@@ -191,18 +191,18 @@ class TicTacToe(commands.Cog):
     async def ttt_play(self, ctx: commands.Context, opponent: discord.Member):
         ch = self.channel_id(ctx.guild.id)
         if not ch:
-            raise VCError("Tic Tac Toe isn't set up yet. An admin must run `/tictactoe admin #channel`.")
+            raise VCError("Not set up yet. An admin needs to run `/tictactoe admin #channel`.")
         if ctx.channel.id != ch:
-            raise VCError(f"Tic Tac Toe can only be played in <#{ch}>.")
+            raise VCError(f"Play it in <#{ch}>.")
         me = ctx.author
         if opponent.bot:
-            raise VCError("Bots can't play. Challenge a real member.")
+            raise VCError("Bots can't play. Pick a member.")
         if opponent.id == me.id:
-            raise VCError("You can't challenge yourself.")
+            raise VCError("You can't play yourself.")
         if self.busy.get(me.id):
-            raise VCError("You're already in a game or challenge.")
+            raise VCError("You're already in a game.")
         if self.busy.get(opponent.id):
-            raise VCError(f"{opponent.display_name} is already in a game or challenge.")
+            raise VCError(f"{opponent.display_name} is already in a game.")
         self.busy[me.id] = True
         view = ChallengeView(self, me, opponent)
         try:

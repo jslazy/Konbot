@@ -46,7 +46,7 @@ class MemberPick(discord.ui.View):
     def __init__(self, svc, invoker: discord.Member, action: str):
         super().__init__(timeout=60)
         self.svc, self.invoker, self.action = svc, invoker, action
-        sel = discord.ui.UserSelect(placeholder="Select member...", min_values=1, max_values=1)
+        sel = discord.ui.UserSelect(placeholder="Pick a member...", min_values=1, max_values=1)
         sel.callback = self.picked
         self.sel = sel
         self.add_item(sel)
@@ -62,7 +62,7 @@ class MemberPick(discord.ui.View):
         if not isinstance(target, discord.Member):
             target = interaction.guild.get_member(target.id)
         if target is None:
-            return await interaction.edit_original_response(content=err("That member isn't in this server."), view=None)
+            return await interaction.edit_original_response(content=err("They aren't in this server."), view=None)
         try:
             msg = ok(await getattr(self.svc, self.action)(interaction.user, target))
         except VCError as e:
@@ -98,10 +98,10 @@ class PanelView(discord.ui.View):
             if action in TOGGLES:
                 await interaction.response.defer(ephemeral=True)
                 await getattr(svc, action)(member)
-                return await interaction.followup.send(ok("Updated successfully."), ephemeral=True)
+                return await interaction.followup.send(ok("Done."), ephemeral=True)
             if action in PICKERS:
                 return await interaction.response.send_message(
-                    f"Choose a member to **{action}**:", view=MemberPick(svc, member, action), ephemeral=True)
+                    f"Who do you want to **{action}**?", view=MemberPick(svc, member, action), ephemeral=True)
             if action == "rename":
                 return await interaction.response.send_modal(
                     ValueModal(svc.rename, "Rename VC", "New name", "e.g. chill zone", max_length=90))
@@ -129,7 +129,7 @@ def _to_int(v: str, what: str) -> int:
     try:
         return int(v)
     except ValueError:
-        raise VCError(f"Please enter a valid number for the {what}.")
+        raise VCError(f"Enter a number for the {what}.")
 
 
 def panel_embed() -> discord.Embed:

@@ -66,4 +66,4 @@
 
 ### Players
 
-- 6 players stored in `data/leafy.db` (full list: `export/players_1524797937836621874.csv`)
+- 12 players stored in `data/leafy.db` (full list: `export/players_1524797937836621874.csv`)

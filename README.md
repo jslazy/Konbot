@@ -91,8 +91,8 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
   preview with Confirm / Cancel. The VC command is now only `$vctransfer` (`$vct`).
 - **`$point config`** redesigned: *Main* page (chat / VC rules, switches) + *Channels* page (menus to switch points OFF in channels /
   categories, ON-only mode, voice channels, custom rules). Quick commands: `$point disable [#channel]`, `$point enable [#channel]`.
-- **Tic Tac Toe** (plain-text challenge with Accept / Deny, game embed from the first move, X blue / O red, result in the message text): `/tictactoe admin #channel` (admins) sets the channel, `/tictactoe play @member` (or `$ttt play @member`) works only there.
-- **BlackTea** (word-bomb game, custom Leafy icons): `$blacktea [easy|medium|hard]` (alias `$bt`) works only in the channel set with `$blacktea channel #channel` / `$setblacktea`; `$blacktea stop`, `$blacktea reset`.
+- **Tic Tac Toe** (plain-text challenge with Accept / Deny, game embed from the first move, X blue / O red, result in the message text): `/tictactoe admin #channel` (admins) sets the channel, `/tictactoe play @member` (or `$ttt play @member`) works only there. The first turn (X) is random 50-50 - the challenger does not always start.
+- **BlackTea** (word-bomb game, custom Leafy icons): `$blacktea [easy|medium|hard]` (alias `$bt`, no `play` needed) works only in the channel set with `$blacktea channel #channel` / `$setblacktea`; `$blacktea stop`, `$blacktea reset`.
 - **`$leafyping`** (redesigned, custom icons) and **`$leafyinfo`** (servers, total members, stats; server list = bot owner only).
   `$leafy` alone no longer pings, it shows a short intro.
 - **`$pb`** says "Successfully purged N bot messages." and also removes the no-prefix commands (plain `afk`, `profile` ...).
@@ -127,3 +127,14 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
   admins are safe by default (toggle), and you can add any roles. `$customvc #voice` still sets the join-to-create channel.
 - **Leafy owners control every custom VC** (all `$vc...` commands): from the VC they sit in, or by typing the command in that VC's own chat.
 - Every Leafy message was rewritten shorter and lighter.
+
+## Image links, webhook, emoji IDs
+- **Image host** (admins): `$imgchannel #channel` sets a private storage channel (`$imgchannelreset` removes it). `$tolink [name]` (aliases `$link`,
+  `$imglink`) turns an attached image / GIF, an image in the message you reply to, or a pasted link into a saved link (PNG/JPG/GIF/WEBP, up to 5 at once).
+  `$links` lists them, `$linkget <name>` gives a fresh link + preview, `$linkdel <name>` deletes one. Only the link and the hosting message id are saved in
+  `data/` (inside `leafy.db`), never the file. Discord CDN links expire, so Leafy re-fetches a fresh link from the hosting message whenever it needs one.
+  The self-role banner is hosted in this channel too (before `ASSET_CHANNEL_ID`).
+- **Webhook** (Manage Webhooks): `$webhook` opens an editor (channel, message, name, avatar, Send, Edit sent message); `$webhook #channel text` sends at once;
+  `$webhookedit <message link> new text` (`$whe`) edits. Animated emojis work without Nitro: paste the emoji **ID** or `:name:` in the text.
+  The avatar can be a link or the name of a saved image.
+- **`$ei`**: animated emojis (of the servers you share with Leafy) with their IDs, paginated. `$ei here`, `$ei <name>`, `$ei <emoji id>`.

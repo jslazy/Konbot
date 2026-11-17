@@ -3,9 +3,11 @@
     /tictactoe admin #channel      (admins) set the dedicated channel for the games     ($tictactoe admin #channel)
     /tictactoe play @member        challenge a member - works ONLY in that channel      ($tictactoe play @member, $ttt play @member)
 
+The first turn is random (50-50) - the challenger does not always start.
 The challenged member has 60 seconds to accept ("The challenge expired." afterwards). Each move has 90 seconds, the
 player who runs out of time forfeits. Buttons are the 3x3 board (X blue, O red).
 """
+import random
 from typing import Optional
 
 import discord
@@ -51,7 +53,9 @@ class ChallengeView(discord.ui.View):
             return await interaction.response.send_message(err("Only the challenged member can accept."), ephemeral=True)
         self.done = True
         self.stop()
-        game = GameView(self.cog, self.challenger, self.opponent)
+        # 50-50: the challenger does NOT automatically get the first turn (first player = X)
+        first, second = random.sample((self.challenger, self.opponent), 2)
+        game = GameView(self.cog, first, second)
         self.cog.busy[self.challenger.id] = self.cog.busy[self.opponent.id] = True
         game.message = interaction.message
         # the game embed (title + "A (X) vs B (O)") is there from the very first move
@@ -101,8 +105,10 @@ class GameView(discord.ui.View):
 
     def embed(self) -> discord.Embed:
         p1, p2 = self.players
-        return discord.Embed(title="Tic Tac Toe", color=BLURPLE,
-                             description=f"**{p1.display_name}** (X) vs **{p2.display_name}** (O)")
+        e = discord.Embed(title="Tic Tac Toe", color=BLURPLE,
+                          description=f"**{p1.display_name}** (X) vs **{p2.display_name}** (O)")
+        e.set_footer(text="First turn is picked randomly (50-50)")
+        return e
 
     def turn_text(self) -> str:
         return f"{self.players[self.turn].mention} your turn ({self.MARK[self.turn]})"

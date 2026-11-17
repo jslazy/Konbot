@@ -1,20 +1,20 @@
 """BlackTea - a word-bomb game (like tictactoe: it only works in the channel an admin sets).
 
-$blacktea [easy|medium|hard]   open a lobby (aliases: $bt)  - works only in the BlackTea channel
+$blacktea [easy|medium|hard]   open a lobby right away (no "play" needed; alias: $bt) - works only in the BlackTea channel
 $blacktea channel [#channel]   (admin) set the BlackTea channel (no channel given = the current one)
 $setblacktea [#channel]        same as above
 $blacktea reset                (admin) remove the BlackTea channel setting
 $blacktea stop                 stop the running game (host or admin)
 
 How it plays: everybody gets 3 lives. On your turn the bot shows 2-3 letters and you must send a real
-English word that contains them before the timer ends. Time out = lose a life. Last player standing wins.
+English word that contains ALL of those letters (any order, any position) before the timer ends. Time out = lose a life. Last player standing wins.
 A word can only be used once per game.
 
 Modes:   easy   2 letters (very common), 15s
          medium 3 letters, 10s
          hard   3 rarer letters, 7s, words must be 4+ letters
 
-Files:   assets/words.txt  - the word list (one lowercase word per line)
+Files:   assets/words.txt  - the word list (one lowercase word per line); assets/words_extra.txt - your own extra words
          data/blacktea.json - the channel settings (inside data/, so it is part of the backup)
 """
 import asyncio
@@ -38,6 +38,7 @@ log = logging.getLogger("leafy.blacktea")
 
 SETTINGS_FILE = DATA_DIR / "blacktea.json"
 WORDS_FILE = BASE / "assets" / "words.txt"
+EXTRA_WORDS_FILE = BASE / "assets" / "words_extra.txt"     # optional: add words missing from words.txt (one per line)
 
 TEA = 0xC47F3B           # tea brown
 WIN = 0xF5C542
@@ -182,7 +183,8 @@ class Game:
             f"A word is hiding in every turn - **find it before the tea gets cold!**\n\n"
             f"**How to play**\n"
             f"• You get **{LIVES}** {I.s('heart')} lives.\n"
-            f"• On your turn the bot shows some letters - send a **real English word** containing them "
+            f"• On your turn the bot shows some letters - send a **real English word** that has **all of them** "
+            f"(any order, anywhere in the word - e.g. `IM` → **minion**) "
             f"within **{c['seconds']}s**.\n"
             f"• No answer = you lose a life. Words can't be repeated.\n"
             f"• Last one standing wins {I.s('trophy')}"))
@@ -197,7 +199,7 @@ class Game:
     def turn_embed(self, rnd: int) -> discord.Embed:
         c = self.cfg
         e = discord.Embed(color=TEA, description=(
-            f"<@{self.current}>, send a word containing\n"
+            f"<@{self.current}>, send a word with these letters\n"
             f"# `{self.fragment.upper()}`\n"
             f"{I.s('hourglass')} ends <t:{self.deadline}:R>"))
         board = "\n".join(
@@ -330,8 +332,8 @@ class Game:
         try:
             if word in self.used:
                 return await react(message, "repeat", "🔁")
-            if (self.fragment not in word or len(word) < c["min_len"]
-                    or word not in self.cog.words):
+            if (collections.Counter(self.fragment) - collections.Counter(word)     # letters can be anywhere, any order
+                    or len(word) < c["min_len"] or word not in self.cog.words):
                 return await react(message, "cross", "❌")
             self.answer = word
             self.answer_event.set()
@@ -363,7 +365,13 @@ class BlackTea(commands.Cog):
     @staticmethod
     def _build():
         with open(WORDS_FILE, "r", encoding="utf-8") as f:
-            words = frozenset(w for w in (line.strip() for line in f) if w)
+            words = {w for w in (line.strip().lower() for line in f) if w}
+        try:
+            with open(EXTRA_WORDS_FILE, "r", encoding="utf-8") as f:
+                words |= {w for w in (line.strip().lower() for line in f) if w.isalpha()}
+        except OSError:
+            pass
+        words = frozenset(words)
         counts = {2: collections.Counter(), 3: collections.Counter()}
         for w in words:
             for n, cnt in counts.items():
@@ -411,7 +419,9 @@ class BlackTea(commands.Cog):
     @app_commands.choices(mode=[app_commands.Choice(name=m["label"], value=k) for k, m in MODES.items()])
     @commands.guild_only()
     async def blacktea(self, ctx: commands.Context, mode: str = DEFAULT_MODE):
-        mode = mode.lower()
+        mode = (mode or DEFAULT_MODE).lower()
+        if mode in ("play", "start", "open", "game"):      # old habit: "$blacktea play" still works, but plain "$blacktea" is enough
+            mode = DEFAULT_MODE
         if mode not in MODES:
             return await ctx.send(f"Pick a mode: `{PREFIX}blacktea easy`, `medium` or `hard`.")
         if not self.ready:

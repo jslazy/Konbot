@@ -1,10 +1,10 @@
 {
   "server": {
     "id": 1488690726870057165,
-    "name": "Dark Spider's Web",
+    "name": "Dark ︲ Spider's Web",
     "bot_is_in_server": true,
     "owner_id": 1400039022855852113,
-    "members": 172
+    "members": 176
   },
   "custom_vc": {
     "join_to_create_channel": 1488691385266864208,
@@ -13,10 +13,10 @@
     "saved_setup (last known, survives channel deletion)": {
       "join_to_create": {
         "id": 1488691385266864208,
-        "name": "🍀ゝCustom Vc⌝",
+        "name": "🌱︲Custom VC⌝",
         "type": "voice",
         "category_id": 1488691343382286338,
-        "category": "╰ •〢Custom VCs",
+        "category": "╰ ¤〢Custom VC ︲🌱︲",
         "position": 6,
         "bitrate": 64000,
         "user_limit": 1,
@@ -27,7 +27,14 @@
       "panel_message_id": null
     },
     "other_keys": {},
-    "active_custom_vcs": {}
+    "active_custom_vcs": {
+      "1572364176888954932": {
+        "owner": 1409148182944022699,
+        "banned": [],
+        "block_drags": false,
+        "created": 1794951235.4045045
+      }
+    }
   },
   "self_roles": {
     "channel": 1488691387653161131,
@@ -36,7 +43,7 @@
     "title_emoji": "<:Spider_Diamond:1570309161198293013>",
     "footer": "Click the buttons below to toggle your roles.",
     "color": 4906624,
-    "banner": "1488690726870057165.gif",
+    "banner": null,
     "roles": [
       {
         "role": 1488691267574698006,
@@ -66,7 +73,12 @@
         "line": "Social Feeds",
         "line_emoji": "<:Spider_blue_verified:1570309169720987720>"
       }
-    ]
+    ],
+    "banner_url": "https://cdn.discordapp.com/attachments/1488691387653161131/1572325954909642996/banner_1488690726870057165.gif?ex=6afdf628&is=6afca4a8&hm=33daaaa63e91801b388a7bf8602d01b1171484fda04113a81708901b3971e70b&",
+    "banner_ref": {
+      "c": 1488691387653161131,
+      "m": 1572325955450445864
+    }
   },
   "points_settings": {
     "chat_enabled": true,
@@ -77,7 +89,7 @@
     "vc_mins": 1,
     "vc_points": 1,
     "vc_need_others": false,
-    "cooldown": 2,
+    "cooldown": 0,
     "channel_rules": {},
     "disabled_channels": [],
     "enabled_channels": [],
@@ -212,14 +224,15 @@
   },
   "aura": {
     "members": {
-      "650534818517483526": 0,
       "1262248731353546763": 99
     },
     "roles": {},
-    "random": true
+    "random": true,
+    "disabled": []
   },
+  "custom_vc_rules": null,
   "tictactoe": {
-    "channel": 1570649429768413285
+    "channel": 1572117193712209960
   },
   "extra_owners": [
     {
@@ -240,7 +253,7 @@
         "reason": "AFK",
         "since": 1794399701.4202316,
         "old_nick": null,
-        "mentions_waiting": 6
+        "mentions_waiting": 7
       },
       "1512822379061969028": {
         "reason": "sone ja raha",
@@ -254,34 +267,34 @@
         "old_nick": null,
         "mentions_waiting": 0
       },
-      "1476239945172648142": {
-        "reason": "AFK",
-        "since": 1794850390.7491822,
-        "old_nick": null,
-        "mentions_waiting": 1
-      },
       "1502235313081290855": {
         "reason": "gn",
         "since": 1794852923.8723984,
         "old_nick": null,
         "mentions_waiting": 1
       },
-      "1425991437396217960": {
+      "1088001174457831465": {
         "reason": "AFK",
-        "since": 1794857743.2378263,
+        "since": 1794937418.4721534,
         "old_nick": null,
         "mentions_waiting": 0
+      },
+      "1262248731353546763": {
+        "reason": "gn",
+        "since": 1794941825.5695066,
+        "old_nick": null,
+        "mentions_waiting": 1
       }
     }
   },
   "all_settings_raw": {
     "aura": {
       "members": {
-        "650534818517483526": 0,
         "1262248731353546763": 99
       },
       "roles": {},
-      "random": true
+      "random": true,
+      "disabled": []
     },
     "autoreact": {
       "roles": [
@@ -332,7 +345,7 @@
       "vc_mins": 1,
       "vc_points": 1,
       "vc_need_others": false,
-      "cooldown": 2,
+      "cooldown": 0,
       "channel_rules": {},
       "disabled_channels": [],
       "enabled_channels": [],
@@ -357,8 +370,8 @@
       }
     },
     "tictactoe": {
-      "channel": 1570649429768413285
+      "channel": 1572117193712209960
     }
   },
-  "players_in_database": 127
+  "players_in_database": 133
 }

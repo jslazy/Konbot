@@ -404,7 +404,8 @@ class SelfRoles(commands.Cog):
 
     def host_channel(self, guild: discord.Guild, fallback=None) -> discord.abc.Messageable:
         """Where uploaded banners are hosted: ASSET_CHANNEL_ID (private storage channel) > self-role channel > here."""
-        for cid in (ASSET_CHANNEL_ID, self.cfg(guild.id).get("channel")):
+        img_ch = self.bot.db.get_settings(guild.id, "imagehost").get("channel")      # $imgchannel
+        for cid in (img_ch, ASSET_CHANNEL_ID, self.cfg(guild.id).get("channel")):
             ch = guild.get_channel(cid) if cid else None
             if isinstance(ch, discord.TextChannel) and ch.permissions_for(guild.me).send_messages \
                     and ch.permissions_for(guild.me).attach_files:

@@ -10,7 +10,7 @@
     "title_emoji": "<:Spider_Diamond:1570309161198293013>",
     "footer": "Click the buttons below to toggle your roles.",
     "color": 4906624,
-    "banner": "1488690726870057165.gif",
+    "banner": null,
     "roles": [
       {
         "role": 1488691267574698006,
@@ -40,9 +40,22 @@
         "line": "Social Feeds",
         "line_emoji": "<:Spider_blue_verified:1570309169720987720>"
       }
-    ]
+    ],
+    "banner_url": "https://cdn.discordapp.com/attachments/1488691387653161131/1572325954909642996/banner_1488690726870057165.gif?ex=6afdf628&is=6afca4a8&hm=33daaaa63e91801b388a7bf8602d01b1171484fda04113a81708901b3971e70b&",
+    "banner_ref": {
+      "c": 1488691387653161131,
+      "m": 1572325955450445864
+    }
   },
-  "vc_data.vcs": {},
+  "vc_data.vcs": {
+    "1572364176888954932": {
+      "guild": 1488690726870057165,
+      "owner": 1409148182944022699,
+      "banned": [],
+      "block_drags": false,
+      "created": 1794951235.4045045
+    }
+  },
   "vc_data.mutes": {},
   "vc_data.guild_owners": [
     1262248731353546763,
@@ -51,10 +64,10 @@
   "vc_data.vc_setup": {
     "create": {
       "id": 1488691385266864208,
-      "name": "🍀ゝCustom Vc⌝",
+      "name": "🌱︲Custom VC⌝",
       "type": "voice",
       "category_id": 1488691343382286338,
-      "category": "╰ •〢Custom VCs",
+      "category": "╰ ¤〢Custom VC ︲🌱︲",
       "position": 6,
       "bitrate": 64000,
       "user_limit": 1
@@ -102,6 +115,12 @@
           "channel_id": 1568343826425323692,
           "url": "https://discord.com/channels/1547650379448188999/1568343826425323692/1571710355380510773",
           "content": "Why <@1433650059043405959> no online now"
+        },
+        {
+          "author": "Patrick Badmosh",
+          "channel_id": 1568343826425323692,
+          "url": "https://discord.com/channels/1547650379448188999/1568343826425323692/1572317299921256460",
+          "content": "<@1433650059043405959> my garama <:misc_sob:1528451858757320908> <:misc_sob:1528451858757320908>"
         }
       ]
     },
@@ -119,20 +138,6 @@
       "old_nick": null,
       "mentions": []
     },
-    "1476239945172648142": {
-      "reason": "AFK",
-      "since": 1794850390.7491822,
-      "guild_id": 1488690726870057165,
-      "old_nick": null,
-      "mentions": [
-        {
-          "author": "Lazy",
-          "channel_id": 1571917188183363594,
-          "url": "https://discord.com/channels/1488690726870057165/1571917188183363594/1571941261680574676",
-          "content": "thunder mc kya hoa?"
-        }
-      ]
-    },
     "1502235313081290855": {
       "reason": "gn",
       "since": 1794852923.8723984,
@@ -147,12 +152,26 @@
         }
       ]
     },
-    "1425991437396217960": {
+    "1088001174457831465": {
       "reason": "AFK",
-      "since": 1794857743.2378263,
+      "since": 1794937418.4721534,
       "guild_id": 1488690726870057165,
       "old_nick": null,
       "mentions": []
+    },
+    "1262248731353546763": {
+      "reason": "gn",
+      "since": 1794941825.5695066,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Lazy",
+          "channel_id": 1572286596735303771,
+          "url": "https://discord.com/channels/1488690726870057165/1572286596735303771/1572343647901327411",
+          "content": "<@1262248731353546763> ko bol deta hu kal event hoga"
+        }
+      ]
     }
   },
   "afk_data.tag": false

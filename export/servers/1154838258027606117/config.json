@@ -29,6 +29,7 @@
   "role_commands": null,
   "autoreact": null,
   "aura": null,
+  "custom_vc_rules": null,
   "tictactoe": null,
   "extra_owners": [],
   "afk": {

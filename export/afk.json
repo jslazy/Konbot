@@ -41,6 +41,12 @@
           "channel_id": 1568343826425323692,
           "url": "https://discord.com/channels/1547650379448188999/1568343826425323692/1571710355380510773",
           "content": "Why <@1433650059043405959> no online now"
+        },
+        {
+          "author": "Patrick Badmosh",
+          "channel_id": 1568343826425323692,
+          "url": "https://discord.com/channels/1547650379448188999/1568343826425323692/1572317299921256460",
+          "content": "<@1433650059043405959> my garama <:misc_sob:1528451858757320908> <:misc_sob:1528451858757320908>"
         }
       ]
     },
@@ -58,20 +64,6 @@
       "old_nick": null,
       "mentions": []
     },
-    "1476239945172648142": {
-      "reason": "AFK",
-      "since": 1794850390.7491822,
-      "guild_id": 1488690726870057165,
-      "old_nick": null,
-      "mentions": [
-        {
-          "author": "Lazy",
-          "channel_id": 1571917188183363594,
-          "url": "https://discord.com/channels/1488690726870057165/1571917188183363594/1571941261680574676",
-          "content": "thunder mc kya hoa?"
-        }
-      ]
-    },
     "1502235313081290855": {
       "reason": "gn",
       "since": 1794852923.8723984,
@@ -86,58 +78,26 @@
         }
       ]
     },
-    "1543476735469691002": {
+    "1088001174457831465": {
       "reason": "AFK",
-      "since": 1794852977.2210464,
-      "guild_id": 1547650379448188999,
-      "old_nick": "T-MOD | Batak sir 🦆",
-      "mentions": []
-    },
-    "829689719633215498": {
-      "reason": "sojao",
-      "since": 1794856991.8949466,
-      "guild_id": 1547650379448188999,
-      "old_nick": null,
-      "mentions": [
-        {
-          "author": "Blaze OG",
-          "channel_id": 1568343843382759494,
-          "url": "https://discord.com/channels/1547650379448188999/1568343843382759494/1572013230807589048",
-          "content": "!warn <@829689719633215498>"
-        },
-        {
-          "author": "Blaze OG",
-          "channel_id": 1571937584077349026,
-          "url": "https://discord.com/channels/1547650379448188999/1571937584077349026/1572013303830679573",
-          "content": "!warn <@829689719633215498>"
-        },
-        {
-          "author": "Blaze OG",
-          "channel_id": 1571937584077349026,
-          "url": "https://discord.com/channels/1547650379448188999/1571937584077349026/1572013734468132947",
-          "content": "!cases <@829689719633215498>"
-        },
-        {
-          "author": "Blaze OG",
-          "channel_id": 1571937584077349026,
-          "url": "https://discord.com/channels/1547650379448188999/1571937584077349026/1572013778927751239",
-          "content": "!userinfo <@829689719633215498>"
-        }
-      ]
-    },
-    "1425991437396217960": {
-      "reason": "AFK",
-      "since": 1794857743.2378263,
+      "since": 1794937418.4721534,
       "guild_id": 1488690726870057165,
       "old_nick": null,
       "mentions": []
     },
-    "1538573910839140575": {
-      "reason": "don't ping lemme study tmrw is my paper",
-      "since": 1794858776.0990083,
-      "guild_id": 1547650379448188999,
+    "1262248731353546763": {
+      "reason": "gn",
+      "since": 1794941825.5695066,
+      "guild_id": 1488690726870057165,
       "old_nick": null,
-      "mentions": []
+      "mentions": [
+        {
+          "author": "Lazy",
+          "channel_id": 1572286596735303771,
+          "url": "https://discord.com/channels/1488690726870057165/1572286596735303771/1572343647901327411",
+          "content": "<@1262248731353546763> ko bol deta hu kal event hoga"
+        }
+      ]
     }
   },
   "tag": {

@@ -14,6 +14,10 @@
 - **other_keys**: *(empty)*
 - **active_custom_vcs**: *(empty)*
 
+### Custom VC protection ($customvc config)
+
+- *not configured*
+
 ### Self roles ($setsr / $editsr)
 
 - *not configured*

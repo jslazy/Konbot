@@ -14,6 +14,10 @@
 - **other_keys**: *(empty)*
 - **active_custom_vcs**: *(empty)*
 
+### Custom VC protection ($customvc config)
+
+- *not configured*
+
 ### Self roles ($setsr / $editsr)
 
 - *not configured*
@@ -47,7 +51,7 @@
 
 - **role**: *none*
 - **users**:
-  - `1385099857781329961` → ♤ 𝑎𝑙𝒐𝑛𝑒𝐟𝐨𝑥 ✿ (d3adb9y1113)
+  - `1385099857781329961` → alonefox (d3adb9y1113)
   - `1538573910839140575` → Patrick Badmosh (patrickbadmosh)
   - `1504536783898021908` → T-Mod | om pandey (om61006)
   - `1562817118641062029` → Raven (_raven.exe09)
@@ -55,7 +59,7 @@
   - `1519731963244580987` → Blaze OG (btwkartikxz)
   - `1340198074387267634` → HM | TacticalShower (.mlx_rinn)
   - `1554945105981603880` → Mexzon (mexzon_0205)
-  - `829689719633215498` → [AFK] Vortex (_alwaysafineshyt)
+  - `829689719633215498` → Vortex (_vortexog)
   - `1537639385879683212` → T-MOD | Ruler (hellruler08457)
   - `1554280108632842295` → Arnav || sellin ids (.arnav.gg)
 
@@ -73,6 +77,12 @@
 - **users**:
   - **1562817118641062029** → Raven (_raven.exe09):
     - `<a:Oliviaaa_nooooo:1570865411195543645>`
+  - **829689719633215498** → Vortex (_vortexog):
+    - `<:nebula_Bored:1561078200325382194>`
+  - **1556600326617042959** → 4LC_DR4K3N (4lc_dr4k3n):
+    - `<:Nebula_Angry:1549341308546449459>`
+  - **1519731963244580987** → Blaze OG (btwkartikxz):
+    - `<:nebula_hawww:1563397980332105730>`
 
 ### Aura ($aura config)
 
@@ -89,23 +99,8 @@
 ### AFK
 
 - **tag_enabled**: yes
-- **users**:
-  - **1543476735469691002** → [AFK] T-MOD | Batak sir 🦆 (ryomentheog.):
-    - **reason**: AFK
-    - **since**: 1794852977 (2026-11-16 18:16 UTC)
-    - **old_nick**: T-MOD | Batak sir 🦆
-    - **mentions_waiting**: 0
-  - **829689719633215498** → [AFK] Vortex (_alwaysafineshyt):
-    - **reason**: sojao
-    - **since**: 1794856992 (2026-11-16 19:23 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 4
-  - **1538573910839140575** → Patrick Badmosh (patrickbadmosh):
-    - **reason**: don't ping lemme study tmrw is my paper
-    - **since**: 1794858776 (2026-11-16 19:52 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 0
+- **users**: *(empty)*
 
 ### Players
 
-- 276 players stored in `data/leafy.db` (full list: `export/players_1547650379448188999.csv`)
+- 293 players stored in `data/leafy.db` (full list: `export/players_1547650379448188999.csv`)

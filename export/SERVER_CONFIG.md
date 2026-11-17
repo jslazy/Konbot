@@ -5,10 +5,10 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ## Bot-wide
 
 - **bot**:
-  - **name**: Leavy#9118
-  - **id**: `1569712165932236842` → Leavy#9118
+  - **name**: Taki#9118
+  - **id**: `1569712165932236842` → Taki#9118
 - **voice_mutes_running**: *(empty)*
-- **slash_sync_hash**: 60991de76d6e4f118c46ff18d34a94f01fbf57dc
+- **slash_sync_hash**: 07a8bd24b6324af963dbd477d8117be8c0c68567
 
 ## Lazy  (`1154838258027606117`)
 
@@ -23,6 +23,10 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **panel_message_id**: *none*
 - **other_keys**: *(empty)*
 - **active_custom_vcs**: *(empty)*
+
+### Custom VC protection ($customvc config)
+
+- *not configured*
 
 ### Self roles ($setsr / $editsr)
 
@@ -74,20 +78,20 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - 2 players stored in `data/leafy.db` (full list: `export/players_1154838258027606117.csv`)
 
-## Dark Spider's Web  (`1488690726870057165`)
+## Dark ︲ Spider's Web  (`1488690726870057165`)
 
 ### Custom VC (join-to-create + control panel + live VCs)
 
-- **join_to_create_channel**: `1488691385266864208` → #🍀ゝCustom Vc⌝
+- **join_to_create_channel**: `1488691385266864208` → #🌱︲Custom VC⌝
 - **interface_channel**: *none*
 - **interface_message_id**: *none*
 - **saved_setup (last known, survives channel deletion)**:
   - **join_to_create**:
-    - **id**: `1488691385266864208` → #🍀ゝCustom Vc⌝
-    - **name**: 🍀ゝCustom Vc⌝
+    - **id**: `1488691385266864208` → #🌱︲Custom VC⌝
+    - **name**: 🌱︲Custom VC⌝
     - **type**: voice
-    - **category_id**: `1488691343382286338` → #╰ •〢Custom VCs
-    - **category**: ╰ •〢Custom VCs
+    - **category_id**: `1488691343382286338` → #╰ ¤〢Custom VC ︲🌱︲
+    - **category**: ╰ ¤〢Custom VC ︲🌱︲
     - **position**: 6
     - **bitrate**: 64000
     - **user_limit**: 1
@@ -96,42 +100,55 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **interface**: *none*
   - **panel_message_id**: *none*
 - **other_keys**: *(empty)*
-- **active_custom_vcs**: *(empty)*
+- **active_custom_vcs**:
+  - **1572364176888954932** → #bravyrz:
+    - **owner**: `1409148182944022699` → BRAVY (bravyrz)
+    - **banned**: *(empty)*
+    - **block_drags**: no
+    - **created**: 1794951235 (2026-11-17 21:33 UTC)
+
+### Custom VC protection ($customvc config)
+
+- *not configured*
 
 ### Self roles ($setsr / $editsr)
 
-- **channel**: `1488691387653161131` → #🎄ゝself-roles⌝
+- **channel**: `1488691387653161131` → #🌵︲self_roles⌝
 - **message**: `1570315881425141783`
 - **title**: Self Roles :
 - **title_emoji**: `<:Spider_Diamond:1570309161198293013>`
 - **footer**: Click the buttons below to toggle your roles.
 - **color**: 4906624
-- **banner**: 1488690726870057165.gif
+- **banner**: *none*
 - **roles**:
   - #1
-    - **role**: `1488691267574698006` → @Event Ping
+    - **role**: `1488691267574698006` → @ゝEvent ⌝
     - **label**: Event Ping
     - **emoji**: `<:cal2:1570309163999821864>`
     - **line**: Event Ping
     - **line_emoji**: `<:cal2:1570309163999821864>`
   - #2
-    - **role**: `1488691305323167774` → @Fun Ping
+    - **role**: `1488691305323167774` → @ゝFun Ping ⌝
     - **label**: Fun Ping
     - **emoji**: `<:senpai_wow:1570309166965465138>`
     - **line**: Fun Ping
     - **line_emoji**: `<:senpai_wow:1570309166965465138>`
   - #3
-    - **role**: `1488691271101972531` → @Giveaway Ping
+    - **role**: `1488691271101972531` → @ゝGiveaway ⌝
     - **label**: Giveaway Ping
     - **emoji**: `<:Spider_Diamond:1570309161198293013>`
     - **line**: Giveaway Ping
     - **line_emoji**: `<:Spider_Diamond:1570309161198293013>`
   - #4
-    - **role**: `1488691273446719489` → @Social Feeds
+    - **role**: `1488691273446719489` → @ゝSocial Feed ⌝
     - **label**: Social Feeds
     - **emoji**: `<:Spider_blue_verified:1570309169720987720>`
     - **line**: Social Feeds
     - **line_emoji**: `<:Spider_blue_verified:1570309169720987720>`
+- **banner_url**: https://cdn.discordapp.com/attachments/1488691387653161131/1572325954909642996/banner_1488690726870057165.gif?ex=6afdf628&is=6afca4a8&hm=33daaaa63e91801b388a7bf8602d01b1171484fda04113a81708901b3971e70b&
+- **banner_ref**:
+  - **c**: `1488691387653161131` → #🌵︲self_roles⌝
+  - **m**: `1572325955450445864`
 
 ### Points ($point config)
 
@@ -143,7 +160,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 - **vc_mins**: 1
 - **vc_points**: 1
 - **vc_need_others**: no
-- **cooldown**: 2
+- **cooldown**: 0
 - **channel_rules**: *(empty)*
 - **disabled_channels**: *(empty)*
 - **enabled_channels**: *(empty)*
@@ -155,56 +172,56 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 - **items**:
   - #1
     - **id**: 7
-    - **guild_id**: `1488690726870057165` → server Dark Spider's Web
-    - **role_id**: `1570572186958172180` → @︲Fool 」
+    - **guild_id**: `1488690726870057165` → server Dark ︲ Spider's Web
+    - **role_id**: `1570572186958172180` → @ゝFool ⌝
     - **price**: 250
     - **stock**: 4
     - **emoji**: `<:Kartik_what:1570284014797852802>`
     - **position**: 1
   - #2
     - **id**: 1
-    - **guild_id**: `1488690726870057165` → server Dark Spider's Web
-    - **role_id**: `1488691208019771402` → @︲Aureum 」
+    - **guild_id**: `1488690726870057165` → server Dark ︲ Spider's Web
+    - **role_id**: `1488691208019771402` → @ゝAura Gold ⌝
     - **price**: 500
     - **stock**: 4
     - **emoji**: `<:Kool:1569605493607890995>`
     - **position**: 2
   - #3
     - **id**: 2
-    - **guild_id**: `1488690726870057165` → server Dark Spider's Web
-    - **role_id**: `1488691206375608330` → @︲Lush 」
+    - **guild_id**: `1488690726870057165` → server Dark ︲ Spider's Web
+    - **role_id**: `1488691206375608330` → @ゝLoop ⌝
     - **price**: 500
     - **stock**: 3
     - **emoji**: `<:cute:1569605481364852909>`
     - **position**: 3
   - #4
     - **id**: 3
-    - **guild_id**: `1488690726870057165` → server Dark Spider's Web
-    - **role_id**: `1488691206891503758` → @︲Nebula 」
+    - **guild_id**: `1488690726870057165` → server Dark ︲ Spider's Web
+    - **role_id**: `1488691206891503758` → @ゝNot Bull ⌝
     - **price**: 500
     - **stock**: 4
     - **emoji**: `<:cute:1569605481364852909>`
     - **position**: 4
   - #5
     - **id**: 4
-    - **guild_id**: `1488690726870057165` → server Dark Spider's Web
-    - **role_id**: `1488691203858890833` → @2x EXP Booster
+    - **guild_id**: `1488690726870057165` → server Dark ︲ Spider's Web
+    - **role_id**: `1488691203858890833` → @ゝ2x XP Boost ⌝
     - **price**: 500
     - **stock**: 4
     - **emoji**: `<:Spider_Sparkle:1569557530735026359>`
     - **position**: 5
   - #6
     - **id**: 5
-    - **guild_id**: `1488690726870057165` → server Dark Spider's Web
-    - **role_id**: `1488691204785963128` → @4x EXP Booster
+    - **guild_id**: `1488690726870057165` → server Dark ︲ Spider's Web
+    - **role_id**: `1488691204785963128` → @ゝ4x XP Boost ⌝
     - **price**: 1000
     - **stock**: 5
     - **emoji**: `<:Spider_Sparkle:1569557530735026359>`
     - **position**: 6
   - #7
     - **id**: 6
-    - **guild_id**: `1488690726870057165` → server Dark Spider's Web
-    - **role_id**: `1488691205637279785` → @8x EXP Booster
+    - **guild_id**: `1488690726870057165` → server Dark ︲ Spider's Web
+    - **role_id**: `1488691205637279785` → @ゝ8x XP Boost ⌝
     - **price**: 2000
     - **stock**: 4
     - **emoji**: `<:Spider_Sparkle:1569557530735026359>`
@@ -228,7 +245,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **role**: `1488691235970351105` → @︲Memer」
   - **allowed**: *none*
 - **sethomies**:
-  - **role**: `1488691239678378015` → @︲Homies 」
+  - **role**: `1488691239678378015` → @ゝHomies ⌝
   - **allowed**: *none*
 - **setguest**:
   - **role**: `1488691229838540904` → @︲Server Guest」
@@ -240,11 +257,11 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Autoreact
 
 - **roles**:
-  - `1570572186958172180` → @︲Fool 」
-  - `1570053759848153189` → @︲Crystals 」
-  - `1488691208019771402` → @︲Aureum 」
-  - `1488691206891503758` → @︲Nebula 」
-  - `1488691206375608330` → @︲Lush 」
+  - `1570572186958172180` → @ゝFool ⌝
+  - `1570053759848153189` → @ゝCrystal ⌝
+  - `1488691208019771402` → @ゝAura Gold ⌝
+  - `1488691206891503758` → @ゝNot Bull ⌝
+  - `1488691206375608330` → @ゝLoop ⌝
 - **users**:
   - **1262248731353546763** → Anshu >_< (anshumanfr_):
     - `<:Cat_meow:1569605495222964265>`
@@ -264,14 +281,14 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Aura ($aura config)
 
 - **members**:
-  - **650534818517483526** → Lazy (jslazy): 0
   - **1262248731353546763** → Anshu >_< (anshumanfr_): 99
 - **roles**: *(empty)*
 - **random**: yes
+- **disabled**: *(empty)*
 
 ### Tic Tac Toe channel
 
-- **channel**: `1570649429768413285` → #⛳ゝtic-tac-toe⌝
+- **channel**: `1572117193712209960` → #🎄︲tic_tac_toe⌝
 
 ### Extra owners ($leafyextra - this server only)
 
@@ -292,7 +309,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **reason**: AFK
     - **since**: 1794399701 (2026-11-11 12:21 UTC)
     - **old_nick**: *none*
-    - **mentions_waiting**: 6
+    - **mentions_waiting**: 7
   - **1512822379061969028** → Onlyforyou (thedeadsabaru):
     - **reason**: sone ja raha
     - **since**: 1794505671 (2026-11-12 17:47 UTC)
@@ -303,25 +320,93 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **since**: 1794849840 (2026-11-16 17:24 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 0
-  - **1476239945172648142** → THUNDER (thunderz_gamer1):
-    - **reason**: AFK
-    - **since**: 1794850391 (2026-11-16 17:33 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 1
-  - **1502235313081290855** → Dark (soulcathehe):
+  - **1502235313081290855** → Locked In (gottalockin_.):
     - **reason**: gn
     - **since**: 1794852924 (2026-11-16 18:15 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 1
-  - **1425991437396217960** → TheSKY (sky_bauni):
+  - **1088001174457831465** → ~   SALVATORE 🩸 (ft.salvatore):
     - **reason**: AFK
-    - **since**: 1794857743 (2026-11-16 19:35 UTC)
+    - **since**: 1794937418 (2026-11-17 17:43 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 0
+  - **1262248731353546763** → Anshu >_< (anshumanfr_):
+    - **reason**: gn
+    - **since**: 1794941826 (2026-11-17 18:57 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 1
 
 ### Players
 
-- 127 players stored in `data/leafy.db` (full list: `export/players_1488690726870057165.csv`)
+- 133 players stored in `data/leafy.db` (full list: `export/players_1488690726870057165.csv`)
+
+## Twin's Empire 2.0  (`1524797937836621874`)
+
+### Custom VC (join-to-create + control panel + live VCs)
+
+- **join_to_create_channel**: *none*
+- **interface_channel**: *none*
+- **interface_message_id**: *none*
+- **saved_setup (last known, survives channel deletion)**:
+  - **join_to_create**: *none*
+  - **interface**: *none*
+  - **panel_message_id**: *none*
+- **other_keys**: *(empty)*
+- **active_custom_vcs**: *(empty)*
+
+### Custom VC protection ($customvc config)
+
+- *not configured*
+
+### Self roles ($setsr / $editsr)
+
+- *not configured*
+
+### Points ($point config)
+
+- *not configured*
+
+### Point shop
+
+- **settings**: *none*
+- **items**: *(empty)*
+
+### No-prefix
+
+- *not configured*
+
+### Aliases
+
+- *not configured*
+
+### Role commands ($giverole)
+
+- *not configured*
+
+### Autoreact
+
+- *not configured*
+
+### Aura ($aura config)
+
+- *not configured*
+
+### Tic Tac Toe channel
+
+- *not configured*
+
+### Extra owners ($leafyextra - this server only)
+
+- *(empty)*
+
+### AFK
+
+- **tag_enabled**: yes
+- **users**: *(empty)*
+
+### Players
+
+- 12 players stored in `data/leafy.db` (full list: `export/players_1524797937836621874.csv`)
 
 ## The Blaze Nebula | Drag GW  (`1547650379448188999`)
 
@@ -336,6 +421,10 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **panel_message_id**: *none*
 - **other_keys**: *(empty)*
 - **active_custom_vcs**: *(empty)*
+
+### Custom VC protection ($customvc config)
+
+- *not configured*
 
 ### Self roles ($setsr / $editsr)
 
@@ -370,7 +459,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - **role**: *none*
 - **users**:
-  - `1385099857781329961` → ♤ 𝑎𝑙𝒐𝑛𝑒𝐟𝐨𝑥 ✿ (d3adb9y1113)
+  - `1385099857781329961` → alonefox (d3adb9y1113)
   - `1538573910839140575` → Patrick Badmosh (patrickbadmosh)
   - `1504536783898021908` → T-Mod | om pandey (om61006)
   - `1562817118641062029` → Raven (_raven.exe09)
@@ -378,7 +467,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - `1519731963244580987` → Blaze OG (btwkartikxz)
   - `1340198074387267634` → HM | TacticalShower (.mlx_rinn)
   - `1554945105981603880` → Mexzon (mexzon_0205)
-  - `829689719633215498` → [AFK] Vortex (_alwaysafineshyt)
+  - `829689719633215498` → Vortex (_vortexog)
   - `1537639385879683212` → T-MOD | Ruler (hellruler08457)
   - `1554280108632842295` → Arnav || sellin ids (.arnav.gg)
 
@@ -396,6 +485,12 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 - **users**:
   - **1562817118641062029** → Raven (_raven.exe09):
     - `<a:Oliviaaa_nooooo:1570865411195543645>`
+  - **829689719633215498** → Vortex (_vortexog):
+    - `<:nebula_Bored:1561078200325382194>`
+  - **1556600326617042959** → 4LC_DR4K3N (4lc_dr4k3n):
+    - `<:Nebula_Angry:1549341308546449459>`
+  - **1519731963244580987** → Blaze OG (btwkartikxz):
+    - `<:nebula_hawww:1563397980332105730>`
 
 ### Aura ($aura config)
 
@@ -412,23 +507,8 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### AFK
 
 - **tag_enabled**: yes
-- **users**:
-  - **1543476735469691002** → [AFK] T-MOD | Batak sir 🦆 (ryomentheog.):
-    - **reason**: AFK
-    - **since**: 1794852977 (2026-11-16 18:16 UTC)
-    - **old_nick**: T-MOD | Batak sir 🦆
-    - **mentions_waiting**: 0
-  - **829689719633215498** → [AFK] Vortex (_alwaysafineshyt):
-    - **reason**: sojao
-    - **since**: 1794856992 (2026-11-16 19:23 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 4
-  - **1538573910839140575** → Patrick Badmosh (patrickbadmosh):
-    - **reason**: don't ping lemme study tmrw is my paper
-    - **since**: 1794858776 (2026-11-16 19:52 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 0
+- **users**: *(empty)*
 
 ### Players
 
-- 276 players stored in `data/leafy.db` (full list: `export/players_1547650379448188999.csv`)
+- 293 players stored in `data/leafy.db` (full list: `export/players_1547650379448188999.csv`)

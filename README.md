@@ -143,3 +143,16 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
   `$webhookedit <message link> new text` (`$whe`) edits. Animated emojis work without Nitro: paste the emoji **ID** or `:name:` in the text.
   The avatar can be a link or the name of a saved image.
 - **`$ei`**: animated emojis (of the servers you share with Kon) with their IDs, paginated. `$ei here`, `$ei <name>`, `$ei <emoji id>`.
+
+## Update: leaderboard, webhook embeds, image uploads, expressions, VC, backup
+- **`$lb [messages|points|voice]`** - Ordinal-style board (10 per page, `Previous` / `Find Me` / `Next`, select for Messages / Points / Voice, Kon icons).
+- **`$webhook`** - editor now has **Embed** (title, text, colour, footer, author), **Embed image**, **Thumbnail**, **Avatar** (upload or link) and
+  **Name**. Everything is saved per server and shown again next time. `$whe` edits the embed too.
+- **Upload instead of link:** shop thumbnail, webhook avatar / embed image / thumbnail and the self-role banner all open a window with an
+  upload field (link is still possible). Needs `$imgchannel` (or the channel where the button was pressed is used).
+- **`$ae name`** + attach an image / GIF, or reply to a message with an image / GIF / image link. **`$as name`** same for stickers.
+  Big images are shrunk automatically (needs `pillow`).
+- **VC:** `$vcunmute`, `$vcdeafen`, `$vcundeafen`, `$vcmuteall`, `$vcunmuteall`, `$vcbans`, `$vcclaim`; kick / ban / unban / permit /
+  mute / unmute / deafen also work as a **reply** to the member's message.
+- **Backup:** `export/LINKS.md` lists every link / banner / image and where it is used; every server config now has
+  an "EVERYTHING saved" section. `$backupload replace` makes the backup win over the live settings (use on a fresh bot).

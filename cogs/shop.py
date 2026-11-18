@@ -4,6 +4,7 @@ import asyncio
 import discord
 from discord.ext import commands
 
+from core import media
 from core.config import BLURPLE, BRAND
 from core.errors import VCError
 from core.icons import I, err, ok
@@ -204,18 +205,17 @@ class ShopConfigView(OwnedView):
         await interaction.response.send_message("Move which role?", view=view, ephemeral=True)
 
     async def thumb_btn(self, interaction):
-        cur = self.cog.shop_settings(self.guild.id).get("thumbnail", "")
-
-        async def cb(i, v):
-            url = v[0]
-            if url and not url.startswith(("http://", "https://")):
-                raise VCError("Give a direct image link starting with `https://`, or leave it empty to reset.")
+        """Upload an image (or paste a link; empty = back to the server icon)."""
+        async def done(i, item):
             s = self.cog.shop_settings(self.guild.id)
-            s["thumbnail"] = url
+            await media.forget(self.cog.bot, {"ref": s.get("thumbnail_ref")})
+            s["thumbnail"] = item["url"] if item else ""
+            s["thumbnail_ref"] = item["ref"] if item else None
             self.cog.db.set_settings(self.guild.id, "shop", s)
-            await i.response.send_message(ok("Thumbnail updated."), ephemeral=True)
-        await interaction.response.send_modal(FieldsModal("Shop thumbnail", [
-            ("Image URL (empty = server icon)", cur, 400, False)], cb))
+            await i.followup.send(ok("Thumbnail updated." if item else "Thumbnail reset to the server icon."), ephemeral=True)
+        await interaction.response.send_modal(media.ImageModal(
+            self.cog.bot, self.guild, "Shop thumbnail", done, label="Shop thumbnail", allow_clear=True,
+            fallback=interaction.channel))
 
     async def close_btn(self, interaction):
         self.stop()
@@ -257,7 +257,18 @@ class Shop(commands.Cog):
             embed.set_thumbnail(url=thumb)
         return embed, options[:25]
 
+    async def refresh_thumb(self, gid: int):
+        """Ask Discord for a fresh link of an uploaded thumbnail (CDN links expire)."""
+        s = self.shop_settings(gid)
+        if s.get("thumbnail_ref"):
+            item = {"url": s.get("thumbnail"), "ref": s["thumbnail_ref"]}
+            url = await media.fresh(self.bot, item)
+            if url and url != s.get("thumbnail"):
+                s["thumbnail"] = url
+                self.db.set_settings(gid, "shop", s)
+
     async def show_shop(self, ctx: commands.Context):
+        await self.refresh_thumb(ctx.guild.id)
         embed, options = self.build(ctx.guild, ctx.author)
         view = ShopView(self, options)
         view.message = await ctx.reply(embed=embed, view=view, mention_author=False,

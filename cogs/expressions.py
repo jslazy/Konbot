@@ -3,6 +3,12 @@
     reply to a message that has custom emojis  ->  $ae       (adds them to this server)
     reply to a message that has a sticker      ->  $as [new name]
 
+    NEW - images work too:
+    $ae name  + attach an image / GIF          ->  that image becomes an emoji
+    $ae name  as a reply to a message with an image / GIF (attachment, embed or image link)  ->  same
+    $as name  + attach an image / GIF, or reply to one  ->  that image becomes a sticker
+    (needs Pillow - big images are shrunk to fit Discord's size limits automatically)
+
 After adding, the message has two buttons: **Undo** (delete everything that command just added) and **Remove**
 (pick which of them to delete). Text versions:
     $ae undo  |  $ae remove <:emoji:> or name ...        $as undo  |  $as remove <sticker name>
@@ -11,6 +17,7 @@ import asyncio
 import io
 import logging
 import re
+from pathlib import Path
 
 import aiohttp
 import discord
@@ -42,6 +49,105 @@ async def download(url: str) -> bytes | None:
 def safe_name(name: str, lo: int, hi: int) -> str:
     name = re.sub(r"\W", "_", name)[:hi]
     return name if len(name) >= lo else (name + "_" * lo)[:lo]
+
+
+IMG_EXT = (".png", ".jpg", ".jpeg", ".gif", ".webp")
+URL_RE = re.compile(r"https?://[^\s<>]+")
+MAX_IMAGES = 10
+MAX_SRC = 12 * 1024 * 1024
+
+
+def _frames_resized(img, size, square):
+    from PIL import Image, ImageSequence
+    out, durations = [], []
+    for fr in ImageSequence.Iterator(img):
+        f = fr.convert("RGBA")
+        f.thumbnail((size, size), Image.LANCZOS)
+        if square:
+            canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+            canvas.paste(f, ((size - f.width) // 2, (size - f.height) // 2))
+            f = canvas
+        out.append(f)
+        durations.append(fr.info.get("duration", 60))
+    return out, durations
+
+
+def fit_image(data: bytes, limit: int, sizes: tuple, square: bool) -> tuple[bytes, str]:
+    """-> (bytes, extension) that fits Discord's limits. Shrinks / converts with Pillow when needed (png / gif only out)."""
+    try:
+        from PIL import Image
+    except ImportError:
+        raise VCError("Install Pillow (`pip install pillow`) so I can shrink / convert images.")
+    import io as _io
+    try:
+        img = Image.open(_io.BytesIO(data))
+        img.load() if not getattr(img, "is_animated", False) else None
+    except Exception:
+        raise VCError("That file isn't an image I can read.")
+    animated = bool(getattr(img, "is_animated", False)) and img.format in ("GIF", "WEBP", "PNG")
+    fmt = img.format
+    if fmt in ("PNG", "GIF") and len(data) <= limit and (not square or img.size == (sizes[0], sizes[0])) and \
+            max(img.size) <= max(sizes[0], 128 if not square else sizes[0]):
+        return data, "gif" if fmt == "GIF" else "png"
+    for size in sizes:
+        buf = _io.BytesIO()
+        if animated:
+            frames, dur = _frames_resized(img, size, square)
+            frames[0].save(buf, format="GIF", save_all=True, append_images=frames[1:], duration=dur, loop=0,
+                           disposal=2, optimize=True, transparency=0)
+            ext = "gif"
+        else:
+            f = img.convert("RGBA")
+            from PIL import Image as _I
+            f.thumbnail((size, size), _I.LANCZOS)
+            if square:
+                canvas = _I.new("RGBA", (size, size), (0, 0, 0, 0))
+                canvas.paste(f, ((size - f.width) // 2, (size - f.height) // 2))
+                f = canvas
+            f.save(buf, format="PNG", optimize=True)
+            ext = "png"
+        if buf.tell() <= limit:
+            return buf.getvalue(), ext
+    raise VCError(f"Even shrunk it is bigger than {limit // 1024} KB. Try a smaller / shorter image.")
+
+
+async def gather_images(ctx: commands.Context, msg) -> list[tuple[str, bytes]]:
+    """Images from: the command message, then the replied message (attachments, embed images, image links)."""
+    sources: list[tuple[str, object]] = []
+    for m in (ctx.message, msg):
+        if m is None:
+            continue
+        for a in m.attachments:
+            if (a.content_type or "").startswith("image/") or a.filename.lower().endswith(IMG_EXT):
+                sources.append((a.filename, a))
+        if m is msg:
+            for e in m.embeds:
+                for u in (e.image.url, e.thumbnail.url if e.type in ("image", "gifv") else None):
+                    if u:
+                        sources.append((Path(u.split("?")[0]).name or "image", u))
+            for u in URL_RE.findall(m.content or ""):
+                if u.split("?")[0].lower().endswith(IMG_EXT):
+                    sources.append((Path(u.split("?")[0]).name, u))
+    out, seen = [], set()
+    for name, src in sources:
+        key = src.id if isinstance(src, discord.Attachment) else src
+        if key in seen:
+            continue
+        seen.add(key)
+        try:
+            if isinstance(src, discord.Attachment):
+                if src.size > MAX_SRC:
+                    continue
+                data = await src.read()
+            else:
+                data = await download(src)
+        except discord.HTTPException:
+            data = None
+        if data and len(data) <= MAX_SRC:
+            out.append((name, data))
+        if len(out) >= MAX_IMAGES:
+            break
+    return out
 
 
 async def delete_items(items, reason: str) -> int:
@@ -172,8 +278,9 @@ class Expressions(commands.Cog):
         for src in sources:
             for anim, name, eid in CUSTOM.findall(src or ""):
                 found.setdefault(int(eid), (name, bool(anim)))
-        if not found:
-            raise VCError("No custom emoji found. Reply to a message that has some and type `$ae`.")
+        images = await gather_images(ctx, msg)
+        if not found and not images:
+            raise VCError("No emoji or image found. Reply to a message with emojis / an image, or attach an image: `$ae name`.")
         todo = list(found.items())[:MAX_EMOJIS]
 
         added, failed, added_obj = [], [], []
@@ -199,6 +306,27 @@ class Expressions(commands.Cog):
                 except discord.HTTPException as e:
                     failed.append(f"`{name}` - {e.text or 'failed'}")
                     if e.code == 30008:                       # no free emoji slots left
+                        failed.append("This server has no free emoji slots left.")
+                        break
+                await asyncio.sleep(0.4)
+
+        # ---- images (attached to the command or in the message you replied to) ----
+        words = [w for w in text.split() if not CUSTOM.fullmatch(w)]
+        async with ctx.typing():
+            for n, (fname, raw) in enumerate(images):
+                base = words[0] if words else Path(fname).stem
+                label = base if n == 0 else f"{base}_{n + 1}"
+                try:
+                    data, _ext = fit_image(raw, EMOJI_LIMIT, (128, 96, 64), square=False)
+                    emoji = await ctx.guild.create_custom_emoji(
+                        name=safe_name(label, 2, 32), image=data, reason=f"$ae image by {ctx.author} ({ctx.author.id})")
+                    added.append(str(emoji))
+                    added_obj.append(emoji)
+                except VCError as e:
+                    failed.append(f"`{label}` - {e}")
+                except discord.HTTPException as e:
+                    failed.append(f"`{label}` - {e.text or 'failed'}")
+                    if e.code == 30008:
                         failed.append("This server has no free emoji slots left.")
                         break
                 await asyncio.sleep(0.4)
@@ -229,8 +357,9 @@ class Expressions(commands.Cog):
         msg = await replied_message(ctx)
         stickers = list(msg.stickers) if msg is not None else []
         stickers = stickers or list(ctx.message.stickers)
-        if not stickers:
-            raise VCError("No sticker found. Reply to a message that has one and type `$as`.")
+        images = [] if stickers else await gather_images(ctx, msg)
+        if not stickers and not images:
+            raise VCError("No sticker or image found. Reply to a sticker / image, or attach an image: `$as name`.")
 
         added, failed = [], []
         async with ctx.typing():
@@ -264,6 +393,25 @@ class Expressions(commands.Cog):
                     failed.append(f"`{label}` - {e.text or 'failed'}")
                     if e.code == 30039:                       # no free sticker slots
                         break
+
+        if images:
+            async with ctx.typing():
+                for n, (fname, raw) in enumerate(images[:3]):
+                    base = name.strip() or Path(fname).stem
+                    label = base if n == 0 else f"{base}_{n + 1}"
+                    try:
+                        data, ext = fit_image(raw, STICKER_LIMIT, (320, 256, 192), square=True)
+                        sticker = await ctx.guild.create_sticker(
+                            name=safe_name(label, 2, 30), description=label[:100], emoji="slight_smile",
+                            file=discord.File(io.BytesIO(data), filename=f"sticker.{ext}"),
+                            reason=f"$as image by {ctx.author} ({ctx.author.id})")
+                        added.append(sticker)
+                    except VCError as e:
+                        failed.append(f"`{label}` - {e}")
+                    except discord.HTTPException as e:
+                        failed.append(f"`{label}` - {e.text or 'failed'}")
+                        if e.code == 30039:
+                            break
 
         lines = []
         if added:

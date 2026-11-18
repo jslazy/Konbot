@@ -4,6 +4,7 @@
   export/SERVER_CONFIG.json  the same, machine readable
   export/db_dump.json        EVERY row of kon.db (players, progress, badges, shop, purchases, settings, point log)
   export/players_<guild>.csv one line per player: points, chat / VC totals, badges, rank
+  export/LINKS.md            every saved link / banner / image and where it is used
   export/afk.json            AFK users + AFK-tag setting
   export/custom_vc_channels.json  join-to-create channel + panel channel of every server (id, name, category, bitrate...)
   export/servers/<guild>/    ONE FOLDER PER SERVER with everything of that server only:
@@ -209,6 +210,9 @@ def collect(bot, afk_data: dict) -> dict:
             "aura": raw_settings.get("aura"),
             "custom_vc_rules": raw_settings.get("customvc"),
             "tictactoe": raw_settings.get("tictactoe"),
+            "webhook_sender (name, avatar, embed, images)": raw_settings.get("webhook"),
+            "saved_images ($tolink names -> links)": raw_settings.get("imagehost"),
+            "command_disable ($disablecommand)": raw_settings.get("cmd_disable"),
             "extra_owners": [res.ref(i) for i in st.get("guild_owners", {}).get(str(gid), [])],
             "afk": {"tag_enabled": afk_data.get("tag", {}).get(str(gid), True), "users": afk_view},
             "all_settings_raw": raw_settings,
@@ -224,8 +228,12 @@ def collect(bot, afk_data: dict) -> dict:
                           ("Self roles ($setsr / $editsr)", "self_roles"),
                           ("Points ($point config)", "points_settings"), ("Point shop", "shop"),
                           ("No-prefix", "no_prefix"), ("Aliases", "aliases"), ("Role commands ($giverole)", "role_commands"),
-                          ("Autoreact", "autoreact"), ("Aura ($aura config)", "aura"), ("Tic Tac Toe channel", "tictactoe"), ("Extra owners ($konextra - this server only)", "extra_owners"),
-                          ("AFK", "afk")):
+                          ("Autoreact", "autoreact"), ("Aura ($aura config)", "aura"), ("Tic Tac Toe channel", "tictactoe"),
+                          ("Webhook sender (name, avatar, embed, images)", "webhook_sender (name, avatar, embed, images)"),
+                          ("Saved images ($tolink)", "saved_images ($tolink names -> links)"),
+                          ("Disabled commands", "command_disable ($disablecommand)"), ("Extra owners ($konextra - this server only)", "extra_owners"),
+                          ("AFK", "afk"),
+                          ("EVERYTHING saved for this server (raw settings, nothing left out)", "all_settings_raw")):
             lines += [f"### {head}", ""] + (md(cfg[key], res) if cfg[key] not in (None, {}) else ["- *not configured*"]) + [""]
         lines += [f"### Players", "", f"- {players} players stored in `data/kon.db` "
                   f"(full list: `export/players_{gid}.csv`)", ""]
@@ -258,6 +266,7 @@ def collect(bot, afk_data: dict) -> dict:
             f"**{title}** · join-to-create: {nm(gcfg.get('create')) or '—'} · panel: {nm(gcfg.get('interface')) or '—'} · "
             f"self-role: {nm(sr.get('channel')) or '—'} · players: {players}")
 
+    links_md = links_report(bot, guilds_out)
     bot_res = Resolver(bot, None)
     glob = {"bot": {"name": str(bot.user), "id": bot.user.id if bot.user else None},
             "voice_mutes_running": st.get("mutes", {}), "slash_sync_hash": st.get("sync_hash")}
@@ -269,7 +278,43 @@ def collect(bot, afk_data: dict) -> dict:
     return {"json": json.dumps(payload, indent=2, ensure_ascii=False, default=str).encode(),
             "md": doc.encode(), "names": names, "summary": summary, "per_server": per_server,
             "vc_json": json.dumps(vc_all, indent=2, ensure_ascii=False, default=str).encode(), "vc_lines": vc_lines,
+            "links_md": links_md.encode(),
             "afk": json.dumps(afk_data, indent=2, ensure_ascii=False).encode()}
+
+
+def _item_lines(label: str, it) -> list:
+    if isinstance(it, dict) and it.get("url"):
+        ref = it.get("ref") or ({"c": it["c"], "m": it["m"]} if it.get("c") and it.get("m") else None)
+        host = f" · hosted in channel `{ref['c']}` message `{ref['m']}`" if isinstance(ref, dict) else " · plain link"
+        return [f"- **{label}**: {it['url']}{host}"]
+    if isinstance(it, str) and it.startswith("http"):
+        return [f"- **{label}**: {it}"]
+    return []
+
+
+def links_report(bot, guilds_out: dict) -> str:
+    """export/LINKS.md - every link / banner / image the bot has saved, and WHERE it is used."""
+    out = ["# Kon - saved links, banners and images", "",
+           "Uploaded images live in the bot owner's image channel (`$imgchannel`); the hosting message id is kept so a fresh link "
+           "can always be fetched.", ""]
+    for gid, cfg in guilds_out.items():
+        lines = []
+        sr = cfg.get("self_roles") or {}
+        lines += _item_lines("Self-role banner", {"url": sr.get("banner_url"), "ref": sr.get("banner_ref")} if sr.get("banner_url") else None)
+        shop = (cfg.get("shop") or {}).get("settings") or {}
+        if shop.get("thumbnail"):
+            lines += _item_lines("Shop thumbnail", {"url": shop["thumbnail"], "ref": ({"c": shop["thumbnail_ref"]["c"], "m": shop["thumbnail_ref"]["m"]}
+                                                                                     if shop.get("thumbnail_ref") else None)})
+        wh = cfg.get("webhook_sender (name, avatar, embed, images)") or {}
+        for key, label in (("avatar", "Webhook avatar"), ("image", "Webhook embed image"), ("thumb", "Webhook embed thumbnail")):
+            lines += _item_lines(label, wh.get(key))
+        imgs = (cfg.get("saved_images ($tolink names -> links)") or {}).get("items") or {}
+        for name, it in imgs.items():
+            lines += _item_lines(f"Saved image `{name}`", it)
+        if lines:
+            nm = (cfg.get("server") or {}).get("name") or "unknown server"
+            out += [f"## {nm} (`{gid}`)", ""] + lines + [""]
+    return "\n".join(out)
 
 
 # ------------------------------------------------------------------ database exports (worker thread, from the snapshot)

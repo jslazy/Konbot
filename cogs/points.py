@@ -310,69 +310,94 @@ class PointConfigView(OwnedView):
         await interaction.response.edit_message(view=None)
 
 
-LB_PER_PAGE = 5
-MEDALS = {1: "🥇", 2: "🥈", 3: "🥉"}
+LB_PER_PAGE = 10
+LB_LINE = "───⬢⬡⬢──────⬢⬡⬢──────⬢⬡⬢───"          # divider like the Ordinal leaderboard
+LB_STATS = {                                       # key: (title, unit, icon name)
+    "messages": ("Messages Leaderboard", "Messages", "message"),
+    "points": ("Points Leaderboard", "Points", "coins"),
+    "voice": ("Voice Leaderboard", "Hours", "headset"),
+}
+LB_ALIASES = {"msg": "messages", "msgs": "messages", "message": "messages", "chat": "messages", "messages": "messages",
+              "point": "points", "pts": "points", "points": "points",
+              "vc": "voice", "voice": "voice", "hours": "voice", "hour": "voice"}
+
+
+class LbStatSelect(discord.ui.Select):
+    def __init__(self, current: str):
+        super().__init__(placeholder="Leaderboard type", row=1, options=[
+            discord.SelectOption(label=t, value=k, emoji=I.e(ic), default=(k == current))
+            for k, (t, _, ic) in LB_STATS.items()])
+
+    async def callback(self, interaction: discord.Interaction):
+        v: "LeaderboardView" = self.view
+        v.stat = self.values[0]
+        v.reload()
+        for o in self.options:
+            o.default = o.value == v.stat
+        await interaction.response.edit_message(embed=v.embed(), view=v)
 
 
 class LeaderboardView(OwnedView):
-    """Leaderboard, 5 members per page, one stat per line. Buttons: first / back / page / next / last / my rank."""
+    """Ordinal-style leaderboard: 10 per page, Previous / Find Me / Next, a select for Messages / Points / Voice."""
 
-    def __init__(self, cog, ctx: commands.Context):
+    def __init__(self, cog, ctx: commands.Context, stat: str = "messages"):
         super().__init__(ctx.author.id, timeout=300)
         self.cog, self.guild, self.author = cog, ctx.guild, ctx.author
-        self.total = cog.db.leaderboard_count(ctx.guild.id)
-        self.pages = max(1, -(-self.total // LB_PER_PAGE))
+        self.stat = stat
         self.page = 0
+        self.prev.emoji, self.mine.emoji, self.next.emoji = I.e("left"), I.e("target"), I.e("right")
+        self.select = LbStatSelect(stat)
+        self.add_item(self.select)
+        self.reload()
+
+    def reload(self):
+        self.total = self.cog.db.lb_count(self.guild.id, self.stat)
+        self.pages = max(1, -(-self.total // LB_PER_PAGE))
+        self.page = min(self.page, self.pages - 1)
         self.sync()
 
+    @staticmethod
+    def value_text(stat: str, r) -> str:
+        if stat == "voice":
+            return f"{r['vc_total'] / 3600:,.1f}"
+        return f"{r['points' if stat == 'points' else 'chat_total']:,}"
+
     def embed(self) -> discord.Embed:
-        rows = self.cog.db.leaderboard_page(self.guild.id, LB_PER_PAGE, self.page * LB_PER_PAGE)
-        blocks = []
+        title, unit, icon = LB_STATS[self.stat]
+        rows = self.cog.db.lb_rows(self.guild.id, self.stat, LB_PER_PAGE, self.page * LB_PER_PAGE)
+        lines = [LB_LINE]
         for i, r in enumerate(rows, self.page * LB_PER_PAGE + 1):
-            blocks.append(f"{MEDALS.get(i, f'`#{i}`')} <@{r['user_id']}>\n"
-                          f"{I.s('heart')} **Points:** `{r['points']:,}`\n"
-                          f"{I.s('message')} **Messages:** `{r['chat_total']:,}`")
-        icon = self.guild.icon.url if self.guild.icon else self.cog.bot.user.display_avatar.url
-        e = discord.Embed(title=f"{I.s('trophy')} Leaderboard", color=BRAND,
-                          description="\n\n".join(blocks) or "No points yet.")
-        e.set_thumbnail(url=icon)
-        e.set_footer(text=f"Page {self.page + 1}/{self.pages} · {self.total} members · Your rank #{self.cog.db.rank(self.guild.id, self.author.id)}")
+            line = f"{i}.<@{r['user_id']}> — {self.value_text(self.stat, r)} {unit}"
+            lines.append(f"**{line}**" if r["user_id"] == self.author.id else line)
+        if not rows:
+            lines.append("Nobody on the board yet.")
+        e = discord.Embed(title=f"{I.s('trophy')} ∫ {title}", color=BRAND, description="\n".join(lines))
+        e.set_footer(text=f"Page {self.page + 1}/{self.pages} • ∫ Kon")
         return e
 
     def sync(self):
-        self.first.disabled = self.prev.disabled = self.page <= 0
-        self.next.disabled = self.last.disabled = self.page >= self.pages - 1
-        self.counter.label = f"{self.page + 1}/{self.pages}"
+        self.prev.disabled = self.page <= 0
+        self.next.disabled = self.page >= self.pages - 1
 
     async def go(self, interaction: discord.Interaction, page: int):
         self.page = min(max(page, 0), self.pages - 1)
         self.sync()
         await interaction.response.edit_message(embed=self.embed(), view=self)
 
-    @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.secondary, row=0)
-    async def first(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await self.go(interaction, 0)
-
-    @discord.ui.button(emoji="◀", style=discord.ButtonStyle.primary, row=0)
+    @discord.ui.button(label="Previous", style=discord.ButtonStyle.secondary, row=0)
     async def prev(self, interaction: discord.Interaction, button: discord.ui.Button):
         await self.go(interaction, self.page - 1)
 
-    @discord.ui.button(label="1/1", style=discord.ButtonStyle.secondary, disabled=True, row=0)
-    async def counter(self, interaction: discord.Interaction, button: discord.ui.Button):
-        pass
+    @discord.ui.button(label="Find Me", style=discord.ButtonStyle.secondary, row=0)
+    async def mine(self, interaction: discord.Interaction, button: discord.ui.Button):
+        pos = self.cog.db.lb_position(self.guild.id, self.author.id, self.stat)
+        if pos is None:
+            return await interaction.response.send_message(err("You aren't on this leaderboard yet."), ephemeral=True)
+        await self.go(interaction, (pos - 1) // LB_PER_PAGE)
 
-    @discord.ui.button(emoji="▶", style=discord.ButtonStyle.primary, row=0)
+    @discord.ui.button(label="Next", style=discord.ButtonStyle.secondary, row=0)
     async def next(self, interaction: discord.Interaction, button: discord.ui.Button):
         await self.go(interaction, self.page + 1)
-
-    @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.secondary, row=0)
-    async def last(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await self.go(interaction, self.pages - 1)
-
-    @discord.ui.button(label="My rank", emoji="🎯", style=discord.ButtonStyle.success, row=1)
-    async def mine(self, interaction: discord.Interaction, button: discord.ui.Button):
-        rank = self.cog.db.rank(self.guild.id, self.author.id)
-        await self.go(interaction, (rank - 1) // LB_PER_PAGE)
 
 
 class Points(commands.Cog):
@@ -505,12 +530,19 @@ class Points(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
 
     # ---------- leaderboard ----------
-    @commands.hybrid_command(name="leaderboard", aliases=["lb", "top"], description="Members ranked by points (pages)")
+    @commands.hybrid_command(name="leaderboard", aliases=["lb", "top"], description="Leaderboard: messages, points or voice hours")
+    @app_commands.describe(stat="messages (default), points or voice")
+    @app_commands.choices(stat=[app_commands.Choice(name="Messages", value="messages"),
+                                app_commands.Choice(name="Points", value="points"),
+                                app_commands.Choice(name="Voice hours", value="voice")])
     @commands.guild_only()
-    async def leaderboard(self, ctx: commands.Context):
-        if self.db.leaderboard_count(ctx.guild.id) == 0:
-            raise VCError("No points yet. Start chatting!")
-        view = LeaderboardView(self, ctx)
+    async def leaderboard(self, ctx: commands.Context, stat: str = "messages"):
+        stat = LB_ALIASES.get(stat.lower().strip(), None)
+        if stat is None:
+            raise VCError(f"Use `{PREFIX}lb messages`, `{PREFIX}lb points` or `{PREFIX}lb voice`.")
+        if self.db.lb_count(ctx.guild.id, stat) == 0:
+            raise VCError("Nobody is on that leaderboard yet. Start chatting!")
+        view = LeaderboardView(self, ctx, stat)
         view.message = await ctx.reply(embed=view.embed(), view=view, mention_author=False,
                                        allowed_mentions=discord.AllowedMentions.none())
 

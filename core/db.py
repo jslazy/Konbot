@@ -188,6 +188,29 @@ class DB:
     def leaderboard_count(self, gid) -> int:
         return self.conn.execute("SELECT COUNT(*) FROM users WHERE guild_id=? AND (points>0 OR chat_total>0)", (gid,)).fetchone()[0]
 
+    # ---------- leaderboard by stat (messages / points / voice) ----------
+    LB_COLS = {"messages": "chat_total", "points": "points", "voice": "vc_total"}
+
+    def lb_rows(self, gid, stat="messages", limit=10, offset=0):
+        col = self.LB_COLS.get(stat, "chat_total")
+        return self.conn.execute(
+            f"SELECT * FROM users WHERE guild_id=? AND {col}>0 ORDER BY {col} DESC, points DESC, user_id LIMIT ? OFFSET ?",
+            (gid, limit, offset)).fetchall()
+
+    def lb_count(self, gid, stat="messages") -> int:
+        col = self.LB_COLS.get(stat, "chat_total")
+        return self.conn.execute(f"SELECT COUNT(*) FROM users WHERE guild_id=? AND {col}>0", (gid,)).fetchone()[0]
+
+    def lb_position(self, gid, uid, stat="messages"):
+        """1-based place of a member in that leaderboard, or None when they have no value yet."""
+        col = self.LB_COLS.get(stat, "chat_total")
+        me = self.conn.execute(f"SELECT {col} v, points p FROM users WHERE guild_id=? AND user_id=?", (gid, uid)).fetchone()
+        if me is None or me["v"] <= 0:
+            return None
+        return self.conn.execute(
+            f"SELECT COUNT(*)+1 FROM users WHERE guild_id=? AND {col}>0 AND ({col}>? OR ({col}=? AND (points>? OR (points=? AND user_id<?))))",
+            (gid, me["v"], me["v"], me["p"], me["p"], uid)).fetchone()[0]
+
     def rank(self, gid, uid) -> int:
         return self.conn.execute(
             "SELECT COUNT(*)+1 FROM users WHERE guild_id=? AND points > COALESCE((SELECT points FROM users WHERE guild_id=? AND user_id=?),0)",

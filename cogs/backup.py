@@ -96,6 +96,8 @@ def build_zip(base: Path, db_snapshot: Optional[str], meta: dict, cfg_export: Op
             add("export/SERVER_CONFIG.md", cfg_export["md"])
             add("export/SERVER_CONFIG.json", cfg_export["json"])
             add("export/afk.json", cfg_export["afk"])
+            if cfg_export.get("links_md"):
+                add("export/LINKS.md", cfg_export["links_md"])
             add("export/custom_vc_channels.json", cfg_export["vc_json"])
             for gid, files_ in cfg_export.get("per_server", {}).items():
                 add(f"export/servers/{gid}/config.md", files_["md"])
@@ -127,7 +129,7 @@ def _cols(c: sqlite3.Connection, schema: str, table: str) -> list[str]:
     return [r[1] for r in c.execute(f"PRAGMA {schema}.table_info({table})")]
 
 
-def merge_db(live: sqlite3.Connection, src_path: str) -> dict:
+def merge_db(live: sqlite3.Connection, src_path: str, replace: bool = False) -> dict:
     """Merge a backup database into the live one. Returns {table: rows added/changed}."""
     added: dict[str, int] = {}
     chk = sqlite3.connect(src_path)
@@ -203,7 +205,7 @@ def merge_db(live: sqlite3.Connection, src_path: str) -> dict:
                         current = json.loads(row[0])
                     except ValueError:
                         current = {}
-                    merged = deep_fill(copy.deepcopy(current), incoming)
+                    merged = deep_override(copy.deepcopy(current), incoming) if replace else deep_fill(copy.deepcopy(current), incoming)
                     if merged != current:
                         live.execute("UPDATE main.settings SET value=? WHERE guild_id=? AND key=?",
                                      (json.dumps(merged), gid, key))
@@ -212,6 +214,20 @@ def merge_db(live: sqlite3.Connection, src_path: str) -> dict:
     finally:
         live.execute("DETACH DATABASE src")
     return added
+
+
+def deep_override(live, incoming):
+    """Like deep_fill, but the BACKUP wins for every setting it has (`$backupload replace`). Lists are joined without duplicates."""
+    if isinstance(live, dict) and isinstance(incoming, dict):
+        for k, v in incoming.items():
+            live[k] = deep_override(live[k], v) if k in live else copy.deepcopy(v)
+        return live
+    if isinstance(live, list) and isinstance(incoming, list):
+        for v in incoming:
+            if v not in live:
+                live.append(copy.deepcopy(v))
+        return live
+    return copy.deepcopy(incoming)
 
 
 def deep_fill(live, incoming):
@@ -452,8 +468,10 @@ class Backup(commands.Cog):
     # ---------- $backupload (owner): merge data zip(s) into the running bot ----------
     @commands.command(name="backupload", aliases=["bload", "bupload"])
     @checks.true_owner_only()
-    async def backupload(self, ctx: commands.Context):
-        """Attach one or more data zips (or reply to a message that has them). Data is merged automatically."""
+    async def backupload(self, ctx: commands.Context, mode: str = ""):
+        """Attach one or more data zips (or reply to a message that has them). Data is merged automatically.
+        `$backupload replace` = every setting from the backup wins (links, banners, panels ...) - use it to restore a fresh bot."""
+        replace = mode.strip().lower() in ("replace", "restore", "overwrite", "full")
         atts = list(ctx.message.attachments)
         ref = ctx.message.reference
         if ref is not None:
@@ -476,7 +494,7 @@ class Backup(commands.Cog):
                     continue
                 try:
                     raw = await a.read()
-                    got = await self.merge_zip(raw)
+                    got = await self.merge_zip(raw, replace)
                 except VCError as e:
                     lines.append(f"{I.s('cross')} `{a.filename}`: {e}")
                     continue
@@ -488,7 +506,7 @@ class Backup(commands.Cog):
         self.reset_caches()
         await ctx.reply("\n".join(lines), mention_author=False)
 
-    async def merge_zip(self, raw: bytes) -> dict:
+    async def merge_zip(self, raw: bytes, replace: bool = False) -> dict:
         z = zipfile.ZipFile(io.BytesIO(raw))
         found: dict[str, str] = {}
         for name in z.namelist():
@@ -503,12 +521,12 @@ class Backup(commands.Cog):
             try:
                 tmp.write(z.read(found["kon.db"]))
                 tmp.close()
-                for k, v in merge_db(self.bot.db.conn, tmp.name).items():
+                for k, v in merge_db(self.bot.db.conn, tmp.name, replace).items():
                     out[k] = out.get(k, 0) + v
             finally:
                 Path(tmp.name).unlink(missing_ok=True)
         if "vc_data.json" in found:
-            if self.merge_store(json.loads(z.read(found["vc_data.json"]))):
+            if self.merge_store(json.loads(z.read(found["vc_data.json"])), replace):
                 out["VC / server settings"] = 1
         if "afk_data.json" in found:
             n = self.merge_afk(json.loads(z.read(found["afk_data.json"])))
@@ -553,12 +571,13 @@ class Backup(commands.Cog):
         save_settings(cog.settings)
         return True
 
-    def merge_store(self, inc: dict) -> bool:
+    def merge_store(self, inc: dict, replace: bool = False) -> bool:
+        fill = deep_override if replace else deep_fill
         d = self.store.data
         before = json.dumps(d, sort_keys=True, default=str)
         for key in ("guilds", "selfroles", "vc_setup", "guild_owners"):
             if isinstance(inc.get(key), dict):
-                d[key] = deep_fill(d.setdefault(key, {}), inc[key])
+                d[key] = fill(d.setdefault(key, {}), inc[key])
         if isinstance(inc.get("extra_owners"), list):
             d["extra_owners"] = deep_fill(d.setdefault("extra_owners", []), inc["extra_owners"])
         now = time.time()

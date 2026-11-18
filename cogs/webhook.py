@@ -1,7 +1,9 @@
 """$webhook - send messages through a webhook into any channel, edit them later. Animated emojis work WITHOUT Nitro.
 
 (needs the Manage Webhooks permission - or the bot owner / a $konextra owner)
-$webhook                       open the editor: pick the channel, write the message, set a name + avatar, Send, Edit
+$webhook                       open the editor: pick the channel, write the message, build an EMBED (title, text, colour, footer,
+                               image, thumbnail), set a name + avatar (upload an image or paste a link), Send, Edit
+                               Everything you set is saved per server (name, avatar, embed, images) and comes back next time.
 $webhook #channel text...      send straight away (multi-line text works)
 $webhookedit <message link> new text      edit a message Kon's webhook sent   (alias $whe)
 
@@ -21,6 +23,7 @@ from discord.ext import commands
 
 from core import checks
 from core import emoji as emojis
+from core import media
 from core.config import BLURPLE, BRAND, PREFIX
 from core.errors import VCError
 from core.icons import I, err, ok
@@ -88,33 +91,96 @@ class PageView(OwnedView):
         await interaction.response.edit_message(embed=self.pages[self.i], view=self)
 
 
+KEY = "webhook"          # per server: last name / avatar / embed / images (part of the backup)
+
+
+def parse_color(text: str) -> int:
+    text = (text or "").strip().lstrip("#")
+    if not text:
+        return BRAND
+    if len(text) == 3:
+        text = "".join(c * 2 for c in text)
+    try:
+        if len(text) != 6:
+            raise ValueError
+        return int(text, 16)
+    except ValueError:
+        raise VCError("Colour must be a hex code like `FF9B22`.")
+
+
 class WebhookPanel(OwnedView):
     def __init__(self, cog: "Webhook", ctx: commands.Context, channel: Optional[discord.TextChannel]):
         super().__init__(ctx.author.id, timeout=900)
         self.cog, self.guild, self.author = cog, ctx.guild, ctx.author
         self.channel = channel
+        saved = cog.bot.db.get_settings(ctx.guild.id, KEY)
         self.content = ""
-        self.username = ""
-        self.avatar = ""                       # link or the name of an image saved with $tolink
+        self.username = saved.get("username", "")
+        self.avatar = saved.get("avatar")              # item {"url","ref"} (upload / link) or None
+        self.emb = dict(saved.get("embed") or {})      # title, description, color, footer, author
+        self.image = saved.get("image")                # embed image item
+        self.thumb = saved.get("thumb")                # embed thumbnail item
         self.last: Optional[tuple] = None      # (channel id, message id) of the last message sent
+        self.pick_channel.default_values = [channel] if channel else []
 
-    async def embed(self) -> discord.Embed:
-        preview = "*empty - press **Message***"
+    def save(self):
+        self.cog.bot.db.set_settings(self.guild.id, KEY, {
+            "username": self.username, "avatar": self.avatar, "embed": self.emb, "image": self.image, "thumb": self.thumb})
+
+    async def build_embed(self) -> Optional[discord.Embed]:
+        """The embed that Send will post (None = message only)."""
+        c = self.emb
+        img = await media.fresh(self.cog.bot, self.image)
+        thumb = await media.fresh(self.cog.bot, self.thumb)
+        if not (c.get("title") or c.get("description") or c.get("footer") or c.get("author") or img or thumb):
+            return None
+        title, desc = c.get("title") or None, c.get("description") or None
+        if desc:
+            desc, _ = await emojis.resolve_text(self.cog.bot, desc, self.guild)
+        if title:
+            title, _ = await emojis.resolve_text(self.cog.bot, title, self.guild)
+        e = discord.Embed(title=title, description=desc, color=c.get("color", BRAND))
+        if c.get("author"):
+            e.set_author(name=c["author"][:256])
+        if c.get("footer"):
+            e.set_footer(text=c["footer"][:2048])
+        if img:
+            e.set_image(url=img)
+        if thumb:
+            e.set_thumbnail(url=thumb)
+        return e
+
+    async def embeds(self) -> list:
+        preview = "*empty - press **Message** or **Embed***"
         if self.content:
             preview, _ = await emojis.resolve_text(self.cog.bot, self.content, self.guild)
             preview = preview[:3900]
         e = discord.Embed(title=f"{I.s('link')} Webhook sender", color=BLURPLE, description=preview)
         e.add_field(name="Channel", value=self.channel.mention if self.channel else "*pick one below*")
         e.add_field(name="Name", value=self.username or "*webhook default*")
-        e.add_field(name="Avatar", value=f"`{self.avatar[:40]}`" if self.avatar else "*default*")
+        e.add_field(name="Avatar", value="uploaded / link set" if self.avatar else "*default*")
+        e.add_field(name="Embed", value="set" if any(self.emb.values()) or self.image or self.thumb else "*none*")
+        e.add_field(name="Embed image", value="set" if self.image else "*none*")
+        e.add_field(name="Thumbnail", value="set" if self.thumb else "*none*")
         if self.last:
             e.add_field(name="Last sent", value=f"https://discord.com/channels/{self.guild.id}/{self.last[0]}/{self.last[1]}",
                         inline=False)
-        e.set_footer(text="Paste an emoji ID or :name: - animated emojis work without Nitro")
-        return e
+        e.set_footer(text="Embed preview is shown below · saved per server · emoji ID or :name: works")
+        out = [e]
+        pe = await self.build_embed()
+        if pe is not None:
+            out.append(pe)
+        return out
 
     async def refresh(self, interaction: discord.Interaction):
-        await interaction.response.edit_message(embed=await self.embed(), view=self)
+        await interaction.response.edit_message(embeds=await self.embeds(), view=self)
+
+    async def refresh_message(self):
+        if self.message:
+            try:
+                await self.message.edit(embeds=await self.embeds(), view=self)
+            except discord.HTTPException:
+                pass
 
     @discord.ui.select(cls=discord.ui.ChannelSelect, channel_types=CHANNEL_TYPES, placeholder="Channel to send to", row=0)
     async def pick_channel(self, interaction: discord.Interaction, select: discord.ui.ChannelSelect):
@@ -127,19 +193,25 @@ class WebhookPanel(OwnedView):
             self.content = v[0]
             await self.refresh(i)
         await interaction.response.send_modal(FormModal("Webhook message", [
-            box("Message (emoji ID or :name: works)", self.content, long=True, max_length=2000, required=True)], done))
+            box("Message (emoji ID or :name: works)", self.content, long=True, max_length=2000, required=False)], done))
 
-    @discord.ui.button(label="Name & avatar", emoji=I.e("member"), style=discord.ButtonStyle.secondary, row=1)
-    async def set_identity(self, interaction: discord.Interaction, _):
+    @discord.ui.button(label="Embed", emoji=I.e("palette"), style=discord.ButtonStyle.primary, row=1)
+    async def set_embed(self, interaction: discord.Interaction, _):
         async def done(i: discord.Interaction, v: list):
-            self.username, self.avatar = v[0][:80], v[1]
-            if self.avatar:                                    # fail now, not on Send
-                await self.cog.avatar_url(self.guild, self.avatar)
+            color = parse_color(v[2]) if v[2] else None
+            self.emb = {"title": v[0], "description": v[1], "footer": v[3], "author": v[4]}
+            if color is not None:
+                self.emb["color"] = color
+            self.save()
             await self.refresh(i)
-        await interaction.response.send_modal(FormModal("Webhook name & avatar", [
-            box("Name (empty = webhook default)", self.username, max_length=80),
-            box("Avatar: link or saved image name", self.avatar, max_length=300,
-                placeholder="https://...  or  a name from $links")], done))
+        c = self.emb
+        cur_color = f"{c['color']:06X}" if isinstance(c.get("color"), int) else ""
+        await interaction.response.send_modal(FormModal("Embed (empty everything = no embed)", [
+            box("Title", c.get("title"), max_length=256),
+            box("Description", c.get("description"), long=True, max_length=4000),
+            box("Colour (hex, e.g. FF9B22)", cur_color, max_length=7),
+            box("Footer", c.get("footer"), max_length=300),
+            box("Author line (small text on top)", c.get("author"), max_length=256)], done))
 
     @discord.ui.button(label="Send", emoji=I.e("check"), style=discord.ButtonStyle.success, row=1)
     async def send(self, interaction: discord.Interaction, _):
@@ -147,34 +219,63 @@ class WebhookPanel(OwnedView):
             return await interaction.response.send_message(err("Pick a channel first."), ephemeral=True)
         await interaction.response.defer()
         try:
-            msg = await self.cog.send(self.author, self.channel, self.content, self.username, self.avatar)
+            msg = await self.cog.send(self.author, self.channel, self.content, self.username, self.avatar,
+                                      embed=await self.build_embed())
         except VCError as e:
             return await interaction.followup.send(err(str(e)), ephemeral=True)
         self.last = (msg.channel.id, msg.id)
-        await interaction.edit_original_response(embed=await self.embed(), view=self)
+        await interaction.edit_original_response(embeds=await self.embeds(), view=self)
         await interaction.followup.send(ok(f"Sent in {self.channel.mention}: {msg.jump_url}"), ephemeral=True)
 
-    @discord.ui.button(label="Edit sent message", emoji=I.e("refresh"), style=discord.ButtonStyle.secondary, row=2)
+    @discord.ui.button(label="Name", emoji=I.e("member"), style=discord.ButtonStyle.secondary, row=2)
+    async def set_name(self, interaction: discord.Interaction, _):
+        async def done(i: discord.Interaction, v: list):
+            self.username = v[0][:80]
+            self.save()
+            await self.refresh(i)
+        await interaction.response.send_modal(FormModal("Webhook name", [
+            box("Name (empty = webhook default)", self.username, max_length=80)], done))
+
+    async def pick_image(self, interaction: discord.Interaction, attr: str, title: str, label: str):
+        async def done(i: discord.Interaction, item):
+            await media.forget(self.cog.bot, getattr(self, attr))
+            setattr(self, attr, item)
+            self.save()
+            await i.followup.send(ok(f"{title} updated." if item else f"{title} removed."), ephemeral=True)
+            await self.refresh_message()
+        await interaction.response.send_modal(media.ImageModal(
+            self.cog.bot, self.guild, title, done, label=label, allow_clear=True, fallback=interaction.channel))
+
+    @discord.ui.button(label="Avatar", emoji=I.e("upload"), style=discord.ButtonStyle.secondary, row=2)
+    async def set_avatar(self, interaction: discord.Interaction, _):
+        await self.pick_image(interaction, "avatar", "Webhook avatar", "Webhook avatar")
+
+    @discord.ui.button(label="Embed image", emoji=I.e("image"), style=discord.ButtonStyle.secondary, row=2)
+    async def set_image(self, interaction: discord.Interaction, _):
+        await self.pick_image(interaction, "image", "Embed image", "Webhook embed image")
+
+    @discord.ui.button(label="Thumbnail", emoji=I.e("image"), style=discord.ButtonStyle.secondary, row=2)
+    async def set_thumb(self, interaction: discord.Interaction, _):
+        await self.pick_image(interaction, "thumb", "Embed thumbnail", "Webhook embed thumbnail")
+
+    @discord.ui.button(label="Edit sent message", emoji=I.e("refresh"), style=discord.ButtonStyle.secondary, row=3)
     async def edit_sent(self, interaction: discord.Interaction, _):
         async def done(i: discord.Interaction, v: list):
-            if not v[1]:
-                raise VCError("Write the new text.")
+            emb = await self.build_embed()
+            if not v[1] and emb is None:
+                raise VCError("Write the new text or build an embed.")
             ch, mid = self.cog.parse_target(self.guild, v[0], self.last, self.channel)
             await i.response.defer(ephemeral=True)
-            await self.cog.edit(self.author, ch, mid, v[1])
+            await self.cog.edit(self.author, ch, mid, v[1], embed=emb)
             if not v[0] or self.last == (ch.id, mid):
                 self.content = v[1]
             await i.followup.send(ok(f"Edited: https://discord.com/channels/{self.guild.id}/{ch.id}/{mid}"), ephemeral=True)
-            if self.message:
-                try:
-                    await self.message.edit(embed=await self.embed(), view=self)
-                except discord.HTTPException:
-                    pass
+            await self.refresh_message()
         await interaction.response.send_modal(FormModal("Edit a webhook message", [
             box("Message link or ID (empty = last sent)", "", max_length=200),
-            box("New text", self.content, long=True, max_length=2000, required=True)], done))
+            box("New text (the embed above is used too)", self.content, long=True, max_length=2000)], done))
 
-    @discord.ui.button(label="Close", style=discord.ButtonStyle.secondary, row=2)
+    @discord.ui.button(label="Close", style=discord.ButtonStyle.secondary, row=3)
     async def close(self, interaction: discord.Interaction, _):
         self.stop()
         await interaction.response.edit_message(view=None)
@@ -218,7 +319,9 @@ class Webhook(commands.Cog):
         allow = member.guild_permissions.mention_everyone          # same rule as a normal message
         return discord.AllowedMentions(everyone=allow, roles=allow, users=True)
 
-    async def avatar_url(self, guild: discord.Guild, avatar: str) -> Optional[str]:
+    async def avatar_url(self, guild: discord.Guild, avatar) -> Optional[str]:
+        if isinstance(avatar, dict):                       # uploaded / saved item
+            return await media.fresh(self.bot, avatar)
         avatar = (avatar or "").strip()
         if not avatar:
             return None
@@ -229,26 +332,28 @@ class Webhook(commands.Cog):
             return avatar
         raise VCError("Give an avatar link starting with `https://`.")
 
-    async def prepare(self, guild: discord.Guild, content: str) -> str:
+    async def prepare(self, guild: discord.Guild, content: str, allow_empty: bool = False) -> str:
         content = (content or "").strip()
         if not content:
-            raise VCError("Write a message first.")
+            if allow_empty:
+                return ""
+            raise VCError("Write a message or build an embed first.")
         text, _ = await emojis.resolve_text(self.bot, content, guild)
         if len(text) > 2000:
             raise VCError(f"With the emoji codes filled in the message is **{len(text)}** characters (max 2000). Shorten it.")
         return text
 
     async def send(self, member: discord.Member, channel: discord.TextChannel, content: str,
-                   username: str = "", avatar: str = "") -> discord.WebhookMessage:
+                   username: str = "", avatar=None, embed: Optional[discord.Embed] = None) -> discord.WebhookMessage:
         self.check_member(member, channel)
-        text = await self.prepare(channel.guild, content)
+        text = await self.prepare(channel.guild, content, allow_empty=embed is not None)
         avatar_url = await self.avatar_url(channel.guild, avatar)
+        M = discord.utils.MISSING
         for attempt in (1, 2):
             wh = await self.webhook_for(channel)
             try:
-                return await wh.send(text, username=username or discord.utils.MISSING,
-                                     avatar_url=avatar_url or discord.utils.MISSING, wait=True,
-                                     allowed_mentions=self.mentions(member))
+                return await wh.send(text or M, username=username or M, avatar_url=avatar_url or M,
+                                     embed=embed or M, wait=True, allowed_mentions=self.mentions(member))
             except discord.NotFound:                                # webhook was deleted -> make a new one
                 self._hooks.pop(channel.id, None)
                 if attempt == 2:
@@ -256,12 +361,15 @@ class Webhook(commands.Cog):
             except discord.HTTPException as e:
                 raise VCError(f"Discord refused the message ({e.status}).")
 
-    async def edit(self, member: discord.Member, channel: discord.TextChannel, message_id: int, content: str):
+    async def edit(self, member: discord.Member, channel: discord.TextChannel, message_id: int, content: str,
+                   embed: Optional[discord.Embed] = None):
         self.check_member(member, channel)
-        text = await self.prepare(channel.guild, content)
+        text = await self.prepare(channel.guild, content, allow_empty=embed is not None)
         wh = await self.webhook_for(channel)
         try:
-            return await wh.edit_message(message_id, content=text, allowed_mentions=self.mentions(member))
+            return await wh.edit_message(message_id, content=text or None,
+                                         embeds=[embed] if embed is not None else discord.utils.MISSING,
+                                         allowed_mentions=self.mentions(member))
         except discord.NotFound:
             raise VCError("I can't find that message - it must be one my webhook sent in that channel.")
         except discord.HTTPException:
@@ -307,7 +415,7 @@ class Webhook(commands.Cog):
         start = channel or (ctx.channel if isinstance(ctx.channel, discord.TextChannel) else None)
         view = WebhookPanel(self, ctx, start)
         view.content = text.strip()
-        view.message = await ctx.reply(embed=await view.embed(), view=view, mention_author=False)
+        view.message = await ctx.reply(embeds=await view.embeds(), view=view, mention_author=False)
 
     @commands.hybrid_command(name="webhookedit", aliases=["whe"], description="Edit a message Kon's webhook sent")
     @app_commands.describe(link="Message link", text="New text (emoji IDs work)")

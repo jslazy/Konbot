@@ -14,6 +14,7 @@ from core import ratelimit
 from core.config import BLURPLE, VC_PREFIX
 from core.errors import VCError
 from core.icons import I, ok
+from core.ui import replied_message
 
 log = logging.getLogger("kon.vc")
 
@@ -311,6 +312,70 @@ class VCService:
         self.store.save_soon()
         return f"Muted **{target.display_name}** for **{fmt_secs(seconds)}**."
 
+    async def unmute(self, member, target: discord.Member):
+        ch, _ = self.owned(member)
+        if target not in ch.members:
+            raise VCError("They're not in this VC.")
+        try:
+            await target.edit(mute=False, reason=f"VC unmute by {member}")
+        except discord.HTTPException as e:
+            raise self._http(e)
+        self.store.data["mutes"].pop(f"{ch.guild.id}:{target.id}", None)
+        self.store.save_soon()
+        return f"Unmuted **{target.display_name}**."
+
+    async def deafen(self, member, target: discord.Member, state: bool = True):
+        ch, _ = self.owned(member)
+        if target not in ch.members:
+            raise VCError("They're not in this VC.")
+        if state:
+            if target.id == member.id:
+                raise VCError("You can't deafen yourself.")
+            self.guard(member, target, "deafen")
+        try:
+            await target.edit(deafen=state, reason=f"VC {'deafen' if state else 'undeafen'} by {member}")
+        except discord.HTTPException as e:
+            raise self._http(e)
+        return f"{'Deafened' if state else 'Undeafened'} **{target.display_name}**."
+
+    async def mute_all(self, member, state: bool = True):
+        ch, rec = self.owned(member)
+        targets = [m for m in ch.members if m.id != member.id and m.id != rec["owner"] and not m.bot
+                   and (not state or not self.protected(m))]
+        if not targets:
+            raise VCError("Nobody else can be changed here.")
+        try:
+            for m in targets:
+                await m.edit(mute=state, reason=f"VC {'mute' if state else 'unmute'} all by {member}")
+                if not state:
+                    self.store.data["mutes"].pop(f"{ch.guild.id}:{m.id}", None)
+                await asyncio.sleep(0.3)
+        except discord.HTTPException as e:
+            raise self._http(e)
+        self.store.save_soon()
+        return f"{'Muted' if state else 'Unmuted'} **{len(targets)}** member(s)."
+
+    async def ban_list(self, member) -> str:
+        ch, rec = self.owned(member)
+        if not rec["banned"]:
+            return "Nobody is banned from this VC."
+        return "Banned here: " + ", ".join(f"<@{u}>" for u in rec["banned"][:40])
+
+    async def claim(self, member):
+        """Take the VC when its owner is not inside any more."""
+        vs = member.voice
+        ch = vs.channel if vs and vs.channel else None
+        rec = self.store.vc(ch.id) if ch else None
+        if not rec:
+            raise VCError("Join the custom VC you want to claim first.")
+        if rec["owner"] == member.id:
+            raise VCError("You already own this VC.")
+        owner = ch.guild.get_member(rec["owner"])
+        if owner is not None and owner in ch.members:
+            raise VCError("The owner is still in this VC.")
+        await self.set_owner(ch, rec, member, old=owner)
+        return "You own this VC now."
+
     async def toggle_drags(self, member):
         _, rec = self.owned(member)
         rec["block_drags"] = not rec.get("block_drags", False)
@@ -409,6 +474,16 @@ class VC(commands.Cog):
             CHAT_VC.set(ctx.channel)
         msg = await op(ctx.author, *args)
         await ctx.reply(ok(msg), mention_author=False)
+
+    async def _who(self, ctx, user, as_user=False):
+        """The member from the command - or the author of the message you replied to."""
+        if user is None and ctx.interaction is None and ctx.message.reference:
+            msg = await replied_message(ctx)
+            if msg is not None:
+                user = msg.author if as_user else ctx.guild.get_member(msg.author.id)
+        if user is None:
+            raise VCError("Mention someone or reply to their message.")
+        return user
 
     # ---------- events ----------
     @commands.Cog.listener()
@@ -537,26 +612,26 @@ class VC(commands.Cog):
     @commands.hybrid_command(name="vckick", aliases=['kick', 'vck'], description="Kick user")
     @app_commands.describe(user="Member to kick from your VC")
     @commands.guild_only()
-    async def vckick(self, ctx, user: discord.Member):
-        await self._run(ctx, self.svc.kick, user)
+    async def vckick(self, ctx, user: Optional[discord.Member] = None):
+        await self._run(ctx, self.svc.kick, await self._who(ctx, user, False))
 
     @commands.hybrid_command(name="vcban", aliases=['vcb'], description="Ban user")
     @app_commands.describe(user="Member to ban from your VC")
     @commands.guild_only()
-    async def vcban(self, ctx, user: discord.Member):
-        await self._run(ctx, self.svc.ban, user)
+    async def vcban(self, ctx, user: Optional[discord.Member] = None):
+        await self._run(ctx, self.svc.ban, await self._who(ctx, user, False))
 
     @commands.hybrid_command(name="vcunban", aliases=['vcub'], description="Unban user")
     @app_commands.describe(user="User to unban from your VC")
     @commands.guild_only()
-    async def vcunban(self, ctx, user: discord.User):
-        await self._run(ctx, self.svc.unban, user)
+    async def vcunban(self, ctx, user: Optional[discord.User] = None):
+        await self._run(ctx, self.svc.unban, await self._who(ctx, user, True))
 
     @commands.hybrid_command(name="vcpermit", aliases=['permit', 'allow', 'vcp'], description="Permit user")
     @app_commands.describe(user="Member allowed to join your locked/hidden VC")
     @commands.guild_only()
-    async def vcpermit(self, ctx, user: discord.Member):
-        await self._run(ctx, self.svc.permit, user)
+    async def vcpermit(self, ctx, user: Optional[discord.Member] = None):
+        await self._run(ctx, self.svc.permit, await self._who(ctx, user, False))
 
     @commands.hybrid_command(name="vcpermitall", aliases=['permitall', 'vcpa'], description="Permit all current users in your custom VC")
     @commands.guild_only()
@@ -584,8 +659,46 @@ class VC(commands.Cog):
     @commands.hybrid_command(name="vcmute", aliases=['vcm'], description="Server-mute user for a duration")
     @app_commands.describe(user="Member to mute", duration="e.g. 30s, 10m, 2h (max 24h)")
     @commands.guild_only()
-    async def vcmute(self, ctx, user: discord.Member, duration: str = "10m"):
-        await self._run(ctx, self.svc.mute, user, parse_duration(duration))
+    async def vcmute(self, ctx, user: Optional[discord.Member] = None, duration: str = "10m"):
+        await self._run(ctx, self.svc.mute, await self._who(ctx, user), parse_duration(duration))
+
+    @commands.hybrid_command(name="vcunmute", aliases=['vcum'], description="Unmute user")
+    @app_commands.describe(user="Member to unmute")
+    @commands.guild_only()
+    async def vcunmute(self, ctx, user: Optional[discord.Member] = None):
+        await self._run(ctx, self.svc.unmute, await self._who(ctx, user))
+
+    @commands.hybrid_command(name="vcdeafen", aliases=['vcdeaf'], description="Server-deafen user")
+    @app_commands.describe(user="Member to deafen")
+    @commands.guild_only()
+    async def vcdeafen(self, ctx, user: Optional[discord.Member] = None):
+        await self._run(ctx, self.svc.deafen, await self._who(ctx, user), True)
+
+    @commands.hybrid_command(name="vcundeafen", aliases=['vcundeaf'], description="Undeafen user")
+    @app_commands.describe(user="Member to undeafen")
+    @commands.guild_only()
+    async def vcundeafen(self, ctx, user: Optional[discord.Member] = None):
+        await self._run(ctx, self.svc.deafen, await self._who(ctx, user), False)
+
+    @commands.hybrid_command(name="vcmuteall", aliases=['vcma'], description="Mute everyone in your VC (except you)")
+    @commands.guild_only()
+    async def vcmuteall(self, ctx):
+        await self._run(ctx, self.svc.mute_all, True)
+
+    @commands.hybrid_command(name="vcunmuteall", aliases=['vcuma'], description="Unmute everyone in your VC")
+    @commands.guild_only()
+    async def vcunmuteall(self, ctx):
+        await self._run(ctx, self.svc.mute_all, False)
+
+    @commands.hybrid_command(name="vcbans", aliases=['vcbanlist'], description="Who is banned from your VC")
+    @commands.guild_only()
+    async def vcbans(self, ctx):
+        await self._run(ctx, self.svc.ban_list)
+
+    @commands.hybrid_command(name="vcclaim", aliases=['claim'], description="Claim the VC when its owner left")
+    @commands.guild_only()
+    async def vcclaim(self, ctx):
+        await self._run(ctx, self.svc.claim)
 
     # ---------- settings ----------
     @commands.hybrid_command(name="vclimit", aliases=['limit', 'vclim'], description="Set capacity")

@@ -7,7 +7,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands, tasks
 
-from core.config import BLURPLE, GREEN, PREFIX
+from core.config import BLURPLE, BRAND, PREFIX
 from core.errors import VCError
 from core.icons import I, err, ok
 from core.ui import FieldsModal, OwnedView, parse_int
@@ -110,7 +110,7 @@ class PointConfigView(OwnedView):
     def embed_main(self) -> discord.Embed:
         c = self.cfg
         off = len(c["disabled_channels"]) + len(c["vc_disabled_channels"])
-        return discord.Embed(title=f"{I.s('settings')} Point Configuration", color=GREEN, description=(
+        return discord.Embed(title=f"{I.s('settings')} Point Configuration", color=BRAND, description=(
             f"{I.s('message')} **Chat {onoff(c['chat_enabled'])}** · {c['chat_msgs']} msgs = {c['chat_points']} pt · "
             f"cooldown {c['cooldown']}s · everywhere {onoff(c['chat_everywhere'])}\n"
             f"{I.s('mic')} **Voice {onoff(c['vc_enabled'])}** · {c['vc_mins']} min = {c['vc_points']} pt · "
@@ -322,7 +322,7 @@ class Points(commands.Cog):
         fixed = self.db.repair_badges()           # badges saved half-cut by the old 30-character limit
         if fixed:
             import logging
-            logging.getLogger("leafy.points").info("repaired %d cut-off emoji badge(s)", fixed)
+            logging.getLogger("kon.points").info("repaired %d cut-off emoji badge(s)", fixed)
         self.vc_tick.start()
 
     async def cog_unload(self):

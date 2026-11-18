@@ -18,7 +18,7 @@ from typing import Optional
 import aiohttp
 import discord
 
-log = logging.getLogger("leafy.emoji")
+log = logging.getLogger("kon.emoji")
 
 CUSTOM = re.compile(r"<(a?):([A-Za-z0-9_]{2,32}):(\d{15,25})>")
 NAME = re.compile(r"(?<![\w<:]):([A-Za-z0-9_]{2,32}):(?!\d)")

@@ -15,7 +15,7 @@ from typing import Optional
 import discord
 from discord.ext import commands
 
-from core.config import BLURPLE, GREEN
+from core.config import BLURPLE, BRAND
 from core.errors import VCError
 from core.icons import I, err, ok
 from core.ui import FieldsModal, OwnedView, parse_int
@@ -51,7 +51,7 @@ class AuraConfigView(OwnedView):
         rol = [f"<@&{r}> {p}%" for r, p in c["roles"].items()]
         off = [f"<@{u}>" for u in c["disabled"]]
         more = lambda l: " · ".join(l[:12]) + (f" +{len(l) - 12} more" if len(l) > 12 else "") if l else "*none*"
-        return discord.Embed(title=f"{I.s('fire')} Aura Config", color=GREEN, description=(
+        return discord.Embed(title=f"{I.s('fire')} Aura Config", color=BRAND, description=(
             f"Random: **{'ON' if c['random'] else 'OFF'}** (new amount every time)\n"
             f"{I.s('user_star')} **Members:** {more(mem)}\n{I.s('crown')} **Roles:** {more(rol)}\n"
             f"{I.s('ban')} **Aura off for:** {more(off)}\n"

@@ -1,14 +1,14 @@
-# Leafy - server configuration
+# Kon - server configuration
 
 Every channel / role / user ID below is followed by its name (as the bot sees it right now).
 
 ## Bot-wide
 
 - **bot**:
-  - **name**: Taki#9118
-  - **id**: `1569712165932236842` → Taki#9118
+  - **name**: Kon#9118
+  - **id**: `1569712165932236842` → Kon#9118
 - **voice_mutes_running**: *(empty)*
-- **slash_sync_hash**: 07a8bd24b6324af963dbd477d8117be8c0c68567
+- **slash_sync_hash**: 3a270574669461621c9b391d940f70d34a69f3e0
 
 ## Lazy  (`1154838258027606117`)
 
@@ -65,7 +65,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - *not configured*
 
-### Extra owners ($leafyextra - this server only)
+### Extra owners ($konextra - this server only)
 
 - *(empty)*
 
@@ -76,7 +76,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 ### Players
 
-- 2 players stored in `data/leafy.db` (full list: `export/players_1154838258027606117.csv`)
+- 2 players stored in `data/kon.db` (full list: `export/players_1154838258027606117.csv`)
 
 ## Dark ︲ Spider's Web  (`1488690726870057165`)
 
@@ -102,7 +102,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 - **other_keys**: *(empty)*
 - **active_custom_vcs**:
   - **1572364176888954932** → #bravyrz:
-    - **owner**: `1409148182944022699` → BRAVY (bravyrz)
+    - **owner**: `1425991437396217960` → TheSKY (sky_bauni)
     - **banned**: *(empty)*
     - **block_drags**: no
     - **created**: 1794951235 (2026-11-17 21:33 UTC)
@@ -145,10 +145,10 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **emoji**: `<:Spider_blue_verified:1570309169720987720>`
     - **line**: Social Feeds
     - **line_emoji**: `<:Spider_blue_verified:1570309169720987720>`
-- **banner_url**: https://cdn.discordapp.com/attachments/1488691387653161131/1572325954909642996/banner_1488690726870057165.gif?ex=6afdf628&is=6afca4a8&hm=33daaaa63e91801b388a7bf8602d01b1171484fda04113a81708901b3971e70b&
+- **banner_url**: https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6afe2aca&is=6afcd94a&hm=2261b8b925161da0290d85c0eedb58c78ae658627103db92a10d7ee61c47916f&
 - **banner_ref**:
-  - **c**: `1488691387653161131` → #🌵︲self_roles⌝
-  - **m**: `1572325955450445864`
+  - **c**: `1572381729233051669` → #︲🛠・bot-kon」
+  - **m**: `1572382470312296601`
 
 ### Points ($point config)
 
@@ -290,7 +290,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - **channel**: `1572117193712209960` → #🎄︲tic_tac_toe⌝
 
-### Extra owners ($leafyextra - this server only)
+### Extra owners ($konextra - this server only)
 
 - #1
   - **id**: `1262248731353546763` → Anshu >_< (anshumanfr_)
@@ -334,11 +334,11 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **reason**: gn
     - **since**: 1794941826 (2026-11-17 18:57 UTC)
     - **old_nick**: *none*
-    - **mentions_waiting**: 1
+    - **mentions_waiting**: 2
 
 ### Players
 
-- 133 players stored in `data/leafy.db` (full list: `export/players_1488690726870057165.csv`)
+- 133 players stored in `data/kon.db` (full list: `export/players_1488690726870057165.csv`)
 
 ## Twin's Empire 2.0  (`1524797937836621874`)
 
@@ -395,7 +395,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - *not configured*
 
-### Extra owners ($leafyextra - this server only)
+### Extra owners ($konextra - this server only)
 
 - *(empty)*
 
@@ -406,7 +406,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 ### Players
 
-- 12 players stored in `data/leafy.db` (full list: `export/players_1524797937836621874.csv`)
+- 12 players stored in `data/kon.db` (full list: `export/players_1524797937836621874.csv`)
 
 ## The Blaze Nebula | Drag GW  (`1547650379448188999`)
 
@@ -500,7 +500,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - *not configured*
 
-### Extra owners ($leafyextra - this server only)
+### Extra owners ($konextra - this server only)
 
 - *(empty)*
 
@@ -511,4 +511,4 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 ### Players
 
-- 293 players stored in `data/leafy.db` (full list: `export/players_1547650379448188999.csv`)
+- 294 players stored in `data/kon.db` (full list: `export/players_1547650379448188999.csv`)

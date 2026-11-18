@@ -1,4 +1,4 @@
-# Leafy - server configuration
+# Kon - server configuration
 
 ## Twin's Empire 2.0  (`1524797937836621874`)
 
@@ -55,7 +55,7 @@
 
 - *not configured*
 
-### Extra owners ($leafyextra - this server only)
+### Extra owners ($konextra - this server only)
 
 - *(empty)*
 
@@ -66,4 +66,4 @@
 
 ### Players
 
-- 12 players stored in `data/leafy.db` (full list: `export/players_1524797937836621874.csv`)
+- 12 players stored in `data/kon.db` (full list: `export/players_1524797937836621874.csv`)

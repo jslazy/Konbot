@@ -1,7 +1,7 @@
 """Webhook backup - TWO zips in one small message.
 
-  leafy_code.zip   code, assets, .env (token + webhook stay in unless BACKUP_REDACT=1), export/ (readable config)
-  leafy_data.zip   data/ only: database, VC / AFK / self-role data  (upload it back with `$backupload`)
+  kon_code.zip   code, assets, .env (token + webhook stay in unless BACKUP_REDACT=1), export/ (readable config)
+  kon_data.zip   data/ only: database, VC / AFK / self-role data  (upload it back with `$backupload`)
 
 Sent when the bot starts, every 30 seconds, and when it stops. Each backup is a new message; the previous one is
 deleted (BACKUP_MODE=keep keeps them all).
@@ -30,15 +30,15 @@ import discord
 from discord.ext import commands, tasks
 
 from core import checks, export
-from core.config import PREFIX, AFK_FILE, BACKUP_MODE, BACKUP_REDACT, BACKUP_WEBHOOK, BASE, BLURPLE, DATA_DIR, GREEN
+from core.config import PREFIX, AFK_FILE, BACKUP_MODE, BACKUP_REDACT, BACKUP_WEBHOOK, BASE, BLURPLE, DATA_DIR, BRAND
 from core.errors import VCError
 from core.icons import I, ok
 
-log = logging.getLogger("leafy.backup")
+log = logging.getLogger("kon.backup")
 
 SKIP_DIRS = {"__pycache__", ".git", ".venv", "venv", "node_modules", ".idea", ".vscode",
              ".local", ".cache", ".pip", ".config", "site-packages", "pip-cache"}   # host/pip folders are not part of the bot
-SKIP_FILES = {"leafy.db", "leafy.db-wal", "leafy.db-shm"}       # the live db is added as a consistent snapshot
+SKIP_FILES = {"kon.db", "kon.db-wal", "kon.db-shm", "leafy.db", "leafy.db-wal", "leafy.db-shm"}       # the live db is added as a consistent snapshot
 SECRET_LINE = re.compile(r"^(\s*(?:export\s+)?[A-Za-z0-9_]*(?:TOKEN|SECRET|PASSWORD|WEBHOOK)[A-Za-z0-9_]*\s*=).*$",
                          re.I | re.M)
 ENV_KEY = re.compile(r"^\s*(?:export\s+)?([A-Za-z0-9_]+)\s*=", re.M)
@@ -91,7 +91,7 @@ def build_zip(base: Path, db_snapshot: Optional[str], meta: dict, cfg_export: Op
                     data = redact_env(data)
             add(name, data)
         if db_snapshot:
-            add("data/leafy.db", Path(db_snapshot).read_bytes())
+            add("data/kon.db", Path(db_snapshot).read_bytes())
         if cfg_export:
             add("export/SERVER_CONFIG.md", cfg_export["md"])
             add("export/SERVER_CONFIG.json", cfg_export["json"])
@@ -111,7 +111,7 @@ def build_zip(base: Path, db_snapshot: Optional[str], meta: dict, cfg_export: Op
             **meta, "kind": "code", "files": code_files,
             "restore": ["unzip", "put your DISCORD_TOKEN (and BACKUP_WEBHOOK) back into .env",
                         "pip install -r requirements.txt", "python main.py",
-                        "then send leafy_data.zip with $backupload to bring the data back"]}, indent=2))
+                        "then send kon_data.zip with $backupload to bring the data back"]}, indent=2))
         dz.writestr("DATA_MANIFEST.json", json.dumps({**meta, "kind": "data", "files": data_files,
                                                       "restore": ["send this zip with $backupload"]}, indent=2))
     return {"code": code_buf.getvalue(), "data": data_buf.getvalue(), "digest": digest.hexdigest(), "files": files,
@@ -120,7 +120,7 @@ def build_zip(base: Path, db_snapshot: Optional[str], meta: dict, cfg_export: Op
 
 # ------------------------------------------------------------------ $backupload: merge data zips into the live bot
 UPLOAD_LIMIT = 64 * 1024 * 1024
-DATA_ENTRY = re.compile(r"(?:^|/)data/((?:leafy\.db|vc_data\.json|afk_data\.json|blacktea\.json|selfrole/[^/]+))$")
+DATA_ENTRY = re.compile(r"(?:^|/)data/((?:kon\.db|leafy\.db|vc_data\.json|afk_data\.json|blacktea\.json|selfrole/[^/]+))$")
 
 
 def _cols(c: sqlite3.Connection, schema: str, table: str) -> list[str]:
@@ -344,7 +344,7 @@ class Backup(commands.Cog):
         online = status == "online"
         now = int(time.time())
         db = self.bot.db.counts()
-        e = discord.Embed(title=f"Leafy Backup #{counter}", color=GREEN if online else 0xED4245,
+        e = discord.Embed(title=f"Kon Backup #{counter}", color=BRAND if online else 0xED4245,
                           timestamp=discord.utils.utcnow())
         e.description = (f"{'Online' if online else 'Offline'} · {REASONS.get(reason, reason)} · <t:{now}:R>\n"
                          f"Code `{human(len(info['code']))}` · Data `{human(len(info['data']))}`"
@@ -364,18 +364,18 @@ class Backup(commands.Cog):
         skipped = len(code) > WEBHOOK_LIMIT or len(data) > WEBHOOK_LIMIT
         wh = discord.Webhook.from_url(BACKUP_WEBHOOK, session=self.session)
         avatar = self.bot.user.display_avatar.url
-        kw = dict(wait=True, username="Leafy Backup", avatar_url=avatar)
+        kw = dict(wait=True, username="Kon Backup", avatar_url=avatar)
         sent = []
         embed = self.embed(status, reason, info, counter, skipped)
         try:
             if skipped:
                 sent.append(await wh.send(embed=embed, **kw))
             elif len(code) + len(data) <= WEBHOOK_LIMIT:            # both zips in ONE message
-                sent.append(await wh.send(embed=embed, files=[discord.File(io.BytesIO(code), "leafy_code.zip"),
-                                                              discord.File(io.BytesIO(data), "leafy_data.zip")], **kw))
+                sent.append(await wh.send(embed=embed, files=[discord.File(io.BytesIO(code), "kon_code.zip"),
+                                                              discord.File(io.BytesIO(data), "kon_data.zip")], **kw))
             else:                                                    # too big together: data first, then code
-                sent.append(await wh.send(embed=embed, file=discord.File(io.BytesIO(data), "leafy_data.zip"), **kw))
-                sent.append(await wh.send(file=discord.File(io.BytesIO(code), "leafy_code.zip"), **kw))
+                sent.append(await wh.send(embed=embed, file=discord.File(io.BytesIO(data), "kon_data.zip"), **kw))
+                sent.append(await wh.send(file=discord.File(io.BytesIO(code), "kon_code.zip"), **kw))
         except discord.HTTPException as e:
             if e.status != 413:
                 raise
@@ -407,7 +407,7 @@ class Backup(commands.Cog):
             f"{I.s('gift_box')} Backups sent: **{self.cfg.get('count', 0)}**",
             f"{I.s('clock')} Last: {f'<t:{int(self.last_ok)}:R>' if self.last_ok else 'not yet'}",
             f"{I.s('bolt')} Every **{INTERVAL}s**, on start and on stop",
-            f"{I.s('upload')} Bring data back with `{PREFIX}backupload` + `leafy_data.zip`",
+            f"{I.s('upload')} Bring data back with `{PREFIX}backupload` + `kon_data.zip`",
         ]
         if self.last_error:
             lines.append(f"{I.s('warning')} Last error: `{self.last_error[:200]}`")
@@ -494,14 +494,14 @@ class Backup(commands.Cog):
         for name in z.namelist():
             m = DATA_ENTRY.search(name.replace("\\", "/"))
             if m and ".." not in name.split("/") and not name.endswith("/"):
-                found[m.group(1)] = name
+                found["kon.db" if m.group(1) == "leafy.db" else m.group(1)] = name      # old Leafy backups still load
         if not found:
             raise VCError("No `data/` folder inside.")
         out: dict[str, int] = {}
-        if "leafy.db" in found:
+        if "kon.db" in found:
             tmp = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
             try:
-                tmp.write(z.read(found["leafy.db"]))
+                tmp.write(z.read(found["kon.db"]))
                 tmp.close()
                 for k, v in merge_db(self.bot.db.conn, tmp.name).items():
                     out[k] = out.get(k, 0) + v

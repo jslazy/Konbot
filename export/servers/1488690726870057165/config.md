@@ -1,4 +1,4 @@
-# Leafy - server configuration
+# Kon - server configuration
 
 ## Dark ︲ Spider's Web  (`1488690726870057165`)
 
@@ -24,7 +24,7 @@
 - **other_keys**: *(empty)*
 - **active_custom_vcs**:
   - **1572364176888954932** → #bravyrz:
-    - **owner**: `1409148182944022699` → BRAVY (bravyrz)
+    - **owner**: `1425991437396217960` → TheSKY (sky_bauni)
     - **banned**: *(empty)*
     - **block_drags**: no
     - **created**: 1794951235 (2026-11-17 21:33 UTC)
@@ -67,10 +67,10 @@
     - **emoji**: `<:Spider_blue_verified:1570309169720987720>`
     - **line**: Social Feeds
     - **line_emoji**: `<:Spider_blue_verified:1570309169720987720>`
-- **banner_url**: https://cdn.discordapp.com/attachments/1488691387653161131/1572325954909642996/banner_1488690726870057165.gif?ex=6afdf628&is=6afca4a8&hm=33daaaa63e91801b388a7bf8602d01b1171484fda04113a81708901b3971e70b&
+- **banner_url**: https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6afe2aca&is=6afcd94a&hm=2261b8b925161da0290d85c0eedb58c78ae658627103db92a10d7ee61c47916f&
 - **banner_ref**:
-  - **c**: `1488691387653161131` → #🌵︲self_roles⌝
-  - **m**: `1572325955450445864`
+  - **c**: `1572381729233051669` → #︲🛠・bot-kon」
+  - **m**: `1572382470312296601`
 
 ### Points ($point config)
 
@@ -212,7 +212,7 @@
 
 - **channel**: `1572117193712209960` → #🎄︲tic_tac_toe⌝
 
-### Extra owners ($leafyextra - this server only)
+### Extra owners ($konextra - this server only)
 
 - #1
   - **id**: `1262248731353546763` → Anshu >_< (anshumanfr_)
@@ -256,8 +256,8 @@
     - **reason**: gn
     - **since**: 1794941826 (2026-11-17 18:57 UTC)
     - **old_nick**: *none*
-    - **mentions_waiting**: 1
+    - **mentions_waiting**: 2
 
 ### Players
 
-- 133 players stored in `data/leafy.db` (full list: `export/players_1488690726870057165.csv`)
+- 133 players stored in `data/kon.db` (full list: `export/players_1488690726870057165.csv`)

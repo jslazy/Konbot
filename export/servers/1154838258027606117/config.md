@@ -1,4 +1,4 @@
-# Leafy - server configuration
+# Kon - server configuration
 
 ## Lazy  (`1154838258027606117`)
 
@@ -55,7 +55,7 @@
 
 - *not configured*
 
-### Extra owners ($leafyextra - this server only)
+### Extra owners ($konextra - this server only)
 
 - *(empty)*
 
@@ -66,4 +66,4 @@
 
 ### Players
 
-- 2 players stored in `data/leafy.db` (full list: `export/players_1154838258027606117.csv`)
+- 2 players stored in `data/kon.db` (full list: `export/players_1154838258027606117.csv`)

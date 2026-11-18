@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 
 from core import ratelimit
-from core.config import GREEN, PANEL_IMAGE
+from core.config import BRAND, PANEL_IMAGE
 from core.errors import VCError
 from core.icons import I, err, ok
 
@@ -72,13 +72,13 @@ class MemberPick(discord.ui.View):
 
 
 class PanelView(discord.ui.View):
-    def __init__(self, svc):
+    def __init__(self, svc, prefix: str = "kon"):        # prefix "leafy" = buttons of panels posted before the rebrand
         super().__init__(timeout=None)
         self.svc = svc
         for row, items in enumerate(LAYOUT):
             for icon, action in items:
                 b = discord.ui.Button(style=discord.ButtonStyle.secondary, emoji=I.e(icon),
-                                      custom_id=f"leafy:{action}", row=row)
+                                      custom_id=f"{prefix}:{action}", row=row)
                 b.callback = self._make_cb(action)
                 self.add_item(b)
 
@@ -133,7 +133,7 @@ def _to_int(v: str, what: str) -> int:
 
 
 def panel_embed() -> discord.Embed:
-    e = discord.Embed(title="Voice Channel Control Panel", color=GREEN)
+    e = discord.Embed(title="Voice Channel Control Panel", color=BRAND)
     e.set_image(url="attachment://panel.png")
     return e
 

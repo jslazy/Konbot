@@ -29,7 +29,7 @@
     "other_keys": {},
     "active_custom_vcs": {
       "1572364176888954932": {
-        "owner": 1409148182944022699,
+        "owner": 1425991437396217960,
         "banned": [],
         "block_drags": false,
         "created": 1794951235.4045045
@@ -74,10 +74,10 @@
         "line_emoji": "<:Spider_blue_verified:1570309169720987720>"
       }
     ],
-    "banner_url": "https://cdn.discordapp.com/attachments/1488691387653161131/1572325954909642996/banner_1488690726870057165.gif?ex=6afdf628&is=6afca4a8&hm=33daaaa63e91801b388a7bf8602d01b1171484fda04113a81708901b3971e70b&",
+    "banner_url": "https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6afe2aca&is=6afcd94a&hm=2261b8b925161da0290d85c0eedb58c78ae658627103db92a10d7ee61c47916f&",
     "banner_ref": {
-      "c": 1488691387653161131,
-      "m": 1572325955450445864
+      "c": 1572381729233051669,
+      "m": 1572382470312296601
     }
   },
   "points_settings": {
@@ -283,7 +283,7 @@
         "reason": "gn",
         "since": 1794941825.5695066,
         "old_nick": null,
-        "mentions_waiting": 1
+        "mentions_waiting": 2
       }
     }
   },
@@ -326,6 +326,20 @@
         "1086203964300730449": [
           "<a:Oliviaaa_nooooo:1570284034532188210>"
         ]
+      }
+    },
+    "imagehost": {
+      "channel": 1572381729233051669,
+      "items": {
+        "img-1": {
+          "c": 1572381729233051669,
+          "m": 1572382140962840586,
+          "url": "https://cdn.discordapp.com/attachments/1572381729233051669/1572382140719566910/img-1.jpg?ex=6afe2a7b&is=6afcd8fb&hm=7dc1873b7f51d216fcd45fa9d66a08d3670041fe7dcdf081e0dd6ef0b57cb025&",
+          "t": "jpg",
+          "s": 99697,
+          "by": 650534818517483526,
+          "ts": 1794955515
+        }
       }
     },
     "noprefix": {

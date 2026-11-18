@@ -11,7 +11,7 @@ from core.config import PREFIX
 from core.errors import CommandDisabled, VCError
 from core.icons import I, err
 
-log = logging.getLogger("leafy.errors")
+log = logging.getLogger("kon.errors")
 
 # custom wording (taken from the screenshots)
 MISSING = {

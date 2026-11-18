@@ -1,5 +1,5 @@
 """SQLite data system: points, profiles, shop, purchases, audit log, per-guild settings.
-Everything is stored in leafy.db (WAL mode). Single connection, used from the event loop."""
+Everything is stored in kon.db (WAL mode). Single connection, used from the event loop."""
 import json
 import sqlite3
 import time

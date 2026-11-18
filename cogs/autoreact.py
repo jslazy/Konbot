@@ -11,12 +11,12 @@ import discord
 from discord.ext import commands
 
 from core import ratelimit
-from core.config import BLURPLE, GREEN, PREFIX
+from core.config import BLURPLE, BRAND, PREFIX
 from core.errors import VCError
 from core.icons import I, ok
 from core.ui import OwnedView
 
-log = logging.getLogger("leafy.autoreact")
+log = logging.getLogger("kon.autoreact")
 
 MAX_EMOJIS = 1          # per person
 MAX_PINGED = 5          # max different autoreacts added to one message
@@ -192,7 +192,7 @@ class Autoreact(commands.Cog):
         ]
         if ctx.author.guild_permissions.manage_guild:
             lines += ["", "**Admin**", f"`{PREFIX}ar config` · choose which roles can use it"]
-        e = discord.Embed(title=f"{I.s('sparkles')} Auto Reacter", color=GREEN, description="\n".join(lines))
+        e = discord.Embed(title=f"{I.s('sparkles')} Auto Reacter", color=BRAND, description="\n".join(lines))
         e.set_footer(text="1 emoji each · I react when you're pinged")
         await ctx.reply(embed=e, mention_author=False)
 

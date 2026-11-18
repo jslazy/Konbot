@@ -2,7 +2,7 @@
 
   export/SERVER_CONFIG.md    every setting of every server, IDs resolved to channel / role / user names
   export/SERVER_CONFIG.json  the same, machine readable
-  export/db_dump.json        EVERY row of leafy.db (players, progress, badges, shop, purchases, settings, point log)
+  export/db_dump.json        EVERY row of kon.db (players, progress, badges, shop, purchases, settings, point log)
   export/players_<guild>.csv one line per player: points, chat / VC totals, badges, rank
   export/afk.json            AFK users + AFK-tag setting
   export/custom_vc_channels.json  join-to-create channel + panel channel of every server (id, name, category, bitrate...)
@@ -11,7 +11,7 @@
         data.json                 raw saved data of the server (vc_data.json part + AFK + mutes + extra owners)
         database.json             every database row of the server (players, progress, badges, shop, purchases, settings, point log)
 
-The raw files (data/leafy.db, data/vc_data.json, data/afk_data.json, data/selfrole/*) stay the source of truth for a
+The raw files (data/kon.db, data/vc_data.json, data/afk_data.json, data/selfrole/*) stay the source of truth for a
 restore; these files exist so nothing is hidden inside a binary and the server setup can be re-created by hand.
 """
 import csv
@@ -24,7 +24,7 @@ import discord
 
 SNOWFLAKE_MIN = 10 ** 15
 TABLES = ("users", "channel_progress", "badges", "shop_items", "purchases", "settings", "point_log")
-MAX_LOG_ROWS_IN_JSON = 50000        # point_log is always complete inside data/leafy.db
+MAX_LOG_ROWS_IN_JSON = 50000        # point_log is always complete inside data/kon.db
 
 
 # ------------------------------------------------------------------ name lookup
@@ -224,10 +224,10 @@ def collect(bot, afk_data: dict) -> dict:
                           ("Self roles ($setsr / $editsr)", "self_roles"),
                           ("Points ($point config)", "points_settings"), ("Point shop", "shop"),
                           ("No-prefix", "no_prefix"), ("Aliases", "aliases"), ("Role commands ($giverole)", "role_commands"),
-                          ("Autoreact", "autoreact"), ("Aura ($aura config)", "aura"), ("Tic Tac Toe channel", "tictactoe"), ("Extra owners ($leafyextra - this server only)", "extra_owners"),
+                          ("Autoreact", "autoreact"), ("Aura ($aura config)", "aura"), ("Tic Tac Toe channel", "tictactoe"), ("Extra owners ($konextra - this server only)", "extra_owners"),
                           ("AFK", "afk")):
             lines += [f"### {head}", ""] + (md(cfg[key], res) if cfg[key] not in (None, {}) else ["- *not configured*"]) + [""]
-        lines += [f"### Players", "", f"- {players} players stored in `data/leafy.db` "
+        lines += [f"### Players", "", f"- {players} players stored in `data/kon.db` "
                   f"(full list: `export/players_{gid}.csv`)", ""]
         md_parts.append("\n".join(lines))
         raw_data = {
@@ -242,7 +242,7 @@ def collect(bot, afk_data: dict) -> dict:
             "afk_data.tag": afk_data.get("tag", {}).get(str(gid), True),
         }
         per_server[str(gid)] = {
-            "md": "\n".join(["# Leafy - server configuration", ""] + lines).encode(),
+            "md": "\n".join(["# Kon - server configuration", ""] + lines).encode(),
             "json": json.dumps(cfg, indent=2, ensure_ascii=False, default=str).encode(),
             "data": json.dumps(raw_data, indent=2, ensure_ascii=False, default=str).encode(),
         }
@@ -261,7 +261,7 @@ def collect(bot, afk_data: dict) -> dict:
     bot_res = Resolver(bot, None)
     glob = {"bot": {"name": str(bot.user), "id": bot.user.id if bot.user else None},
             "voice_mutes_running": st.get("mutes", {}), "slash_sync_hash": st.get("sync_hash")}
-    header = ["# Leafy - server configuration", "",
+    header = ["# Kon - server configuration", "",
               "Every channel / role / user ID below is followed by its name (as the bot sees it right now).", "",
               "## Bot-wide", ""] + md(glob, bot_res) + [""]
     doc = "\n".join(header) + "\n" + "\n".join(md_parts)
@@ -285,7 +285,7 @@ def db_extras(snapshot: str, names: dict) -> dict:
             except sqlite3.Error:
                 continue
             if t == "point_log" and len(rows) > MAX_LOG_ROWS_IN_JSON:
-                dump["point_log_note"] = f"{len(rows)} rows - too many for json, they are all inside data/leafy.db"
+                dump["point_log_note"] = f"{len(rows)} rows - too many for json, they are all inside data/kon.db"
                 rows = rows[-MAX_LOG_ROWS_IN_JSON:]
             if t == "settings":
                 for r in rows:

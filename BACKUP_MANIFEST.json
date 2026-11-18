@@ -1,9 +1,9 @@
 {
-  "bot": "Taki#9118",
-  "created": "2026-11-17T22:18:49.174193+00:00",
-  "reason": "Automatic (every 30s)",
+  "bot": "Kon#9118",
+  "created": "2026-11-18T00:14:15.213498+00:00",
+  "reason": "Rebrand Leafy -> Kon",
   "status": "online",
-  "backup_number": 497,
+  "backup_number": 190,
   "kind": "code",
   "files": [
     {
@@ -18,8 +18,8 @@
     },
     {
       "path": "README.md",
-      "size": 10910,
-      "sha1": "66a6a3dc4f4833bda57f6f652dbf0cf04752e95b"
+      "size": 12692,
+      "sha1": "67680b47651bf81b279bb5b6e4bdc8bbfdbe64ed"
     },
     {
       "path": "assets/icon_sheet.png",
@@ -28,658 +28,658 @@
     },
     {
       "path": "assets/icons/award.png",
-      "size": 13740,
-      "sha1": "7e31425dfb384f8c7daa1c9af099114b1fb80f60"
+      "size": 10636,
+      "sha1": "67764b1027c1813e376c874b78641864924df41a"
     },
     {
       "path": "assets/icons/badge.png",
-      "size": 17623,
-      "sha1": "796f26330cd72b76d2dcfb8c34cfaf1f2a2c464f"
+      "size": 12507,
+      "sha1": "43ef5544814ba931538bee6ce3a9c1d4e86699c7"
     },
     {
       "path": "assets/icons/ban.png",
-      "size": 16675,
-      "sha1": "6ef9e7ad2e57431d0a4ee5084d6dc86f949db718"
+      "size": 11936,
+      "sha1": "99e703711b573bbe5f694216ce6c4d9b6771acfa"
     },
     {
       "path": "assets/icons/bell.png",
-      "size": 11941,
-      "sha1": "b13695602e75622a6eda00187b7ebe862473d108"
+      "size": 9234,
+      "sha1": "8f32e78254573c8a0e9529b02e0e09eb340d926a"
     },
     {
       "path": "assets/icons/bell_ring.png",
-      "size": 13843,
-      "sha1": "ff0a10bfe1eecc1a7008dd20e50fb97ed2f83997"
+      "size": 10161,
+      "sha1": "e48d565ab9d1ef6b06e2a0ea966459e2c5cc14a9"
     },
     {
       "path": "assets/icons/bolt.png",
-      "size": 8294,
-      "sha1": "8c6f44364eb376dcfd4590e9bda6e4c29236a69b"
+      "size": 6628,
+      "sha1": "2de1925a6c7f86a7bd754627ee7f17cf1d35ef33"
     },
     {
       "path": "assets/icons/bookmark.png",
-      "size": 10488,
-      "sha1": "257a2a350b1f9f68a093b2fb8f5895fdcc818c00"
+      "size": 8549,
+      "sha1": "2f0142bfad1e7a76259ea10c6ea6f0a567355b9c"
     },
     {
       "path": "assets/icons/calendar.png",
-      "size": 10843,
-      "sha1": "3bfb113e92f39e023231fe62c7e1dd408cdfadab"
+      "size": 8228,
+      "sha1": "c59008246f57b282d89141e50a6a7f94e57e7906"
     },
     {
       "path": "assets/icons/cat.png",
-      "size": 14876,
-      "sha1": "d1a170305308278baa3c74ff9ac25c28bf02855b"
+      "size": 9525,
+      "sha1": "697807a038c3e7fbdac60d27d02ac499620236bc"
     },
     {
       "path": "assets/icons/check.png",
-      "size": 16414,
-      "sha1": "d999d1c330305d2d874beac9036dade973be72fa"
+      "size": 12140,
+      "sha1": "816ad92277c0e1932367e010313beed7f590ed88"
     },
     {
       "path": "assets/icons/check_outline.png",
-      "size": 15423,
-      "sha1": "4ae28a74fa0e72c6320d9ec491aa857aa00fe3b3"
+      "size": 10865,
+      "sha1": "8be04f52335a6e7218218bff9af6570fab6cd85f"
     },
     {
       "path": "assets/icons/clock.png",
-      "size": 14315,
-      "sha1": "987a7953f258851857997227458a04d9b33c9f82"
+      "size": 10501,
+      "sha1": "988ffe38cdc40434dbd9fe168c3fe0e51824ea2f"
     },
     {
       "path": "assets/icons/code.png",
-      "size": 12509,
-      "sha1": "660613ac0a5f981eda0852f2c72d4ec35b04285f"
+      "size": 9300,
+      "sha1": "bd8478d1b444418aea66d02b9bcf5ef678eca4ce"
     },
     {
       "path": "assets/icons/coins.png",
-      "size": 15586,
-      "sha1": "72a42b318c0a475cbb2591fcb267d16f44364d3b"
+      "size": 10842,
+      "sha1": "9a6afce517ff2c3c724703127fbb2aec459f2dc8"
     },
     {
       "path": "assets/icons/controller.png",
-      "size": 13196,
-      "sha1": "06a2cd3953a1fde4d76ea9d438f904bc0ad51e6b"
+      "size": 8606,
+      "sha1": "2ac120262d4bd2ef4692f6ea27c1d60b13ff52c5"
     },
     {
       "path": "assets/icons/cross.png",
-      "size": 16807,
-      "sha1": "809772d10596e17269b8081be2b3cf1ca4ece6f3"
+      "size": 12201,
+      "sha1": "109c6b60c76f132d994dac5d20284be5e2597b04"
     },
     {
       "path": "assets/icons/cross_filled.png",
-      "size": 14506,
-      "sha1": "559ae543c352a66d1911053967a10fa833d15e17"
+      "size": 10194,
+      "sha1": "17e58c5ba6be4d6a1923332c2c9fc4511253f324"
     },
     {
       "path": "assets/icons/crown.png",
-      "size": 9997,
-      "sha1": "cf4db0baf78bcc32a5c058209c0f5122494a9911"
+      "size": 6999,
+      "sha1": "7871f8932db0cfa688ae373e8cf1363cf791d49a"
     },
     {
       "path": "assets/icons/crown_fill.png",
-      "size": 12900,
-      "sha1": "117ce0163826ae14649d225c9fb75b906398a7a3"
+      "size": 8542,
+      "sha1": "9ab11094ca531615724490390b4cf738fb53cdd7"
     },
     {
       "path": "assets/icons/crown_line.png",
-      "size": 12627,
-      "sha1": "b2dcb4f41856ffcc1c38696fd6067f5389cc2ae1"
+      "size": 8668,
+      "sha1": "176c1700e1caf402867dd096131a9a6234a3666a"
     },
     {
       "path": "assets/icons/database.png",
-      "size": 14833,
-      "sha1": "26b4f92e49ba480b4032a6e3baa3e01e3e2fe640"
+      "size": 9675,
+      "sha1": "cc042aa496057508841a2e26b3265c4c3fb614e6"
     },
     {
       "path": "assets/icons/database_add.png",
-      "size": 12297,
-      "sha1": "eaafe83103ba704d6d2c9d2f81f8e1cc5e57f80a"
+      "size": 8651,
+      "sha1": "fca04bb24a746cd1990f7280b3805a0321c62f9c"
     },
     {
       "path": "assets/icons/database_arrow.png",
-      "size": 13124,
-      "sha1": "e21b2dfbeb9c566945f17dfa6e1cbfd514501c18"
+      "size": 9048,
+      "sha1": "c687a52150f0219ce5b99f67505565e347b48f6f"
     },
     {
       "path": "assets/icons/diamond.png",
-      "size": 14859,
-      "sha1": "5008c2e2359491b158fd0a772b76f9ddded5f6fc"
+      "size": 10556,
+      "sha1": "f2fb8e1f83026bac6959ecebdf8641562df181c5"
     },
     {
       "path": "assets/icons/diamond_fill.png",
-      "size": 14989,
-      "sha1": "33ce6dabfebd4b70ef3a72120567b5f9f7a2c4b0"
+      "size": 10148,
+      "sha1": "0a2d6d6b670531d819ba9a31b6efb88d911f74b4"
     },
     {
       "path": "assets/icons/dice.png",
-      "size": 15432,
-      "sha1": "c5e861f7073d43dd2fca9b4822dfa373793d64ea"
+      "size": 10668,
+      "sha1": "cf26aed3fe4855e17d902ca4ac10f1d44801cc05"
     },
     {
       "path": "assets/icons/down.png",
-      "size": 10162,
-      "sha1": "1afd1cb724d8b95f1548ec5c92822320850ffec9"
+      "size": 7908,
+      "sha1": "ea5903ae222b43128a865b11944dd51b65408ef3"
     },
     {
       "path": "assets/icons/download.png",
-      "size": 10494,
-      "sha1": "59a613c7a96a600989b73b065518802a01d9efa8"
+      "size": 8065,
+      "sha1": "4b0115f701f677863fe90cd1b0bc6e0c9e21e3f5"
     },
     {
       "path": "assets/icons/edit.png",
-      "size": 15574,
-      "sha1": "759137c26915af476f7806c946c7a5e58ff4b6fd"
+      "size": 10956,
+      "sha1": "c6fc0f4859dd82ac93f36ff138e62c0c12a69d30"
     },
     {
       "path": "assets/icons/external.png",
-      "size": 12471,
-      "sha1": "745b410add41fe3d07e449088b8e6ce42f4a92f3"
+      "size": 9192,
+      "sha1": "693d05eaa34a99ff94aa676e62154d53db9a2579"
     },
     {
       "path": "assets/icons/fast_forward.png",
-      "size": 15976,
-      "sha1": "426b416f697afdad6fbcd6d02e216b321ea3a4d2"
+      "size": 10949,
+      "sha1": "907d3b0d56539455d37b8315be2399937799ac4b"
     },
     {
       "path": "assets/icons/fire.png",
-      "size": 12752,
-      "sha1": "30491de4b80cb42e9ec22b82363d0020b45275e6"
+      "size": 8692,
+      "sha1": "0de2654d8a0d1b8ba83a6b83059d06a5a7283fca"
     },
     {
       "path": "assets/icons/folder.png",
-      "size": 8208,
-      "sha1": "1ecfa842f833a93b1c8c6dff6ad182f96d217eae"
+      "size": 6699,
+      "sha1": "f2619b651975af0be9e89536d7bcf541d80bafdf"
     },
     {
       "path": "assets/icons/gamepad.png",
-      "size": 12718,
-      "sha1": "1114b348190e2ff6cb73a82a8ccefa52a5296e76"
+      "size": 8560,
+      "sha1": "e788b602d2edb36328e7bf94b4a6c3ed27144763"
     },
     {
       "path": "assets/icons/gamepad_fill.png",
-      "size": 11727,
-      "sha1": "2ed07964b62dba3597ba193d0b0376ac554b43ce"
+      "size": 8584,
+      "sha1": "dd202389b4aa8d466523659c2f9a909e30dc70d4"
     },
     {
       "path": "assets/icons/ghost.png",
-      "size": 11337,
-      "sha1": "e811a00419b3f4a70ef17ca9c195c5b7e800b17f"
+      "size": 8320,
+      "sha1": "f035efaa9422c107610fcf03e6b52d5cf81a9439"
     },
     {
       "path": "assets/icons/gift.png",
-      "size": 12606,
-      "sha1": "c4a13e14f9852feeb93e6f7c15fadb77e7b0ddba"
+      "size": 8292,
+      "sha1": "8ee8d942d8c4e82046ebbff8728e2d71ea0b23d3"
     },
     {
       "path": "assets/icons/gift_box.png",
-      "size": 13715,
-      "sha1": "960319c76a797a047e2995d72df31fb482a9f5c5"
+      "size": 9724,
+      "sha1": "08af9ff44c94b7409a14eb048bb06b2a4ec802f9"
     },
     {
       "path": "assets/icons/gift_outline.png",
-      "size": 14185,
-      "sha1": "b4afd462702187ada9a0749760106aefeb7117db"
+      "size": 10174,
+      "sha1": "fb250d7f1af212b77a7b106c303610a4a95374de"
     },
     {
       "path": "assets/icons/globe.png",
-      "size": 18955,
-      "sha1": "973e31752d5110533e5f1ec05cd23dd1fab048dd"
+      "size": 12865,
+      "sha1": "71464d12ee6fcc2b439e8c20ed99a51fda6a8f1e"
     },
     {
       "path": "assets/icons/grid.png",
-      "size": 13309,
-      "sha1": "5231a6eb2094a20b28e23fa8d033f6501b502d47"
+      "size": 9548,
+      "sha1": "c040359be39565e568b6256156f0366e3ed63388"
     },
     {
       "path": "assets/icons/headphones.png",
-      "size": 13326,
-      "sha1": "b4df4f8d77ede4ca47c6aba686b97c82d8d1c32e"
+      "size": 9233,
+      "sha1": "78f7fc07a9053addeb710a16eb57f407b38e60fe"
     },
     {
       "path": "assets/icons/headset.png",
-      "size": 12777,
-      "sha1": "9d1f3f9ee4442c088a32e36287442e41c757af57"
+      "size": 9308,
+      "sha1": "1cf1da4804e541d8d60d52b4ebad31f9c181326d"
     },
     {
       "path": "assets/icons/heart.png",
-      "size": 10767,
-      "sha1": "df601cb7003c2a46fb6ed364cb32531d4e2461ce"
+      "size": 7669,
+      "sha1": "073740466b5cd2cf71cb47598b94a0353325fea1"
     },
     {
       "path": "assets/icons/heart_broken.png",
-      "size": 13580,
-      "sha1": "008d5ea9f085fb787decb18dce44eba22eb458f0"
+      "size": 9111,
+      "sha1": "ee37f2b9248e741991dfacad6536c377d7dc1015"
     },
     {
       "path": "assets/icons/help.png",
-      "size": 16708,
-      "sha1": "03f3fb306ebe6cbb8cbde6099bc017cf466f6934"
+      "size": 11814,
+      "sha1": "339284ba980c40f93508588fc42d37c252d29e76"
     },
     {
       "path": "assets/icons/hide.png",
-      "size": 15958,
-      "sha1": "c0780df32f6df149910b01ea6aabae1285f1d2e4"
+      "size": 11220,
+      "sha1": "d0cfb7eb35569c35efc6622121362fd905fcefa9"
     },
     {
       "path": "assets/icons/home.png",
-      "size": 13122,
-      "sha1": "f7322dcdece8a974e6cf850bff30c438c3fe788e"
+      "size": 9752,
+      "sha1": "2c8bc14a5ca40631d5662f97e81b892e42010156"
     },
     {
       "path": "assets/icons/hourglass.png",
-      "size": 12622,
-      "sha1": "dbc85d6a68572d86555fc0f10fdee2c2ef96c6c5"
+      "size": 9644,
+      "sha1": "48cb9c33738d58b5c592ee530b9659ad29473ea5"
     },
     {
       "path": "assets/icons/image.png",
-      "size": 11737,
-      "sha1": "93df09775288d5bbd1f13ea24f8552b242df3e61"
+      "size": 8380,
+      "sha1": "0b2d438aea6f64c0ce95432046f8a894ff3644c3"
     },
     {
       "path": "assets/icons/info.png",
-      "size": 14337,
-      "sha1": "22e62f879861501dbde0358d23768d6005eef374"
+      "size": 11085,
+      "sha1": "f01391623de925246fa253ed5b237dddb152bad2"
     },
     {
       "path": "assets/icons/info_diamond.png",
-      "size": 12984,
-      "sha1": "3ad2b69668bac874b83e9e36c3f419f4e2a9c10e"
+      "size": 9033,
+      "sha1": "0377047cb0ae5e3c97d7de4fae62678ad9848b71"
     },
     {
       "path": "assets/icons/leaf.png",
-      "size": 11357,
-      "sha1": "e617812dc10d53f66b610d271d59c9b2090feabb"
+      "size": 7974,
+      "sha1": "9b57cdd172b0a98b9385b0dac83440b01bafc20f"
     },
     {
       "path": "assets/icons/left.png",
-      "size": 9789,
-      "sha1": "dfd73458e5733dc3ff6cc79281fc71cb8054acfe"
+      "size": 6663,
+      "sha1": "ebbde5fa5cd14a455ae9e4e0602e733816ae3a20"
     },
     {
       "path": "assets/icons/link.png",
-      "size": 14457,
-      "sha1": "2835c872ccc3b9f9081f25b55436fee18ed302dc"
+      "size": 10376,
+      "sha1": "0f261b5b779eddedaa6a373bc62d1ba35ad96c17"
     },
     {
       "path": "assets/icons/lock.png",
-      "size": 12239,
-      "sha1": "96ad0e15c8e273ba4fe1e0b096ab75bd1f03bced"
+      "size": 8846,
+      "sha1": "cfd09ac75db3e5d61c5c6611f1dffa2bf3fd916b"
     },
     {
       "path": "assets/icons/login.png",
-      "size": 13155,
-      "sha1": "bfea3ce1602991c3e3c60861a89c1ddcf4b45951"
+      "size": 9597,
+      "sha1": "354ac8b94a856ec00cd2844a9535d5095b341922"
     },
     {
       "path": "assets/icons/logout.png",
-      "size": 10920,
-      "sha1": "1bf8749d4f15ba29c4811e2ae6838a5a6f8b74f4"
+      "size": 8311,
+      "sha1": "8d7a1da0caa8a3cea59ad81a6e3a1a0660ddc925"
     },
     {
       "path": "assets/icons/mail.png",
-      "size": 12486,
-      "sha1": "1623071345698925866ca8c8db251fb22bb81886"
+      "size": 9124,
+      "sha1": "d8259ed07519cb6d90a10fb81c245977a3bcdc52"
     },
     {
       "path": "assets/icons/members.png",
-      "size": 11946,
-      "sha1": "e5766eded1454a3343d3677288170a3a046697bb"
+      "size": 8393,
+      "sha1": "4a964730706b75ff4580d6799586989a50eee704"
     },
     {
       "path": "assets/icons/menu.png",
-      "size": 8410,
-      "sha1": "0cfd3398c3a8e855e4914f6f67eb3814fb06e5e9"
+      "size": 5649,
+      "sha1": "8d0565609af08e41469e5473535334fc8576b9ee"
     },
     {
       "path": "assets/icons/message.png",
-      "size": 10767,
-      "sha1": "97ad3be792c75a5f67cc89a41dd730309e227491"
+      "size": 7751,
+      "sha1": "5c9a8494a5e608f1375fc39a6455806d1c5955bd"
     },
     {
       "path": "assets/icons/messages.png",
-      "size": 10710,
-      "sha1": "687bcbd2fdfa38a9969d37c68b2e81e75338ebe4"
+      "size": 8113,
+      "sha1": "21227c80e17c4f6e16576d57b26702a9740ed2d3"
     },
     {
       "path": "assets/icons/mic.png",
-      "size": 12359,
-      "sha1": "2936cf512c2699a24cca0bd53a07bf5a7bd524ed"
+      "size": 8846,
+      "sha1": "d983db7d08b972c0d2ede9882551381ce893b6b8"
     },
     {
       "path": "assets/icons/minus.png",
-      "size": 15396,
-      "sha1": "abb822e0745f3a2d46a063d7f6b15c0a6c920eca"
+      "size": 11196,
+      "sha1": "231e7228113be63ee57204f4da411edc6ab07509"
     },
     {
       "path": "assets/icons/mobile.png",
-      "size": 8664,
-      "sha1": "dc870ad745da9f061dff7c1deef43610eeec97fd"
+      "size": 7171,
+      "sha1": "78a60369abe973b3bfe2b46ceadde03e67be10a6"
     },
     {
       "path": "assets/icons/monitor.png",
-      "size": 8262,
-      "sha1": "41a9c2e65a3346854a32d05cfdd9c3e7075cae3b"
+      "size": 6445,
+      "sha1": "6017e54b05461e66ada5c2333bd6404ac1254631"
     },
     {
       "path": "assets/icons/music.png",
-      "size": 10296,
-      "sha1": "82be7adc1566decb2aa4e11a49f7ac88a09cae2b"
+      "size": 7780,
+      "sha1": "3a6c4bc4716ae69f7d1f278ba550181028cbff1e"
     },
     {
       "path": "assets/icons/mute.png",
-      "size": 11309,
-      "sha1": "b0590c141c7d5be518a7840c1cda3e3d788eca3b"
+      "size": 8440,
+      "sha1": "def67985af2c705ed80225b4ffb990bee9c3e05d"
     },
     {
       "path": "assets/icons/next.png",
-      "size": 10576,
-      "sha1": "d3d13736b42a846cb18b9bbb22847947ee84aea5"
+      "size": 8343,
+      "sha1": "1734e87f18fa2f81e7c9a7e53594eaa5a359016c"
     },
     {
       "path": "assets/icons/palette.png",
-      "size": 13402,
-      "sha1": "0b0463de97b455882868882bf8f0df39dfa00ea2"
+      "size": 9121,
+      "sha1": "c058d3cfd9d34e37c3cd3d03702bd98d80b262d9"
     },
     {
       "path": "assets/icons/party.png",
-      "size": 15846,
-      "sha1": "80b4b3b74ea570687cf31be0a4641f90d25ea612"
+      "size": 11041,
+      "sha1": "6c4eb1fa84e61604e3215126d4dafcf6cf6608d8"
     },
     {
       "path": "assets/icons/pause.png",
-      "size": 8389,
-      "sha1": "049c1b2d0b4de76ddef1feaeb129b2ff65c87c79"
+      "size": 6983,
+      "sha1": "24907bc90b5e23c5f5aa987e0f63c1d591b3b819"
     },
     {
       "path": "assets/icons/phone.png",
-      "size": 11824,
-      "sha1": "29b5a4f7a4e7146005f7aeb6c1ee6c95a91d9eda"
+      "size": 8775,
+      "sha1": "800a81780c078e69db462d64637ce2b1b330e97e"
     },
     {
       "path": "assets/icons/pin.png",
-      "size": 11030,
-      "sha1": "81c161e7b84e7b6a8f2c25544429651401b2cda7"
+      "size": 8362,
+      "sha1": "4a4633a23c37b5c536c5f62fc1e48afb5dbf0b8d"
     },
     {
       "path": "assets/icons/play.png",
-      "size": 9677,
-      "sha1": "47adf104ba4db74f4934eb7646c2c7c8f15098a4"
+      "size": 6664,
+      "sha1": "298dff9caee0861cd52b4de60072ba155269ba64"
     },
     {
       "path": "assets/icons/play_circle.png",
-      "size": 15874,
-      "sha1": "7781eadd567677f342a2aacb7eedead0d0472f34"
+      "size": 11447,
+      "sha1": "1b71895dbd11f8747ee75e81337c0a11f76aadc0"
     },
     {
       "path": "assets/icons/plus.png",
-      "size": 17051,
-      "sha1": "b25d13b447e6a1fd81dc61389c053ed4d43e8457"
+      "size": 12166,
+      "sha1": "74eea7dd06338687895fd9eae912f02a7d7c104c"
     },
     {
       "path": "assets/icons/prev.png",
-      "size": 10031,
-      "sha1": "57e83a07257431b67661e7893a5bee08828ae7c3"
+      "size": 7780,
+      "sha1": "2aa44583610b356160f5297b4a82d34273cb685c"
     },
     {
       "path": "assets/icons/refresh.png",
-      "size": 13315,
-      "sha1": "863457c5af2fc92a54691c034512e293e846716d"
+      "size": 9410,
+      "sha1": "fbd3f72c89be57b27cd4669fd55c8ef7007474ef"
     },
     {
       "path": "assets/icons/repeat.png",
-      "size": 13276,
-      "sha1": "a2f1b3d1f7d6a02100b45f3dedf2a78c1508081c"
+      "size": 9197,
+      "sha1": "fe97aeda657176a24aeec366a649cc8b845637f3"
     },
     {
       "path": "assets/icons/rewind.png",
-      "size": 13465,
-      "sha1": "537b2b568e33a4e1802f4e5032016a099fe1709d"
+      "size": 9549,
+      "sha1": "cc14598c32665f291d822d36e1e61707b71abed1"
     },
     {
       "path": "assets/icons/right.png",
-      "size": 9267,
-      "sha1": "672be0aa35db05d933f9c6f54baf4085b1cb6d6c"
+      "size": 7113,
+      "sha1": "fc8a32d519c2fce276156c048a8f3f3c73f7a19c"
     },
     {
       "path": "assets/icons/rocket.png",
-      "size": 11825,
-      "sha1": "5c12106032ddf482faf2416ddb65ebbd29006628"
+      "size": 8092,
+      "sha1": "3b6c289a693b616d6aa28b3399ffa7e3b04df47d"
     },
     {
       "path": "assets/icons/settings.png",
-      "size": 19123,
-      "sha1": "5a3f0d71cd8d7d5e3ecb28ed31f47002602d10f6"
+      "size": 12762,
+      "sha1": "57e6b23b672f0719645bf5df05e41703ea09c86a"
     },
     {
       "path": "assets/icons/shield.png",
-      "size": 11929,
-      "sha1": "5d65c2d99536315c8d2dc45550590fc31da69713"
+      "size": 9383,
+      "sha1": "a653103085a7a5948dc8c56c290fbfb2225dc2e9"
     },
     {
       "path": "assets/icons/shield_alert.png",
-      "size": 13272,
-      "sha1": "1d870f4ac05573633321ae13f6b417df086b5271"
+      "size": 10270,
+      "sha1": "4337e55e1553761c3a869710f71bd9b4eb940305"
     },
     {
       "path": "assets/icons/shield_asterisk.png",
-      "size": 12553,
-      "sha1": "1aeb891da6bd54d83d3ad23e6f8e8abf0a2bcac8"
+      "size": 9267,
+      "sha1": "b4176537d8bd727dc9bcdc57a165669f33b5b614"
     },
     {
       "path": "assets/icons/shield_check.png",
-      "size": 14737,
-      "sha1": "dd001889e76194dbb2e76f179c1b53e0ca503def"
+      "size": 11289,
+      "sha1": "768e5fbfd7a4fda5a37ea6aaaaf798582b94e614"
     },
     {
       "path": "assets/icons/shield_ok.png",
-      "size": 11798,
-      "sha1": "ceea74db940f0eccb5de17d1fb51950c1192a813"
+      "size": 8344,
+      "sha1": "d562f029cdd200278d15ce866918550abbfe2c20"
     },
     {
       "path": "assets/icons/shield_star.png",
-      "size": 14856,
-      "sha1": "bd82eb47834877d292e467a2ce7fe4c50376a630"
+      "size": 10835,
+      "sha1": "8b708f950aa21c4047c585e4a6448661137d56a4"
     },
     {
       "path": "assets/icons/show.png",
-      "size": 15991,
-      "sha1": "8f87297c49c5d9fb41763eb6ce09cd7c2364b3c2"
+      "size": 11358,
+      "sha1": "e906fdd2e9a70d43a18fa4f03abce0cc38fd27b5"
     },
     {
       "path": "assets/icons/shuffle.png",
-      "size": 14669,
-      "sha1": "991ad32be668b6f62a2f88ecd2c2d4f9cb0801e3"
+      "size": 10252,
+      "sha1": "2c00156fadda8c0a5506c7f333fdb1abfca0498e"
     },
     {
       "path": "assets/icons/signal.png",
-      "size": 7415,
-      "sha1": "a9d3ae7bf8cea4c8a525e0c79c3ace30ce00b496"
+      "size": 6492,
+      "sha1": "0fc75a897c810fcfea2848f85ce32691a26eb727"
     },
     {
       "path": "assets/icons/skull.png",
-      "size": 14292,
-      "sha1": "03261582086071c46b85fa68cdbdc640874f4549"
+      "size": 9757,
+      "sha1": "315184be6101172fd8621ce6710823644b45d4ca"
     },
     {
       "path": "assets/icons/sparkles.png",
-      "size": 10970,
-      "sha1": "c2ff140473fade7434271e89cf9893bdf2fa5317"
+      "size": 8432,
+      "sha1": "5d2d0d8c590569f54146f098be31a4729b6baa28"
     },
     {
       "path": "assets/icons/speaker.png",
-      "size": 11681,
-      "sha1": "1d4593d9148ef20f7360d175fd9c1b995d7e0753"
+      "size": 8607,
+      "sha1": "268295f2df9db7d18d3341a181b8e4b0263c50ea"
     },
     {
       "path": "assets/icons/star_fill.png",
-      "size": 11129,
-      "sha1": "1a5b2ac2b4fe33b6a866c53062626d4af3845f88"
+      "size": 7790,
+      "sha1": "29d8309e56e190d65f6d67875acd2ef95bb4cee0"
     },
     {
       "path": "assets/icons/star_line.png",
-      "size": 14978,
-      "sha1": "139d3d3e1538c1ad5cd1e990f3ab08481b7c1666"
+      "size": 10336,
+      "sha1": "b243c8410e3b61ce53fb6c3c4b3113c739d0c8a6"
     },
     {
       "path": "assets/icons/star_outline.png",
-      "size": 14119,
-      "sha1": "7f4aa686461d6aff9e0b13fd352d4e53d33d83e0"
+      "size": 10253,
+      "sha1": "93e9e6089a7b7cb4b7aed498acfb980dafc85a28"
     },
     {
       "path": "assets/icons/stop.png",
-      "size": 7198,
-      "sha1": "94a135603401412a9d1fa887d2a52e15f9fbbb5d"
+      "size": 5030,
+      "sha1": "de01dfe404ab2f1f66cfc0e804cab9d8b0bdcd7b"
     },
     {
       "path": "assets/icons/stop_circle.png",
-      "size": 15104,
-      "sha1": "ba8b0bfdf4cbb2ec87f42a7d203c7be8e868f35e"
+      "size": 10974,
+      "sha1": "487963b2c581cbd13fcc494d797085a8e736f1d4"
     },
     {
       "path": "assets/icons/stopwatch.png",
-      "size": 13668,
-      "sha1": "e81c114566a79c2450fbfe3e1d5ec3fe24e6a93f"
+      "size": 10329,
+      "sha1": "67b1bc62839978d08addc65adb9679be1e34df31"
     },
     {
       "path": "assets/icons/swap.png",
-      "size": 11600,
-      "sha1": "7809f85ba569fbab7190c4b818670291b1875b84"
+      "size": 8234,
+      "sha1": "eaaa5fc47a296398e8a5c869fda8e6e7a8400746"
     },
     {
       "path": "assets/icons/swap_small.png",
-      "size": 12831,
-      "sha1": "0e4e17425c1d6cc3cc68c10fc05576385fdda9a1"
+      "size": 8908,
+      "sha1": "ba0906f741b6a142a88d9ef2314ac4220ea7ee8c"
     },
     {
       "path": "assets/icons/tag.png",
-      "size": 12958,
-      "sha1": "65a19dab7b9af17828ff0dc763fd45f08106daef"
+      "size": 9766,
+      "sha1": "f2ec5799f1bdb87c6600608878cc269e46ef789a"
     },
     {
       "path": "assets/icons/target.png",
-      "size": 13970,
-      "sha1": "3632be791859ad6a518b37a4626380f1d6862ff3"
+      "size": 10264,
+      "sha1": "a0478b7d06127f5b7cde168002ff1e54a677f0df"
     },
     {
       "path": "assets/icons/terminal.png",
-      "size": 8599,
-      "sha1": "956eb2b14cdc61d4dca626a6991c85b674b33ed3"
+      "size": 6829,
+      "sha1": "d359434e27ab8d13b08cd30874e381f234ff8e60"
     },
     {
       "path": "assets/icons/thumbs_down.png",
-      "size": 10279,
-      "sha1": "86dd83e349fc1c2f22c0024b451183650531076d"
+      "size": 7109,
+      "sha1": "45cf84cdd1bc437e7d42d4f787d38d14de2b8576"
     },
     {
       "path": "assets/icons/thumbs_up.png",
-      "size": 10872,
-      "sha1": "4dc17896d47a896dd8078f351530063ba3109d44"
+      "size": 7546,
+      "sha1": "79a2b32a0a672cbf66e25042a52dc6b84b01cf0d"
     },
     {
       "path": "assets/icons/ticket.png",
-      "size": 11834,
-      "sha1": "f5e80b2e0fb36a6b8eee980a439652ebf76f8896"
+      "size": 8054,
+      "sha1": "d5c27ab67afe27994156aaa34aea4ed733b9a8eb"
     },
     {
       "path": "assets/icons/tools.png",
-      "size": 17317,
-      "sha1": "e41fa799ac61780dc79253991a1fda12c57325a1"
+      "size": 11583,
+      "sha1": "96a2a32d62c24c0a597f45bc700454aca0ffc3a3"
     },
     {
       "path": "assets/icons/trophy.png",
-      "size": 12950,
-      "sha1": "b4fcaec709e8202bd003ab3d10234677746d3927"
+      "size": 8920,
+      "sha1": "6e6fec01e7c0a721f435735c3725a6c93ccda88a"
     },
     {
       "path": "assets/icons/unlock.png",
-      "size": 11625,
-      "sha1": "8c00bebce62c7e091af7015e94289f6735588ebd"
+      "size": 8658,
+      "sha1": "85150d24e4bc7697d252dce334c5ece86fc8194b"
     },
     {
       "path": "assets/icons/up.png",
-      "size": 9502,
-      "sha1": "be98fd2fbeb1c3f97b3243452d7d7afc52dfe3bf"
+      "size": 7730,
+      "sha1": "25d62c7669d257aa4b42ee82366c1e0213744d77"
     },
     {
       "path": "assets/icons/upload.png",
-      "size": 9523,
-      "sha1": "7c442ed535a593718cca97e37ffc7745dd622342"
+      "size": 7013,
+      "sha1": "99f93a34c11f76e6290d5c41669f303fe21c06b8"
     },
     {
       "path": "assets/icons/user_add.png",
-      "size": 12454,
-      "sha1": "00bb85d81de66d43f32913d95fc21adf4c88571f"
+      "size": 7451,
+      "sha1": "0ec447e1d99486e049e25aa6c1aefb4afc7827df"
     },
     {
       "path": "assets/icons/user_arrow.png",
-      "size": 9602,
-      "sha1": "2f121039ffe753f9bb566758e8584df795436800"
+      "size": 7108,
+      "sha1": "aee71dc9bd8fdadeecdc9f09a9f4c4cf3d64a8a2"
     },
     {
       "path": "assets/icons/user_minus.png",
-      "size": 12577,
-      "sha1": "0cde7d20bf8bb32a35c7d6b54b22b7592c1fdd73"
+      "size": 8744,
+      "sha1": "f69847adcb9e2f84e23bb2f839375d179080d75a"
     },
     {
       "path": "assets/icons/user_minus_arrow.png",
-      "size": 13259,
-      "sha1": "291d514c0b0cbf561d17a3efa3d76b2097182415"
+      "size": 9264,
+      "sha1": "6010023cc0d6f56054123bc8f81d5826f603ab99"
     },
     {
       "path": "assets/icons/user_plus_arrow.png",
-      "size": 15525,
-      "sha1": "342f980cfa917072d434a031fd82d5a17b99d2f4"
+      "size": 10486,
+      "sha1": "84196eb7552d051512910aa9ff179d518bf56db7"
     },
     {
       "path": "assets/icons/user_spark.png",
-      "size": 11773,
-      "sha1": "4e503055a111a46ca7e8183262cf73994f3c6df9"
+      "size": 8103,
+      "sha1": "822951533bd043239b285cf04fe3c6e4aa207fc3"
     },
     {
       "path": "assets/icons/user_star.png",
-      "size": 12857,
-      "sha1": "38793bb5c78493efbbcd1b3c0006e0e38dbc7c4f"
+      "size": 8851,
+      "sha1": "c9c4c44f2c17165cb608431648be5bf5cf13ab67"
     },
     {
       "path": "assets/icons/users.png",
-      "size": 12021,
-      "sha1": "b2e51a0a640c6fef7c8e9340b1697619e6287fd8"
+      "size": 8399,
+      "sha1": "ace7683ec025aaaf5966741e979ba6f4bf5a2f3c"
     },
     {
       "path": "assets/icons/video.png",
-      "size": 8521,
-      "sha1": "9b36d35b8d8af6a7d8e2c652a93b1336f9a3c7c8"
+      "size": 5944,
+      "sha1": "f24d05687a7fbd62ed817eac9973a2b6a0ecc736"
     },
     {
       "path": "assets/icons/volume.png",
-      "size": 12512,
-      "sha1": "47936b52943a4dadc1018a9a42845ba721502345"
+      "size": 9245,
+      "sha1": "c899667777ba5a819a93f12008bdc163f0a20214"
     },
     {
       "path": "assets/icons/wallet.png",
-      "size": 10810,
-      "sha1": "50af8c92f89240a30f57d38b794aa70ef152670a"
+      "size": 7329,
+      "sha1": "0857d3d889726d0c820db84a2a3d151c2c4b8356"
     },
     {
       "path": "assets/icons/wand.png",
-      "size": 11454,
-      "sha1": "a4bc4c2428f9ad3effc74fa2b8795de7914f11d8"
+      "size": 8468,
+      "sha1": "c7b48e2d6ed827a5d72d7f73b8ee2929971d1552"
     },
     {
       "path": "assets/icons/warning.png",
-      "size": 12239,
-      "sha1": "e37a4fd042e4bc10c7757454e026ed05f376ceba"
+      "size": 9193,
+      "sha1": "9caaf809126f9d9584be5721faf22301f4cecc6c"
     },
     {
       "path": "assets/icons/waveform.png",
-      "size": 10205,
-      "sha1": "101277039647c271892f907ab347811ccf63c480"
+      "size": 8086,
+      "sha1": "93f59c8e5786e176acaf001a69972d75ac4daa8f"
     },
     {
       "path": "assets/panel.png",
-      "size": 67219,
-      "sha1": "4d5edf456b4522cc383ad3d6f70d20f93bd1eff2"
+      "size": 62138,
+      "sha1": "0aea55fb50dfa0f8ae011e06ebb5f2497c684da3"
     },
     {
       "path": "assets/panel_original_reference.png",
@@ -692,9 +692,14 @@
       "sha1": "38a551a16ebc9447f0909c1fc062737508a879a4"
     },
     {
+      "path": "assets/words_extra.txt",
+      "size": 57,
+      "sha1": "ee62434494e57a502a6737eb5aee8dab93ea5442"
+    },
+    {
       "path": "cogs/admin.py",
-      "size": 8391,
-      "sha1": "5f6028838b9fcce8f53ca083b9e8afcb200b9709"
+      "size": 8387,
+      "sha1": "f648d5ca896acd0549859bf619a550fb731fdac5"
     },
     {
       "path": "cogs/afk.py",
@@ -704,57 +709,62 @@
     {
       "path": "cogs/aura.py",
       "size": 11672,
-      "sha1": "395737936f9815c10a164dca672bcb02fee5f2e7"
+      "sha1": "8447c1d1c78e446473b31713361e15c6a0d4b35b"
     },
     {
       "path": "cogs/autoreact.py",
-      "size": 16098,
-      "sha1": "b18fcb181a84060496097c2baac23a6ded2e0d1f"
+      "size": 16096,
+      "sha1": "70172a42a716830af0f0e6cd974ac9066c458249"
     },
     {
       "path": "cogs/backup.py",
-      "size": 29830,
-      "sha1": "5fc979351240520823d5f35f855c383f8ec2a14a"
+      "size": 29926,
+      "sha1": "9e496d6bc6de5517f81c05e8f27157c5eeeaf365"
     },
     {
       "path": "cogs/blacktea.py",
-      "size": 21501,
-      "sha1": "5b8f9453eb256f6274acf62f54ade624bb15c67d"
+      "size": 22334,
+      "sha1": "5979b00fe17b7abc4f3eb30e7ded707051019101"
     },
     {
       "path": "cogs/cmdcontrol.py",
-      "size": 22137,
-      "sha1": "b00d9475ab69c9114ac06675f3907e091b996adb"
+      "size": 22135,
+      "sha1": "664c586c0d2bd8f730fe491f676bec89e733331d"
     },
     {
       "path": "cogs/drag.py",
       "size": 5238,
-      "sha1": "651b829901ff555e26cb14c38057327a2c98ad5a"
+      "sha1": "f9a55793b45a70cdeed7bf519078c1066e462ac8"
     },
     {
       "path": "cogs/errors.py",
-      "size": 4774,
-      "sha1": "d28201aaec0551a88a1cd486d62047f862f6a58b"
+      "size": 4772,
+      "sha1": "c8d17dcaad8a143b093f2081ea4c0b3c4377f340"
     },
     {
       "path": "cogs/expressions.py",
-      "size": 13529,
-      "sha1": "815f4f9befda0b30f831e3e1b5d13f3909ed46c6"
+      "size": 13527,
+      "sha1": "6a19e68e09746df6d1bea0ab1940102b49cf321b"
+    },
+    {
+      "path": "cogs/imagehost.py",
+      "size": 15277,
+      "sha1": "786df6ab16f79aa95a6a1e3de97d81c55fba4633"
     },
     {
       "path": "cogs/interface.py",
-      "size": 7014,
-      "sha1": "266115a67e6579767e4fabcd7ffdcb80a45e0c7b"
+      "size": 7108,
+      "sha1": "eb2cb0a383c18421912908d8b248c60f8414783b"
     },
     {
       "path": "cogs/meta.py",
-      "size": 19288,
-      "sha1": "bc83dfcda407caa486989a46edd347cd7967736c"
+      "size": 19859,
+      "sha1": "5e5468413119af13a1a516294e414155e24709a0"
     },
     {
       "path": "cogs/points.py",
-      "size": 26994,
-      "sha1": "916565122cb60634bb93706d66405cd5138f5fc1"
+      "size": 26992,
+      "sha1": "70e23821bca7ec4068da76a60d89fa8561b44760"
     },
     {
       "path": "cogs/prefixes.py",
@@ -763,8 +773,8 @@
     },
     {
       "path": "cogs/purge.py",
-      "size": 7993,
-      "sha1": "b48432835215e1d1f885ef211d74cc1b0ea7b580"
+      "size": 7991,
+      "sha1": "6822679df35836d980852b4345b1a466cc9d8d52"
     },
     {
       "path": "cogs/rolecmds.py",
@@ -773,43 +783,53 @@
     },
     {
       "path": "cogs/roletransfer.py",
-      "size": 6392,
-      "sha1": "ad83e3a67753f817567a02f0e1296c89c20f00f4"
+      "size": 6376,
+      "sha1": "07d92ea1c3fea887e8d7df3b2b30bedd109c854b"
     },
     {
       "path": "cogs/selfroles.py",
-      "size": 35299,
-      "sha1": "8d65013e59c9efd9252ffefe9692161a1dd1cea1"
+      "size": 35652,
+      "sha1": "b622dd747742ad21873b143a2af072e658a3e425"
     },
     {
       "path": "cogs/shop.py",
       "size": 16936,
-      "sha1": "241733037e589fd9cec1cca6325ced9e17261837"
+      "sha1": "07ebe6d9123fcb9d1ec567f095402977819d5684"
     },
     {
       "path": "cogs/tictactoe.py",
-      "size": 9842,
-      "sha1": "1bac9602062cd7361a513de51aba105f1997316e"
+      "size": 10158,
+      "sha1": "b9c9286398bd33f2e9e897fa7f444eef601d269a"
     },
     {
       "path": "cogs/vc.py",
-      "size": 26192,
-      "sha1": "c605401a3be49066d5c9568a02e469f75f25d35e"
+      "size": 26182,
+      "sha1": "5a5db7b281924e2af539bccfcc7813edf24818b0"
+    },
+    {
+      "path": "cogs/webhook.py",
+      "size": 19699,
+      "sha1": "5ff1f4b7fa135d5eb0d8ef55c052426a87f344cc"
     },
     {
       "path": "core/checks.py",
-      "size": 518,
-      "sha1": "417104a88eea69918c7419585535712444070432"
+      "size": 1023,
+      "sha1": "5780027940d332b9dbc2996d8f75abfbb9b1374a"
     },
     {
       "path": "core/config.py",
-      "size": 1888,
-      "sha1": "8b86882cbdc491228cef1483520ad3d648528ed7"
+      "size": 2262,
+      "sha1": "8b4e3960a1ca5007feba70f337fd33cba2ba417f"
     },
     {
       "path": "core/db.py",
-      "size": 14472,
-      "sha1": "4e9f3c74c91402d265add457e83044553b0861ea"
+      "size": 14470,
+      "sha1": "d60256ffc1e4c0e97610b2745896a45df9b71bee"
+    },
+    {
+      "path": "core/emoji.py",
+      "size": 5811,
+      "sha1": "d06b032662ae9ec8b68ece1d4a59737627856f99"
     },
     {
       "path": "core/errors.py",
@@ -818,13 +838,13 @@
     },
     {
       "path": "core/export.py",
-      "size": 17205,
-      "sha1": "f2dd71024b0d8c651dc9cb36708afaf55084fd66"
+      "size": 17189,
+      "sha1": "b4fafd224c5d89dac66a0c9af07466334ee0ba7f"
     },
     {
       "path": "core/icons.py",
       "size": 3359,
-      "sha1": "59ff55e21fe685c4b9d9496b0a71148f7a69f2c3"
+      "sha1": "0790bc6959b1b5a90ef4489cc93a59f8516d3531"
     },
     {
       "path": "core/ratelimit.py",
@@ -833,8 +853,8 @@
     },
     {
       "path": "core/store.py",
-      "size": 2064,
-      "sha1": "b842f9725ad0359497d8ec9d54a60b5ae0a5306c"
+      "size": 2062,
+      "sha1": "3e54ded0f55dcddad4ea13a7e3589f1b7aeb27b9"
     },
     {
       "path": "core/ui.py",
@@ -843,28 +863,28 @@
     },
     {
       "path": "export/SERVER_CONFIG.json",
-      "size": 16731,
-      "sha1": "c3a3ee0b8ef6a995e79fb0305ac2d10744509f4f"
+      "size": 17285,
+      "sha1": "27e11852b3250d8b0ccccc5647076dfe1c720f21"
     },
     {
       "path": "export/SERVER_CONFIG.md",
-      "size": 13815,
-      "sha1": "c1bea44e3bfd8974ca272be104a23a680ab074c4"
+      "size": 13798,
+      "sha1": "444f0e2d0f8db52b8d9631e49b25ad089d8ac59c"
     },
     {
       "path": "export/afk.json",
-      "size": 3623,
-      "sha1": "31c2798c737d499dce8095556bff4cd2cef92ee4"
+      "size": 3895,
+      "sha1": "c432c1a5d2d4d07b449d9392cfa7ddeedb6a75b4"
     },
     {
       "path": "export/custom_vc_channels.json",
       "size": 1209,
-      "sha1": "deef738c3aff46ae8b095a684efb50f8472c2739"
+      "sha1": "02b89a1bf1d459fc6c254c03a3c7e5ec6b6132fd"
     },
     {
       "path": "export/db_dump.json",
-      "size": 1377279,
-      "sha1": "62325cf89fa80ee71dca6ebc282598612f5bf667"
+      "size": 1381282,
+      "sha1": "f03f2425487cb905ec09cc8766f2a4b0dd8154f2"
     },
     {
       "path": "export/players_1154838258027606117.csv",
@@ -873,18 +893,18 @@
     },
     {
       "path": "export/players_1488690726870057165.csv",
-      "size": 8839,
-      "sha1": "682fb4c8ac65c07cc96697229bd41b0497f421f4"
+      "size": 8841,
+      "sha1": "f866f0e02123835a03aaa411f8ed3bca94872fa5"
     },
     {
       "path": "export/players_1524797937836621874.csv",
       "size": 855,
-      "sha1": "40a4b4f021bec7ef9fad503e62d0efa4a02f2e10"
+      "sha1": "0c70a4d344978f5b1d6e892b7692225e1cf5afe4"
     },
     {
       "path": "export/players_1547650379448188999.csv",
-      "size": 20049,
-      "sha1": "61c6c6b22d104ff307676002a9de85b3e85875f1"
+      "size": 20117,
+      "sha1": "635cc458227370e7e52d0f50f81ed11875af53bb"
     },
     {
       "path": "export/servers/1154838258027606117/config.json",
@@ -893,8 +913,8 @@
     },
     {
       "path": "export/servers/1154838258027606117/config.md",
-      "size": 1142,
-      "sha1": "d9aedfa6add5a9d8e8809a85bad25466fd2b5a45"
+      "size": 1136,
+      "sha1": "1d9942b595817e93c964b5cb05127859509a3705"
     },
     {
       "path": "export/servers/1154838258027606117/data.json",
@@ -908,23 +928,23 @@
     },
     {
       "path": "export/servers/1488690726870057165/config.json",
-      "size": 9468,
-      "sha1": "ce336a49112b738506031f209491ba8859dec696"
+      "size": 9967,
+      "sha1": "097776d943a687c0a66eb122def793afdfc56d61"
     },
     {
       "path": "export/servers/1488690726870057165/config.md",
-      "size": 8634,
-      "sha1": "1ad71b71eab5b7735b53b5585f06e796a24d558d"
+      "size": 8631,
+      "sha1": "fc3c15305ec81b3f1589525d61b5c1329cb6fc42"
     },
     {
       "path": "export/servers/1488690726870057165/data.json",
-      "size": 5889,
-      "sha1": "4e90c4797a50c463fd114177eb6dc8c3c49304fa"
+      "size": 6161,
+      "sha1": "ba1906e7391c07d62325f76935421bf97269ee89"
     },
     {
       "path": "export/servers/1488690726870057165/database.json",
-      "size": 1276865,
-      "sha1": "f75b0ea99555392289f2179fe85aff2d43b7fade"
+      "size": 1280691,
+      "sha1": "ec49a624f1267ba813050009e10ee17df05512cd"
     },
     {
       "path": "export/servers/1524797937836621874/config.json",
@@ -933,8 +953,8 @@
     },
     {
       "path": "export/servers/1524797937836621874/config.md",
-      "size": 1156,
-      "sha1": "63167d7ba1a4fa6fc8028ff857728db3a89a972d"
+      "size": 1150,
+      "sha1": "5cac90c76f43a395f31d1a18e20291731dfe64c7"
     },
     {
       "path": "export/servers/1524797937836621874/data.json",
@@ -944,17 +964,17 @@
     {
       "path": "export/servers/1524797937836621874/database.json",
       "size": 2618,
-      "sha1": "ad8ae748e107ca5848327e00df57e38828f22f94"
+      "sha1": "14904c8f8fa4f6d429d85ea6ea1d0b6c66ce7c7b"
     },
     {
       "path": "export/servers/1547650379448188999/config.json",
       "size": 2859,
-      "sha1": "633297aa9525ff5b9e9ae7b3025e44eacd667866"
+      "sha1": "d2389c470b27b7706bd3392e01ac453670deb195"
     },
     {
       "path": "export/servers/1547650379448188999/config.md",
-      "size": 2684,
-      "sha1": "bbd0fc4d7cf9678830e6436c0b2c50fd1e536399"
+      "size": 2678,
+      "sha1": "88d2c67625ca682884bf5aafc4acdfae7b56485e"
     },
     {
       "path": "export/servers/1547650379448188999/data.json",
@@ -963,13 +983,13 @@
     },
     {
       "path": "export/servers/1547650379448188999/database.json",
-      "size": 97808,
-      "sha1": "bd8ede03a92e0d3ff9dd0dbde7e6015e9f518c9a"
+      "size": 97985,
+      "sha1": "03aa3b24adc9ce55c1395de73323fb7fe04556eb"
     },
     {
       "path": "main.py",
-      "size": 10249,
-      "sha1": "ee7204d0816c758c76715f6b397f1f7037bd2da2"
+      "size": 10378,
+      "sha1": "5ea31de10139e411d5b3f90ba9fbd8eb5c98c81b"
     },
     {
       "path": "requirements-tools.txt",
@@ -983,13 +1003,13 @@
     },
     {
       "path": "tools/make_assets.py",
-      "size": 5582,
-      "sha1": "3c687519d58073bf966781ee377d0fd79f60ef18"
+      "size": 7187,
+      "sha1": "20e4efd80e6f3a7734183bdced36556f93d37232"
     },
     {
       "path": "tools/restore.py",
-      "size": 4921,
-      "sha1": "daaf899c69134c065b5b0e6c10e35efe0a951647"
+      "size": 5071,
+      "sha1": "db999fb2e14f83c6fd9d6755d9974b181665e952"
     }
   ],
   "restore": [
@@ -997,6 +1017,6 @@
     "put your DISCORD_TOKEN (and BACKUP_WEBHOOK) back into .env",
     "pip install -r requirements.txt",
     "python main.py",
-    "then send leafy_data.zip with $backupload to bring the data back"
+    "then send kon_data.zip with $backupload to bring the data back"
   ]
 }

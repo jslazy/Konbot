@@ -1,4 +1,4 @@
-# Leafy - server configuration
+# Kon - server configuration
 
 ## The Blaze Nebula | Drag GW  (`1547650379448188999`)
 
@@ -92,7 +92,7 @@
 
 - *not configured*
 
-### Extra owners ($leafyextra - this server only)
+### Extra owners ($konextra - this server only)
 
 - *(empty)*
 
@@ -103,4 +103,4 @@
 
 ### Players
 
-- 293 players stored in `data/leafy.db` (full list: `export/players_1547650379448188999.csv`)
+- 294 players stored in `data/kon.db` (full list: `export/players_1547650379448188999.csv`)

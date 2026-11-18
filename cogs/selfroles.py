@@ -23,12 +23,12 @@ import discord
 from discord.ext import commands
 
 from core import ratelimit
-from core.config import ASSET_CHANNEL_ID, BLURPLE, DATA_DIR, GREEN, PREFIX
+from core.config import ASSET_CHANNEL_ID, BLURPLE, DATA_DIR, BRAND, PREFIX
 from core.errors import VCError
 from core.icons import I, err, ok
 from core.ui import FieldsModal, OwnedView, replied_message, to_partial
 
-log = logging.getLogger("leafy.selfroles")
+log = logging.getLogger("kon.selfroles")
 
 MAX_ROLES = 20                                  # 5 buttons per row, 4 rows (Discord allows 40 components / message)
 MAX_BANNER = 8 * 1024 * 1024                    # Discord upload limit for the hosting message (no longer part of the backup)
@@ -51,7 +51,7 @@ def sniff_ext(data: bytes) -> Optional[str]:
 
 
 DEFAULT = {"channel": None, "message": None, "title": "Self Roles :", "title_emoji": "🍃",
-           "footer": "Click the buttons below to toggle your roles.", "color": GREEN, "banner": None, "banner_url": None, "banner_ref": None, "roles": []}
+           "footer": "Click the buttons below to toggle your roles.", "color": BRAND, "banner": None, "banner_url": None, "banner_ref": None, "roles": []}
 
 
 def emoji_or_none(text: str) -> Optional[str]:
@@ -72,9 +72,9 @@ def risky(role: discord.Role) -> bool:
 
 
 class RoleButton(discord.ui.Button):
-    def __init__(self, entry: dict):
+    def __init__(self, entry: dict, prefix: str = "kon"):      # prefix "leafy" = buttons of panels posted before the rebrand
         super().__init__(style=discord.ButtonStyle.secondary, label=entry["label"][:80] or None,
-                         emoji=to_partial(entry.get("emoji")), custom_id=f"leafy:sr:{entry['role']}")
+                         emoji=to_partial(entry.get("emoji")), custom_id=f"{prefix}:sr:{entry['role']}")
         self.role_id = entry["role"]
 
     async def callback(self, interaction: discord.Interaction):
@@ -369,6 +369,7 @@ class SelfRoles(commands.Cog):
                 try:
                     view = self.build_view(self.cfg(int(gid)))
                     self.bot.add_view(view, message_id=c["message"])
+                    self.bot.add_view(self.build_view(self.cfg(int(gid)), prefix="leafy"), message_id=c["message"])   # old panels
                 except Exception as e:
                     log.warning("could not restore self-role buttons for %s: %r", gid, e)
 
@@ -450,7 +451,7 @@ class SelfRoles(commands.Cog):
         """Download only the first bytes to check the link is a real image. Returns those bytes."""
         try:
             async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=20),
-                                             headers={"User-Agent": "Mozilla/5.0 (Leafy bot)"}) as s:
+                                             headers={"User-Agent": "Mozilla/5.0 (Kon bot)"}) as s:
                 async with s.get(url) as r:
                     if r.status != 200:
                         raise VCError("I couldn't open that link. It may have expired.")
@@ -467,7 +468,7 @@ class SelfRoles(commands.Cog):
             data = bytearray()
             try:
                 async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=30),
-                                                 headers={"User-Agent": "Mozilla/5.0 (Leafy bot)"}) as s:
+                                                 headers={"User-Agent": "Mozilla/5.0 (Kon bot)"}) as s:
                     async with s.get(url) as r:
                         if r.status != 200:
                             raise VCError("I couldn't download that image. The link may have expired.")
@@ -527,7 +528,7 @@ class SelfRoles(commands.Cog):
         return cfg.get("banner_url")
 
     # ---------- the message ----------
-    def build_view(self, cfg: dict, banner_url: Optional[str] = None):
+    def build_view(self, cfg: dict, banner_url: Optional[str] = None, prefix: str = "kon"):
         """-> LayoutView. The banner is shown from a link (nothing is uploaded with the message)."""
         items = []
         if banner_url:
@@ -545,7 +546,7 @@ class SelfRoles(commands.Cog):
         for i in range(0, len(cfg["roles"]), 5):
             row = discord.ui.ActionRow()
             for entry in cfg["roles"][i:i + 5]:
-                row.add_item(RoleButton(entry))
+                row.add_item(RoleButton(entry, prefix))
             view.add_item(row)
         return view
 

@@ -14,7 +14,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-from core.config import BLURPLE, GREEN, PREFIX
+from core.config import BLURPLE, BRAND, PREFIX
 from core.errors import CommandDisabled, VCError
 from core.icons import I, err, ok
 from core.ui import OwnedView
@@ -22,7 +22,7 @@ from core.ui import OwnedView
 SETTINGS_KEY = "cmd_disable"
 ALL = "*"                    # every command
 COG = "cog:"                 # every command of one category, e.g. "cog:Points"
-PROTECTED = {"disablecommand", "enablecommand", "adminhelp", "sync", "leafyextra"}   # can never be locked out
+PROTECTED = {"disablecommand", "enablecommand", "adminhelp", "sync", "konextra"}   # can never be locked out
 CHANNEL_TYPES = [discord.ChannelType.text, discord.ChannelType.news, discord.ChannelType.forum,
                  discord.ChannelType.voice, discord.ChannelType.stage_voice, discord.ChannelType.category]
 PER_PAGE = 23                # command options per page (+ the "all of this category" option)
@@ -347,7 +347,7 @@ class DisableView(OwnedView):
     def embed(self, note: str = "") -> discord.Embed:
         cmds = ", ".join(self.cog.label(k) for k in self.keys) or "*pick below*"
         chans = ", ".join(where(self.guild, c) for c in self.cids) or "*pick below*"
-        e = discord.Embed(title=f"{I.s('lock')} Disable / Enable commands", color=GREEN, description=(
+        e = discord.Embed(title=f"{I.s('lock')} Disable / Enable commands", color=BRAND, description=(
             f"**1.** Pick a category  ·  **2.** pick the commands  ·  **3.** pick channels or whole categories  ·  "
             f"**4.** press **Disable** or **Enable**.\n\n"
             f"{I.s('terminal')} **Commands:** {cmds}\n{I.s('folder')} **Where:** {chans}"))

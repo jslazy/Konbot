@@ -15,7 +15,7 @@ from discord import app_commands
 from discord.ext import commands
 
 from core import ratelimit
-from core.config import BLURPLE, GREEN
+from core.config import BLURPLE, BRAND
 from core.errors import VCError
 from core.icons import I, err, ok
 

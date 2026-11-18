@@ -1,6 +1,6 @@
 """Custom icons = Application Emojis.
 
-On startup every icon in USED is uploaded once (as `lf_<name>`) from assets/icons.
+On startup every icon in USED is uploaded once (as `kon_<name>`) from assets/icons.
 If an upload fails the bot falls back to a unicode emoji, so nothing breaks.
 """
 import asyncio
@@ -10,8 +10,8 @@ import discord
 
 from .config import ICON_DIR
 
-log = logging.getLogger("leafy.icons")
-EMOJI_PREFIX = "lf_"
+log = logging.getLogger("kon.icons")
+EMOJI_PREFIX = "kon_"
 
 FALLBACK = {
     "lock": "🔒", "unlock": "🔓", "hide": "🙈", "show": "👁️", "logout": "🚪", "ban": "🚫",
@@ -22,7 +22,7 @@ FALLBACK = {
     "user_minus": "➖", "leaf": "🍃", "member": "👤", "headset": "🎧", "help": "❓",
     "check_outline": "✅", "cross_filled": "❌", "home": "🏠", "menu": "📋", "sparkles": "✨",
     "stopwatch": "⏱️", "plus": "➕", "minus": "➖", "trophy": "🏆", "coins": "🪙", "wallet": "💰", "gift_box": "📦",
-    "heart": "💚", "message": "💬", "mic": "🎙️",
+    "heart": "💛", "message": "💬", "mic": "🎙️",
     "play": "▶️", "terminal": "💻", "star_fill": "⭐", "gift": "🎁", "link": "🔗",
     "image": "🖼️", "palette": "🎨", "upload": "📤", "tag": "🏷️", "diamond": "💠",     # self-role editor
     "heart_broken": "🖤", "skull": "💀", "stop": "🛑", "repeat": "🔁",

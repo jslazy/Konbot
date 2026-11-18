@@ -7,7 +7,7 @@ from discord.ext import commands
 
 from core import checks
 from core.config import PREFIX, VC_PREFIX
-from core.config import GREEN
+from core.config import BRAND
 from core.errors import VCError
 from core.icons import I, err, ok
 from core.ui import OwnedView
@@ -28,12 +28,12 @@ class CustomVCConfig(OwnedView):
     def embed(self) -> discord.Embed:
         c = self.cfg
         roles = " ".join(f"<@&{r}>" for r in c["roles"][:20]) or "*none*"
-        return discord.Embed(title=f"{I.s('shield_check')} Custom VC protection", color=GREEN, description=(
+        return discord.Embed(title=f"{I.s('shield_check')} Custom VC protection", color=BRAND, description=(
             f"These can't be **banned, kicked or muted** in a custom VC:\n"
-            f"{I.s('crown')} Server owner and Leafy owners (always)\n"
+            f"{I.s('crown')} Server owner and Kon owners (always)\n"
             f"{I.s('shield_check')} Admins: **{'protected' if c['admins'] else 'not protected'}**\n"
             f"{I.s('tag')} Roles: {roles}\n"
-            f"-# Leafy owners can use every VC command in any custom VC."))
+            f"-# Kon owners can use every VC command in any custom VC."))
 
     def render(self):
         self.clear_items()

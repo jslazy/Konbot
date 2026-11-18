@@ -1,7 +1,7 @@
 """Image host - turn any image / GIF / banner into a link. The files live in ONE private storage channel; only the
-LINK (+ the hosting message id) is saved in Leafy's data, so backups stay small and safe.
+LINK (+ the hosting message id) is saved in Kon's data, so backups stay small and safe.
 
-(Admins = Manage Server, the bot owner or a $leafyextra owner)
+(Admins = Manage Server, the bot owner or a $konextra owner)
 $imgchannel [#channel]      set the storage channel (no channel = this one)      $imgchannelreset  remove it
 $tolink [name] [url]        attach an image / GIF, reply to a message with one, or give a link -> saved link
                             (aliases: $link, $imglink)   up to 5 files at once
@@ -10,7 +10,7 @@ $linkget <name>             fresh link + preview of a saved image
 $linkdel <name>             delete a saved image (also deletes the hosting message)
 
 Discord's CDN links carry an expiry stamp, so a link you paste somewhere else stops working after a while. That is why
-the hosting message id is kept: `$linkget <name>` (and every Leafy feature that uses a saved image) asks Discord for a
+the hosting message id is kept: `$linkget <name>` (and every Kon feature that uses a saved image) asks Discord for a
 FRESH link each time. Other cogs: `bot.get_cog("ImageHost").fresh_url(guild, name)` / `.resolve_image(guild, text)`.
 """
 import asyncio
@@ -26,19 +26,19 @@ from discord import app_commands
 from discord.ext import commands
 
 from core import checks
-from core.config import BLURPLE, GREEN, PREFIX
+from core.config import BLURPLE, BRAND, PREFIX
 from core.errors import VCError
 from core.icons import I, ok
 from core.ui import replied_message
 
-log = logging.getLogger("leafy.imagehost")
+log = logging.getLogger("kon.imagehost")
 
 KEY = "imagehost"
 MAX_FILES = 5
 MAX_ITEMS = 300
 HARD_LIMIT = 25 * 1024 * 1024
 PER_PAGE = 8
-UA = {"User-Agent": "Mozilla/5.0 (Leafy bot)"}
+UA = {"User-Agent": "Mozilla/5.0 (Kon bot)"}
 URL_RE = re.compile(r"https?://[^\s<>]+")
 IMG_URL = re.compile(r"\.(?:png|jpe?g|gif|webp)(?:\?|$)", re.I)
 NO_PING = discord.AllowedMentions.none()
@@ -242,7 +242,7 @@ class ImageHost(commands.Cog):
                     await self.forget(ctx.guild, old)
                 results.append((key, ext, len(data), msg.attachments[0].url, replaced))
 
-        e = discord.Embed(color=GREEN, title=f"{I.s('link')} Saved link" + ("s" if len(results) > 1 else ""))
+        e = discord.Embed(color=BRAND, title=f"{I.s('link')} Saved link" + ("s" if len(results) > 1 else ""))
         e.description = "\n".join(
             f"**{k}** · {ext.upper()} · {fmt_size(size)}" + (" · *replaced the old one*" if rep else "") + f"\n```{u}```"
             for k, ext, size, u, rep in results)
@@ -295,7 +295,7 @@ class ImageHost(commands.Cog):
         url = await self.fresh_url(ctx.guild, name)
         if not url:
             raise VCError(f"No saved image called `{slug(name)}`. See `{PREFIX}links`.")
-        e = discord.Embed(color=GREEN, title=f"{I.s('link')} {slug(name)}", description=f"```{url}```")
+        e = discord.Embed(color=BRAND, title=f"{I.s('link')} {slug(name)}", description=f"```{url}```")
         e.set_image(url=url)
         await ctx.reply(embed=e, mention_author=False)
 

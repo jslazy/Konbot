@@ -1,22 +1,22 @@
-"""$transfer - move roles from one member to another (Leafy admins only).
+"""$transfer - move roles from one member to another (Kon admins only).
 
-    $transfer @from @to                 moves EVERY role @from has (that Leafy and you are allowed to manage)
+    $transfer @from @to                 moves EVERY role @from has (that Kon and you are allowed to manage)
     $transfer @from @to @Role1 @Role2   moves only those roles
 
-Who may use it: the bot owner, the members added with `$leafyextra` in this server, and server Administrators.
+Who may use it: the bot owner, the members added with `$konextra` in this server, and server Administrators.
 (`$vctransfer` is the command that gives your custom VC to someone else.)
 """
 import discord
 from discord.ext import commands
 
-from core.config import BLURPLE, GREEN
+from core.config import BLURPLE, BRAND
 from core.errors import VCError
 from core.icons import I, err, ok
 from core.ui import OwnedView
 
 
-def leafy_admin():
-    """Bot owner, per-server Leafy owner ($leafyextra) or server Administrator."""
+def kon_admin():
+    """Bot owner, per-server Kon owner ($konextra) or server Administrator."""
     async def predicate(ctx: commands.Context):
         gid = ctx.guild.id if ctx.guild else None
         if await ctx.bot.is_owner_in(ctx.author, gid):
@@ -65,7 +65,7 @@ class ConfirmView(OwnedView):
         except discord.HTTPException as e:
             return await interaction.edit_original_response(embed=discord.Embed(
                 description=err(f"Discord said no: {e.text or e.status}"), color=0xED4245))
-        e = discord.Embed(title=f"{I.s('check')} Roles moved", color=GREEN, description=(
+        e = discord.Embed(title=f"{I.s('check')} Roles moved", color=BRAND, description=(
             f"{self.source.mention} → {self.target.mention}\n\n{role_list(self.roles)}"))
         if self.skipped:
             e.add_field(name=f"{I.s('warning')} Skipped ({len(self.skipped)})", inline=False,
@@ -93,10 +93,10 @@ class RoleTransfer(commands.Cog):
 
     @commands.command(name="transfer", aliases=["roletransfer", "rtransfer"])
     @commands.guild_only()
-    @leafy_admin()
+    @kon_admin()
     async def transfer(self, ctx: commands.Context, source: discord.Member, target: discord.Member,
                        roles: commands.Greedy[discord.Role]):
-        """$transfer @from @to [@roles...] - move roles from one member to another (Leafy admins)."""
+        """$transfer @from @to [@roles...] - move roles from one member to another (Kon admins)."""
         if source.id == target.id:
             raise VCError("Pick two different members.")
         if target.bot:

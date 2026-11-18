@@ -20,7 +20,7 @@ from core.errors import VCError
 from core.icons import I, err, ok
 from core.ui import OwnedView, replied_message
 
-log = logging.getLogger("leafy.expressions")
+log = logging.getLogger("kon.expressions")
 
 CUSTOM = re.compile(r"<(a?):(\w{2,32}):(\d{15,25})>")
 MAX_EMOJIS = 20                  # per command

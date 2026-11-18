@@ -1,4 +1,9 @@
-# Leafy – Custom VC + AFK + Points bot
+# Kon – Custom VC + AFK + Points bot
+
+> **Rebrand (Leafy -> Kon):** commands `$kon`, `$konping`, `$koninfo`, `$konextra` (aliases `$kping`, `$kinfo`, `$kextra`);
+> database `data/kon.db` (an old `leafy.db` is renamed automatically on first start); backups are `kon_code.zip` / `kon_data.zip`
+> (old `leafy_data.zip` still works with `$backupload`); icons are uploaded as `kon_<name>` in the Yellow/Orange palette
+> (the old `lf_*` green emojis can be deleted in the Developer Portal -> Emojis). Buttons of panels posted before the rebrand keep working.
 
 ## Setup
 1. `pip install -r requirements.txt` (discord.py **2.5+**)
@@ -9,23 +14,23 @@
 5. `python main.py`
 
 ## Data – everything lives in `data/` (old files in the root are moved there automatically)
-- `data/leafy.db` (SQLite): points, progress, badges, shop, purchases, point log, point/shop/no-prefix/alias settings
+- `data/kon.db` (SQLite): points, progress, badges, shop, purchases, point log, point/shop/no-prefix/alias settings
 - `data/vc_data.json`: custom VCs + join-to-create / interface channel ids
 - `data/afk_data.json`: AFK users
 
 ## Backup (webhook only)
 Set `BACKUP_WEBHOOK` in `.env`. Every backup is one small message with **two zips**:
-- `leafy_code.zip` - bot files, assets, `.env` (token + webhook stay in; `BACKUP_REDACT=1` removes them), `export/`
-- `leafy_data.zip` - the `data/` folder only (database, VC / AFK / self-role data)
+- `kon_code.zip` - bot files, assets, `.env` (token + webhook stay in; `BACKUP_REDACT=1` removes them), `export/`
+- `kon_data.zip` - the `data/` folder only (database, VC / AFK / self-role data)
 
 Sent every 30 seconds (new message, the previous one is deleted; `BACKUP_MODE=keep` keeps all), at start and when the bot stops.
 `$backup` = status, `$backup refresh` = back up now (owner).
 
-**`$backupload`** (owner): attach one or more data zips (`leafy_data.zip`, or an old full backup) and the data is merged into the
+**`$backupload`** (owner): attach one or more data zips (`kon_data.zip`, or an old full backup) and the data is merged into the
 running bot by itself. New players, badges, shop items, purchases and settings are added; if a player exists in both, the bigger
 value wins. Nothing is deleted. You can also reply to a message that has the zip(s).
 
-Restore on a new machine: `python tools/restore.py leafy_code.zip leafy_data.zip` (verifies every file + database) →
+Restore on a new machine: `python tools/restore.py kon_code.zip kon_data.zip` (verifies every file + database) →
 `pip install -r requirements.txt` → `python main.py`. Check only: add `--check`.
 
 Every backup also contains a **readable export** in `export/`: `SERVER_CONFIG.md/.json` (custom-VC join channel + panel, self-role
@@ -57,9 +62,9 @@ image / GIF attached (or reply to one). *Remove banner* deletes it. The file typ
 banner is re-posted under a fresh file name each time so Discord never shows a stale / empty image.
 
 ## Every server has its own configuration
-Owner permission (`$leafyextra @friend`), no-prefix, aliases, `$giverole` commands, points, shop, autoreact, self roles, custom VC
-and AFK are all stored **per server**. A friend you make owner in server A is **not** owner in server B - run `$leafyextra @friend`
-in each server where they should have it (`$leafyextra list` / `remove` also work per server). Only the real bot owner can use `$leafyextra`.
+Owner permission (`$konextra @friend`), no-prefix, aliases, `$giverole` commands, points, shop, autoreact, self roles, custom VC
+and AFK are all stored **per server**. A friend you make owner in server A is **not** owner in server B - run `$konextra @friend`
+in each server where they should have it (`$konextra list` / `remove` also work per server). Only the real bot owner can use `$konextra`.
 Older backups had one global owner list; on the first start it is moved automatically to the server where that person is configured.
 
 ## Per-server backup
@@ -69,7 +74,7 @@ Besides the raw files, every backup has one folder per server: `export/servers/<
 - `database.json` - every database row of that server (players, progress, badges, shop, purchases, settings, point log)
 
 ## Cleanup (`$purgebot` / `$pb`)
-`$pb` removes the last 10 **bot messages + command messages** of the channel (e.g. `$afk ...` and Leafy's "AFK Status Set" reply, `!ban @x`
+`$pb` removes the last 10 **bot messages + command messages** of the channel (e.g. `$afk ...` and Kon's "AFK Status Set" reply, `!ban @x`
 and the other bot's answer). `$pb 100` = up to 100, max 500. Members' normal chat is never touched. Needs **Manage Messages** (you and the bot).
 Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
 
@@ -87,20 +92,20 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
 
 ## New in this version
 - **`$aura [@member]`** - plain message `Aura this user holds! @user:` + `[██████░░░░]` `60%`; the bar fills slowly (message is edited), dotted blocks turn white. **`$aura config`** (admins): fix aura % per member / role, random on/off.
-- **`$transfer @from @to [@roles]`** - move roles between members (bot owner, `$leafyextra` owners and server Administrators). Shows a
+- **`$transfer @from @to [@roles]`** - move roles between members (bot owner, `$konextra` owners and server Administrators). Shows a
   preview with Confirm / Cancel. The VC command is now only `$vctransfer` (`$vct`).
 - **`$point config`** redesigned: *Main* page (chat / VC rules, switches) + *Channels* page (menus to switch points OFF in channels /
   categories, ON-only mode, voice channels, custom rules). Quick commands: `$point disable [#channel]`, `$point enable [#channel]`.
 - **Tic Tac Toe** (plain-text challenge with Accept / Deny, game embed from the first move, X blue / O red, result in the message text): `/tictactoe admin #channel` (admins) sets the channel, `/tictactoe play @member` (or `$ttt play @member`) works only there. The first turn (X) is random 50-50 - the challenger does not always start.
-- **BlackTea** (word-bomb game, custom Leafy icons): `$blacktea [easy|medium|hard]` (alias `$bt`, no `play` needed) works only in the channel set with `$blacktea channel #channel` / `$setblacktea`; `$blacktea stop`, `$blacktea reset`.
-- **`$leafyping`** (redesigned, custom icons) and **`$leafyinfo`** (servers, total members, stats; server list = bot owner only).
-  `$leafy` alone no longer pings, it shows a short intro.
+- **BlackTea** (word-bomb game, custom Kon icons): `$blacktea [easy|medium|hard]` (alias `$bt`, no `play` needed) works only in the channel set with `$blacktea channel #channel` / `$setblacktea`; `$blacktea stop`, `$blacktea reset`.
+- **`$konping`** (redesigned, custom icons) and **`$koninfo`** (servers, total members, stats; server list = bot owner only).
+  `$kon` alone no longer pings, it shows a short intro.
 - **`$pb`** says "Successfully purged N bot messages." and also removes the no-prefix commands (plain `afk`, `profile` ...).
 - **Backup**: token + webhook stay in the zip, and the custom-VC channels (join-to-create + panel, with category) are saved in
   `export/custom_vc_channels.json` and in `data/vc_data.json -> vc_setup` (kept even if the channel is deleted).
 
 ## Update 2
-- Fixed `$adminhelp` / `$leafyinfo` (a bad edit had cut part of `cogs/meta.py`). Help, `$leafyinfo`, `$leafyping`, `$point config`, `$aura config` embeds are smaller.
+- Fixed `$adminhelp` / `$koninfo` (a bad edit had cut part of `cogs/meta.py`). Help, `$koninfo`, `$konping`, `$point config`, `$aura config` embeds are smaller.
 - `$pointshop config` -> **Position** button: move a role to another place in the shop.
 - `$ae` / `$as`: **Undo** and **Remove** buttons under the result (also `$ae undo`, `$ae remove <emoji/name>`, `$as undo`, `$as remove <name>`).
 - **`$p @member [amount]`** (aliases `$pm`, `$purgemember`): delete that member's messages (default 10, max 500). Reply to the member + `$p [amount]` works too.
@@ -113,7 +118,7 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
     `$db list` · `$db reset`. `$eb ...` (= `$enablecommand`) turns commands back on.
   - Slash: `/disablecommand` and `/enablecommand` with auto-complete for the command and a channel / category picker.
   - A disabled command answers "`$profile` is turned off in this channel." (deleted after 6 s). Turning off `badge` also turns off `badge give` / `badge remove`.
-  - `$db`, `$eb`, `$adminhelp`, `$sync`, `$leafyextra` can never be disabled, so nobody gets locked out.
+  - `$db`, `$eb`, `$adminhelp`, `$sync`, `$konextra` can never be disabled, so nobody gets locked out.
   - Stored per server in the `settings` table (key `cmd_disable`) -> part of the backup / export.
 - **Badge fix**: `$badge give @user <emoji>` no longer cuts custom emojis (the old 30-character limit left `<:name:id` without `>`).
   Limit is now 100 characters, `:emoji_name:` also works, and old broken badges are repaired automatically on start.
@@ -123,18 +128,18 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
 - **No reply without rights**: someone without the permission who uses an admin / owner command gets no answer at all.
 - **`$aura`**: random aura is a new amount every time, the bar lands on the final value in 3 ticks.
   `$aura config` has **Disable Person** (pick a member: their aura is off; pick again: back on).
-- **`$customvc config`** (Manage Server): who can't be vc-banned / kicked / muted. Server owner and Leafy owners are always safe,
+- **`$customvc config`** (Manage Server): who can't be vc-banned / kicked / muted. Server owner and Kon owners are always safe,
   admins are safe by default (toggle), and you can add any roles. `$customvc #voice` still sets the join-to-create channel.
-- **Leafy owners control every custom VC** (all `$vc...` commands): from the VC they sit in, or by typing the command in that VC's own chat.
-- Every Leafy message was rewritten shorter and lighter.
+- **Kon owners control every custom VC** (all `$vc...` commands): from the VC they sit in, or by typing the command in that VC's own chat.
+- Every Kon message was rewritten shorter and lighter.
 
 ## Image links, webhook, emoji IDs
 - **Image host** (admins): `$imgchannel #channel` sets a private storage channel (`$imgchannelreset` removes it). `$tolink [name]` (aliases `$link`,
   `$imglink`) turns an attached image / GIF, an image in the message you reply to, or a pasted link into a saved link (PNG/JPG/GIF/WEBP, up to 5 at once).
   `$links` lists them, `$linkget <name>` gives a fresh link + preview, `$linkdel <name>` deletes one. Only the link and the hosting message id are saved in
-  `data/` (inside `leafy.db`), never the file. Discord CDN links expire, so Leafy re-fetches a fresh link from the hosting message whenever it needs one.
+  `data/` (inside `kon.db`), never the file. Discord CDN links expire, so Kon re-fetches a fresh link from the hosting message whenever it needs one.
   The self-role banner is hosted in this channel too (before `ASSET_CHANNEL_ID`).
 - **Webhook** (Manage Webhooks): `$webhook` opens an editor (channel, message, name, avatar, Send, Edit sent message); `$webhook #channel text` sends at once;
   `$webhookedit <message link> new text` (`$whe`) edits. Animated emojis work without Nitro: paste the emoji **ID** or `:name:` in the text.
   The avatar can be a link or the name of a saved image.
-- **`$ei`**: animated emojis (of the servers you share with Leafy) with their IDs, paginated. `$ei here`, `$ei <name>`, `$ei <emoji id>`.
+- **`$ei`**: animated emojis (of the servers you share with Kon) with their IDs, paginated. `$ei here`, `$ei <name>`, `$ei <emoji id>`.

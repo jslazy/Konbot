@@ -15,14 +15,14 @@ from core.icons import I
 from core.store import Store
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
-log = logging.getLogger("leafy")
+log = logging.getLogger("kon")
 
 EXTENSIONS = ["cogs.errors", "cogs.afk", "cogs.vc", "cogs.drag", "cogs.interface", "cogs.points", "cogs.shop",
               "cogs.backup", "cogs.meta", "cogs.admin", "cogs.prefixes", "cogs.autoreact", "cogs.rolecmds",
               "cogs.selfroles", "cogs.expressions", "cogs.purge", "cogs.aura", "cogs.roletransfer", "cogs.tictactoe", "cogs.blacktea", "cogs.imagehost", "cogs.webhook", "cogs.cmdcontrol"]
 
 
-class Leafy(commands.Bot):
+class Kon(commands.Bot):
     def __init__(self):
         intents = discord.Intents.default()      # includes voice_states
         intents.message_content = True            # privileged: enable in the Developer Portal
@@ -45,13 +45,13 @@ class Leafy(commands.Bot):
         self._closed_evt = asyncio.Event()
 
 
-    # ---------- owner + extra owners ($leafyextra) ----------
+    # ---------- owner + extra owners ($konextra) ----------
     async def is_true_owner(self, user) -> bool:
         """The real bot owner only (can manage the extra owners)."""
         return await super().is_owner(user)
 
     def extra_owners(self, gid: int) -> list:
-        """Members added with $leafyextra in server `gid` (every server has its own list)."""
+        """Members added with $konextra in server `gid` (every server has its own list)."""
         return self.store.owners(gid)
 
     async def is_owner_in(self, user, gid) -> bool:
@@ -91,7 +91,7 @@ class Leafy(commands.Bot):
                 lst = self.store.owners(gid)
                 if uid not in lst:
                     lst.append(uid)
-            log.info("legacy extra owner %s moved to server(s) %s", uid, sorted(gids) or "none - re-add with $leafyextra")
+            log.info("legacy extra owner %s moved to server(s) %s", uid, sorted(gids) or "none - re-add with $konextra")
         d["extra_owners"] = []
         self.store.save_soon()
 
@@ -184,6 +184,7 @@ class Leafy(commands.Bot):
         for ext in EXTENSIONS:
             await self.load_extension(ext)
         self.add_view(PanelView(self.vc_service))  # persistent control-panel buttons
+        self.add_view(PanelView(self.vc_service, prefix="leafy"))   # panels posted before the Kon rebrand
 
         if AUTO_SYNC:
             h = self.command_hash()
@@ -216,7 +217,7 @@ class Leafy(commands.Bot):
 async def main():
     if not TOKEN:
         raise SystemExit("DISCORD_TOKEN missing - put it in .env")
-    async with Leafy() as bot:
+    async with Kon() as bot:
         loop = asyncio.get_running_loop()
         for sig in (signal.SIGINT, signal.SIGTERM):   # panel "Stop" sends SIGTERM -> clean shutdown + final backup
             try:

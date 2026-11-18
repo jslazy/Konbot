@@ -3,7 +3,7 @@ from discord.ext import commands
 
 
 def is_owner():
-    """Bot owner (everywhere) or a member added with `$leafyextra` IN THIS SERVER. Fails silently like commands.is_owner."""
+    """Bot owner (everywhere) or a member added with `$konextra` IN THIS SERVER. Fails silently like commands.is_owner."""
     async def predicate(ctx: commands.Context):
         gid = ctx.guild.id if ctx.guild else None
         if await ctx.bot.is_owner_in(ctx.author, gid):
@@ -13,7 +13,7 @@ def is_owner():
 
 
 def admin_or_owner(perm: str = "manage_guild"):
-    """Members with the server permission `perm`, the bot owner or a $leafyextra owner of THIS server."""
+    """Members with the server permission `perm`, the bot owner or a $konextra owner of THIS server."""
     async def predicate(ctx: commands.Context):
         if ctx.guild is None:
             raise commands.NoPrivateMessage()

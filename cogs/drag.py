@@ -4,7 +4,7 @@ from discord import app_commands
 from discord.ext import commands
 
 from core import ratelimit
-from core.config import BLURPLE, GREEN
+from core.config import BLURPLE, BRAND
 from core.errors import VCError
 from core.icons import I
 
@@ -62,7 +62,7 @@ class DragView(discord.ui.View):
                 f"{I.s('cross')} Couldn't move them. Someone left voice."))
         await interaction.followup.send(embed=result_embed(
             "Drag Request",
-            f"{I.s('check')} Moved **{r.name}** to **{ch.name}**.", GREEN))
+            f"{I.s('check')} Moved **{r.name}** to **{ch.name}**.", BRAND))
 
     @discord.ui.button(label="Deny", style=discord.ButtonStyle.secondary)
     async def deny(self, interaction: discord.Interaction, _):

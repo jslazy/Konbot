@@ -7,6 +7,40 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 from scipy import ndimage as ndi
 
+# ---- Kon colours: the (green) sheet is only the SHAPE source, every icon is recoloured with the Kon palette ----
+# Kon palette: Light Yellow, Golden Yellow, Amber, Orange, Dark Orange
+PALETTE = [(0xFF, 0xD6, 0x5A), (0xFF, 0xB8, 0x32), (0xFF, 0x9B, 0x22), (0xF5, 0x82, 0x19), (0xD9, 0x5A, 0x12)]
+
+
+def recolor(im: Image.Image) -> Image.Image:
+    """Glyph shape (alpha) is kept; the colour becomes a diagonal gradient through the 5 Kon colours
+    (top-left light yellow -> bottom-right dark orange). Original shading adds a little depth."""
+    im = im.convert("RGBA")
+    a = np.array(im).astype(float)
+    alpha = a[..., 3]
+    h, w = alpha.shape
+    ys, xs = np.nonzero(alpha > 8)
+    if len(ys) == 0:
+        return im
+    y0, y1, x0, x1 = ys.min(), ys.max(), xs.min(), xs.max()
+    yy, xx = np.mgrid[0:h, 0:w]
+    ty = (yy - y0) / max(1, y1 - y0)
+    tx = (xx - x0) / max(1, x1 - x0)
+    t = np.clip(0.65 * ty + 0.35 * tx, 0, 1)           # 0 = light yellow ... 1 = dark orange
+    pos = t * (len(PALETTE) - 1)
+    i = np.clip(np.floor(pos).astype(int), 0, len(PALETTE) - 2)
+    f = (pos - i)[..., None]
+    pal = np.array(PALETTE, float)
+    rgb = pal[i] * (1 - f) + pal[i + 1] * f
+    lum = a[..., :3].max(axis=2)
+    core = lum[alpha > 200]
+    ref = np.percentile(core, 95) if core.size else 255
+    shade = np.clip(lum / max(ref, 1), 0, 1)[..., None]
+    rgb = rgb * (0.88 + 0.12 * shade)                   # keeps inner detail without leaving the palette much
+    out = np.dstack([np.clip(rgb, 0, 255), alpha]).astype(np.uint8)
+    return Image.fromarray(out, "RGBA")
+
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHEET = os.path.join(ROOT, "assets", "icon_sheet.png")
 OUT = os.path.join(ROOT, "assets", "icons")
@@ -78,12 +112,12 @@ def main():
         g = g.resize((max(1, round(g.width * k)), max(1, round(g.height * k))), Image.LANCZOS)
         canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
         canvas.paste(g, ((side - g.width) // 2, (side - g.height) // 2), g)
-        canvas.save(os.path.join(OUT, f"{name}.png"), optimize=True)
+        recolor(canvas).save(os.path.join(OUT, f"{name}.png"), optimize=True)
     print("icons written:", len(NAMES))
     make_panel()
 
 
-# ---------- control panel image (same layout as the original, green icons) ----------
+# ---------- control panel image (same layout as the original, Kon yellow-orange icons) ----------
 PANEL = [  # (icon, small caption, label)
     ("lock", "LOCK", "Lock VC"), ("unlock", "UNLOCK", "Unlock VC"), ("hide", "HIDE", "Hide VC"),
     ("show", "UNHIDE", "Unhide VC"), ("logout", "VCKICK", "Kick User"),
@@ -104,13 +138,13 @@ def make_panel():
         r, c = divmod(i, cols)
         x = 45 + c * (tw + gx)
         y = 45 + r * (th + gy)
-        d.rounded_rectangle([x, y, x + tw, y + th], radius=22, fill=(4, 14, 8, 255), outline=(10, 28, 16, 255))
+        d.rounded_rectangle([x, y, x + tw, y + th], radius=22, fill=(20, 14, 6, 255), outline=(48, 32, 10, 255))
         ic = Image.open(os.path.join(OUT, f"{icon}.png"))
         ic = ic.crop(ic.getbbox())
         k = 56 / max(ic.size)
         ic = ic.resize((round(ic.width * k), round(ic.height * k)), Image.LANCZOS)
         img.alpha_composite(ic, (x + (tw - ic.width) // 2, y + 20 + (56 - ic.height) // 2))
-        d.text((x + tw / 2, y + 100), cap, font=f_small, fill=(74, 222, 128, 255), anchor="mm")
+        d.text((x + tw / 2, y + 100), cap, font=f_small, fill=(255, 184, 50, 255), anchor="mm")
         d.text((x + tw / 2, y + 122), label, font=f_big, fill=(255, 255, 255, 255), anchor="mm")
     img.convert("RGB").save(os.path.join(ROOT, "assets", "panel.png"), optimize=True)
     print("panel written")

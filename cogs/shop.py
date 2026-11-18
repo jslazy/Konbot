@@ -4,7 +4,7 @@ import asyncio
 import discord
 from discord.ext import commands
 
-from core.config import BLURPLE, GREEN
+from core.config import BLURPLE, BRAND
 from core.errors import VCError
 from core.icons import I, err, ok
 from core.ui import FieldsModal, OwnedView, clean_emoji, parse_int, to_partial
@@ -98,7 +98,7 @@ class ShopConfigView(OwnedView):
                          f"`{it['price']}` pts · stock `{stock_text(it['stock'])}`")
         body = "\n".join(lines) if lines else "The shop is empty. Tap **Add Item**."
         body += f"\n-# Stock `-1` = unlimited, `0` = sold out · **Position** changes the order"
-        e = discord.Embed(title="Shop Configuration", color=GREEN, description=body)
+        e = discord.Embed(title="Shop Configuration", color=BRAND, description=body)
         return e
 
     async def refresh(self):
@@ -283,7 +283,7 @@ class Shop(commands.Cog):
                          f"### Stock\n{I.s('gift_box')} {stock_long(it['stock'])}\n"
                          f"### Your Balance\n{I.s('wallet')} {bal} Points\n\n"
                          f"No refunds after you tap Purchase."),
-            color=RED if sold_out else GREEN)
+            color=RED if sold_out else BRAND)
         await interaction.response.send_message(embed=embed, view=ItemView(self, it, role, member, bal), ephemeral=True)
 
     # ---------- purchase ----------
@@ -319,7 +319,7 @@ class Shop(commands.Cog):
         embed = discord.Embed(
             title=f"{I.s('check')} Purchase Successful",
             description=f"You bought {role.mention} for **{item['price']}** points.\n"
-                        f"{I.s('wallet')} Balance: **{bal}** points.", color=GREEN)
+                        f"{I.s('wallet')} Balance: **{bal}** points.", color=BRAND)
         await interaction.response.edit_message(embed=embed, view=None)
 
     # ---------- $pointshop ----------

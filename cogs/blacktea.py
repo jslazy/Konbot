@@ -34,7 +34,7 @@ from discord.ext import commands
 from core.config import BASE, DATA_DIR, PREFIX
 from core.icons import I
 
-log = logging.getLogger("leafy.blacktea")
+log = logging.getLogger("kon.blacktea")
 
 SETTINGS_FILE = DATA_DIR / "blacktea.json"
 WORDS_FILE = BASE / "assets" / "words.txt"

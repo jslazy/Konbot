@@ -1,4 +1,4 @@
-"""$leafy ping / info, $adminhelp (clean command list - everybody only sees what THEY can use) and $leafyextra."""
+"""$kon ping / info, $adminhelp (clean command list - everybody only sees what THEY can use) and $konextra."""
 import inspect
 import time
 from typing import Optional
@@ -9,7 +9,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-from core.config import BLURPLE, GREEN, PREFIX
+from core.config import BLURPLE, BRAND, PREFIX
 from core.errors import VCError
 from core.icons import I, ok
 from core.ui import OwnedView
@@ -18,7 +18,7 @@ CATEGORIES = {
     "VC": ("Custom VC", "speaker"), "Drag": ("Drag", "swap"), "Interface": ("Setup & Admin", "tools"),
     "AFK": ("AFK", "clock"), "Points": ("Points & Badges", "heart"), "Shop": ("Point Shop", "coins"),
     "Admin": ("Setup & Admin", "tools"), "Prefixes": ("No-Prefix & Aliases", "link"), "Backup": ("Backup", "gift_box"),
-    "Meta": ("General", "leaf"), "Autoreact": ("Auto Reacter", "sparkles"), "RoleCmds": ("Role Commands", "crown"),
+    "Meta": ("General", "home"), "Autoreact": ("Auto Reacter", "sparkles"), "RoleCmds": ("Role Commands", "crown"),
     "SelfRoles": ("Self Roles", "crown"), "Expressions": ("Emojis & Stickers", "sparkles"), "Purge": ("Cleanup", "tools"),
     "Aura": ("Aura", "fire"), "RoleTransfer": ("Role Transfer", "crown"), "TicTacToe": ("Tic Tac Toe", "gamepad"), "CmdControl": ("Command Control", "lock"),
 }
@@ -56,9 +56,9 @@ DESC = {
     "customvc": "Set the join-to-create channel", "customvc config": "Who can't be vc-banned, kicked or muted", "interface": "Post the voice control panel",
     "sync": "Sync slash commands", "backup": "Backup status", "backup refresh": "Back up right now",
     "backupload": "Attach data zip(s) to merge them into the bot", "backup config": "Send the readable config + players list",
-    "leafy": "About Leafy", "leafyping": "Latency, uptime and status", "leafyinfo": "Servers, members and bot stats",
+    "kon": "About Kon", "konping": "Latency, uptime and status", "koninfo": "Servers, members and bot stats",
     "aura": "Show your aura (or @member's)", "aura config": "Fix aura, random on/off, switch a person off",
-    "transfer": "Move roles from one member to another (Leafy admins)",
+    "transfer": "Move roles from one member to another (Kon admins)",
     "tictactoe": "Tic Tac Toe info", "tictactoe play": "Challenge a member (only in the game channel)",
     "tictactoe admin": "Set the Tic Tac Toe channel",
     "blacktea": "Start a BlackTea word game (`$bt easy|medium|hard`)", "blacktea play": "Start a BlackTea word game",
@@ -73,8 +73,8 @@ DESC = {
     "point enable": "Count points in a channel again", "point disable": "Stop counting points in a channel",
     "disablecommand": "Turn commands off in channels / whole categories (`$db`, no arguments = menu)",
     "enablecommand": "Turn commands back on (`$eb`)",
-    "adminhelp": "This menu", "leafyextra": "Give a member Leafy owner rights (this server only)",
-    "leafyextra remove": "Take owner rights away", "leafyextra list": "Show the extra owners",
+    "adminhelp": "This menu", "konextra": "Give a member Kon owner rights (this server only)",
+    "konextra remove": "Take owner rights away", "konextra list": "Show the extra owners",
 }
 
 SECTIONS = (("member", "Everyone"), ("admin", "Admins"), ("owner", "Owner"))
@@ -114,7 +114,7 @@ async def access_level(ctx: commands.Context, cmd: commands.Command) -> Optional
             q = getattr(chk, "__qualname__", "").lower()
             if "owner" in q:
                 level = "owner"
-            elif ("has_permissions" in q or "leafy_admin" in q) and level != "owner":
+            elif ("has_permissions" in q or "kon_admin" in q) and level != "owner":
                 level = "admin"
         c = c.parent
     return level
@@ -144,10 +144,9 @@ class HelpView(OwnedView):
         self.add_item(sel)
 
     def overview(self) -> discord.Embed:
-        rows = [f"{I.s(icon)} **{title}** {sum(len(v) for v in secs.values())}" for key, (title, icon, secs) in self.pages.items()]
-        pairs = ["  ·  ".join(rows[i:i + 2]) for i in range(0, len(rows), 2)]      # two categories per line = small embed
-        return discord.Embed(title=f"{I.s('leaf')} Leafy Help", color=GREEN,
-                             description=f"Prefix `{PREFIX}` · `<x>` needed · `[x]` optional\n\n" + "\n".join(pairs))
+        rows = [f"{I.s(icon)} **{title}** - {sum(len(v) for v in secs.values())}" for key, (title, icon, secs) in self.pages.items()]
+        return discord.Embed(title=f"{I.s('sparkles')} Kon Help", color=BRAND,                 # same layout as Anshika Help
+                             description=f"Prefix: `{PREFIX}`\n`<x>` = required · `[x]` = optional\n\n" + "\n".join(rows))
 
     def page(self, key) -> discord.Embed:
         title, icon, secs = self.pages[key]
@@ -159,7 +158,7 @@ class HelpView(OwnedView):
                 continue
             parts.append((f"-# {label}\n" if multi else "") + "\n".join(lines))
         text = "\n".join(parts) or "—"
-        return discord.Embed(title=f"{I.s(icon)} {title}", color=BLURPLE, description=text[:4000])
+        return discord.Embed(title=f"{I.s(icon)} {title}", color=BRAND, description=text[:4000])
 
     async def picked(self, interaction: discord.Interaction):
         v = self.sel.values[0]
@@ -189,7 +188,7 @@ class InfoView(OwnedView):
             f"{I.s('message')} **Channels:** {channels:,}  ·  {I.s('heart')} **Players:** {b.db.counts()['users']:,}",
             f"{I.s('signal')} **{b.latency * 1000:.0f} ms**  ·  {I.s('clock')} **{fmt_secs(time.time() - self.cog.started)}**  ·  py {platform.python_version()} / dpy {discord.__version__}",
         ]
-        return discord.Embed(title=f"{I.s('leaf')} Leafy Info", color=GREEN, description="\n".join(lines))
+        return discord.Embed(title=f"{I.s('sparkles')} Kon Info", color=BRAND, description="\n".join(lines))
 
     def servers(self) -> discord.Embed:
         gs = self.guilds()
@@ -198,7 +197,7 @@ class InfoView(OwnedView):
         chunk = gs[self.page * self.PER_PAGE:(self.page + 1) * self.PER_PAGE]
         lines = [f"**{self.page * self.PER_PAGE + i}.** **{g.name}** · {I.s('users')} `{g.member_count or 0:,}` · `{g.id}`"
                  for i, g in enumerate(chunk, 1)]
-        e = discord.Embed(title=f"{I.s('folder')} Leafy is in {len(gs)} server(s)", color=BLURPLE,
+        e = discord.Embed(title=f"{I.s('folder')} Kon is in {len(gs)} server(s)", color=BLURPLE,
                           description="\n".join(lines) or "—")
         e.set_footer(text=f"Page {self.page + 1}/{pages} · {sum(g.member_count or 0 for g in gs):,} members in total")
         return e
@@ -244,23 +243,23 @@ class Meta(commands.Cog):
         self.bot = bot
         self.started = time.time()
 
-    # ---------- $leafy / $leafyping / $leafyinfo ----------
-    @commands.hybrid_command(name="leafy", description="About Leafy")
+    # ---------- $kon / $konping / $koninfo ----------
+    @commands.hybrid_command(name="kon", description="About Kon")
     @app_commands.describe(sub="ping or info (optional)")
-    async def leafy(self, ctx: commands.Context, sub: Optional[str] = None):
-        """$leafy - short intro. (`$leafyping` = latency, `$leafyinfo` = servers + members.)"""
+    async def kon(self, ctx: commands.Context, sub: Optional[str] = None):
+        """$kon - short intro. (`$konping` = latency, `$koninfo` = servers + members.)"""
         sub = (sub or "").lower()
         if sub == "ping":
-            return await ctx.invoke(self.leafy_ping)
+            return await ctx.invoke(self.kon_ping)
         if sub == "info":
-            return await ctx.invoke(self.leafy_info)
-        e = discord.Embed(title=f"{I.s('leaf')} Leafy", color=GREEN, description=(
-            f"{I.s('check')} Online  ·  `{PREFIX}leafyping`  ·  `{PREFIX}leafyinfo`  ·  `{PREFIX}adminhelp`"))
+            return await ctx.invoke(self.kon_info)
+        e = discord.Embed(title=f"{I.s('sparkles')} Kon", color=BRAND, description=(
+            f"{I.s('check')} Online  ·  `{PREFIX}konping`  ·  `{PREFIX}koninfo`  ·  `{PREFIX}adminhelp`"))
         await ctx.reply(embed=e, mention_author=False)
 
-    @commands.hybrid_command(name="leafyping", aliases=["lping"], description="Show Leafy's latency and uptime")
-    async def leafy_ping(self, ctx: commands.Context):
-        """$leafyping - latency, uptime and status."""
+    @commands.hybrid_command(name="konping", aliases=["kping"], description="Show Kon's latency and uptime")
+    async def kon_ping(self, ctx: commands.Context):
+        """$konping - latency, uptime and status."""
         ws = self.bot.latency * 1000
         t0 = time.perf_counter()
         msg = await ctx.reply(f"{I.s('refresh')} Pinging...", mention_author=False)
@@ -272,16 +271,16 @@ class Meta(commands.Cog):
         def dot(ms, good, ok_):
             return "🟢" if ms < good else ("🟡" if ms < ok_ else "🔴")
         worst = max(ws / 150, api / 300, db / 20)
-        status, color = (("Active", GREEN) if worst < 1 else ("Slow", 0xFACC15) if worst < 2.5 else ("Struggling", 0xED4245))
-        e = discord.Embed(title=f"{I.s('leaf')} Leafy Ping", color=color, description=(
+        status, color = (("Active", BRAND) if worst < 1 else ("Slow", 0xF58219) if worst < 2.5 else ("Struggling", 0xED4245))
+        e = discord.Embed(title=f"{I.s('sparkles')} Kon Ping", color=color, description=(
             f"{I.s('check')} **{status}**  ·  {I.s('clock')} {fmt_secs(time.time() - self.started)}\n"
             f"{I.s('signal')} `{ws:.0f} ms` {dot(ws, 150, 300)}  ·  {I.s('bolt')} `{api:.0f} ms` {dot(api, 300, 700)}"
             f"  ·  {I.s('folder')} `{db:.1f} ms` {dot(db, 20, 100)}"))
         await msg.edit(content=None, embed=e)
 
-    @commands.hybrid_command(name="leafyinfo", aliases=["linfo"], description="Servers, members and stats of Leafy")
-    async def leafy_info(self, ctx: commands.Context):
-        """$leafyinfo - how many servers / members Leafy has (the server list is for the bot owner)."""
+    @commands.hybrid_command(name="koninfo", aliases=["kinfo"], description="Servers, members and stats of Kon")
+    async def kon_info(self, ctx: commands.Context):
+        """$koninfo - how many servers / members Kon has (the server list is for the bot owner)."""
         owner = await self.bot.is_true_owner(ctx.author)
         view = InfoView(self, ctx, owner)
         view.message = await ctx.reply(embed=view.overview(), view=view, mention_author=False)
@@ -306,17 +305,18 @@ class Meta(commands.Cog):
             desc = describe(cmd)
             line = f"`{usage}`" + (f" - {desc}" if desc else "")
             pages.setdefault(cog, (title, icon, {}))[2].setdefault(level, []).append(line)
+        pages = dict(sorted(pages.items(), key=lambda kv: kv[1][0].lower()))      # A-Z like Anshika Help
         view = HelpView(ctx, pages)
         view.message = await ctx.reply(embed=view.overview(), view=view, mention_author=False)
 
-    # ---------- $leafyextra (bot owner only, PER SERVER) ----------
-    @commands.group(name="leafyextra", aliases=["lextra"], invoke_without_command=True)
+    # ---------- $konextra (bot owner only, PER SERVER) ----------
+    @commands.group(name="konextra", aliases=["kextra"], invoke_without_command=True)
     @commands.guild_only()
     @true_owner_only()
-    async def leafyextra(self, ctx: commands.Context, member: Optional[discord.Member] = None):
-        """$leafyextra @member - give that member Leafy owner permission IN THIS SERVER only."""
+    async def konextra(self, ctx: commands.Context, member: Optional[discord.Member] = None):
+        """$konextra @member - give that member Kon owner permission IN THIS SERVER only."""
         if member is None:
-            return await ctx.invoke(self.leafyextra_list)
+            return await ctx.invoke(self.konextra_list)
         if member.bot:
             raise VCError("A bot can't be an owner.")
         if await self.bot.is_true_owner(member):
@@ -326,15 +326,15 @@ class Meta(commands.Cog):
             raise VCError(f"{member.mention} is already an owner here.")
         extra.append(member.id)
         self.bot.store.save_soon()
-        await ctx.reply(ok(f"{member.mention} is a **Leafy owner** in **{ctx.guild.name}** only. "
-                           f"Undo: `{PREFIX}leafyextra remove @user`."),
+        await ctx.reply(ok(f"{member.mention} is a **Kon owner** in **{ctx.guild.name}** only. "
+                           f"Undo: `{PREFIX}konextra remove @user`."),
                         mention_author=False, allowed_mentions=discord.AllowedMentions.none())
 
-    @leafyextra.command(name="remove", aliases=["delete", "del"])
+    @konextra.command(name="remove", aliases=["delete", "del"])
     @commands.guild_only()
     @true_owner_only()
-    async def leafyextra_remove(self, ctx: commands.Context, member: discord.User):
-        """$leafyextra remove @member"""
+    async def konextra_remove(self, ctx: commands.Context, member: discord.User):
+        """$konextra remove @member"""
         extra = self.bot.extra_owners(ctx.guild.id)
         if member.id not in extra:
             raise VCError(f"{member.mention} isn't an owner here.")
@@ -343,15 +343,15 @@ class Meta(commands.Cog):
         await ctx.reply(ok(f"{member.mention} is no longer an owner here."), mention_author=False,
                         allowed_mentions=discord.AllowedMentions.none())
 
-    @leafyextra.command(name="list")
+    @konextra.command(name="list")
     @commands.guild_only()
     @true_owner_only()
-    async def leafyextra_list(self, ctx: commands.Context):
-        """$leafyextra list - extra owners of this server"""
+    async def konextra_list(self, ctx: commands.Context):
+        """$konextra list - extra owners of this server"""
         extra = self.bot.extra_owners(ctx.guild.id)
         text = "\n".join(f"<@{i}>" for i in extra) if extra else "*nobody yet*"
         e = discord.Embed(title=f"{I.s('crown')} Extra owners · {ctx.guild.name}", description=text, color=BLURPLE)
-        e.set_footer(text=f"{PREFIX}leafyextra @user to add · {PREFIX}leafyextra remove @user · this server only")
+        e.set_footer(text=f"{PREFIX}konextra @user to add · {PREFIX}konextra remove @user · this server only")
         await ctx.reply(embed=e, mention_author=False, allowed_mentions=discord.AllowedMentions.none())
 
 

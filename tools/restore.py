@@ -1,11 +1,11 @@
-"""Restore / verify Leafy backup zips (offline, no bot needed).
+"""Restore / verify Kon backup zips (offline, no bot needed).
 
-    python tools/restore.py leafy_code.zip leafy_data.zip [target_folder]
-    python tools/restore.py leafy_data.zip --check              (only verify, write nothing)
+    python tools/restore.py kon_code.zip kon_data.zip [target_folder]
+    python tools/restore.py kon_data.zip --check              (only verify, write nothing)
 
-The webhook backup sends TWO zips: leafy_code.zip (code, assets, .env) and leafy_data.zip (data/ folder).
+The webhook backup sends TWO zips: kon_code.zip (code, assets, .env) and kon_data.zip (data/ folder).
 Give one or both (old single-zip backups work too). Target default = the bot folder (parent of tools/).
-Every file is checked against the manifest (sha1) and data/leafy.db gets a SQLite integrity check.
+Every file is checked against the manifest (sha1) and data/kon.db gets a SQLite integrity check.
 If the code zip has REMOVED secrets (BACKUP_REDACT=1), the ones already in the target's .env are kept.
 
 Running bot? Don't use this: send the data zip to the bot with `$backupload` and it merges by itself.
@@ -30,7 +30,7 @@ def verify(z: zipfile.ZipFile, label: str) -> list:
         raise SystemExit(f"{label}: corrupt entry {bad}")
     name = next((m for m in MANIFESTS if m in z.namelist()), None)
     if name is None:
-        raise SystemExit(f"{label}: no manifest inside, is this a Leafy backup?")
+        raise SystemExit(f"{label}: no manifest inside, is this a Kon backup?")
     manifest = json.loads(z.read(name))
     problems = []
     for f in manifest["files"]:
@@ -41,10 +41,11 @@ def verify(z: zipfile.ZipFile, label: str) -> list:
             continue
         if hashlib.sha1(data).hexdigest() != f["sha1"]:
             problems.append(f"changed: {f['path']}")
-    if "data/leafy.db" in z.namelist():
+    db_name = next((n for n in ("data/kon.db", "data/leafy.db") if n in z.namelist()), None)   # leafy.db = old (pre-rebrand) backup
+    if db_name:
         with tempfile.TemporaryDirectory() as tmp:
-            db = Path(tmp) / "leafy.db"
-            db.write_bytes(z.read("data/leafy.db"))
+            db = Path(tmp) / "kon.db"
+            db.write_bytes(z.read(db_name))
             c = sqlite3.connect(db)
             res = c.execute("PRAGMA integrity_check").fetchone()[0]
             rows = {t: c.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
@@ -102,6 +103,7 @@ def main():
                 with z.open(name) as s, open(dest, "wb") as d:
                     shutil.copyfileobj(s, d)
     for ext in ("-wal", "-shm"):                      # a stale journal of an older db would corrupt the restored one
+        (target / "data" / f"kon.db{ext}").unlink(missing_ok=True)
         (target / "data" / f"leafy.db{ext}").unlink(missing_ok=True)
     print(f"restored into {target}")
     if env.exists():

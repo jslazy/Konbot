@@ -11,7 +11,7 @@ $purgemember ($p, $pm) - delete the messages of ONE member in the current channe
     (reply to a message of the member) $p 50     -> purges that member (50)
     Members without Manage Messages still get their profile with $p (that was the old $p).
 
-Removed: messages sent by any bot (Leafy's replies, other bots' replies, embeds) and messages that are commands
+Removed: messages sent by any bot (Kon's replies, other bots' replies, embeds) and messages that are commands
 (start with a prefix like  $afk  !ban  ?help  .play  -kick ...) - and the no-prefix commands (plain  afk  profile ...)
 of members who have no-prefix access. Normal chat of members is never touched.
 The `$pb` message itself is removed too. Discord can't bulk-delete messages older than 14 days, so those are skipped.

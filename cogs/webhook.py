@@ -1,14 +1,14 @@
 """$webhook - send messages through a webhook into any channel, edit them later. Animated emojis work WITHOUT Nitro.
 
-(needs the Manage Webhooks permission - or the bot owner / a $leafyextra owner)
+(needs the Manage Webhooks permission - or the bot owner / a $konextra owner)
 $webhook                       open the editor: pick the channel, write the message, set a name + avatar, Send, Edit
 $webhook #channel text...      send straight away (multi-line text works)
-$webhookedit <message link> new text      edit a message Leafy's webhook sent   (alias $whe)
+$webhookedit <message link> new text      edit a message Kon's webhook sent   (alias $whe)
 
-Emojis in the text: paste the emoji ID (123456789012345678) or :name: - Leafy turns it into the real animated emoji.
-$ei [search | here | <emoji id>]   all animated emojis (of the servers you share with Leafy) with their IDs.
+Emojis in the text: paste the emoji ID (123456789012345678) or :name: - Kon turns it into the real animated emoji.
+$ei [search | here | <emoji id>]   all animated emojis (of the servers you share with Kon) with their IDs.
 
-Only messages sent by Leafy's own webhook can be edited. The member needs View + Send permission in the target channel
+Only messages sent by Kon's own webhook can be edited. The member needs View + Send permission in the target channel
 and @everyone / role pings only work for members who may mention everyone.
 """
 import logging
@@ -21,12 +21,12 @@ from discord.ext import commands
 
 from core import checks
 from core import emoji as emojis
-from core.config import BLURPLE, GREEN, PREFIX
+from core.config import BLURPLE, BRAND, PREFIX
 from core.errors import VCError
 from core.icons import I, err, ok
 from core.ui import OwnedView
 
-log = logging.getLogger("leafy.webhook")
+log = logging.getLogger("kon.webhook")
 
 MSG_LINK = re.compile(r"discord(?:app)?\.com/channels/(\d+)/(\d+)/(\d+)")
 CHANNEL_TYPES = [discord.ChannelType.text, discord.ChannelType.news]
@@ -189,7 +189,7 @@ class Webhook(commands.Cog):
 
     # ------------------------------------------------------------ helpers
     async def webhook_for(self, channel: discord.TextChannel) -> discord.Webhook:
-        """Leafy's own webhook of that channel (created on first use)."""
+        """Kon's own webhook of that channel (created on first use)."""
         wh = self._hooks.get(channel.id)
         if wh is not None:
             return wh
@@ -201,7 +201,7 @@ class Webhook(commands.Cog):
                     wh = w
                     break
             else:
-                wh = await channel.create_webhook(name="Leafy", reason="Leafy $webhook")
+                wh = await channel.create_webhook(name="Kon", reason="Kon $webhook")
         except discord.HTTPException as e:
             raise VCError(f"Discord refused to create the webhook ({e.status}).")
         self._hooks[channel.id] = wh
@@ -265,7 +265,7 @@ class Webhook(commands.Cog):
         except discord.NotFound:
             raise VCError("I can't find that message - it must be one my webhook sent in that channel.")
         except discord.HTTPException:
-            raise VCError("I can only edit messages that Leafy's own webhook sent.")
+            raise VCError("I can only edit messages that Kon's own webhook sent.")
 
     @staticmethod
     def parse_target(guild: discord.Guild, text: str, last: Optional[tuple], channel) -> tuple:
@@ -309,7 +309,7 @@ class Webhook(commands.Cog):
         view.content = text.strip()
         view.message = await ctx.reply(embed=await view.embed(), view=view, mention_author=False)
 
-    @commands.hybrid_command(name="webhookedit", aliases=["whe"], description="Edit a message Leafy's webhook sent")
+    @commands.hybrid_command(name="webhookedit", aliases=["whe"], description="Edit a message Kon's webhook sent")
     @app_commands.describe(link="Message link", text="New text (emoji IDs work)")
     @commands.guild_only()
     @can_webhook()
@@ -349,10 +349,10 @@ class Webhook(commands.Cog):
             own = sorted((x for x in await emojis.app_emojis(self.bot) if x.animated and needle in x.name.lower()),
                          key=lambda x: x.name.lower())
             if own:
-                groups.append(("Leafy's own emojis", own))
+                groups.append(("Kon's own emojis", own))
         total = sum(len(ems) for _, ems in groups)
         if not total:
-            raise VCError("No animated emojis found." + ("" if here_only else " (Only servers you and Leafy share are listed.)"))
+            raise VCError("No animated emojis found." + ("" if here_only else " (Only servers you and Kon share are listed.)"))
 
         pages_txt, cur, n = [], [], 0
         for title, ems in groups:

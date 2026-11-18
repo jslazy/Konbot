@@ -41,16 +41,16 @@
         "line_emoji": "<:Spider_blue_verified:1570309169720987720>"
       }
     ],
-    "banner_url": "https://cdn.discordapp.com/attachments/1488691387653161131/1572325954909642996/banner_1488690726870057165.gif?ex=6afdf628&is=6afca4a8&hm=33daaaa63e91801b388a7bf8602d01b1171484fda04113a81708901b3971e70b&",
+    "banner_url": "https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6afe2aca&is=6afcd94a&hm=2261b8b925161da0290d85c0eedb58c78ae658627103db92a10d7ee61c47916f&",
     "banner_ref": {
-      "c": 1488691387653161131,
-      "m": 1572325955450445864
+      "c": 1572381729233051669,
+      "m": 1572382470312296601
     }
   },
   "vc_data.vcs": {
     "1572364176888954932": {
       "guild": 1488690726870057165,
-      "owner": 1409148182944022699,
+      "owner": 1425991437396217960,
       "banned": [],
       "block_drags": false,
       "created": 1794951235.4045045
@@ -170,6 +170,12 @@
           "channel_id": 1572286596735303771,
           "url": "https://discord.com/channels/1488690726870057165/1572286596735303771/1572343647901327411",
           "content": "<@1262248731353546763> ko bol deta hu kal event hoga"
+        },
+        {
+          "author": "Lazy",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1572401317635170315",
+          "content": "<@1569505818506698823> <@1262248731353546763>"
         }
       ]
     }

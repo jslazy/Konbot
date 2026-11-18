@@ -43,7 +43,7 @@ class Store:
     def guild(self, gid: int) -> dict:
         return self.data["guilds"].setdefault(str(gid), {})
 
-    # --- per-server owners ($leafyextra) ---
+    # --- per-server owners ($konextra) ---
     def owners(self, gid: int) -> list:
         """Extra owners of ONE server. An owner in server A has no powers in server B."""
         return self.data.setdefault("guild_owners", {}).setdefault(str(gid), [])

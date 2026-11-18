@@ -15,7 +15,7 @@ from core.config import BLURPLE, VC_PREFIX
 from core.errors import VCError
 from core.icons import I, ok
 
-log = logging.getLogger("leafy.vc")
+log = logging.getLogger("kon.vc")
 
 NOT_IN_VC = "Join your custom VC first."
 CHAT_VC = contextvars.ContextVar("chat_vc", default=None)     # the voice channel whose chat a command was typed in
@@ -57,12 +57,12 @@ class VCService:
 
     # ---------- helpers ----------
     def is_god(self, member) -> bool:
-        """Leafy owners (bot owner + $leafyextra of this server) can manage EVERY custom VC."""
+        """Kon owners (bot owner + $konextra of this server) can manage EVERY custom VC."""
         return self.bot.is_owner_fast(member.id, member.guild.id)
 
     def owned(self, member: discord.Member):
         """-> (channel, record) of the VC `member` may manage.
-        Normal members: only the VC they own and sit in. Leafy owners: any custom VC - the one they sit in,
+        Normal members: only the VC they own and sit in. Kon owners: any custom VC - the one they sit in,
         or the one whose chat they typed the command in."""
         vs = member.voice
         here = vs.channel if vs and vs.channel else None
@@ -405,7 +405,7 @@ class VC(commands.Cog):
     # ---------- plumbing ----------
     async def _run(self, ctx: commands.Context, op, *args):
         await ctx.defer()
-        if isinstance(ctx.channel, discord.VoiceChannel):      # Leafy owners can type in a VC's chat to manage it
+        if isinstance(ctx.channel, discord.VoiceChannel):      # Kon owners can type in a VC's chat to manage it
             CHAT_VC.set(ctx.channel)
         msg = await op(ctx.author, *args)
         await ctx.reply(ok(msg), mention_author=False)

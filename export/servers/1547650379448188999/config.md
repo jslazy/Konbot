@@ -51,17 +51,18 @@
 
 - **role**: *none*
 - **users**:
-  - `1385099857781329961` → alonefox (d3adb9y1113)
+  - `1385099857781329961` → ♤ 𝑎𝑙𝒐𝑛𝑒𝐟𝐨𝑥 ✿ (d3adb9y1113)
   - `1538573910839140575` → Patrick Badmosh (patrickbadmosh)
   - `1504536783898021908` → T-Mod | om pandey (om61006)
   - `1562817118641062029` → Raven (_raven.exe09)
   - `1556600326617042959` → 4LC_DR4K3N (4lc_dr4k3n)
-  - `1519731963244580987` → Blaze OG (btwkartikxz)
+  - `1519731963244580987` → Blaze zzz (btwkartikxz)
   - `1340198074387267634` → HM | TacticalShower (.mlx_rinn)
   - `1554945105981603880` → Mexzon (mexzon_0205)
   - `829689719633215498` → Vortex (_vortexog)
   - `1537639385879683212` → T-MOD | Ruler (hellruler08457)
-  - `1554280108632842295` → Arnav || sellin ids (.arnav.gg)
+  - `1554280108632842295` → *not found (deleted / bot not in server)*
+  - `1423371939556233247` → Life is hard 💔🥀 (whitebeardxz)
 
 ### Aliases
 
@@ -81,8 +82,10 @@
     - `<:nebula_Bored:1561078200325382194>`
   - **1556600326617042959** → 4LC_DR4K3N (4lc_dr4k3n):
     - `<:Nebula_Angry:1549341308546449459>`
-  - **1519731963244580987** → Blaze OG (btwkartikxz):
+  - **1519731963244580987** → Blaze zzz (btwkartikxz):
     - `<:nebula_hawww:1563397980332105730>`
+  - **560591477500018725** → !     Meow (meowtheog.):
+    - `<a:disco:1572571259601031259>`
 
 ### Aura ($aura config)
 
@@ -103,4 +106,4 @@
 
 ### Players
 
-- 294 players stored in `data/kon.db` (full list: `export/players_1547650379448188999.csv`)
+- 341 players stored in `data/kon.db` (full list: `export/players_1547650379448188999.csv`)

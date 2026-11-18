@@ -8,7 +8,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **name**: Kon#9118
   - **id**: `1569712165932236842` → Kon#9118
 - **voice_mutes_running**: *(empty)*
-- **slash_sync_hash**: 3a270574669461621c9b391d940f70d34a69f3e0
+- **slash_sync_hash**: 714b498ad5b235433a17020b69d5f91d64a466f9
 
 ## Lazy  (`1154838258027606117`)
 
@@ -92,7 +92,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **type**: voice
     - **category_id**: `1488691343382286338` → #╰ ¤〢Custom VC ︲🌱︲
     - **category**: ╰ ¤〢Custom VC ︲🌱︲
-    - **position**: 6
+    - **position**: 7
     - **bitrate**: 64000
     - **user_limit**: 1
     - **currently_set**: yes
@@ -101,11 +101,11 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **panel_message_id**: *none*
 - **other_keys**: *(empty)*
 - **active_custom_vcs**:
-  - **1572364176888954932** → #bravyrz:
-    - **owner**: `1425991437396217960` → TheSKY (sky_bauni)
+  - **1572655517057290380** → #raat ka andhera:
+    - **owner**: `1299765230011678834` → Meow-Gamer (soul_reaperx2)
     - **banned**: *(empty)*
     - **block_drags**: no
-    - **created**: 1794951235 (2026-11-17 21:33 UTC)
+    - **created**: 1795020694 (2026-11-18 16:51 UTC)
 
 ### Custom VC protection ($customvc config)
 
@@ -231,9 +231,10 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - **role**: `1569999856171229255` → @︲No Prefix 」
 - **users**:
-  - `1262248731353546763` → Anshu >_< (anshumanfr_)
+  - `1262248731353546763` → NOT AVAILABLE TILL 25 (anshumanfr_)
   - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
   - `650534818517483526` → Lazy (jslazy)
+  - `1473667943186305172` → v ¡ r u 💢 (thviru)
 
 ### Aliases
 
@@ -263,14 +264,12 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - `1488691206891503758` → @ゝNot Bull ⌝
   - `1488691206375608330` → @ゝLoop ⌝
 - **users**:
-  - **1262248731353546763** → Anshu >_< (anshumanfr_):
-    - `<:Cat_meow:1569605495222964265>`
+  - **1262248731353546763** → NOT AVAILABLE TILL 25 (anshumanfr_):
+    - `<:Akame_Bodmash:1570284017868214472>`
   - **650534818517483526** → Lazy (jslazy):
     - `<a:scrajj:1570284076609568919>`
-  - **1425991437396217960** → TheSKY (sky_bauni):
+  - **1425991437396217960** → Sky !'Queen of nightmares'! (sky_bauni):
     - `<:RainyMM_Naksh_goodboy:1570285035989508096>`
-  - **1154489620499800127** → Dark Ojas (darkojas):
-    - `<a:69_Partner:1570285042175971438>`
   - **1548153523709943863** → 🜲 | Aizal (meerab_76):
     - `<a:Madira_eating:1570284028093792286>`
   - **743845224287043665** → !       Whoknow (whoknow_008):
@@ -281,7 +280,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Aura ($aura config)
 
 - **members**:
-  - **1262248731353546763** → Anshu >_< (anshumanfr_): 99
+  - **1262248731353546763** → NOT AVAILABLE TILL 25 (anshumanfr_): 99
 - **roles**: *(empty)*
 - **random**: yes
 - **disabled**: *(empty)*
@@ -293,8 +292,8 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Extra owners ($konextra - this server only)
 
 - #1
-  - **id**: `1262248731353546763` → Anshu >_< (anshumanfr_)
-  - **name**: Anshu >_< (anshumanfr_)
+  - **id**: `1262248731353546763` → NOT AVAILABLE TILL 25 (anshumanfr_)
+  - **name**: NOT AVAILABLE TILL 25 (anshumanfr_)
   - **found**: yes
 - #2
   - **id**: `1154489620499800127` → Dark Ojas (darkojas)
@@ -305,11 +304,6 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - **tag_enabled**: no
 - **users**:
-  - **1433650059043405959** → [AFK] rizzler (billu2368):
-    - **reason**: AFK
-    - **since**: 1794399701 (2026-11-11 12:21 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 7
   - **1512822379061969028** → Onlyforyou (thedeadsabaru):
     - **reason**: sone ja raha
     - **since**: 1794505671 (2026-11-12 17:47 UTC)
@@ -325,20 +319,10 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **since**: 1794852924 (2026-11-16 18:15 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 1
-  - **1088001174457831465** → ~   SALVATORE 🩸 (ft.salvatore):
-    - **reason**: AFK
-    - **since**: 1794937418 (2026-11-17 17:43 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 0
-  - **1262248731353546763** → Anshu >_< (anshumanfr_):
-    - **reason**: gn
-    - **since**: 1794941826 (2026-11-17 18:57 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 2
 
 ### Players
 
-- 133 players stored in `data/kon.db` (full list: `export/players_1488690726870057165.csv`)
+- 141 players stored in `data/kon.db` (full list: `export/players_1488690726870057165.csv`)
 
 ## Twin's Empire 2.0  (`1524797937836621874`)
 
@@ -406,7 +390,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 ### Players
 
-- 12 players stored in `data/kon.db` (full list: `export/players_1524797937836621874.csv`)
+- 15 players stored in `data/kon.db` (full list: `export/players_1524797937836621874.csv`)
 
 ## The Blaze Nebula | Drag GW  (`1547650379448188999`)
 
@@ -459,17 +443,18 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - **role**: *none*
 - **users**:
-  - `1385099857781329961` → alonefox (d3adb9y1113)
+  - `1385099857781329961` → ♤ 𝑎𝑙𝒐𝑛𝑒𝐟𝐨𝑥 ✿ (d3adb9y1113)
   - `1538573910839140575` → Patrick Badmosh (patrickbadmosh)
   - `1504536783898021908` → T-Mod | om pandey (om61006)
   - `1562817118641062029` → Raven (_raven.exe09)
   - `1556600326617042959` → 4LC_DR4K3N (4lc_dr4k3n)
-  - `1519731963244580987` → Blaze OG (btwkartikxz)
+  - `1519731963244580987` → Blaze zzz (btwkartikxz)
   - `1340198074387267634` → HM | TacticalShower (.mlx_rinn)
   - `1554945105981603880` → Mexzon (mexzon_0205)
   - `829689719633215498` → Vortex (_vortexog)
   - `1537639385879683212` → T-MOD | Ruler (hellruler08457)
-  - `1554280108632842295` → Arnav || sellin ids (.arnav.gg)
+  - `1554280108632842295` → *not found (deleted / bot not in server)*
+  - `1423371939556233247` → Life is hard 💔🥀 (whitebeardxz)
 
 ### Aliases
 
@@ -489,8 +474,10 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - `<:nebula_Bored:1561078200325382194>`
   - **1556600326617042959** → 4LC_DR4K3N (4lc_dr4k3n):
     - `<:Nebula_Angry:1549341308546449459>`
-  - **1519731963244580987** → Blaze OG (btwkartikxz):
+  - **1519731963244580987** → Blaze zzz (btwkartikxz):
     - `<:nebula_hawww:1563397980332105730>`
+  - **560591477500018725** → !     Meow (meowtheog.):
+    - `<a:disco:1572571259601031259>`
 
 ### Aura ($aura config)
 
@@ -511,4 +498,4 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 ### Players
 
-- 294 players stored in `data/kon.db` (full list: `export/players_1547650379448188999.csv`)
+- 341 players stored in `data/kon.db` (full list: `export/players_1547650379448188999.csv`)

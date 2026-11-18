@@ -405,8 +405,7 @@ class SelfRoles(commands.Cog):
 
     def host_channel(self, guild: discord.Guild, fallback=None) -> discord.abc.Messageable:
         """Where uploaded banners are hosted: ASSET_CHANNEL_ID (private storage channel) > self-role channel > here."""
-        img_ch = self.bot.db.get_settings(guild.id, "imagehost").get("channel")      # $imgchannel
-        for cid in (img_ch, ASSET_CHANNEL_ID, self.cfg(guild.id).get("channel")):
+        for cid in (ASSET_CHANNEL_ID, self.cfg(guild.id).get("channel")):     # only used when the owner has no image host
             ch = guild.get_channel(cid) if cid else None
             if isinstance(ch, discord.TextChannel) and ch.permissions_for(guild.me).send_messages \
                     and ch.permissions_for(guild.me).attach_files:
@@ -420,7 +419,7 @@ class SelfRoles(commands.Cog):
         """Delete the old hosting message (best effort)."""
         if not ref:
             return
-        ch = guild.get_channel(ref.get("c", 0))
+        ch = self.bot.get_channel(ref.get("c", 0))            # the owner's image host (another server) or an old local channel
         if ch:
             try:
                 await ch.get_partial_message(ref["m"]).delete()
@@ -435,9 +434,13 @@ class SelfRoles(commands.Cog):
         if len(data) > MAX_BANNER:
             raise VCError(f"That image is over **{MAX_BANNER_MB} MB**.")
         c = self.cfg(guild.id)
-        ch = self.host_channel(guild, fallback)
-        msg = await ch.send(f"Self-role banner for **{guild.name}** (storage - don't delete)",
-                            file=discord.File(io.BytesIO(data), filename=f"banner_{guild.id}.{ext}"))
+        host = self.bot.get_cog("ImageHost")
+        note = f"Self-role banner · {guild.name} ({guild.id}) (storage - don't delete)"
+        if host is not None and host.host_ready():            # the bot owner's image host channel (works for EVERY server)
+            msg = await host.host_upload(data, f"banner_{guild.id}.{ext}", note)
+        else:
+            ch = self.host_channel(guild, fallback)
+            msg = await ch.send(note, file=discord.File(io.BytesIO(data), filename=f"banner_{guild.id}.{ext}"))
         old = c.get("banner_ref")
         c["banner_ref"] = {"c": msg.channel.id, "m": msg.id}
         c["banner_url"] = msg.attachments[0].url
@@ -515,7 +518,7 @@ class SelfRoles(commands.Cog):
         """The link to show. For Discord-hosted uploads a fresh link is fetched from the hosting message."""
         ref = cfg.get("banner_ref")
         if ref:
-            ch = guild.get_channel(ref.get("c", 0))
+            ch = self.bot.get_channel(ref.get("c", 0))
             if ch:
                 try:
                     msg = await ch.fetch_message(ref["m"])

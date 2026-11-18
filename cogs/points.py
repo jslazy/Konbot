@@ -310,6 +310,71 @@ class PointConfigView(OwnedView):
         await interaction.response.edit_message(view=None)
 
 
+LB_PER_PAGE = 5
+MEDALS = {1: "🥇", 2: "🥈", 3: "🥉"}
+
+
+class LeaderboardView(OwnedView):
+    """Leaderboard, 5 members per page, one stat per line. Buttons: first / back / page / next / last / my rank."""
+
+    def __init__(self, cog, ctx: commands.Context):
+        super().__init__(ctx.author.id, timeout=300)
+        self.cog, self.guild, self.author = cog, ctx.guild, ctx.author
+        self.total = cog.db.leaderboard_count(ctx.guild.id)
+        self.pages = max(1, -(-self.total // LB_PER_PAGE))
+        self.page = 0
+        self.sync()
+
+    def embed(self) -> discord.Embed:
+        rows = self.cog.db.leaderboard_page(self.guild.id, LB_PER_PAGE, self.page * LB_PER_PAGE)
+        blocks = []
+        for i, r in enumerate(rows, self.page * LB_PER_PAGE + 1):
+            blocks.append(f"{MEDALS.get(i, f'`#{i}`')} <@{r['user_id']}>\n"
+                          f"{I.s('heart')} **Points:** `{r['points']:,}`\n"
+                          f"{I.s('message')} **Messages:** `{r['chat_total']:,}`")
+        icon = self.guild.icon.url if self.guild.icon else self.cog.bot.user.display_avatar.url
+        e = discord.Embed(title=f"{I.s('trophy')} Leaderboard", color=BRAND,
+                          description="\n\n".join(blocks) or "No points yet.")
+        e.set_thumbnail(url=icon)
+        e.set_footer(text=f"Page {self.page + 1}/{self.pages} · {self.total} members · Your rank #{self.cog.db.rank(self.guild.id, self.author.id)}")
+        return e
+
+    def sync(self):
+        self.first.disabled = self.prev.disabled = self.page <= 0
+        self.next.disabled = self.last.disabled = self.page >= self.pages - 1
+        self.counter.label = f"{self.page + 1}/{self.pages}"
+
+    async def go(self, interaction: discord.Interaction, page: int):
+        self.page = min(max(page, 0), self.pages - 1)
+        self.sync()
+        await interaction.response.edit_message(embed=self.embed(), view=self)
+
+    @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.secondary, row=0)
+    async def first(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.go(interaction, 0)
+
+    @discord.ui.button(emoji="◀", style=discord.ButtonStyle.primary, row=0)
+    async def prev(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.go(interaction, self.page - 1)
+
+    @discord.ui.button(label="1/1", style=discord.ButtonStyle.secondary, disabled=True, row=0)
+    async def counter(self, interaction: discord.Interaction, button: discord.ui.Button):
+        pass
+
+    @discord.ui.button(emoji="▶", style=discord.ButtonStyle.primary, row=0)
+    async def next(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.go(interaction, self.page + 1)
+
+    @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.secondary, row=0)
+    async def last(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.go(interaction, self.pages - 1)
+
+    @discord.ui.button(label="My rank", emoji="🎯", style=discord.ButtonStyle.success, row=1)
+    async def mine(self, interaction: discord.Interaction, button: discord.ui.Button):
+        rank = self.cog.db.rank(self.guild.id, self.author.id)
+        await self.go(interaction, (rank - 1) // LB_PER_PAGE)
+
+
 class Points(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -440,18 +505,14 @@ class Points(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
 
     # ---------- leaderboard ----------
-    @commands.hybrid_command(name="leaderboard", aliases=["lb", "top"], description="Top 10 members by points")
+    @commands.hybrid_command(name="leaderboard", aliases=["lb", "top"], description="Members ranked by points (pages)")
     @commands.guild_only()
     async def leaderboard(self, ctx: commands.Context):
-        rows = self.db.leaderboard(ctx.guild.id, 10)
-        lines = [f"{i}. <@{r['user_id']}> — `{r['points']}` pts | `{r['chat_total']}` msgs"
-                 for i, r in enumerate(rows, 1)]
-        embed = discord.Embed(description="\n".join(lines) or "No points yet. Start chatting!",
-                              color=BLURPLE, timestamp=discord.utils.utcnow())
-        icon = ctx.guild.icon.url if ctx.guild.icon else self.bot.user.display_avatar.url
-        embed.set_author(name="🏆 Top 10 Leaderboard", icon_url=icon)
-        embed.set_thumbnail(url=icon)
-        await ctx.reply(embed=embed, mention_author=False, allowed_mentions=discord.AllowedMentions.none())
+        if self.db.leaderboard_count(ctx.guild.id) == 0:
+            raise VCError("No points yet. Start chatting!")
+        view = LeaderboardView(self, ctx)
+        view.message = await ctx.reply(embed=view.embed(), view=view, mention_author=False,
+                                       allowed_mentions=discord.AllowedMentions.none())
 
     # ---------- $point (admin) ----------
     @commands.group(name="point", hidden=True, invoke_without_command=True)

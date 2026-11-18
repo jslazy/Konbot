@@ -14,7 +14,7 @@
     - **type**: voice
     - **category_id**: `1488691343382286338` → #╰ ¤〢Custom VC ︲🌱︲
     - **category**: ╰ ¤〢Custom VC ︲🌱︲
-    - **position**: 6
+    - **position**: 7
     - **bitrate**: 64000
     - **user_limit**: 1
     - **currently_set**: yes
@@ -23,11 +23,11 @@
   - **panel_message_id**: *none*
 - **other_keys**: *(empty)*
 - **active_custom_vcs**:
-  - **1572364176888954932** → #bravyrz:
-    - **owner**: `1425991437396217960` → TheSKY (sky_bauni)
+  - **1572655517057290380** → #raat ka andhera:
+    - **owner**: `1299765230011678834` → Meow-Gamer (soul_reaperx2)
     - **banned**: *(empty)*
     - **block_drags**: no
-    - **created**: 1794951235 (2026-11-17 21:33 UTC)
+    - **created**: 1795020694 (2026-11-18 16:51 UTC)
 
 ### Custom VC protection ($customvc config)
 
@@ -153,9 +153,10 @@
 
 - **role**: `1569999856171229255` → @︲No Prefix 」
 - **users**:
-  - `1262248731353546763` → Anshu >_< (anshumanfr_)
+  - `1262248731353546763` → NOT AVAILABLE TILL 25 (anshumanfr_)
   - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
   - `650534818517483526` → Lazy (jslazy)
+  - `1473667943186305172` → v ¡ r u 💢 (thviru)
 
 ### Aliases
 
@@ -185,14 +186,12 @@
   - `1488691206891503758` → @ゝNot Bull ⌝
   - `1488691206375608330` → @ゝLoop ⌝
 - **users**:
-  - **1262248731353546763** → Anshu >_< (anshumanfr_):
-    - `<:Cat_meow:1569605495222964265>`
+  - **1262248731353546763** → NOT AVAILABLE TILL 25 (anshumanfr_):
+    - `<:Akame_Bodmash:1570284017868214472>`
   - **650534818517483526** → Lazy (jslazy):
     - `<a:scrajj:1570284076609568919>`
-  - **1425991437396217960** → TheSKY (sky_bauni):
+  - **1425991437396217960** → Sky !'Queen of nightmares'! (sky_bauni):
     - `<:RainyMM_Naksh_goodboy:1570285035989508096>`
-  - **1154489620499800127** → Dark Ojas (darkojas):
-    - `<a:69_Partner:1570285042175971438>`
   - **1548153523709943863** → 🜲 | Aizal (meerab_76):
     - `<a:Madira_eating:1570284028093792286>`
   - **743845224287043665** → !       Whoknow (whoknow_008):
@@ -203,7 +202,7 @@
 ### Aura ($aura config)
 
 - **members**:
-  - **1262248731353546763** → Anshu >_< (anshumanfr_): 99
+  - **1262248731353546763** → NOT AVAILABLE TILL 25 (anshumanfr_): 99
 - **roles**: *(empty)*
 - **random**: yes
 - **disabled**: *(empty)*
@@ -215,8 +214,8 @@
 ### Extra owners ($konextra - this server only)
 
 - #1
-  - **id**: `1262248731353546763` → Anshu >_< (anshumanfr_)
-  - **name**: Anshu >_< (anshumanfr_)
+  - **id**: `1262248731353546763` → NOT AVAILABLE TILL 25 (anshumanfr_)
+  - **name**: NOT AVAILABLE TILL 25 (anshumanfr_)
   - **found**: yes
 - #2
   - **id**: `1154489620499800127` → Dark Ojas (darkojas)
@@ -227,11 +226,6 @@
 
 - **tag_enabled**: no
 - **users**:
-  - **1433650059043405959** → [AFK] rizzler (billu2368):
-    - **reason**: AFK
-    - **since**: 1794399701 (2026-11-11 12:21 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 7
   - **1512822379061969028** → Onlyforyou (thedeadsabaru):
     - **reason**: sone ja raha
     - **since**: 1794505671 (2026-11-12 17:47 UTC)
@@ -247,17 +241,7 @@
     - **since**: 1794852924 (2026-11-16 18:15 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 1
-  - **1088001174457831465** → ~   SALVATORE 🩸 (ft.salvatore):
-    - **reason**: AFK
-    - **since**: 1794937418 (2026-11-17 17:43 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 0
-  - **1262248731353546763** → Anshu >_< (anshumanfr_):
-    - **reason**: gn
-    - **since**: 1794941826 (2026-11-17 18:57 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 2
 
 ### Players
 
-- 133 players stored in `data/kon.db` (full list: `export/players_1488690726870057165.csv`)
+- 141 players stored in `data/kon.db` (full list: `export/players_1488690726870057165.csv`)

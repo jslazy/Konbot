@@ -18,6 +18,9 @@ TIMEZONE = ZoneInfo("Asia/Kolkata")
 AUTO_SYNC = os.getenv("AUTO_SYNC", "1") != "0"      # slash commands auto-sync on start (only if changed)
 VC_PREFIX = ""                                     # custom VC name = just the username (no prefix)
 
+# extra bot-owner user IDs (comma separated, optional). The Discord application owner is always the owner too.
+OWNER_IDS = {int(x) for x in os.getenv("OWNER_IDS", os.getenv("OWNER_ID", "")).replace(" ", "").split(",") if x.isdigit()}
+
 BRAND = 0xFFB832          # Kon golden yellow (palette: FFD65A / FFB832 / FF9B22 / F58219 / D95A12)
 BLURPLE = 0x5865F2
 MENTIONS_PER_PAGE = 5

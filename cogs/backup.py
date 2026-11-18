@@ -399,7 +399,7 @@ class Backup(commands.Cog):
 
     # ---------- $backup (owner) ----------
     @commands.group(name="backup", invoke_without_command=True)
-    @checks.is_owner()
+    @checks.true_owner_only()
     async def backup(self, ctx: commands.Context):
         """Backup status. `$backup refresh` = back up right now (owner only)."""
         lines = [
@@ -415,7 +415,7 @@ class Backup(commands.Cog):
                         mention_author=False)
 
     @backup.command(name="config")
-    @checks.is_owner()
+    @checks.true_owner_only()
     async def backup_config(self, ctx: commands.Context):
         """Send the readable config of this server (SERVER_CONFIG.md) and the players list (CSV)."""
         async with ctx.typing():
@@ -439,7 +439,7 @@ class Backup(commands.Cog):
             Path(snap.name).unlink(missing_ok=True)
 
     @backup.command(name="refresh")
-    @checks.is_owner()
+    @checks.true_owner_only()
     async def backup_refresh(self, ctx: commands.Context):
         """Back up right now."""
         if not BACKUP_WEBHOOK:
@@ -451,7 +451,7 @@ class Backup(commands.Cog):
 
     # ---------- $backupload (owner): merge data zip(s) into the running bot ----------
     @commands.command(name="backupload", aliases=["bload", "bupload"])
-    @checks.is_owner()
+    @checks.true_owner_only()
     async def backupload(self, ctx: commands.Context):
         """Attach one or more data zips (or reply to a message that has them). Data is merged automatically."""
         atts = list(ctx.message.attachments)

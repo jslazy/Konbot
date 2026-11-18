@@ -1,9 +1,9 @@
 {
   "bot": "Kon#9118",
-  "created": "2026-11-18T00:14:15.213498+00:00",
-  "reason": "Rebrand Leafy -> Kon",
+  "created": "2026-11-18T17:12:25.627677+00:00",
+  "reason": "Automatic (every 30s)",
   "status": "online",
-  "backup_number": 190,
+  "backup_number": 2016,
   "kind": "code",
   "files": [
     {
@@ -863,28 +863,28 @@
     },
     {
       "path": "export/SERVER_CONFIG.json",
-      "size": 17285,
-      "sha1": "27e11852b3250d8b0ccccc5647076dfe1c720f21"
+      "size": 16878,
+      "sha1": "622451399c8410baf24a40029da30e46e04eb7fe"
     },
     {
       "path": "export/SERVER_CONFIG.md",
-      "size": 13798,
-      "sha1": "444f0e2d0f8db52b8d9631e49b25ad089d8ac59c"
+      "size": 13489,
+      "sha1": "421efab6a692fc55621b5bc57df9b46348b5f435"
     },
     {
       "path": "export/afk.json",
-      "size": 3895,
-      "sha1": "c432c1a5d2d4d07b449d9392cfa7ddeedb6a75b4"
+      "size": 870,
+      "sha1": "88bc3710bf358a0849b7871c6cd5c9a9027c9f37"
     },
     {
       "path": "export/custom_vc_channels.json",
       "size": 1209,
-      "sha1": "02b89a1bf1d459fc6c254c03a3c7e5ec6b6132fd"
+      "sha1": "500e08f5721e4d0476b6d4871ccaddcd70b67ce7"
     },
     {
       "path": "export/db_dump.json",
-      "size": 1381282,
-      "sha1": "f03f2425487cb905ec09cc8766f2a4b0dd8154f2"
+      "size": 1527343,
+      "sha1": "cb0cb2de736d5bacb779d6c675f5869d721c055a"
     },
     {
       "path": "export/players_1154838258027606117.csv",
@@ -893,18 +893,18 @@
     },
     {
       "path": "export/players_1488690726870057165.csv",
-      "size": 8841,
-      "sha1": "f866f0e02123835a03aaa411f8ed3bca94872fa5"
+      "size": 9369,
+      "sha1": "015e5d51436793f8804f5aa72bc85461d0d6af93"
     },
     {
       "path": "export/players_1524797937836621874.csv",
-      "size": 855,
-      "sha1": "0c70a4d344978f5b1d6e892b7692225e1cf5afe4"
+      "size": 1041,
+      "sha1": "863a95137e36a5e21a817a63b4efb5fb86c0b0ff"
     },
     {
       "path": "export/players_1547650379448188999.csv",
-      "size": 20117,
-      "sha1": "635cc458227370e7e52d0f50f81ed11875af53bb"
+      "size": 23023,
+      "sha1": "6e472bf033a07eefee0dc13ba9821db2fc8fc7b2"
     },
     {
       "path": "export/servers/1154838258027606117/config.json",
@@ -928,33 +928,33 @@
     },
     {
       "path": "export/servers/1488690726870057165/config.json",
-      "size": 9967,
-      "sha1": "097776d943a687c0a66eb122def793afdfc56d61"
+      "size": 9396,
+      "sha1": "3d203d5e89361b2ddb1af29347db5313ac6791fd"
     },
     {
       "path": "export/servers/1488690726870057165/config.md",
-      "size": 8631,
-      "sha1": "fc3c15305ec81b3f1589525d61b5c1329cb6fc42"
+      "size": 8117,
+      "sha1": "e59696629ac855296ea07b2facf26494833d0e4a"
     },
     {
       "path": "export/servers/1488690726870057165/data.json",
-      "size": 6161,
-      "sha1": "ba1906e7391c07d62325f76935421bf97269ee89"
+      "size": 3136,
+      "sha1": "e51656bfa6219fe10c96e3df74c3e87e88445c34"
     },
     {
       "path": "export/servers/1488690726870057165/database.json",
-      "size": 1280691,
-      "sha1": "ec49a624f1267ba813050009e10ee17df05512cd"
+      "size": 1394553,
+      "sha1": "8c5e5f98b76df38e75e70516ac5a294f04a68c9f"
     },
     {
       "path": "export/servers/1524797937836621874/config.json",
       "size": 886,
-      "sha1": "43bca2ed5d2d81b0338ed05ef48b4e673f1b22c2"
+      "sha1": "04b50f88089abfd93219e3e19bce214ca25b81a5"
     },
     {
       "path": "export/servers/1524797937836621874/config.md",
       "size": 1150,
-      "sha1": "5cac90c76f43a395f31d1a18e20291731dfe64c7"
+      "sha1": "8a4af8aeefb1a59d27714e8af9e46902b8916138"
     },
     {
       "path": "export/servers/1524797937836621874/data.json",
@@ -963,18 +963,18 @@
     },
     {
       "path": "export/servers/1524797937836621874/database.json",
-      "size": 2618,
-      "sha1": "14904c8f8fa4f6d429d85ea6ea1d0b6c66ce7c7b"
+      "size": 3149,
+      "sha1": "501bad75e5ba8be2dec52eeba09065779beffc9e"
     },
     {
       "path": "export/servers/1547650379448188999/config.json",
-      "size": 2859,
-      "sha1": "d2389c470b27b7706bd3392e01ac453670deb195"
+      "size": 3079,
+      "sha1": "c1fb8522bc6b3df218b9fea2592dc5b81b17a029"
     },
     {
       "path": "export/servers/1547650379448188999/config.md",
-      "size": 2678,
-      "sha1": "88d2c67625ca682884bf5aafc4acdfae7b56485e"
+      "size": 2883,
+      "sha1": "3868ae4728d6185f2b1998e6a51961c5caf75e2d"
     },
     {
       "path": "export/servers/1547650379448188999/data.json",
@@ -983,8 +983,8 @@
     },
     {
       "path": "export/servers/1547650379448188999/database.json",
-      "size": 97985,
-      "sha1": "03aa3b24adc9ce55c1395de73323fb7fe04556eb"
+      "size": 129653,
+      "sha1": "e50ce6480c694b17f3985a959ffa0e83431a101b"
     },
     {
       "path": "main.py",

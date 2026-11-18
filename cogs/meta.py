@@ -9,6 +9,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
+from core import checks
 from core.config import BLURPLE, BRAND, PREFIX
 from core.errors import VCError
 from core.icons import I, ok
@@ -56,7 +57,7 @@ DESC = {
     "customvc": "Set the join-to-create channel", "customvc config": "Who can't be vc-banned, kicked or muted", "interface": "Post the voice control panel",
     "sync": "Sync slash commands", "backup": "Backup status", "backup refresh": "Back up right now",
     "backupload": "Attach data zip(s) to merge them into the bot", "backup config": "Send the readable config + players list",
-    "kon": "About Kon", "konping": "Latency, uptime and status", "koninfo": "Servers, members and bot stats",
+    "konping": "Latency, uptime and status", "koninfo": "Servers, members and bot stats",
     "aura": "Show your aura (or @member's)", "aura config": "Fix aura, random on/off, switch a person off",
     "transfer": "Move roles from one member to another (Kon admins)",
     "tictactoe": "Tic Tac Toe info", "tictactoe play": "Challenge a member (only in the game channel)",
@@ -80,13 +81,7 @@ DESC = {
 SECTIONS = (("member", "Everyone"), ("admin", "Admins"), ("owner", "Owner"))
 
 
-def true_owner_only():
-    """Only the real bot owner (not the extra owners). Fails silently like is_owner."""
-    async def predicate(ctx: commands.Context):
-        if await ctx.bot.is_true_owner(ctx.author):
-            return True
-        raise commands.NotOwner("Only the bot owner can do this.")
-    return commands.check(predicate)
+true_owner_only = checks.true_owner_only          # kept for the old name
 
 
 def fmt_secs(s: int) -> str:
@@ -166,7 +161,7 @@ class HelpView(OwnedView):
 
 
 class InfoView(OwnedView):
-    PER_PAGE = 8
+    PER_PAGE = 5
 
     def __init__(self, cog, ctx, owner: bool):
         super().__init__(ctx.author.id, timeout=300)
@@ -184,9 +179,13 @@ class InfoView(OwnedView):
         humans = sum(1 for u in b.users if not u.bot)
         channels = sum(len(g.channels) for g in gs)
         lines = [
-            f"{I.s('folder')} **Servers:** {len(gs):,}  ·  {I.s('users')} **Members:** {members:,} (unique {humans:,})",
-            f"{I.s('message')} **Channels:** {channels:,}  ·  {I.s('heart')} **Players:** {b.db.counts()['users']:,}",
-            f"{I.s('signal')} **{b.latency * 1000:.0f} ms**  ·  {I.s('clock')} **{fmt_secs(time.time() - self.cog.started)}**  ·  py {platform.python_version()} / dpy {discord.__version__}",
+            f"{I.s('folder')} **Servers:** `{len(gs):,}`",
+            f"{I.s('users')} **Members:** `{members:,}` (unique `{humans:,}`)",
+            f"{I.s('message')} **Channels:** `{channels:,}`",
+            f"{I.s('heart')} **Players:** `{b.db.counts()['users']:,}`",
+            f"{I.s('signal')} **Latency:** `{b.latency * 1000:.0f} ms`",
+            f"{I.s('clock')} **Uptime:** `{fmt_secs(time.time() - self.cog.started)}`",
+            f"{I.s('terminal')} **Python:** `{platform.python_version()}` · **discord.py:** `{discord.__version__}`",
         ]
         return discord.Embed(title=f"{I.s('sparkles')} Kon Info", color=BRAND, description="\n".join(lines))
 
@@ -195,10 +194,10 @@ class InfoView(OwnedView):
         pages = max(1, -(-len(gs) // self.PER_PAGE))
         self.page = max(0, min(self.page, pages - 1))
         chunk = gs[self.page * self.PER_PAGE:(self.page + 1) * self.PER_PAGE]
-        lines = [f"**{self.page * self.PER_PAGE + i}.** **{g.name}** · {I.s('users')} `{g.member_count or 0:,}` · `{g.id}`"
-                 for i, g in enumerate(chunk, 1)]
+        lines = [f"**{self.page * self.PER_PAGE + i}.** **{g.name}**\n{I.s('users')} **Members:** `{g.member_count or 0:,}`\n"
+                 f"{I.s('tag')} **ID:** `{g.id}`" for i, g in enumerate(chunk, 1)]
         e = discord.Embed(title=f"{I.s('folder')} Kon is in {len(gs)} server(s)", color=BLURPLE,
-                          description="\n".join(lines) or "—")
+                          description="\n\n".join(lines) or "—")
         e.set_footer(text=f"Page {self.page + 1}/{pages} · {sum(g.member_count or 0 for g in gs):,} members in total")
         return e
 
@@ -244,19 +243,6 @@ class Meta(commands.Cog):
         self.started = time.time()
 
     # ---------- $kon / $konping / $koninfo ----------
-    @commands.hybrid_command(name="kon", description="About Kon")
-    @app_commands.describe(sub="ping or info (optional)")
-    async def kon(self, ctx: commands.Context, sub: Optional[str] = None):
-        """$kon - short intro. (`$konping` = latency, `$koninfo` = servers + members.)"""
-        sub = (sub or "").lower()
-        if sub == "ping":
-            return await ctx.invoke(self.kon_ping)
-        if sub == "info":
-            return await ctx.invoke(self.kon_info)
-        e = discord.Embed(title=f"{I.s('sparkles')} Kon", color=BRAND, description=(
-            f"{I.s('check')} Online  ·  `{PREFIX}konping`  ·  `{PREFIX}koninfo`  ·  `{PREFIX}adminhelp`"))
-        await ctx.reply(embed=e, mention_author=False)
-
     @commands.hybrid_command(name="konping", aliases=["kping"], description="Show Kon's latency and uptime")
     async def kon_ping(self, ctx: commands.Context):
         """$konping - latency, uptime and status."""
@@ -273,9 +259,11 @@ class Meta(commands.Cog):
         worst = max(ws / 150, api / 300, db / 20)
         status, color = (("Active", BRAND) if worst < 1 else ("Slow", 0xF58219) if worst < 2.5 else ("Struggling", 0xED4245))
         e = discord.Embed(title=f"{I.s('sparkles')} Kon Ping", color=color, description=(
-            f"{I.s('check')} **{status}**  ·  {I.s('clock')} {fmt_secs(time.time() - self.started)}\n"
-            f"{I.s('signal')} `{ws:.0f} ms` {dot(ws, 150, 300)}  ·  {I.s('bolt')} `{api:.0f} ms` {dot(api, 300, 700)}"
-            f"  ·  {I.s('folder')} `{db:.1f} ms` {dot(db, 20, 100)}"))
+            f"{I.s('check')} **Status:** `{status}`\n"
+            f"{I.s('signal')} **Gateway latency:** `{ws:.0f} ms` {dot(ws, 150, 300)}\n"
+            f"{I.s('bolt')} **API latency:** `{api:.0f} ms` {dot(api, 300, 700)}\n"
+            f"{I.s('folder')} **Database:** `{db:.1f} ms` {dot(db, 20, 100)}\n"
+            f"{I.s('clock')} **Uptime:** `{fmt_secs(time.time() - self.started)}`"))
         await msg.edit(content=None, embed=e)
 
     @commands.hybrid_command(name="koninfo", aliases=["kinfo"], description="Servers, members and stats of Kon")

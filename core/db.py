@@ -180,6 +180,14 @@ class DB:
             "SELECT * FROM users WHERE guild_id=? AND (points>0 OR chat_total>0) ORDER BY points DESC, chat_total DESC LIMIT ?",
             (gid, limit)).fetchall()
 
+    def leaderboard_page(self, gid, limit=5, offset=0):
+        return self.conn.execute(
+            "SELECT * FROM users WHERE guild_id=? AND (points>0 OR chat_total>0) ORDER BY points DESC, chat_total DESC LIMIT ? OFFSET ?",
+            (gid, limit, offset)).fetchall()
+
+    def leaderboard_count(self, gid) -> int:
+        return self.conn.execute("SELECT COUNT(*) FROM users WHERE guild_id=? AND (points>0 OR chat_total>0)", (gid,)).fetchone()[0]
+
     def rank(self, gid, uid) -> int:
         return self.conn.execute(
             "SELECT COUNT(*)+1 FROM users WHERE guild_id=? AND points > COALESCE((SELECT points FROM users WHERE guild_id=? AND user_id=?),0)",

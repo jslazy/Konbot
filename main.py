@@ -9,7 +9,7 @@ import discord
 from discord.ext import commands
 
 from core import ratelimit
-from core.config import AUTO_SYNC, DB_FILE, PREFIX, TOKEN, VC_FILE
+from core.config import AUTO_SYNC, DB_FILE, OWNER_IDS, PREFIX, TOKEN, VC_FILE
 from core.db import DB
 from core.icons import I
 from core.store import Store
@@ -48,7 +48,7 @@ class Kon(commands.Bot):
     # ---------- owner + extra owners ($konextra) ----------
     async def is_true_owner(self, user) -> bool:
         """The real bot owner only (can manage the extra owners)."""
-        return await super().is_owner(user)
+        return user.id in OWNER_IDS or await super().is_owner(user)
 
     def extra_owners(self, gid: int) -> list:
         """Members added with $konextra in server `gid` (every server has its own list)."""
@@ -56,17 +56,17 @@ class Kon(commands.Bot):
 
     async def is_owner_in(self, user, gid) -> bool:
         """True owner (everywhere) or extra owner of THIS server only."""
-        if await super().is_owner(user):
+        if await self.is_true_owner(user):
             return True
         return gid is not None and user.id in self.store.owners(gid)
 
     async def is_owner(self, user) -> bool:
         """Server-less check = real bot owner only. Use is_owner_in(user, guild_id) for owner commands."""
-        return await super().is_owner(user)
+        return await self.is_true_owner(user)
 
     def is_owner_fast(self, user_id: int, gid) -> bool:
         """Same as is_owner_in but without await (the owner id is loaded once at startup)."""
-        if user_id == self.owner_id or user_id in (self.owner_ids or ()):
+        if user_id in OWNER_IDS or user_id == self.owner_id or user_id in (self.owner_ids or ()):
             return True
         return gid is not None and user_id in self.store.owners(gid)
 

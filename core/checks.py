@@ -21,3 +21,13 @@ def admin_or_owner(perm: str = "manage_guild"):
             return True
         raise commands.MissingPermissions([perm])
     return commands.check(predicate)
+
+
+def true_owner_only():
+    """ONLY the real bot owner (application owner or an ID in OWNER_IDS). $konextra owners do NOT pass.
+    Fails silently like commands.is_owner. Used for $backup* and the image host."""
+    async def predicate(ctx: commands.Context):
+        if await ctx.bot.is_true_owner(ctx.author):
+            return True
+        raise commands.NotOwner("Only the bot owner can do this.")
+    return commands.check(predicate)

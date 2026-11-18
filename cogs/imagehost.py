@@ -1,7 +1,8 @@
-"""Image host - turn any image / GIF / banner into a link. The files live in ONE private storage channel; only the
-LINK (+ the hosting message id) is saved in Kon's data, so backups stay small and safe.
+"""Image host - turn any image / GIF / banner into a link. ALL files live in ONE private storage channel that the BOT OWNER
+sets in HIS OWN server (`$imgchannel`). Whatever any other server uploads through Kon (self-role banners, `$tolink`, ...)
+is saved there too; only the LINK (+ the hosting message id) is kept in each server's data, so backups stay small.
 
-(Admins = Manage Server, the bot owner or a $konextra owner)
+BOT OWNER ONLY (the application owner / OWNER_IDS) - admins and $konextra owners can't use these commands.
 $imgchannel [#channel]      set the storage channel (no channel = this one)      $imgchannelreset  remove it
 $tolink [name] [url]        attach an image / GIF, reply to a message with one, or give a link -> saved link
                             (aliases: $link, $imglink)   up to 5 files at once
@@ -26,18 +27,20 @@ from discord import app_commands
 from discord.ext import commands
 
 from core import checks
-from core.config import BLURPLE, BRAND, PREFIX
+from core.config import ASSET_CHANNEL_ID, BLURPLE, BRAND, PREFIX
 from core.errors import VCError
 from core.icons import I, ok
-from core.ui import replied_message
+from core.ui import OwnedView, replied_message
 
 log = logging.getLogger("kon.imagehost")
 
-KEY = "imagehost"
+KEY = "imagehost"                 # per server: the saved names -> links
+HOST_KEY = "imagehost_host"       # ONE global setting (stored under guild 0): the owner's storage channel
+HOST_GID = 0
 MAX_FILES = 5
 MAX_ITEMS = 300
 HARD_LIMIT = 25 * 1024 * 1024
-PER_PAGE = 8
+PER_PAGE = 6
 UA = {"User-Agent": "Mozilla/5.0 (Kon bot)"}
 URL_RE = re.compile(r"https?://[^\s<>]+")
 IMG_URL = re.compile(r"\.(?:png|jpe?g|gif|webp)(?:\?|$)", re.I)
@@ -65,6 +68,56 @@ def fmt_size(n: int) -> str:
     return f"{n / 1024:.0f} KB" if n < 1024 * 1024 else f"{n / 1024 / 1024:.1f} MB"
 
 
+class LinksView(OwnedView):
+    """Saved images list with First / Prev / Next / Last buttons."""
+
+    def __init__(self, cog, ctx, items: list, channel_text: str, page: int = 1):
+        super().__init__(ctx.author.id, timeout=300)
+        self.items, self.channel_text = items, channel_text
+        self.pages = max(1, -(-len(items) // PER_PAGE))
+        self.page = min(max(page, 1), self.pages) - 1
+        self.sync()
+
+    def embed(self) -> discord.Embed:
+        chunk = self.items[self.page * PER_PAGE:(self.page + 1) * PER_PAGE]
+        blocks = [f"{I.s('tag')} **{k}**\n{I.s('image')} `{it['t'].upper()}` · `{fmt_size(it.get('s', 0))}`\n"
+                  f"{I.s('member')} <@{it['by']}> · <t:{it['ts']}:R>" for k, it in chunk]
+        e = discord.Embed(color=BLURPLE, title=f"{I.s('image')} Saved images ({len(self.items)})",
+                          description="\n\n".join(blocks) + f"\n\n{I.s('folder')} **Host channel:** {self.channel_text}")
+        e.set_footer(text=f"Page {self.page + 1}/{self.pages} · {PREFIX}linkget <name> · {PREFIX}linkdel <name>")
+        return e
+
+    def sync(self):
+        self.first.disabled = self.prev.disabled = self.page <= 0
+        self.next.disabled = self.last.disabled = self.page >= self.pages - 1
+        self.counter.label = f"{self.page + 1}/{self.pages}"
+
+    async def go(self, interaction: discord.Interaction, page: int):
+        self.page = min(max(page, 0), self.pages - 1)
+        self.sync()
+        await interaction.response.edit_message(embed=self.embed(), view=self)
+
+    @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.secondary)
+    async def first(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.go(interaction, 0)
+
+    @discord.ui.button(emoji="◀", style=discord.ButtonStyle.primary)
+    async def prev(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.go(interaction, self.page - 1)
+
+    @discord.ui.button(label="1/1", style=discord.ButtonStyle.secondary, disabled=True)
+    async def counter(self, interaction: discord.Interaction, button: discord.ui.Button):
+        pass
+
+    @discord.ui.button(emoji="▶", style=discord.ButtonStyle.primary)
+    async def next(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.go(interaction, self.page + 1)
+
+    @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.secondary)
+    async def last(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.go(interaction, self.pages - 1)
+
+
 class ImageHost(commands.Cog):
     """Image / GIF / banner -> saved link."""
 
@@ -81,15 +134,31 @@ class ImageHost(commands.Cog):
     def save(self, gid: int, c: dict):
         self.bot.db.set_settings(gid, KEY, c)
 
-    def storage_channel(self, guild: discord.Guild) -> discord.TextChannel:
-        cid = self.cfg(guild.id)["channel"]
-        ch = guild.get_channel(cid) if cid else None
+    def host_id(self) -> int:
+        return self.bot.db.get_settings(HOST_GID, HOST_KEY).get("channel") or ASSET_CHANNEL_ID or 0
+
+    def host_ready(self) -> bool:
+        try:
+            self.storage_channel()
+            return True
+        except VCError:
+            return False
+
+    def storage_channel(self, guild=None) -> discord.TextChannel:
+        """The bot owner's image channel (in the OWNER'S server) - the same one for every server."""
+        cid = self.host_id()
+        ch = self.bot.get_channel(cid) if cid else None
         if not isinstance(ch, discord.TextChannel):
-            raise VCError(f"No image channel yet. An admin can set one with `{PREFIX}imgchannel #channel`.")
-        p = ch.permissions_for(guild.me)
+            raise VCError(f"The bot owner hasn't set the image host channel yet (`{PREFIX}imgchannel #channel` in the owner's server).")
+        p = ch.permissions_for(ch.guild.me)
         if not (p.view_channel and p.send_messages and p.attach_files):
             raise VCError(f"I need **View Channel, Send Messages and Attach Files** in {ch.mention}.")
         return ch
+
+    async def host_upload(self, data: bytes, filename: str, note: str) -> discord.Message:
+        """For other cogs: upload a file into the owner's image channel and return the hosting message."""
+        ch = self.storage_channel()
+        return await ch.send(note, file=discord.File(io.BytesIO(data), filename=filename), allowed_mentions=NO_PING)
 
     # ------------------------------------------------------------ API for other features
     async def fresh_url(self, guild: discord.Guild, name: str) -> Optional[str]:
@@ -98,7 +167,7 @@ class ImageHost(commands.Cog):
         it = c["items"].get(slug(name))
         if not it:
             return None
-        ch = guild.get_channel(it["c"])
+        ch = self.bot.get_channel(it["c"])
         if ch is not None:
             try:
                 msg = await ch.fetch_message(it["m"])
@@ -163,9 +232,9 @@ class ImageHost(commands.Cog):
 
     # ------------------------------------------------------------ commands
     @commands.hybrid_command(name="imgchannel", aliases=["setimg", "imagechannel"],
-                             description="(Admin) Set the private channel that stores converted images")
+                             description="(Bot owner) Set the private channel that stores converted images")
     @app_commands.describe(channel="Storage channel (default: this one)")
-    @checks.admin_or_owner()
+    @checks.true_owner_only()
     async def imgchannel(self, ctx: commands.Context, channel: Optional[discord.TextChannel] = None):
         channel = channel or ctx.channel
         if not isinstance(channel, discord.TextChannel):
@@ -173,28 +242,25 @@ class ImageHost(commands.Cog):
         p = channel.permissions_for(ctx.guild.me)
         if not (p.view_channel and p.send_messages and p.attach_files):
             raise VCError(f"I need **View Channel, Send Messages and Attach Files** in {channel.mention}.")
-        c = self.cfg(ctx.guild.id)
-        c["channel"] = channel.id
-        self.save(ctx.guild.id, c)
-        await ctx.reply(ok(f"Images are stored in {channel.mention} now. Keep that channel private and don't delete "
-                           f"its messages.\nConvert with `{PREFIX}tolink` · list with `{PREFIX}links`."),
+        self.bot.db.set_settings(HOST_GID, HOST_KEY, {"channel": channel.id, "guild": ctx.guild.id})
+        await ctx.reply(ok(f"Image host channel = {channel.mention}. Images that **any** server uploads through Kon are "
+                           f"saved here now. Keep it private and don't delete its messages.\n"
+                           f"Convert with `{PREFIX}tolink` · list with `{PREFIX}links`."),
                         mention_author=False)
 
-    @commands.hybrid_command(name="imgchannelreset", description="(Admin) Remove the image storage channel setting")
-    @checks.admin_or_owner()
+    @commands.hybrid_command(name="imgchannelreset", description="(Bot owner) Remove the image storage channel setting")
+    @checks.true_owner_only()
     async def imgchannelreset(self, ctx: commands.Context):
-        c = self.cfg(ctx.guild.id)
-        if not c["channel"]:
+        if not self.bot.db.get_settings(HOST_GID, HOST_KEY).get("channel"):
             raise VCError("No image channel was set.")
-        c["channel"] = None
-        self.save(ctx.guild.id, c)
+        self.bot.db.set_settings(HOST_GID, HOST_KEY, {})
         await ctx.reply(ok("Image channel removed. Saved links keep working; new uploads need a new channel."),
                         mention_author=False)
 
     @commands.hybrid_command(name="tolink", aliases=["link", "imglink"],
-                             description="(Admin) Turn an image / GIF / banner into a saved link")
+                             description="(Bot owner) Turn an image / GIF / banner into a saved link")
     @app_commands.describe(name="Name to save it under (optional)", image="Image or GIF file", url="...or a link to an image")
-    @checks.admin_or_owner()
+    @checks.true_owner_only()
     async def tolink(self, ctx: commands.Context, name: Optional[str] = None,
                      image: Optional[discord.Attachment] = None, url: Optional[str] = None):
         """$tolink [name] + attach a file / reply to a message with an image / $tolink name https://link"""
@@ -208,12 +274,12 @@ class ImageHost(commands.Cog):
         if not sources:
             raise VCError(f"Attach an image / GIF, reply to a message that has one, or give a link: "
                           f"`{PREFIX}tolink banner https://...`")
-        ch = self.storage_channel(ctx.guild)
+        ch = self.storage_channel()
         c = self.cfg(ctx.guild.id)
         base = slug(name) if name else ""
         if name and not base:
             raise VCError("Use letters, numbers, `-` or `_` for the name.")
-        limit = min(ctx.guild.filesize_limit, HARD_LIMIT)
+        limit = min(ch.guild.filesize_limit, HARD_LIMIT)
 
         results = []
         async with ctx.typing():
@@ -231,7 +297,7 @@ class ImageHost(commands.Cog):
                 replaced = key in c["items"]
                 if not replaced and len(c["items"]) >= MAX_ITEMS:
                     raise VCError(f"The list is full ({MAX_ITEMS}). Delete some with `{PREFIX}linkdel <name>`.")
-                msg = await ch.send(f"`{key}` · saved by {ctx.author} (storage - don't delete)",
+                msg = await ch.send(f"`{key}` · {ctx.author} · {ctx.guild.name} (storage - don't delete)",
                                     file=discord.File(io.BytesIO(data), filename=f"{key}.{ext}"),
                                     allowed_mentions=NO_PING)
                 old = c["items"].get(key)
@@ -239,12 +305,13 @@ class ImageHost(commands.Cog):
                                    "s": len(data), "by": ctx.author.id, "ts": int(time.time())}
                 self.save(ctx.guild.id, c)
                 if old:
-                    await self.forget(ctx.guild, old)
+                    await self.forget(old)
                 results.append((key, ext, len(data), msg.attachments[0].url, replaced))
 
         e = discord.Embed(color=BRAND, title=f"{I.s('link')} Saved link" + ("s" if len(results) > 1 else ""))
-        e.description = "\n".join(
-            f"**{k}** · {ext.upper()} · {fmt_size(size)}" + (" · *replaced the old one*" if rep else "") + f"\n```{u}```"
+        e.description = "\n\n".join(
+            f"{I.s('tag')} **Name:** `{k}`\n{I.s('image')} **Type:** `{ext.upper()}`\n{I.s('folder')} **Size:** `{fmt_size(size)}`"
+            + (f"\n{I.s('refresh')} **Replaced the old one**" if rep else "") + f"\n{I.s('link')} **Link:**\n```{u}```"
             for k, ext, size, u, rep in results)
         if len(results) == 1:
             e.set_image(url=results[0][3])
@@ -258,57 +325,52 @@ class ImageHost(commands.Cog):
             n += 1
         return f"img-{n}"
 
-    async def forget(self, guild: discord.Guild, it: Optional[dict]):
+    async def forget(self, it: Optional[dict]):
         """Delete the hosting message (best effort)."""
         if not it:
             return
-        ch = guild.get_channel(it.get("c", 0))
+        ch = self.bot.get_channel(it.get("c", 0))
         if ch is not None:
             try:
                 await ch.get_partial_message(it["m"]).delete()
             except discord.HTTPException:
                 pass
 
-    @commands.hybrid_command(name="links", aliases=["imglist", "linklist"], description="List the saved image links")
+    @commands.hybrid_command(name="links", aliases=["imglist", "linklist"], description="(Bot owner) List the saved image links")
     @app_commands.describe(page="Page number")
-    @checks.admin_or_owner()
+    @checks.true_owner_only()
     async def links(self, ctx: commands.Context, page: int = 1):
         c = self.cfg(ctx.guild.id)
         items = sorted(c["items"].items())
-        ch = f"<#{c['channel']}>" if c["channel"] else f"*not set* - `{PREFIX}imgchannel #channel`"
+        hid = self.host_id()
+        ch = f"<#{hid}>" if hid else f"*not set* - `{PREFIX}imgchannel #channel`"
         if not items:
-            raise VCError(f"Nothing saved yet. Storage channel: {ch.replace('*', '')}. Use `{PREFIX}tolink`.")
-        pages = max(1, -(-len(items) // PER_PAGE))
-        page = min(max(page, 1), pages)
-        chunk = items[(page - 1) * PER_PAGE: page * PER_PAGE]
-        lines = [f"**{k}** · {it['t'].upper()} · {fmt_size(it.get('s', 0))} · <@{it['by']}> · <t:{it['ts']}:R>"
-                 for k, it in chunk]
-        e = discord.Embed(color=BLURPLE, title=f"{I.s('image')} Saved images ({len(items)})", description="\n".join(lines))
-        e.add_field(name="Storage channel", value=ch, inline=False)
-        e.set_footer(text=f"Page {page}/{pages} · {PREFIX}linkget <name> · {PREFIX}linkdel <name>")
-        await ctx.reply(embed=e, mention_author=False)
+            raise VCError(f"Nothing saved in this server yet. Image host channel: {ch.replace('*', '')}. Use `{PREFIX}tolink`.")
+        view = LinksView(self, ctx, items, ch, page)
+        view.message = await ctx.reply(embed=view.embed(), view=view, mention_author=False)
 
     @commands.hybrid_command(name="linkget", aliases=["getlink"], description="Fresh link + preview of a saved image")
     @app_commands.describe(name="Saved image name")
-    @checks.admin_or_owner()
+    @checks.true_owner_only()
     async def linkget(self, ctx: commands.Context, name: str):
         url = await self.fresh_url(ctx.guild, name)
         if not url:
             raise VCError(f"No saved image called `{slug(name)}`. See `{PREFIX}links`.")
-        e = discord.Embed(color=BRAND, title=f"{I.s('link')} {slug(name)}", description=f"```{url}```")
+        e = discord.Embed(color=BRAND, title=f"{I.s('link')} {slug(name)}",
+                          description=f"{I.s('link')} **Fresh link:**\n```{url}```")
         e.set_image(url=url)
         await ctx.reply(embed=e, mention_author=False)
 
-    @commands.hybrid_command(name="linkdel", aliases=["dellink"], description="(Admin) Delete a saved image")
+    @commands.hybrid_command(name="linkdel", aliases=["dellink"], description="(Bot owner) Delete a saved image")
     @app_commands.describe(name="Saved image name")
-    @checks.admin_or_owner()
+    @checks.true_owner_only()
     async def linkdel(self, ctx: commands.Context, name: str):
         c = self.cfg(ctx.guild.id)
         it = c["items"].pop(slug(name), None)
         if it is None:
             raise VCError(f"No saved image called `{slug(name)}`.")
         self.save(ctx.guild.id, c)
-        await self.forget(ctx.guild, it)
+        await self.forget(it)
         await ctx.reply(ok(f"**{slug(name)}** deleted."), mention_author=False)
 
 

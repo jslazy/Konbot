@@ -1,55 +1,5 @@
 {
   "afk": {
-    "1433650059043405959": {
-      "reason": "AFK",
-      "since": 1794399701.4202316,
-      "guild_id": 1488690726870057165,
-      "old_nick": null,
-      "mentions": [
-        {
-          "author": "Dark DeadSoul",
-          "channel_id": 1488691402039627776,
-          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1570051404062658685",
-          "content": "No"
-        },
-        {
-          "author": "Dark DeadSoul",
-          "channel_id": 1488691402039627776,
-          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1570051437218758779",
-          "content": "Kha se du"
-        },
-        {
-          "author": "MOD | TacticalShower",
-          "channel_id": 1568343826425323692,
-          "url": "https://discord.com/channels/1547650379448188999/1568343826425323692/1570507857902833827",
-          "content": "<@1433650059043405959> why my cutie inactive lately"
-        },
-        {
-          "author": "Raven",
-          "channel_id": 1571029761864499311,
-          "url": "https://discord.com/channels/1547650379448188999/1571029761864499311/1571037671315472415",
-          "content": "g.m <@1433650059043405959>"
-        },
-        {
-          "author": "HM | TacticalShower",
-          "channel_id": 1568343746247139419,
-          "url": "https://discord.com/channels/1547650379448188999/1568343746247139419/1571344506693885994",
-          "content": "<@1433650059043405959> bro where are you"
-        },
-        {
-          "author": "HM | TacticalShower",
-          "channel_id": 1568343826425323692,
-          "url": "https://discord.com/channels/1547650379448188999/1568343826425323692/1571710355380510773",
-          "content": "Why <@1433650059043405959> no online now"
-        },
-        {
-          "author": "Patrick Badmosh",
-          "channel_id": 1568343826425323692,
-          "url": "https://discord.com/channels/1547650379448188999/1568343826425323692/1572317299921256460",
-          "content": "<@1433650059043405959> my garama <:misc_sob:1528451858757320908> <:misc_sob:1528451858757320908>"
-        }
-      ]
-    },
     "1512822379061969028": {
       "reason": "sone ja raha",
       "since": 1794505670.9405162,
@@ -75,33 +25,6 @@
           "channel_id": 1571917188183363594,
           "url": "https://discord.com/channels/1488690726870057165/1571917188183363594/1571951848339013683",
           "content": "Gn"
-        }
-      ]
-    },
-    "1088001174457831465": {
-      "reason": "AFK",
-      "since": 1794937418.4721534,
-      "guild_id": 1488690726870057165,
-      "old_nick": null,
-      "mentions": []
-    },
-    "1262248731353546763": {
-      "reason": "gn",
-      "since": 1794941825.5695066,
-      "guild_id": 1488690726870057165,
-      "old_nick": null,
-      "mentions": [
-        {
-          "author": "Lazy",
-          "channel_id": 1572286596735303771,
-          "url": "https://discord.com/channels/1488690726870057165/1572286596735303771/1572343647901327411",
-          "content": "<@1262248731353546763> ko bol deta hu kal event hoga"
-        },
-        {
-          "author": "Lazy",
-          "channel_id": 1488691402039627776,
-          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1572401317635170315",
-          "content": "<@1569505818506698823> <@1262248731353546763>"
         }
       ]
     }

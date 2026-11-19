@@ -1,0 +1,72 @@
+{
+  "server": {
+    "id": 1154838258027606117,
+    "name": "Lazy",
+    "bot_is_in_server": true,
+    "owner_id": 650534818517483526,
+    "members": 9
+  },
+  "custom_vc": {
+    "join_to_create_channel": null,
+    "interface_channel": null,
+    "interface_message_id": null,
+    "saved_setup (last known, survives channel deletion)": {
+      "join_to_create": null,
+      "interface": null,
+      "panel_message_id": null
+    },
+    "other_keys": {},
+    "active_custom_vcs": {}
+  },
+  "self_roles": null,
+  "points_settings": null,
+  "shop": {
+    "settings": null,
+    "items": []
+  },
+  "no_prefix": null,
+  "aliases": null,
+  "role_commands": null,
+  "autoreact": null,
+  "aura": null,
+  "custom_vc_rules": null,
+  "tictactoe": null,
+  "webhook_sender (name, avatar, embed, images)": null,
+  "saved_images ($tolink names -> links)": {
+    "channel": null,
+    "items": {
+      "img-1": {
+        "c": 1572663742091632681,
+        "m": 1572762221564399626,
+        "url": "https://cdn.discordapp.com/attachments/1572663742091632681/1572762221292032173/img-1.png?ex=6aff8c76&is=6afe3af6&hm=f83907cf51458460f6aec025318bc5b3cadab1ac349c7ba4199ed96d88c46e4e&",
+        "t": "png",
+        "s": 408181,
+        "by": 650534818517483526,
+        "ts": 1795046134
+      }
+    }
+  },
+  "command_disable ($disablecommand)": null,
+  "extra_owners": [],
+  "afk": {
+    "tag_enabled": true,
+    "users": {}
+  },
+  "all_settings_raw": {
+    "imagehost": {
+      "channel": null,
+      "items": {
+        "img-1": {
+          "c": 1572663742091632681,
+          "m": 1572762221564399626,
+          "url": "https://cdn.discordapp.com/attachments/1572663742091632681/1572762221292032173/img-1.png?ex=6aff8c76&is=6afe3af6&hm=f83907cf51458460f6aec025318bc5b3cadab1ac349c7ba4199ed96d88c46e4e&",
+          "t": "png",
+          "s": 408181,
+          "by": 650534818517483526,
+          "ts": 1795046134
+        }
+      }
+    }
+  },
+  "players_in_database": 2
+}

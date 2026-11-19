@@ -1,0 +1,141 @@
+{
+  "server_id": 1488690726870057165,
+  "vc_data.guilds": {
+    "create": 1488691385266864208
+  },
+  "vc_data.selfroles": {
+    "channel": 1488691387653161131,
+    "message": 1570315881425141783,
+    "title": "Self Roles :",
+    "title_emoji": "<:Spider_Diamond:1570309161198293013>",
+    "footer": "Click the buttons below to toggle your roles.",
+    "color": 4906624,
+    "banner": null,
+    "roles": [
+      {
+        "role": 1488691267574698006,
+        "label": "Event Ping",
+        "emoji": "<:cal2:1570309163999821864>",
+        "line": "Event Ping",
+        "line_emoji": "<:cal2:1570309163999821864>"
+      },
+      {
+        "role": 1488691305323167774,
+        "label": "Fun Ping",
+        "emoji": "<:senpai_wow:1570309166965465138>",
+        "line": "Fun Ping",
+        "line_emoji": "<:senpai_wow:1570309166965465138>"
+      },
+      {
+        "role": 1488691271101972531,
+        "label": "Giveaway Ping",
+        "emoji": "<:Spider_Diamond:1570309161198293013>",
+        "line": "Giveaway Ping",
+        "line_emoji": "<:Spider_Diamond:1570309161198293013>"
+      },
+      {
+        "role": 1488691273446719489,
+        "label": "Social Feeds",
+        "emoji": "<:Spider_blue_verified:1570309169720987720>",
+        "line": "Social Feeds",
+        "line_emoji": "<:Spider_blue_verified:1570309169720987720>"
+      }
+    ],
+    "banner_url": "https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6afe2aca&is=6afcd94a&hm=2261b8b925161da0290d85c0eedb58c78ae658627103db92a10d7ee61c47916f&",
+    "banner_ref": {
+      "c": 1572381729233051669,
+      "m": 1572382470312296601
+    }
+  },
+  "vc_data.vcs": {
+    "1572796602043727892": {
+      "guild": 1488690726870057165,
+      "owner": 1299765230011678834,
+      "banned": [],
+      "block_drags": false,
+      "created": 1795054331.3185208
+    }
+  },
+  "vc_data.mutes": {},
+  "vc_data.guild_owners": [
+    1262248731353546763,
+    1154489620499800127
+  ],
+  "vc_data.vc_setup": {
+    "create": {
+      "id": 1488691385266864208,
+      "name": "🌱︲Custom VC⌝",
+      "type": "voice",
+      "category_id": 1488691343382286338,
+      "category": "╰ ¤〢Custom VC ︲🌱︲",
+      "position": 7,
+      "bitrate": 64000,
+      "user_limit": 1
+    }
+  },
+  "afk_data.afk": {
+    "1512822379061969028": {
+      "reason": "sone ja raha",
+      "since": 1794505670.9405162,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
+    },
+    "1567891350710657266": {
+      "reason": "<:Roast:1569605305011015711>",
+      "since": 1794849840.3807216,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
+    },
+    "1502235313081290855": {
+      "reason": "gn",
+      "since": 1794852923.8723984,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "TheSKY",
+          "channel_id": 1571917188183363594,
+          "url": "https://discord.com/channels/1488690726870057165/1571917188183363594/1571951848339013683",
+          "content": "Gn"
+        }
+      ]
+    },
+    "1473667943186305172": {
+      "reason": "school",
+      "since": 1795050215.0071063,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Lazy",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1572782992835874828",
+          "content": "Samm"
+        },
+        {
+          "author": "NOT AVAILABLE TILL 25",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1572794157959876770",
+          "content": "<@1473667943186305172> partnerships"
+        }
+      ]
+    },
+    "1425991437396217960": {
+      "reason": "bye bye",
+      "since": 1795054650.8185434,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Anshu >_<",
+          "channel_id": 1572624812688277524,
+          "url": "https://discord.com/channels/1488690726870057165/1572624812688277524/1572802877079162992",
+          "content": "<@1425991437396217960> logs dikhre hai ab?"
+        }
+      ]
+    }
+  },
+  "afk_data.tag": false
+}

@@ -26,6 +26,17 @@ def stock_long(stock: int) -> str:
     return f"{stock} remaining"
 
 
+def safe_partial(bot, text):
+    """Emoji for a select option. Deleted / unreachable custom emojis make Discord reject the whole
+    message (50035 Invalid emoji), so a custom emoji is used only if the bot can actually see it."""
+    pe = to_partial(text)
+    if pe is None:
+        return None
+    if pe.id is not None and bot.get_emoji(pe.id) is None:
+        return None
+    return pe
+
+
 class ItemView(discord.ui.View):
     """Ephemeral 'Item Details' with the purchase button."""
 
@@ -145,7 +156,7 @@ class ShopConfigView(OwnedView):
             role = self.guild.get_role(it["role_id"])
             opts.append(discord.SelectOption(label=(role.name if role else f"deleted role {it['role_id']}")[:100],
                                              value=str(it["id"]), description=f"{it['price']} pts · stock {stock_text(it['stock'])}",
-                                             emoji=to_partial(it["emoji"])))
+                                             emoji=safe_partial(self.cog.bot, it["emoji"])))
         view = discord.ui.View(timeout=120)
         sel = discord.ui.Select(placeholder=placeholder, options=opts)
 
@@ -245,7 +256,7 @@ class Shop(commands.Cog):
                 label=(f"{role.name} (Sold Out)" if it["stock"] == 0 else role.name)[:100],
                 value=str(it["id"]),
                 description=f"Price: {it['price']} pts — Stock: {stock_text(it['stock']) if it['stock'] else 0}"[:100],
-                emoji=to_partial(it["emoji"])))
+                emoji=safe_partial(self.bot, it["emoji"])))
         desc = "Pick a role to buy:\n\n" + ("\n\n".join(blocks) if blocks else
                                                     "The shop is empty.")
         if member is not None:                      # "Your Balance" (custom wallet icon) at the bottom of the shop
@@ -270,9 +281,18 @@ class Shop(commands.Cog):
     async def show_shop(self, ctx: commands.Context):
         await self.refresh_thumb(ctx.guild.id)
         embed, options = self.build(ctx.guild, ctx.author)
+        kw = dict(mention_author=False, allowed_mentions=discord.AllowedMentions.none())
         view = ShopView(self, options)
-        view.message = await ctx.reply(embed=embed, view=view, mention_author=False,
-                                       allowed_mentions=discord.AllowedMentions.none())
+        try:
+            view.message = await ctx.reply(embed=embed, view=view, **kw)
+        except discord.HTTPException as e:
+            if e.code != 50035:
+                raise
+            # some emoji in the dropdown is invalid -> show the shop again without dropdown emojis
+            for o in options:
+                o.emoji = None
+            view = ShopView(self, options)
+            view.message = await ctx.reply(embed=embed, view=view, **kw)
 
     @commands.hybrid_command(name="store", aliases=["shop"], description="Open the point shop (buy roles with points)")
     @commands.guild_only()

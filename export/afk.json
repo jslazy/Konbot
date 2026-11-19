@@ -1,0 +1,69 @@
+{
+  "afk": {
+    "1512822379061969028": {
+      "reason": "sone ja raha",
+      "since": 1794505670.9405162,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
+    },
+    "1567891350710657266": {
+      "reason": "<:Roast:1569605305011015711>",
+      "since": 1794849840.3807216,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
+    },
+    "1502235313081290855": {
+      "reason": "gn",
+      "since": 1794852923.8723984,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "TheSKY",
+          "channel_id": 1571917188183363594,
+          "url": "https://discord.com/channels/1488690726870057165/1571917188183363594/1571951848339013683",
+          "content": "Gn"
+        }
+      ]
+    },
+    "1473667943186305172": {
+      "reason": "school",
+      "since": 1795050215.0071063,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Lazy",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1572782992835874828",
+          "content": "Samm"
+        },
+        {
+          "author": "NOT AVAILABLE TILL 25",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1572794157959876770",
+          "content": "<@1473667943186305172> partnerships"
+        }
+      ]
+    },
+    "1425991437396217960": {
+      "reason": "bye bye",
+      "since": 1795054650.8185434,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Anshu >_<",
+          "channel_id": 1572624812688277524,
+          "url": "https://discord.com/channels/1488690726870057165/1572624812688277524/1572802877079162992",
+          "content": "<@1425991437396217960> logs dikhre hai ab?"
+        }
+      ]
+    }
+  },
+  "tag": {
+    "1488690726870057165": false
+  }
+}

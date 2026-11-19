@@ -154,6 +154,8 @@ class Kon(commands.Bot):
                     message.content = f"{pref}{target} {tail}".rstrip()
                 elif lw in self.rolecmds(message.guild.id) and self.get_command(lw) is None:
                     message.content = f"{pref}rolecmd {lw} {tail}".rstrip()   # custom role command
+                elif lw.startswith("set") and lw[3:] in self.rolecmds(message.guild.id) and self.get_command(lw) is None:
+                    message.content = f"{pref}rolecmd {lw[3:]} {tail}".rstrip()   # $setown == $own
                 elif lw == "vc" and tail.strip():           # "$vc kick @x"  ->  "$vckick @x"
                     sub, _, rest = tail.strip().partition(" ")
                     if self.get_command("vc" + sub.lower()):

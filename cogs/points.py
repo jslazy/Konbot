@@ -340,7 +340,7 @@ class LbStatSelect(discord.ui.Select):
 class LeaderboardView(OwnedView):
     """Ordinal-style leaderboard: 10 per page, Previous / Find Me / Next, a select for Messages / Points / Voice."""
 
-    def __init__(self, cog, ctx: commands.Context, stat: str = "messages"):
+    def __init__(self, cog, ctx: commands.Context, stat: str = "points"):
         super().__init__(ctx.author.id, timeout=300)
         self.cog, self.guild, self.author = cog, ctx.guild, ctx.author
         self.stat = stat
@@ -530,16 +530,16 @@ class Points(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
 
     # ---------- leaderboard ----------
-    @commands.hybrid_command(name="leaderboard", aliases=["lb", "top"], description="Leaderboard: messages, points or voice hours")
-    @app_commands.describe(stat="messages (default), points or voice")
+    @commands.hybrid_command(name="leaderboard", aliases=["lb", "top"], description="Leaderboard: points (default), messages or voice hours")
+    @app_commands.describe(stat="points (default), messages or voice")
     @app_commands.choices(stat=[app_commands.Choice(name="Messages", value="messages"),
                                 app_commands.Choice(name="Points", value="points"),
                                 app_commands.Choice(name="Voice hours", value="voice")])
     @commands.guild_only()
-    async def leaderboard(self, ctx: commands.Context, stat: str = "messages"):
+    async def leaderboard(self, ctx: commands.Context, stat: str = "points"):
         stat = LB_ALIASES.get(stat.lower().strip(), None)
         if stat is None:
-            raise VCError(f"Use `{PREFIX}lb messages`, `{PREFIX}lb points` or `{PREFIX}lb voice`.")
+            raise VCError(f"Use `{PREFIX}lb`, `{PREFIX}lb messages` or `{PREFIX}lb voice`.")
         if self.db.lb_count(ctx.guild.id, stat) == 0:
             raise VCError("Nobody is on that leaderboard yet. Start chatting!")
         view = LeaderboardView(self, ctx, stat)

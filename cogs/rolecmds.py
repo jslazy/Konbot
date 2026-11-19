@@ -1,5 +1,7 @@
 """$giverole ($gr) - turn any word into a command that gives a role.
 
+    $setrole own 123456789012345678      ->  (same as $giverole) role ID, @role or role name all work.
+                                             From now on  `$own @person`  AND  `$setown @person`  give that role.
     $giverole setmember @Member          ->  from now on  `$setmember @person`  gives @person the Member role
                                              (or REPLY to the person's message and just send `$setmember`)
     $giverole setvip @VIP @Staff         ->  same, but members with @Staff may use it too
@@ -18,6 +20,22 @@ from core.icons import I, ok
 MAX_ROLECMDS = 25
 MAX_TARGETS = 10
 RESERVED = {"list", "remove", "delete", "del", "clear"}
+
+
+def find_role(guild: discord.Guild, text) -> Optional[discord.Role]:
+    """Role from an ID, an @mention or an exact / partial name."""
+    text = (text or "").strip()
+    if not text:
+        return None
+    m = re.fullmatch(r"<@&(\d+)>|(\d{15,21})", text)
+    if m:
+        return guild.get_role(int(m.group(1) or m.group(2)))
+    low = text.lstrip("@").lower()
+    for r in guild.roles:
+        if r.name.lower() == low:
+            return r
+    hits = [r for r in guild.roles if low in r.name.lower()]
+    return hits[0] if len(hits) == 1 else None
 
 
 class RoleCmds(commands.Cog):
@@ -104,16 +122,24 @@ class RoleCmds(commands.Cog):
         await ctx.reply("\n".join(lines), mention_author=False, allowed_mentions=discord.AllowedMentions.none())
 
     # ---------- $giverole ----------
-    @commands.group(name="giverole", aliases=["gr"], invoke_without_command=True)
+    @commands.group(name="giverole", aliases=["gr", "setrole"], invoke_without_command=True)
     @commands.has_permissions(manage_guild=True)
     @commands.guild_only()
     async def giverole(self, ctx: commands.Context, name: Optional[str] = None,
-                        role: Optional[discord.Role] = None, allowed: Optional[discord.Role] = None):
-        """$giverole <command> <@role> [@who-can-use] - make `$<command> @user` (or a reply + `$<command>`) give that role"""
+                        role: Optional[str] = None, allowed: Optional[str] = None):
+        """$giverole <command> <role ID / @role / name> [who-can-use] - make `$<command> @user` (or a reply) give that role"""
         if name is None:
             return await self.send_help(ctx)
         if role is None:
-            raise VCError(f"Which role? `{PREFIX}giverole {name} @Role`")
+            raise VCError(f"Which role? `{PREFIX}giverole {name} <role ID>`")
+        role_text, allowed_text = role, allowed
+        role = find_role(ctx.guild, role_text)
+        if role is None:
+            raise VCError(f"I can't find a role from `{role_text[:40]}` in this server. Send the **role ID** "
+                          f"(Server Settings → Roles → right click → Copy Role ID) or mention the role.")
+        allowed = find_role(ctx.guild, allowed_text) if allowed_text else None
+        if allowed_text and allowed is None:
+            raise VCError(f"I can't find the role `{allowed_text[:40]}` for who-can-use.")
 
         name = name.lower().lstrip(PREFIX)
         if not re.fullmatch(r"[a-z0-9_]{1,20}", name):
@@ -135,15 +161,15 @@ class RoleCmds(commands.Cog):
         cmds[name] = {"role": role.id, "allowed": allowed.id if allowed else None}
         self.bot.save_rolecmds(ctx.guild.id)
         who = f"members with **Manage Roles**" + (f" or {allowed.mention}" if allowed else "")
-        await ctx.reply(ok(f"`{PREFIX}{name} @user` now gives {role.mention}. Reply works too.\n"
+        await ctx.reply(ok(f"`{PREFIX}{name} @user` (or `{PREFIX}set{name} @user`) now gives {role.mention}. Reply works too.\n"
                            f"Who can use it: {who}."),
                         mention_author=False, allowed_mentions=discord.AllowedMentions.none())
 
     async def send_help(self, ctx: commands.Context):
         e = discord.Embed(title=f"{I.s('link')} Role Commands", color=BLURPLE, description=(
             f"Make a command that gives a role.\n\n"
-            f"`{PREFIX}giverole <command> <@role> [@who-can-use]`\n"
-            f"Example: `{PREFIX}giverole setmember @Member`, then `{PREFIX}setmember @person` gives them **Member**.\n"
+            f"`{PREFIX}giverole <command> <role ID or @role> [@who-can-use]`  (also `{PREFIX}setrole`)\n"
+            f"Example: `{PREFIX}setrole own 123456789012345678`, then `{PREFIX}own @person` or `{PREFIX}setown @person` gives them that role.\n"
             f"Replying to someone works too.\n\n"
             f"`{PREFIX}giverole list` · `{PREFIX}giverole remove <command>`\n"
             f"**Manage Roles** can use it. Add a 3rd role to let that role use it too."))
@@ -158,7 +184,7 @@ class RoleCmds(commands.Cog):
         for n, d in sorted(cmds.items()):
             r = ctx.guild.get_role(d["role"])
             a = ctx.guild.get_role(d["allowed"]) if d.get("allowed") else None
-            lines.append(f"`{PREFIX}{n} @user` → {r.mention if r else '*deleted role*'}"
+            lines.append(f"`{PREFIX}{n} @user` / `{PREFIX}set{n}` → {r.mention if r else '*deleted role*'}"
                          + (f" · also {a.mention}" if a else ""))
         e = discord.Embed(title=f"{I.s('link')} Role Commands", color=BLURPLE,
                           description="\n".join(lines) or f"None yet. Try `{PREFIX}giverole setmember @Member`")

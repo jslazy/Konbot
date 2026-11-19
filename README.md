@@ -145,7 +145,7 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
 - **`$ei`**: animated emojis (of the servers you share with Kon) with their IDs, paginated. `$ei here`, `$ei <name>`, `$ei <emoji id>`.
 
 ## Update: leaderboard, webhook embeds, image uploads, expressions, VC, backup
-- **`$lb [messages|points|voice]`** - Ordinal-style board (10 per page, `Previous` / `Find Me` / `Next`, select for Messages / Points / Voice, Kon icons).
+- **`$lb`** (opens POINTS; menu switches to messages / voice) - Ordinal-style board (10 per page, `Previous` / `Find Me` / `Next`, select for Messages / Points / Voice, Kon icons).
 - **`$webhook`** - editor now has **Embed** (title, text, colour, footer, author), **Embed image**, **Thumbnail**, **Avatar** (upload or link) and
   **Name**. Everything is saved per server and shown again next time. `$whe` edits the embed too.
 - **Upload instead of link:** shop thumbnail, webhook avatar / embed image / thumbnail and the self-role banner all open a window with an
@@ -156,3 +156,5 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
   mute / unmute / deafen also work as a **reply** to the member's message.
 - **Backup:** `export/LINKS.md` lists every link / banner / image and where it is used; every server config now has
   an "EVERYTHING saved" section. `$backupload replace` makes the backup win over the live settings (use on a fresh bot).
+
+- **`$setrole own <role ID>`** (same as `$giverole`) - role ID, @role or name; then `$own @user` and `$setown @user` both give the role.

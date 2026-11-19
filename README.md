@@ -40,19 +40,19 @@ badges per player). `$backup config` sends SERVER_CONFIG.md + the players CSV of
 
 ## No-prefix & aliases
 `$noprefix role @Role` (also `clear`, `add @user`, `remove @user`) · `$alias add pa vcpermit all` / `remove` / `list`
-Built-in aliases: `$permit`, `$lock`, `$kick`, `$drag`, `$p` ... and `$vc kick @user` works like `$vckick @user`. Full list: `$adminhelp`.
+Built-in aliases: `$permit`, `$lock`, `$kick`, `$drag`, `$p` ... and `$vc kick @user` works like `$vckick @user`. Full list: `$help`.
 
-## Commands – `$adminhelp` shows the live list with usage + aliases
+## Commands – `$help` shows the live list with usage + aliases
 
 ## Autoreacter
 `$au setup 🔥` (alias of `$autoreacter`) - the bot reacts with your emoji on every message **you** send (up to 3 emojis, `$au setup off` to stop).
 Allowed: admins (Manage Server) + roles added with `$au config` (role picker menu, or `$au config add/remove @Role`, `$au config clear`).
 The bot needs **Add Reactions** + **Read Message History**.
 
-## Role commands (`$giverole`)
-`$giverole setmember @Member` -> now `$setmember @person` gives that role. Works with any role/command name.
+## Role commands (`$setrole`)
+`$setrole manager <role ID>` -> now `$setmanager @person` gives that role (only the `$set<name>` form exists). Works with any role/command name.
 **Reply works too:** reply to a member's message and send just `$setmember` - the person you replied to gets the role (no @mention needed).
-Optional 3rd role = who may use it besides **Manage Roles**: `$giverole setvip @VIP @Staff`. `$giverole list` · `$giverole remove setmember`.
+Optional 3rd role = who may use it besides **Manage Roles**: `$setrole vip @VIP @Staff`. `$setrole list` · `$setrole remove manager`.
 The role must be below the bot's role and below yours.
 
 ## Self roles (`$editsr`)
@@ -62,7 +62,7 @@ image / GIF attached (or reply to one). *Remove banner* deletes it. The file typ
 banner is re-posted under a fresh file name each time so Discord never shows a stale / empty image.
 
 ## Every server has its own configuration
-Owner permission (`$konextra @friend`), no-prefix, aliases, `$giverole` commands, points, shop, autoreact, self roles, custom VC
+Owner permission (`$konextra @friend`), no-prefix, aliases, `$setrole` commands, points, shop, autoreact, self roles, custom VC
 and AFK are all stored **per server**. A friend you make owner in server A is **not** owner in server B - run `$konextra @friend`
 in each server where they should have it (`$konextra list` / `remove` also work per server). Only the real bot owner can use `$konextra`.
 Older backups had one global owner list; on the first start it is moved automatically to the server where that person is configured.
@@ -105,7 +105,7 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
   `export/custom_vc_channels.json` and in `data/vc_data.json -> vc_setup` (kept even if the channel is deleted).
 
 ## Update 2
-- Fixed `$adminhelp` / `$koninfo` (a bad edit had cut part of `cogs/meta.py`). Help, `$koninfo`, `$konping`, `$point config`, `$aura config` embeds are smaller.
+- Fixed `$help` / `$koninfo` (a bad edit had cut part of `cogs/meta.py`). Help, `$koninfo`, `$konping`, `$point config`, `$aura config` embeds are smaller.
 - `$pointshop config` -> **Position** button: move a role to another place in the shop.
 - `$ae` / `$as`: **Undo** and **Remove** buttons under the result (also `$ae undo`, `$ae remove <emoji/name>`, `$as undo`, `$as remove <name>`).
 - **`$p @member [amount]`** (aliases `$pm`, `$purgemember`): delete that member's messages (default 10, max 500). Reply to the member + `$p [amount]` works too.
@@ -118,7 +118,7 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
     `$db list` · `$db reset`. `$eb ...` (= `$enablecommand`) turns commands back on.
   - Slash: `/disablecommand` and `/enablecommand` with auto-complete for the command and a channel / category picker.
   - A disabled command answers "`$profile` is turned off in this channel." (deleted after 6 s). Turning off `badge` also turns off `badge give` / `badge remove`.
-  - `$db`, `$eb`, `$adminhelp`, `$sync`, `$konextra` can never be disabled, so nobody gets locked out.
+  - `$db`, `$eb`, `$help`, `$sync`, `$konextra` can never be disabled, so nobody gets locked out.
   - Stored per server in the `settings` table (key `cmd_disable`) -> part of the backup / export.
 - **Badge fix**: `$badge give @user <emoji>` no longer cuts custom emojis (the old 30-character limit left `<:name:id` without `>`).
   Limit is now 100 characters, `:emoji_name:` also works, and old broken badges are repaired automatically on start.
@@ -157,4 +157,12 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
 - **Backup:** `export/LINKS.md` lists every link / banner / image and where it is used; every server config now has
   an "EVERYTHING saved" section. `$backupload replace` makes the backup win over the live settings (use on a fresh bot).
 
-- **`$setrole own <role ID>`** (same as `$giverole`) - role ID, @role or name; then `$own @user` and `$setown @user` both give the role.
+- **`$setrole own <role ID>`** - role ID, @role or name; then `$setown @user` gives the role (`$giverole` and the plain `$own` are gone).
+
+## Update 2026-11-19
+- `$store` redesigned like the leaderboard: 5 roles per page, Previous / Balance / Next, select menu to buy. Deleted emojis can no longer crash it.
+- Pointshop emoji field (and webhook buttons) accept an **emoji ID**, `:name:` or a normal emoji.
+- `$webhook` panel: **Add Button / Remove Button** - link buttons (text, link, emoji or emoji ID), up to 10, saved per server.
+- `$backupload`: reply to a data file (`kon_data.zip`, `kon.db`, `db_dump.json`, `vc_data.json` ...) with `$backupload` (or attach it).
+- `$giverole` removed - only `$setrole`. Role commands exist only as `$set<name>`.
+- `$adminhelp` removed - `$help` is the menu now (ordered categories, aliases, pages for long lists).

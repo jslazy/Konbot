@@ -18,6 +18,8 @@ from typing import Optional
 import aiohttp
 import discord
 
+from .errors import VCError
+
 log = logging.getLogger("kon.emoji")
 
 CUSTOM = re.compile(r"<(a?):([A-Za-z0-9_]{2,32}):(\d{15,25})>")
@@ -159,3 +161,36 @@ async def resolve_text(bot, text: str, guild: Optional[discord.Guild] = None) ->
 
     text = BARE_ID.sub(sub_id, text)
     return text, changed
+
+
+async def normalize(bot, guild: Optional[discord.Guild], text: str) -> Optional[str]:
+    """What the user typed -> the emoji string we store ('<a:name:id>' / '<:name:id>' / unicode), None = no emoji.
+
+    Works with: an emoji ID (123456789012345678), :name:, a full <:name:id> code, a Kon icon name or a normal emoji.
+    Raises VCError when it is not an emoji at all (so nothing broken is ever saved)."""
+    from .icons import I           # late import: icons loads after the bot is up
+    text = (text or "").strip()
+    if not text:
+        return None
+    if text in I.map:
+        return str(I.map[text])
+    fixed, _ = await resolve_text(bot, text, guild)
+    fixed = fixed.strip()
+    if CUSTOM.fullmatch(fixed):
+        return fixed
+    if fixed.isdigit():
+        raise VCError("I can't find an emoji with that ID. (`$ei` lists the IDs of animated emojis.)")
+    if len(fixed) <= 16 and not re.fullmatch(r"[A-Za-z_ ]+", fixed) and not fixed.startswith(("http", "<")):
+        return fixed                                   # a normal unicode emoji
+    raise VCError("That emoji doesn't work. Use a normal emoji, `:name:` or the emoji ID.")
+
+
+def to_partial_checked(text: Optional[str]) -> Optional[discord.PartialEmoji]:
+    """Stored emoji string -> PartialEmoji for a button / select (None if there is nothing usable)."""
+    if not text:
+        return None
+    try:
+        pe = discord.PartialEmoji.from_str(text.strip())
+    except Exception:
+        return None
+    return pe if (pe.id is not None or pe.name) else None

@@ -1,11 +1,11 @@
-"""$giverole ($gr) - turn any word into a command that gives a role.
+"""$setrole - turn any word into a command that gives a role.
 
-    $setrole own 123456789012345678      ->  (same as $giverole) role ID, @role or role name all work.
-                                             From now on  `$own @person`  AND  `$setown @person`  give that role.
-    $giverole setmember @Member          ->  from now on  `$setmember @person`  gives @person the Member role
-                                             (or REPLY to the person's message and just send `$setmember`)
-    $giverole setvip @VIP @Staff         ->  same, but members with @Staff may use it too
-    $giverole list  /  $giverole remove setmember
+    $setrole manager 123456789012345678  ->  role ID, @role or role name all work.
+                                             From now on  `$setmanager @person`  gives that role
+                                             (or REPLY to the person's message and just send `$setmanager`).
+                                             Only `$set<name>` exists - there is no plain `$manager`.
+    $setrole vip @VIP @Staff             ->  same, but members with @Staff may use it too
+    $setrole list  /  $setrole remove manager
 """
 import re
 from typing import Optional
@@ -78,7 +78,7 @@ class RoleCmds(commands.Cog):
             raise VCError("That command is gone.")
         role = ctx.guild.get_role(data["role"])
         if role is None:
-            raise VCError(f"That role was deleted. An admin should set `{PREFIX}{name}` again with `{PREFIX}giverole`.")
+            raise VCError(f"That role was deleted. An admin should set `{PREFIX}set{name}` again with `{PREFIX}setrole`.")
 
         author = ctx.author
         allowed_id = data.get("allowed")
@@ -99,7 +99,7 @@ class RoleCmds(commands.Cog):
             if target is not None:
                 members = [target]
         if not members:
-            raise VCError(f"Mention someone (`{PREFIX}{name} @user`) or reply to them.")
+            raise VCError(f"Mention someone (`{PREFIX}set{name} @user`) or reply to them.")
 
         given, had, failed = [], [], []
         for m in members[:MAX_TARGETS]:
@@ -107,7 +107,7 @@ class RoleCmds(commands.Cog):
                 had.append(m)
                 continue
             try:
-                await m.add_roles(role, reason=f"{PREFIX}{name} used by {author} ({author.id})")
+                await m.add_roles(role, reason=f"{PREFIX}set{name} used by {author} ({author.id})")
                 given.append(m)
             except discord.HTTPException:
                 failed.append(m)
@@ -121,17 +121,17 @@ class RoleCmds(commands.Cog):
             lines.append(f"{I.s('cross')} Couldn't give it to {' '.join(m.mention for m in failed)}.")
         await ctx.reply("\n".join(lines), mention_author=False, allowed_mentions=discord.AllowedMentions.none())
 
-    # ---------- $giverole ----------
-    @commands.group(name="giverole", aliases=["gr", "setrole"], invoke_without_command=True)
+    # ---------- $setrole ----------
+    @commands.group(name="setrole", invoke_without_command=True)
     @commands.has_permissions(manage_guild=True)
     @commands.guild_only()
-    async def giverole(self, ctx: commands.Context, name: Optional[str] = None,
-                        role: Optional[str] = None, allowed: Optional[str] = None):
-        """$giverole <command> <role ID / @role / name> [who-can-use] - make `$<command> @user` (or a reply) give that role"""
+    async def setrole(self, ctx: commands.Context, name: Optional[str] = None,
+                      role: Optional[str] = None, allowed: Optional[str] = None):
+        """$setrole <name> <role ID / @role / name> [who-can-use] - creates `$set<name> @user` (or a reply) that gives that role"""
         if name is None:
             return await self.send_help(ctx)
         if role is None:
-            raise VCError(f"Which role? `{PREFIX}giverole {name} <role ID>`")
+            raise VCError(f"Which role? `{PREFIX}setrole {name} <role ID>`")
         role_text, allowed_text = role, allowed
         role = find_role(ctx.guild, role_text)
         if role is None:
@@ -141,11 +141,16 @@ class RoleCmds(commands.Cog):
         if allowed_text and allowed is None:
             raise VCError(f"I can't find the role `{allowed_text[:40]}` for who-can-use.")
 
-        name = name.lower().lstrip(PREFIX)
+        name = name.lower().strip()
+        if name.startswith(PREFIX):
+            name = name[len(PREFIX):]
+        if name.startswith("set") and len(name) > 3:        # "$setrole setvip" == "$setrole vip" -> the command is $setvip
+            name = name[3:]
         if not re.fullmatch(r"[a-z0-9_]{1,20}", name):
             raise VCError("Use letters, numbers and `_` only (max 20).")
-        if name in RESERVED or self.bot.get_command(name) is not None or name in self.bot.aliases(ctx.guild.id):
-            raise VCError(f"`{name}` is taken. Pick another name.")
+        full = "set" + name
+        if name in RESERVED or self.bot.get_command(full) is not None or full in self.bot.aliases(ctx.guild.id):
+            raise VCError(f"`{PREFIX}{full}` is taken. Pick another name.")
         if role.is_default() or role.managed:
             raise VCError("Pick a normal role.")
         if ctx.author.id != ctx.guild.owner_id and role >= ctx.author.top_role:
@@ -161,46 +166,50 @@ class RoleCmds(commands.Cog):
         cmds[name] = {"role": role.id, "allowed": allowed.id if allowed else None}
         self.bot.save_rolecmds(ctx.guild.id)
         who = f"members with **Manage Roles**" + (f" or {allowed.mention}" if allowed else "")
-        await ctx.reply(ok(f"`{PREFIX}{name} @user` (or `{PREFIX}set{name} @user`) now gives {role.mention}. Reply works too.\n"
+        await ctx.reply(ok(f"`{PREFIX}{full} @user` now gives {role.mention}. Reply works too.\n"
                            f"Who can use it: {who}."),
                         mention_author=False, allowed_mentions=discord.AllowedMentions.none())
 
     async def send_help(self, ctx: commands.Context):
         e = discord.Embed(title=f"{I.s('link')} Role Commands", color=BLURPLE, description=(
-            f"Make a command that gives a role.\n\n"
-            f"`{PREFIX}giverole <command> <role ID or @role> [@who-can-use]`  (also `{PREFIX}setrole`)\n"
-            f"Example: `{PREFIX}setrole own 123456789012345678`, then `{PREFIX}own @person` or `{PREFIX}setown @person` gives them that role.\n"
-            f"Replying to someone works too.\n\n"
-            f"`{PREFIX}giverole list` · `{PREFIX}giverole remove <command>`\n"
+            f"Make your own command that gives a role.\n\n"
+            f"`{PREFIX}setrole <name> <role ID or @role> [@who-can-use]`\n"
+            f"Example: `{PREFIX}setrole manager 123456789012345678` → now `{PREFIX}setmanager @person` gives them that role.\n"
+            f"Replying to someone's message works too.\n\n"
+            f"`{PREFIX}setrole list` · `{PREFIX}setrole remove <name>`\n"
             f"**Manage Roles** can use it. Add a 3rd role to let that role use it too."))
         await ctx.reply(embed=e, mention_author=False)
 
-    @giverole.command(name="list")
+    @setrole.command(name="list")
     @commands.has_permissions(manage_guild=True)
     async def ar_list(self, ctx: commands.Context):
-        """$giverole list - all role commands of this server"""
+        """$setrole list - all role commands of this server"""
         cmds = self.bot.rolecmds(ctx.guild.id)
         lines = []
         for n, d in sorted(cmds.items()):
             r = ctx.guild.get_role(d["role"])
             a = ctx.guild.get_role(d["allowed"]) if d.get("allowed") else None
-            lines.append(f"`{PREFIX}{n} @user` / `{PREFIX}set{n}` → {r.mention if r else '*deleted role*'}"
+            lines.append(f"`{PREFIX}set{n} @user` → {r.mention if r else '*deleted role*'}"
                          + (f" · also {a.mention}" if a else ""))
         e = discord.Embed(title=f"{I.s('link')} Role Commands", color=BLURPLE,
-                          description="\n".join(lines) or f"None yet. Try `{PREFIX}giverole setmember @Member`")
+                          description="\n".join(lines) or f"None yet. Try `{PREFIX}setrole member @Member`")
         await ctx.reply(embed=e, mention_author=False, allowed_mentions=discord.AllowedMentions.none())
 
-    @giverole.command(name="remove", aliases=["delete", "del"])
+    @setrole.command(name="remove", aliases=["delete", "del"])
     @commands.has_permissions(manage_guild=True)
     async def ar_remove(self, ctx: commands.Context, name: str):
-        """$giverole remove <command>"""
-        name = name.lower().lstrip(PREFIX)
+        """$setrole remove <name>"""
+        name = name.lower().strip()
+        if name.startswith(PREFIX):
+            name = name[len(PREFIX):]
         cmds = self.bot.rolecmds(ctx.guild.id)
+        if name not in cmds and name.startswith("set") and name[3:] in cmds:
+            name = name[3:]
         if name not in cmds:
             raise VCError("No such command.")
         del cmds[name]
         self.bot.save_rolecmds(ctx.guild.id)
-        await ctx.reply(ok(f"Removed `{PREFIX}{name}`."), mention_author=False)
+        await ctx.reply(ok(f"Removed `{PREFIX}set{name}`."), mention_author=False)
 
 
 async def setup(bot):

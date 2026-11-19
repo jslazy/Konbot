@@ -8,7 +8,7 @@
   export/afk.json            AFK users + AFK-tag setting
   export/custom_vc_channels.json  join-to-create channel + panel channel of every server (id, name, category, bitrate...)
   export/servers/<guild>/    ONE FOLDER PER SERVER with everything of that server only:
-        config.md / config.json   readable settings (owners, VC, self roles, points, shop, no-prefix, aliases, $giverole, autoreact, AFK)
+        config.md / config.json   readable settings (owners, VC, self roles, points, shop, no-prefix, aliases, $setrole, autoreact, AFK)
         data.json                 raw saved data of the server (vc_data.json part + AFK + mutes + extra owners)
         database.json             every database row of the server (players, progress, badges, shop, purchases, settings, point log)
 
@@ -227,7 +227,7 @@ def collect(bot, afk_data: dict) -> dict:
                           ("Custom VC protection ($customvc config)", "custom_vc_rules"),
                           ("Self roles ($setsr / $editsr)", "self_roles"),
                           ("Points ($point config)", "points_settings"), ("Point shop", "shop"),
-                          ("No-prefix", "no_prefix"), ("Aliases", "aliases"), ("Role commands ($giverole)", "role_commands"),
+                          ("No-prefix", "no_prefix"), ("Aliases", "aliases"), ("Role commands ($setrole)", "role_commands"),
                           ("Autoreact", "autoreact"), ("Aura ($aura config)", "aura"), ("Tic Tac Toe channel", "tictactoe"),
                           ("Webhook sender (name, avatar, embed, images)", "webhook_sender (name, avatar, embed, images)"),
                           ("Saved images ($tolink)", "saved_images ($tolink names -> links)"),

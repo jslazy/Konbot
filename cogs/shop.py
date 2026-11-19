@@ -4,11 +4,12 @@ import asyncio
 import discord
 from discord.ext import commands
 
+from core import emoji as emojis
 from core import media
 from core.config import BLURPLE, BRAND
 from core.errors import VCError
 from core.icons import I, err, ok
-from core.ui import FieldsModal, OwnedView, clean_emoji, parse_int, to_partial
+from core.ui import FieldsModal, OwnedView, parse_int, to_partial
 
 RED = 0xED4245
 MAX_ITEMS = 25
@@ -60,28 +61,99 @@ class ItemView(discord.ui.View):
         await self.cog.purchase(interaction, self.item["id"])
 
 
-class ShopSelect(discord.ui.Select):
+STORE_LINE = "───⬢⬡⬢──────⬢⬡⬢──────⬢⬡⬢───"          # same divider as the leaderboard
+STORE_PER_PAGE = 5
+
+
+class StoreSelect(discord.ui.Select):
     def __init__(self, cog, options):
-        super().__init__(placeholder="Select a role to purchase...", options=options, min_values=1, max_values=1)
+        super().__init__(placeholder="Select a role to purchase...", options=options, min_values=1, max_values=1, row=1)
         self.cog = cog
 
     async def callback(self, interaction: discord.Interaction):
         await self.cog.show_item(interaction, int(self.values[0]))
 
 
-class ShopView(discord.ui.View):
-    def __init__(self, cog, options):
-        super().__init__(timeout=900)
-        self.message = None
-        if options:
-            self.add_item(ShopSelect(cog, options))
+class StoreView(OwnedView):
+    """Leaderboard-style shop: 5 roles per page, Previous / Balance / Next and a select to buy."""
 
-    async def on_timeout(self):
-        if self.message:
-            try:
-                await self.message.edit(view=None)
-            except discord.HTTPException:
-                pass
+    def __init__(self, cog: "Shop", ctx: commands.Context):
+        super().__init__(ctx.author.id, timeout=300)
+        self.cog, self.guild, self.author = cog, ctx.guild, ctx.author
+        self.page = 0
+        self.emoji_ok = True                       # False = dropdown without emojis (Discord refused one)
+        self.select = None
+        self.prev.emoji, self.bal.emoji, self.next.emoji = I.e("left"), I.e("wallet"), I.e("right")
+        self.reload()
+
+    def entries(self) -> list:
+        out = []
+        for it in self.cog.db.shop_list(self.guild.id):
+            role = self.guild.get_role(it["role_id"])
+            if role is not None:
+                out.append((it, role))
+        return out
+
+    def reload(self):
+        self.all = self.entries()
+        self.pages = max(1, -(-len(self.all) // STORE_PER_PAGE))
+        self.page = min(max(self.page, 0), self.pages - 1)
+        chunk = self.chunk()
+        if self.select is not None:
+            self.remove_item(self.select)
+            self.select = None
+        if chunk:
+            opts = []
+            for it, role in chunk:
+                opts.append(discord.SelectOption(
+                    label=(f"{role.name} (Sold Out)" if it["stock"] == 0 else role.name)[:100],
+                    value=str(it["id"]),
+                    description=f"Price: {it['price']} pts — Stock: {stock_text(it['stock'])}"[:100],
+                    emoji=safe_partial(self.cog.bot, it["emoji"]) if self.emoji_ok else None))
+            self.select = StoreSelect(self.cog, opts)
+            self.add_item(self.select)
+        self.prev.disabled = self.page <= 0
+        self.next.disabled = self.page >= self.pages - 1
+
+    def chunk(self) -> list:
+        return self.all[self.page * STORE_PER_PAGE:(self.page + 1) * STORE_PER_PAGE]
+
+    def embed(self) -> discord.Embed:
+        lines = [STORE_LINE]
+        start = self.page * STORE_PER_PAGE
+        for n, (it, role) in enumerate(self.chunk(), start + 1):
+            owned = role in getattr(self.author, "roles", ())
+            tag = f" {I.s('check')} Owned" if owned else (" · **SOLD OUT**" if it["stock"] == 0 else "")
+            lines.append(f"**{n}.** {it['emoji'] or ''} {role.mention} — **{it['price']:,}** Points\n"
+                         f"{I.s('gift_box')} Stock: `{stock_text(it['stock'])}`{tag}")
+        if len(lines) == 1:
+            lines.append("The shop is empty.")
+        bal = self.cog.db.user(self.guild.id, self.author.id)["points"]
+        desc = "\n".join(lines) + f"\n{STORE_LINE}\n{I.s('wallet')} **Your Balance:** {bal:,} Points"
+        e = discord.Embed(title=f"{I.s('coins')} ∫ Role Shop", color=BLURPLE, description=desc[:4096])
+        thumb = self.cog.shop_settings(self.guild.id).get("thumbnail") or (self.guild.icon.url if self.guild.icon else None)
+        if thumb:
+            e.set_thumbnail(url=thumb)
+        e.set_footer(text=f"Page {self.page + 1}/{self.pages} • ∫ Kon")
+        return e
+
+    async def go(self, interaction: discord.Interaction, page: int):
+        self.page = page
+        self.reload()
+        await interaction.response.edit_message(embed=self.embed(), view=self)
+
+    @discord.ui.button(label="Previous", style=discord.ButtonStyle.secondary, row=0)
+    async def prev(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.go(interaction, self.page - 1)
+
+    @discord.ui.button(label="Balance", style=discord.ButtonStyle.secondary, row=0)
+    async def bal(self, interaction: discord.Interaction, button: discord.ui.Button):
+        bal = self.cog.db.user(self.guild.id, self.author.id)["points"]
+        await interaction.response.send_message(f"{I.s('wallet')} You have **{bal:,}** points.", ephemeral=True)
+
+    @discord.ui.button(label="Next", style=discord.ButtonStyle.secondary, row=0)
+    async def next(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.go(interaction, self.page + 1)
 
 
 # ---------------- config panel ----------------
@@ -134,14 +206,14 @@ class ShopConfigView(OwnedView):
             async def cb(i2, v):
                 price = parse_int(v[0], 1, 10_000_000, "Price")
                 stock = parse_int(v[1], -1, 1_000_000, "Stock")
-                emoji = clean_emoji(v[2])
+                emoji = await emojis.normalize(self.cog.bot, self.guild, v[2])
                 self.cog.db.shop_upsert(self.guild.id, role.id, price, stock, emoji)
                 await i2.response.send_message(ok(f"{role.mention} added to the shop for **{price}** pts."),
                                                ephemeral=True, allowed_mentions=discord.AllowedMentions.none())
                 await self.refresh()
             await i.response.send_modal(FieldsModal(f"Add: {role.name}"[:45], [
                 ("Price (points)", "100", 8, True), ("Stock (-1 = unlimited)", "-1", 7, True),
-                ("Emoji (optional)", "", 64, False)], cb))
+                ("Emoji or emoji ID (optional)", "", 64, False)], cb))
         sel.callback = picked
         view.add_item(sel)
         await interaction.response.send_message("Which role?", view=view, ephemeral=True)
@@ -174,12 +246,13 @@ class ShopConfigView(OwnedView):
 
             async def cb(i2, v):
                 self.cog.db.shop_update(self.guild.id, item_id, parse_int(v[0], 1, 10_000_000, "Price"),
-                                        parse_int(v[1], -1, 1_000_000, "Stock"), clean_emoji(v[2]))
+                                        parse_int(v[1], -1, 1_000_000, "Stock"),
+                                        await emojis.normalize(self.cog.bot, self.guild, v[2]))
                 await i2.response.send_message(ok("Updated."), ephemeral=True)
                 await self.refresh()
             await i.response.send_modal(FieldsModal("Edit item", [
                 ("Price (points)", str(it["price"]), 8, True), ("Stock (-1 = unlimited)", str(it["stock"]), 7, True),
-                ("Emoji (optional)", it["emoji"] or "", 64, False)], cb))
+                ("Emoji or emoji ID (optional)", it["emoji"] or "", 64, False)], cb))
         view = self._item_select("Select an item to edit...", handler)
         if view is None:
             return await interaction.response.send_message(err("The shop is empty."), ephemeral=True)
@@ -242,32 +315,6 @@ class Shop(commands.Cog):
     def shop_settings(self, gid: int) -> dict:
         return self.db.get_settings(gid, "shop")
 
-    # ---------- shop message ----------
-    def build(self, guild: discord.Guild, member: discord.abc.Snowflake = None):
-        items = self.db.shop_list(guild.id)
-        blocks, options = [], []
-        for it in items:
-            role = guild.get_role(it["role_id"])
-            if role is None:
-                continue
-            emoji = it["emoji"] or ""
-            blocks.append(f"{emoji} {role.mention}\n{I.s('coins')} Price: `{it['price']}` | Stock: `{stock_text(it['stock'])}`")
-            options.append(discord.SelectOption(
-                label=(f"{role.name} (Sold Out)" if it["stock"] == 0 else role.name)[:100],
-                value=str(it["id"]),
-                description=f"Price: {it['price']} pts — Stock: {stock_text(it['stock']) if it['stock'] else 0}"[:100],
-                emoji=safe_partial(self.bot, it["emoji"])))
-        desc = "Pick a role to buy:\n\n" + ("\n\n".join(blocks) if blocks else
-                                                    "The shop is empty.")
-        if member is not None:                      # "Your Balance" (custom wallet icon) at the bottom of the shop
-            bal = self.db.user(guild.id, member.id)["points"]
-            desc = desc[:3900] + f"\n\n### Your Balance\n{I.s('wallet')} **{bal}** Points"
-        embed = discord.Embed(title="Role Shop", description=desc[:4096], color=BLURPLE)
-        thumb = self.shop_settings(guild.id).get("thumbnail") or (guild.icon.url if guild.icon else None)
-        if thumb:
-            embed.set_thumbnail(url=thumb)
-        return embed, options[:25]
-
     async def refresh_thumb(self, gid: int):
         """Ask Discord for a fresh link of an uploaded thumbnail (CDN links expire)."""
         s = self.shop_settings(gid)
@@ -280,19 +327,16 @@ class Shop(commands.Cog):
 
     async def show_shop(self, ctx: commands.Context):
         await self.refresh_thumb(ctx.guild.id)
-        embed, options = self.build(ctx.guild, ctx.author)
+        view = StoreView(self, ctx)
         kw = dict(mention_author=False, allowed_mentions=discord.AllowedMentions.none())
-        view = ShopView(self, options)
         try:
-            view.message = await ctx.reply(embed=embed, view=view, **kw)
+            view.message = await ctx.reply(embed=view.embed(), view=view, **kw)
         except discord.HTTPException as e:
             if e.code != 50035:
                 raise
-            # some emoji in the dropdown is invalid -> show the shop again without dropdown emojis
-            for o in options:
-                o.emoji = None
-            view = ShopView(self, options)
-            view.message = await ctx.reply(embed=embed, view=view, **kw)
+            view.emoji_ok = False                   # some emoji is invalid -> same shop, dropdown without emojis
+            view.reload()
+            view.message = await ctx.reply(embed=view.embed(), view=view, **kw)
 
     @commands.hybrid_command(name="store", aliases=["shop"], description="Open the point shop (buy roles with points)")
     @commands.guild_only()

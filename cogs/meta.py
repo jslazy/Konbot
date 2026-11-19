@@ -1,4 +1,4 @@
-"""$kon ping / info, $adminhelp (clean command list - everybody only sees what THEY can use) and $konextra."""
+"""$konping / $koninfo, $help (clean command list - everybody only sees what THEY can use) and $konextra."""
 import inspect
 import time
 from typing import Optional
@@ -22,7 +22,11 @@ CATEGORIES = {
     "Meta": ("General", "home"), "Autoreact": ("Auto Reacter", "sparkles"), "RoleCmds": ("Role Commands", "crown"),
     "SelfRoles": ("Self Roles", "crown"), "Expressions": ("Emojis & Stickers", "sparkles"), "Purge": ("Cleanup", "tools"),
     "Aura": ("Aura", "fire"), "RoleTransfer": ("Role Transfer", "crown"), "TicTacToe": ("Tic Tac Toe", "gamepad"), "CmdControl": ("Command Control", "lock"),
+    "BlackTea": ("BlackTea", "gamepad"), "Webhook": ("Webhook", "link"), "ImageHost": ("Image Links", "image"),
 }
+# order of the pages in $help (anything not listed goes at the end, A-Z)
+ORDER = ["Meta", "Points", "Shop", "RoleCmds", "VC", "Drag", "AFK", "SelfRoles", "Autoreact", "Aura", "BlackTea", "TicTacToe",
+         "Expressions", "Webhook", "ImageHost", "Purge", "Prefixes", "CmdControl", "RoleTransfer", "Admin", "Backup"]
 
 # short, plain descriptions (key = command name without prefix). Anything missing falls back to the docstring.
 DESC = {
@@ -38,7 +42,7 @@ DESC = {
     "dragme": "Ask a VC owner to drag you in",
     "afk": "Go AFK (optional reason, max 50 characters)", "afktag": "Turn the [AFK] nickname tag on/off",
     "profile": "Your points, chat and VC progress", "leaderboard": "Leaderboard: `$lb` opens points, switch to messages / voice with the menu (Previous / Find Me / Next)",
-    "store": "Open the point shop", "pointshop": "Open the point shop", "pointshop config": "Add / edit / reorder shop roles",
+    "store": "Open the role shop (pages, balance, buy with the menu)", "pointshop": "Open the role shop", "pointshop config": "Add / edit / reorder shop roles",
     "point": "Points settings overview", "point config": "Points, cooldown and channel rules",
     "point add": "Give points", "point remove": "Take points", "point set": "Set exact points", "point reset": "Wipe a member's data",
     "badge": "Show badges", "badge give": "Give a badge", "badge remove": "Remove a badge",
@@ -47,7 +51,7 @@ DESC = {
     "noprefix clear": "Remove the no-prefix role",
     "alias": "List custom aliases", "alias list": "List custom aliases",
     "alias add": "Create an alias (e.g. `pa` = `vcpermit all`)", "alias remove": "Delete an alias",
-    "giverole": "`$giverole name roleID` (or `$setrole`) - makes `$name @user` / `$setname @user` give that role", "giverole list": "List role commands", "giverole remove": "Delete a role command",
+    "setrole": "`$setrole manager <role ID>` creates `$setmanager @user` (or reply) that gives that role", "setrole list": "List the role commands of this server", "setrole remove": "Delete a role command",
     "ar": "React with your emoji when someone pings you", "ar setup": "Same as `$ar <emoji>`",
     "ar off": "Turn your autoreact off", "ar config": "Roles that may use autoreact",
     "ar config add": "Give roles access", "ar config remove": "Take access from roles",
@@ -59,7 +63,7 @@ DESC = {
     "purgemember": "Delete a member's messages: `$p @member 50` or reply + `$p` (default 10, max 500)",
     "customvc": "Set the join-to-create channel", "customvc config": "Who can't be vc-banned, kicked or muted", "interface": "Post the voice control panel",
     "sync": "Sync slash commands", "backup": "Backup status", "backup refresh": "Back up right now",
-    "backupload": "Attach data zip(s) to merge them (`$backupload replace` = backup wins)", "backup config": "Send the readable config + players list",
+    "backupload": "Reply to a data file (zip / db / json) with this to merge it (`replace` = backup wins)", "backup config": "Send the readable config + players list",
     "konping": "Latency, uptime and status", "koninfo": "Servers, members and bot stats",
     "aura": "Show your aura (or @member's)", "aura config": "Fix aura, random on/off, switch a person off",
     "transfer": "Move roles from one member to another (Kon admins)",
@@ -77,7 +81,7 @@ DESC = {
     "point enable": "Count points in a channel again", "point disable": "Stop counting points in a channel",
     "disablecommand": "Turn commands off in channels / whole categories (`$db`, no arguments = menu)",
     "enablecommand": "Turn commands back on (`$eb`)",
-    "adminhelp": "This menu", "konextra": "Give a member Kon owner rights (this server only)",
+    "help": "This menu", "konextra": "Give a member Kon owner rights (this server only)",
     "konextra remove": "Take owner rights away", "konextra list": "Show the extra owners",
 }
 
@@ -129,38 +133,87 @@ def describe(cmd: commands.Command) -> str:
 
 
 class HelpView(OwnedView):
+    """Category menu + Previous / Next for long categories."""
+    MAX_CHARS = 3400
+
     def __init__(self, ctx, pages: dict):
         super().__init__(ctx.author.id, timeout=300)
         self.pages = pages          # key -> (title, icon, {level: [lines]})
-        opts = [discord.SelectOption(label="Overview", value="__all__", emoji=I.e("menu"))]
+        self.key, self.i = "__all__", 0
+        opts = [discord.SelectOption(label="Overview", value="__all__", emoji=I.e("menu"), default=True)]
         for key, (title, icon, secs) in pages.items():
             n = sum(len(v) for v in secs.values())
-            opts.append(discord.SelectOption(label=title, value=key, description=f"{n} commands", emoji=I.e(icon)))
-        sel = discord.ui.Select(placeholder="Pick a category...", options=opts[:25])
-        sel.callback = self.picked
-        self.sel = sel
-        self.add_item(sel)
+            opts.append(discord.SelectOption(label=title, value=key, description=f"{n} command{'s' if n != 1 else ''}", emoji=I.e(icon)))
+        self.sel = discord.ui.Select(placeholder="Pick a category...", options=opts[:25], row=0)
+        self.sel.callback = self.picked
+        self.add_item(self.sel)
+        self.prev.emoji, self.next.emoji = I.e("left"), I.e("right")
+        self.sync()
+
+    def chunks(self, key) -> list:
+        """Lines of a category cut into pages that fit one embed."""
+        title, icon, secs = self.pages[key]
+        multi = sum(1 for v in secs.values() if v) > 1
+        lines = []
+        for level, label in SECTIONS:
+            part = secs.get(level)
+            if not part:
+                continue
+            if multi:
+                lines.append(f"-# {label}")
+            lines.extend(part)
+        out, cur, size = [], [], 0
+        for ln in lines or ["—"]:
+            if cur and size + len(ln) + 1 > self.MAX_CHARS:
+                out.append("\n".join(cur))
+                cur, size = [], 0
+            cur.append(ln)
+            size += len(ln) + 1
+        out.append("\n".join(cur))
+        return out
+
+    def sync(self):
+        n = 1 if self.key == "__all__" else len(self.chunks(self.key))
+        self.prev.disabled = self.i <= 0
+        self.next.disabled = self.i >= n - 1
 
     def overview(self) -> discord.Embed:
-        rows = [f"{I.s(icon)} **{title}** - {sum(len(v) for v in secs.values())}" for key, (title, icon, secs) in self.pages.items()]
-        return discord.Embed(title=f"{I.s('sparkles')} Kon Help", color=BRAND,                 # same layout as Anshika Help
-                             description=f"Prefix: `{PREFIX}`\n`<x>` = required · `[x]` = optional\n\n" + "\n".join(rows))
+        rows = [f"{I.s(icon)} **{title}** · {sum(len(v) for v in secs.values())}" for key, (title, icon, secs) in self.pages.items()]
+        return discord.Embed(title=f"{I.s('sparkles')} Kon Help", color=BRAND, description=(
+            f"Prefix: `{PREFIX}` · `<x>` = required · `[x]` = optional\n"
+            f"You only see the commands **you** can use.\n\n" + "\n".join(rows) + "\n\n-# Pick a category from the menu below."))
 
     def page(self, key) -> discord.Embed:
         title, icon, secs = self.pages[key]
-        multi = sum(1 for v in secs.values() if v) > 1
-        parts = []
-        for level, label in SECTIONS:
-            lines = secs.get(level)
-            if not lines:
-                continue
-            parts.append((f"-# {label}\n" if multi else "") + "\n".join(lines))
-        text = "\n".join(parts) or "—"
-        return discord.Embed(title=f"{I.s(icon)} {title}", color=BRAND, description=text[:4000])
+        chunks = self.chunks(key)
+        self.i = min(self.i, len(chunks) - 1)
+        e = discord.Embed(title=f"{I.s(icon)} {title}", color=BRAND, description=chunks[self.i])
+        e.set_footer(text=f"Page {self.i + 1}/{len(chunks)} · Prefix {PREFIX}")
+        return e
+
+    def current(self) -> discord.Embed:
+        return self.overview() if self.key == "__all__" else self.page(self.key)
 
     async def picked(self, interaction: discord.Interaction):
-        v = self.sel.values[0]
-        await interaction.response.edit_message(embed=self.overview() if v == "__all__" else self.page(v), view=self)
+        self.key, self.i = self.sel.values[0], 0
+        for o in self.sel.options:
+            o.default = o.value == self.key
+        self.sync()
+        await interaction.response.edit_message(embed=self.current(), view=self)
+
+    async def turn(self, interaction: discord.Interaction, step: int):
+        self.i += step
+        embed = self.current()
+        self.sync()
+        await interaction.response.edit_message(embed=embed, view=self)
+
+    @discord.ui.button(label="Previous", style=discord.ButtonStyle.secondary, row=1)
+    async def prev(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.turn(interaction, -1)
+
+    @discord.ui.button(label="Next", style=discord.ButtonStyle.secondary, row=1)
+    async def next(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.turn(interaction, 1)
 
 
 class InfoView(OwnedView):
@@ -276,29 +329,41 @@ class Meta(commands.Cog):
         view = InfoView(self, ctx, owner)
         view.message = await ctx.reply(embed=view.overview(), view=view, mention_author=False)
 
-    # ---------- $adminhelp ----------
-    @commands.command(name="adminhelp", aliases=["help", "ahelp"])
+    # ---------- $help ----------
+    @commands.command(name="help", aliases=["h"])
     @commands.guild_only()
-    async def adminhelp(self, ctx: commands.Context):
-        """Commands you can use (admin / owner commands only show for admins / owners)."""
+    async def show_help(self, ctx: commands.Context):
+        """Every command you can use, by category (admin / owner commands only show for admins / owners)."""
         pages: dict[str, tuple] = {}
         for cmd in sorted(self.bot.walk_commands(), key=lambda c: c.qualified_name):
-            if cmd.name == "rolecmd":                      # internal dispatcher for custom role commands
+            if cmd.name == "rolecmd" or cmd.hidden:                  # internal dispatcher for custom role commands
                 continue
             level = await access_level(ctx, cmd)
-            if level is None:                              # not allowed -> never shown
+            if level is None:                                        # not allowed -> never shown
                 continue
             cog = cmd.cog_name or "Meta"
-            title, icon = CATEGORIES.get(cog, (cog, "menu"))
             if cog in ("Interface", "Admin"):
                 cog = "Admin"
+            title, icon = CATEGORIES.get(cog, (cog, "menu"))
             usage = f"{PREFIX}{cmd.qualified_name} {cmd.signature}".strip()
             desc = describe(cmd)
-            line = f"`{usage}`" + (f" - {desc}" if desc else "")
+            sub = cmd.parent is not None
+            alias = "" if sub or not cmd.aliases else " · *" + ", ".join(f"{PREFIX}{a}" for a in cmd.aliases[:3]) + "*"
+            line = ("↳ " if sub else "") + f"`{usage}`" + (f" — {desc}" if desc else "") + alias
             pages.setdefault(cog, (title, icon, {}))[2].setdefault(level, []).append(line)
-        pages = dict(sorted(pages.items(), key=lambda kv: kv[1][0].lower()))      # A-Z like Anshika Help
+        # the role commands of THIS server ($setmanager ...) are listed too, for people who may use them
+        if ctx.author.guild_permissions.manage_roles or await self.bot.is_true_owner(ctx.author):
+            lines = []
+            for n, d in sorted(self.bot.rolecmds(ctx.guild.id).items()):
+                r = ctx.guild.get_role(d["role"])
+                lines.append(f"`{PREFIX}set{n} @user` — gives {r.mention if r else '*deleted role*'}")
+            if lines:
+                title, icon = CATEGORIES["RoleCmds"]
+                pages.setdefault("RoleCmds", (title, icon, {}))[2].setdefault("admin", []).extend(lines)
+        pages = dict(sorted(pages.items(), key=lambda kv: (ORDER.index(kv[0]) if kv[0] in ORDER else len(ORDER), kv[1][0].lower())))
         view = HelpView(ctx, pages)
-        view.message = await ctx.reply(embed=view.overview(), view=view, mention_author=False)
+        view.message = await ctx.reply(embed=view.overview(), view=view, mention_author=False,
+                                       allowed_mentions=discord.AllowedMentions.none())
 
     # ---------- $konextra (bot owner only, PER SERVER) ----------
     @commands.group(name="konextra", aliases=["kextra"], invoke_without_command=True)

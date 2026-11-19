@@ -123,7 +123,7 @@ class Kon(commands.Bot):
     def save_aliases(self, gid: int):
         self.db.set_settings(gid, "aliases", self.aliases(gid))
 
-    # ---------- role commands ($giverole setmember @Member  ->  $setmember @user gives the role) ----------
+    # ---------- role commands ($setrole manager <role>  ->  $setmanager @user gives the role) ----------
     def rolecmds(self, gid: int) -> dict:
         r = self._rolecmds.get(gid)
         if r is None:
@@ -152,10 +152,10 @@ class Kon(commands.Bot):
                 target = self.aliases(message.guild.id).get(lw)
                 if target:                                  # custom alias -> real command (idempotent)
                     message.content = f"{pref}{target} {tail}".rstrip()
-                elif lw in self.rolecmds(message.guild.id) and self.get_command(lw) is None:
-                    message.content = f"{pref}rolecmd {lw} {tail}".rstrip()   # custom role command
                 elif lw.startswith("set") and lw[3:] in self.rolecmds(message.guild.id) and self.get_command(lw) is None:
-                    message.content = f"{pref}rolecmd {lw[3:]} {tail}".rstrip()   # $setown == $own
+                    message.content = f"{pref}rolecmd {lw[3:]} {tail}".rstrip()   # $setmanager (only the set<name> form exists)
+                elif lw in self.rolecmds(message.guild.id) and lw.startswith("set") and self.get_command(lw) is None:
+                    message.content = f"{pref}rolecmd {lw} {tail}".rstrip()       # old saved names that already start with "set"
                 elif lw == "vc" and tail.strip():           # "$vc kick @x"  ->  "$vckick @x"
                     sub, _, rest = tail.strip().partition(" ")
                     if self.get_command("vc" + sub.lower()):

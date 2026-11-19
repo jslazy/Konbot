@@ -22,7 +22,7 @@ from core.ui import OwnedView
 SETTINGS_KEY = "cmd_disable"
 ALL = "*"                    # every command
 COG = "cog:"                 # every command of one category, e.g. "cog:Points"
-PROTECTED = {"disablecommand", "enablecommand", "adminhelp", "sync", "konextra"}   # can never be locked out
+PROTECTED = {"disablecommand", "enablecommand", "help", "sync", "konextra"}   # can never be locked out
 CHANNEL_TYPES = [discord.ChannelType.text, discord.ChannelType.news, discord.ChannelType.forum,
                  discord.ChannelType.voice, discord.ChannelType.stage_voice, discord.ChannelType.category]
 PER_PAGE = 23                # command options per page (+ the "all of this category" option)

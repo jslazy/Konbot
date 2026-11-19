@@ -6,8 +6,9 @@
 Sent when the bot starts, every 30 seconds, and when it stops. Each backup is a new message; the previous one is
 deleted (BACKUP_MODE=keep keeps them all).
 
-`$backupload` (owner) - attach one or more data zips (or old full backups): everything inside data/ is merged
-into the running bot. Nothing is overwritten blindly: new rows are added, existing ones keep the bigger value.
+`$backupload` (owner) - attach data file(s) to the command, or REPLY to a message that has them, and everything is merged
+into the running bot. Works with: kon_data.zip (or an old full backup zip), a raw kon.db, db_dump.json, vc_data.json,
+afk_data.json, blacktea.json. Nothing is overwritten blindly: new rows are added, existing ones keep the bigger value.
 """
 import asyncio
 import copy
@@ -214,6 +215,35 @@ def merge_db(live: sqlite3.Connection, src_path: str, replace: bool = False) -> 
     finally:
         live.execute("DETACH DATABASE src")
     return added
+
+
+def dump_to_db(dump: dict, path: str, live: sqlite3.Connection):
+    """export/db_dump.json (or servers/<id>/database.json) -> a temporary sqlite file with the live schema, so merge_db can read it."""
+    c = sqlite3.connect(path)
+    try:
+        for table in ("users", "channel_progress", "badges", "shop_items", "purchases", "settings", "point_log"):
+            rows = dump.get(table)
+            if not isinstance(rows, list) or not rows:
+                continue
+            row = live.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name=?", (table,)).fetchone()
+            if not row or not row[0]:
+                continue
+            c.execute(row[0])
+            cols = [r[1] for r in c.execute(f"PRAGMA table_info({table})")]
+            for r in rows:
+                if not isinstance(r, dict):
+                    continue
+                vals = {k: (json.dumps(v) if isinstance(v, (dict, list)) else v) for k, v in r.items() if k in cols}
+                if vals:
+                    keys = list(vals)
+                    c.execute(f"INSERT OR IGNORE INTO {table}({','.join(keys)}) VALUES({','.join('?' * len(keys))})",
+                              list(vals.values()))
+        c.commit()
+    finally:
+        c.close()
+
+
+DATA_EXT = (".zip", ".db", ".sqlite", ".sqlite3", ".json")
 
 
 def deep_override(live, incoming):
@@ -423,7 +453,7 @@ class Backup(commands.Cog):
             f"{I.s('gift_box')} Backups sent: **{self.cfg.get('count', 0)}**",
             f"{I.s('clock')} Last: {f'<t:{int(self.last_ok)}:R>' if self.last_ok else 'not yet'}",
             f"{I.s('bolt')} Every **{INTERVAL}s**, on start and on stop",
-            f"{I.s('upload')} Bring data back with `{PREFIX}backupload` + `kon_data.zip`",
+            f"{I.s('upload')} Bring data back: reply to `kon_data.zip` (or a db / json file) with `{PREFIX}backupload`",
         ]
         if self.last_error:
             lines.append(f"{I.s('warning')} Last error: `{self.last_error[:200]}`")
@@ -469,7 +499,7 @@ class Backup(commands.Cog):
     @commands.command(name="backupload", aliases=["bload", "bupload"])
     @checks.true_owner_only()
     async def backupload(self, ctx: commands.Context, mode: str = ""):
-        """Attach one or more data zips (or reply to a message that has them). Data is merged automatically.
+        """Reply to a data file (kon_data.zip, kon.db, db_dump.json ...) with `$backupload`, or attach it to the command.
         `$backupload replace` = every setting from the backup wins (links, banners, panels ...) - use it to restore a fresh bot."""
         replace = mode.strip().lower() in ("replace", "restore", "overwrite", "full")
         atts = list(ctx.message.attachments)
@@ -478,14 +508,15 @@ class Backup(commands.Cog):
             msg = ref.resolved if isinstance(ref.resolved, discord.Message) else None
             if msg is None and ref.message_id:
                 try:
-                    msg = await ctx.channel.fetch_message(ref.message_id)
+                    chan = ctx.guild.get_channel_or_thread(ref.channel_id) if ctx.guild and ref.channel_id else None
+                    msg = await (chan or ctx.channel).fetch_message(ref.message_id)
                 except discord.HTTPException:
                     msg = None
             if msg is not None:
                 atts += list(msg.attachments)
-        atts = [a for a in atts if a.filename.lower().endswith(".zip")]
+        atts = [a for a in atts if a.filename.lower().endswith(DATA_EXT)]
         if not atts:
-            raise VCError("Attach a data zip with the command, or reply to a message that has one.")
+            raise VCError("Reply to a data file (zip / db / json) with `$backupload`, or attach it to the command.")
         lines = []
         async with ctx.typing():
             for a in atts[:10]:
@@ -494,17 +525,59 @@ class Backup(commands.Cog):
                     continue
                 try:
                     raw = await a.read()
-                    got = await self.merge_zip(raw, replace)
+                    got = await self.merge_file(raw, a.filename, replace)
                 except VCError as e:
                     lines.append(f"{I.s('cross')} `{a.filename}`: {e}")
                     continue
-                except (zipfile.BadZipFile, OSError, sqlite3.Error, ValueError) as e:
+                except (zipfile.BadZipFile, OSError, sqlite3.Error, ValueError, KeyError, TypeError, AttributeError) as e:
                     log.warning("backupload failed for %s: %r", a.filename, e, exc_info=True)
                     lines.append(f"{I.s('cross')} `{a.filename}` couldn't be read.")
                     continue
                 lines.append(f"{I.s('check')} `{a.filename}`: " + (", ".join(f"{v} {k}" for k, v in got.items() if v) or "nothing new"))
         self.reset_caches()
         await ctx.reply("\n".join(lines), mention_author=False)
+
+    async def merge_file(self, raw: bytes, filename: str, replace: bool = False) -> dict:
+        """One data file (zip / db / json) -> merged into the running bot. Returns {what: count}."""
+        name = filename.lower()
+        if name.endswith(".zip"):
+            return await self.merge_zip(raw, replace)
+        out: dict[str, int] = {}
+        if name.endswith((".db", ".sqlite", ".sqlite3")):
+            tmp = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
+            try:
+                tmp.write(raw)
+                tmp.close()
+                for k, v in merge_db(self.bot.db.conn, tmp.name, replace).items():
+                    out[k] = out.get(k, 0) + v
+            finally:
+                Path(tmp.name).unlink(missing_ok=True)
+            return out
+        data = json.loads(raw.decode("utf-8-sig"))
+        if not isinstance(data, dict):
+            raise VCError("That json isn't a Kon data file.")
+        if any(isinstance(data.get(t), list) for t in ("users", "shop_items", "settings", "badges", "purchases")):
+            tmp = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
+            try:
+                tmp.close()
+                dump_to_db(data, tmp.name, self.bot.db.conn)
+                for k, v in merge_db(self.bot.db.conn, tmp.name, replace).items():
+                    out[k] = out.get(k, 0) + v
+            finally:
+                Path(tmp.name).unlink(missing_ok=True)
+        elif any(k in data for k in ("guilds", "vcs", "selfroles", "vc_setup", "guild_owners")):
+            if self.merge_store(data, replace):
+                out["VC / server settings"] = 1
+        elif "afk" in data:
+            n = self.merge_afk(data)
+            if n:
+                out["AFK"] = n
+        elif isinstance(data.get("channels"), dict):
+            if self.merge_blacktea(data):
+                out["BlackTea channels"] = 1
+        else:
+            raise VCError("I don't know this json file. Use kon_data.zip, kon.db or db_dump.json.")
+        return out
 
     async def merge_zip(self, raw: bytes, replace: bool = False) -> dict:
         z = zipfile.ZipFile(io.BytesIO(raw))

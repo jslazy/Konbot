@@ -7,6 +7,9 @@ $webhook                       open the editor: pick the channel, write the mess
 $webhook #channel text...      send straight away (multi-line text works)
 $webhookedit <message link> new text      edit a message Kon's webhook sent   (alias $whe)
 
+Buttons: the editor has Add Button / Remove Button - a link button (label + link + emoji or emoji ID) under the message.
+Up to 10 buttons, saved per server like the embed.
+
 Emojis in the text: paste the emoji ID (123456789012345678) or :name: - Kon turns it into the real animated emoji.
 $ei [search | here | <emoji id>]   all animated emojis (of the servers you share with Kon) with their IDs.
 
@@ -108,6 +111,29 @@ def parse_color(text: str) -> int:
         raise VCError("Colour must be a hex code like `FF9B22`.")
 
 
+MAX_BUTTONS = 10
+KEEP = object()          # "don't touch the buttons" when editing a message
+
+
+def make_view(buttons: list, use_emoji: bool = True) -> Optional[discord.ui.View]:
+    """Link buttons under the message (None = no buttons). Link buttons work for webhook messages without any callback."""
+    if not buttons:
+        return None
+    view = discord.ui.View(timeout=None)
+    for b in buttons[:MAX_BUTTONS]:
+        emoji = emojis.to_partial_checked(b.get("emoji")) if use_emoji else None
+        view.add_item(discord.ui.Button(style=discord.ButtonStyle.link, label=b.get("label") or None,
+                                        url=b["url"], emoji=emoji))
+    return view
+
+
+def clean_url(text: str) -> str:
+    text = (text or "").strip()
+    if not re.match(r"https?://\S+\.\S+", text) or len(text) > 512:
+        raise VCError("The link must start with `https://` (or `http://`).")
+    return text
+
+
 class WebhookPanel(OwnedView):
     def __init__(self, cog: "Webhook", ctx: commands.Context, channel: Optional[discord.TextChannel]):
         super().__init__(ctx.author.id, timeout=900)
@@ -120,12 +146,14 @@ class WebhookPanel(OwnedView):
         self.emb = dict(saved.get("embed") or {})      # title, description, color, footer, author
         self.image = saved.get("image")                # embed image item
         self.thumb = saved.get("thumb")                # embed thumbnail item
+        self.buttons = [b for b in (saved.get("buttons") or []) if isinstance(b, dict) and b.get("url")]
         self.last: Optional[tuple] = None      # (channel id, message id) of the last message sent
         self.pick_channel.default_values = [channel] if channel else []
 
     def save(self):
         self.cog.bot.db.set_settings(self.guild.id, KEY, {
-            "username": self.username, "avatar": self.avatar, "embed": self.emb, "image": self.image, "thumb": self.thumb})
+            "username": self.username, "avatar": self.avatar, "embed": self.emb, "image": self.image, "thumb": self.thumb,
+            "buttons": self.buttons})
 
     async def build_embed(self) -> Optional[discord.Embed]:
         """The embed that Send will post (None = message only)."""
@@ -162,6 +190,12 @@ class WebhookPanel(OwnedView):
         e.add_field(name="Embed", value="set" if any(self.emb.values()) or self.image or self.thumb else "*none*")
         e.add_field(name="Embed image", value="set" if self.image else "*none*")
         e.add_field(name="Thumbnail", value="set" if self.thumb else "*none*")
+        if self.buttons:
+            rows = [f"`{n}.` {b.get('emoji') or ''} {b.get('label') or '*(no text)*'} → <{b['url'][:60]}>"
+                    for n, b in enumerate(self.buttons, 1)]
+            e.add_field(name=f"Buttons ({len(self.buttons)}/{MAX_BUTTONS})", value="\n".join(rows)[:1000], inline=False)
+        else:
+            e.add_field(name="Buttons", value="*none - press **Add Button***")
         if self.last:
             e.add_field(name="Last sent", value=f"https://discord.com/channels/{self.guild.id}/{self.last[0]}/{self.last[1]}",
                         inline=False)
@@ -220,7 +254,7 @@ class WebhookPanel(OwnedView):
         await interaction.response.defer()
         try:
             msg = await self.cog.send(self.author, self.channel, self.content, self.username, self.avatar,
-                                      embed=await self.build_embed())
+                                      embed=await self.build_embed(), buttons=self.buttons)
         except VCError as e:
             return await interaction.followup.send(err(str(e)), ephemeral=True)
         self.last = (msg.channel.id, msg.id)
@@ -258,6 +292,46 @@ class WebhookPanel(OwnedView):
     async def set_thumb(self, interaction: discord.Interaction, _):
         await self.pick_image(interaction, "thumb", "Embed thumbnail", "Webhook embed thumbnail")
 
+    @discord.ui.button(label="Add Button", emoji=I.e("plus"), style=discord.ButtonStyle.secondary, row=3)
+    async def add_button(self, interaction: discord.Interaction, _):
+        if len(self.buttons) >= MAX_BUTTONS:
+            return await interaction.response.send_message(err(f"Max {MAX_BUTTONS} buttons. Remove one first."), ephemeral=True)
+
+        async def done(i: discord.Interaction, v: list):
+            label, url, emoji_text = v[0][:80], clean_url(v[1]), v[2]
+            emoji = await emojis.normalize(self.cog.bot, self.guild, emoji_text)
+            if not label and not emoji:
+                raise VCError("Give the button a text or an emoji.")
+            self.buttons.append({"label": label, "url": url, "emoji": emoji})
+            self.save()
+            await self.refresh(i)
+        await interaction.response.send_modal(FormModal("Add a link button", [
+            box("Button text", "", max_length=80, placeholder="Join server"),
+            box("Link (https://...)", "", max_length=512, required=True),
+            box("Emoji or emoji ID (optional)", "", max_length=64, placeholder="123456789012345678 or :name:")], done))
+
+    @discord.ui.button(label="Remove Button", emoji=I.e("minus"), style=discord.ButtonStyle.secondary, row=3)
+    async def remove_button(self, interaction: discord.Interaction, _):
+        if not self.buttons:
+            return await interaction.response.send_message(err("There are no buttons."), ephemeral=True)
+
+        async def done(i: discord.Interaction, v: list):
+            text = v[0].strip().lower()
+            if text in ("all", "*"):
+                self.buttons.clear()
+            else:
+                try:
+                    n = int(text)
+                except ValueError:
+                    raise VCError("Send the button number (see the list above) or `all`.")
+                if not 1 <= n <= len(self.buttons):
+                    raise VCError(f"Pick a number from 1 to {len(self.buttons)}.")
+                self.buttons.pop(n - 1)
+            self.save()
+            await self.refresh(i)
+        await interaction.response.send_modal(FormModal("Remove a button", [
+            box("Button number (or `all`)", "", max_length=5, required=True)], done))
+
     @discord.ui.button(label="Edit sent message", emoji=I.e("refresh"), style=discord.ButtonStyle.secondary, row=3)
     async def edit_sent(self, interaction: discord.Interaction, _):
         async def done(i: discord.Interaction, v: list):
@@ -266,7 +340,7 @@ class WebhookPanel(OwnedView):
                 raise VCError("Write the new text or build an embed.")
             ch, mid = self.cog.parse_target(self.guild, v[0], self.last, self.channel)
             await i.response.defer(ephemeral=True)
-            await self.cog.edit(self.author, ch, mid, v[1], embed=emb)
+            await self.cog.edit(self.author, ch, mid, v[1], embed=emb, buttons=self.buttons)
             if not v[0] or self.last == (ch.id, mid):
                 self.content = v[1]
             await i.followup.send(ok(f"Edited: https://discord.com/channels/{self.guild.id}/{ch.id}/{mid}"), ephemeral=True)
@@ -344,36 +418,50 @@ class Webhook(commands.Cog):
         return text
 
     async def send(self, member: discord.Member, channel: discord.TextChannel, content: str,
-                   username: str = "", avatar=None, embed: Optional[discord.Embed] = None) -> discord.WebhookMessage:
+                   username: str = "", avatar=None, embed: Optional[discord.Embed] = None,
+                   buttons: Optional[list] = None) -> discord.WebhookMessage:
         self.check_member(member, channel)
         text = await self.prepare(channel.guild, content, allow_empty=embed is not None)
         avatar_url = await self.avatar_url(channel.guild, avatar)
         M = discord.utils.MISSING
-        for attempt in (1, 2):
+        use_emoji = True
+        for attempt in (1, 2, 3):
             wh = await self.webhook_for(channel)
+            view = make_view(buttons or [], use_emoji)
             try:
                 return await wh.send(text or M, username=username or M, avatar_url=avatar_url or M,
-                                     embed=embed or M, wait=True, allowed_mentions=self.mentions(member))
+                                     embed=embed or M, view=view if view is not None else M, wait=True, allowed_mentions=self.mentions(member))
             except discord.NotFound:                                # webhook was deleted -> make a new one
                 self._hooks.pop(channel.id, None)
-                if attempt == 2:
+                if attempt == 3:
                     raise VCError("The webhook disappeared. Try again.")
             except discord.HTTPException as e:
+                if e.code == 50035 and buttons and use_emoji:       # a button emoji Discord refuses -> send without emojis
+                    use_emoji = False
+                    continue
                 raise VCError(f"Discord refused the message ({e.status}).")
+        raise VCError("Couldn't send the message. Try again.")
 
     async def edit(self, member: discord.Member, channel: discord.TextChannel, message_id: int, content: str,
-                   embed: Optional[discord.Embed] = None):
+                   embed: Optional[discord.Embed] = None, buttons=KEEP):
         self.check_member(member, channel)
         text = await self.prepare(channel.guild, content, allow_empty=embed is not None)
         wh = await self.webhook_for(channel)
-        try:
-            return await wh.edit_message(message_id, content=text or None,
-                                         embeds=[embed] if embed is not None else discord.utils.MISSING,
-                                         allowed_mentions=self.mentions(member))
-        except discord.NotFound:
-            raise VCError("I can't find that message - it must be one my webhook sent in that channel.")
-        except discord.HTTPException:
-            raise VCError("I can only edit messages that Kon's own webhook sent.")
+        M = discord.utils.MISSING
+        use_emoji = True
+        for _ in (1, 2):
+            view = M if buttons is KEEP else make_view(buttons or [], use_emoji)       # None = remove the buttons
+            try:
+                return await wh.edit_message(message_id, content=text or None,
+                                             embeds=[embed] if embed is not None else M,
+                                             view=view, allowed_mentions=self.mentions(member))
+            except discord.NotFound:
+                raise VCError("I can't find that message - it must be one my webhook sent in that channel.")
+            except discord.HTTPException as e:
+                if e.code == 50035 and buttons is not KEEP and buttons and use_emoji:
+                    use_emoji = False
+                    continue
+                raise VCError("I can only edit messages that Kon's own webhook sent.")
 
     @staticmethod
     def parse_target(guild: discord.Guild, text: str, last: Optional[tuple], channel) -> tuple:

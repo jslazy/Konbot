@@ -160,7 +160,7 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
 - **`$setrole own <role ID>`** - role ID, @role or name; then `$setown @user` gives the role (`$giverole` and the plain `$own` are gone).
 
 ## Update 2026-11-19
-- `$store` redesigned like the leaderboard: 5 roles per page, Previous / Balance / Next, select menu to buy. Deleted emojis can no longer crash it.
+- `$store` redesigned like the leaderboard: 4 roles per page, Previous / Next, select menu to buy. Deleted emojis can no longer crash it.
 - Pointshop emoji field (and webhook buttons) accept an **emoji ID**, `:name:` or a normal emoji.
 - `$webhook` panel: **Add Button / Remove Button** - link buttons (text, link, emoji or emoji ID), up to 10, saved per server.
 - `$backupload`: reply to a data file (`kon_data.zip`, `kon.db`, `db_dump.json`, `vc_data.json` ...) with `$backupload` (or attach it).

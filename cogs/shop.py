@@ -61,8 +61,7 @@ class ItemView(discord.ui.View):
         await self.cog.purchase(interaction, self.item["id"])
 
 
-STORE_LINE = "───⬢⬡⬢──────⬢⬡⬢──────⬢⬡⬢───"          # same divider as the leaderboard
-STORE_PER_PAGE = 5
+STORE_PER_PAGE = 4
 
 
 class StoreSelect(discord.ui.Select):
@@ -75,7 +74,7 @@ class StoreSelect(discord.ui.Select):
 
 
 class StoreView(OwnedView):
-    """Leaderboard-style shop: 5 roles per page, Previous / Balance / Next and a select to buy."""
+    """Leaderboard-style shop: 4 roles per page, Previous / Next and a select to buy."""
 
     def __init__(self, cog: "Shop", ctx: commands.Context):
         super().__init__(ctx.author.id, timeout=300)
@@ -83,7 +82,7 @@ class StoreView(OwnedView):
         self.page = 0
         self.emoji_ok = True                       # False = dropdown without emojis (Discord refused one)
         self.select = None
-        self.prev.emoji, self.bal.emoji, self.next.emoji = I.e("left"), I.e("wallet"), I.e("right")
+        self.prev.emoji, self.next.emoji = I.e("left"), I.e("right")
         self.reload()
 
     def entries(self) -> list:
@@ -119,17 +118,15 @@ class StoreView(OwnedView):
         return self.all[self.page * STORE_PER_PAGE:(self.page + 1) * STORE_PER_PAGE]
 
     def embed(self) -> discord.Embed:
-        lines = [STORE_LINE]
-        start = self.page * STORE_PER_PAGE
-        for n, (it, role) in enumerate(self.chunk(), start + 1):
+        blocks = []
+        for it, role in self.chunk():
             owned = role in getattr(self.author, "roles", ())
-            tag = f" {I.s('check')} Owned" if owned else (" · **SOLD OUT**" if it["stock"] == 0 else "")
-            lines.append(f"**{n}.** {it['emoji'] or ''} {role.mention} — **{it['price']:,}** Points\n"
-                         f"{I.s('gift_box')} Stock: `{stock_text(it['stock'])}`{tag}")
-        if len(lines) == 1:
-            lines.append("The shop is empty.")
+            tag = f" · {I.s('check')} Owned" if owned else ""
+            blocks.append(f"{it['emoji'] or ''} {role.mention}\n"
+                          f"{I.s('coins')} Price: `{it['price']}` | Stock: `{stock_text(it['stock'])}`{tag}")
+        body = "\n\n".join(blocks) if blocks else "The shop is empty."
         bal = self.cog.db.user(self.guild.id, self.author.id)["points"]
-        desc = "\n".join(lines) + f"\n{STORE_LINE}\n{I.s('wallet')} **Your Balance:** {bal:,} Points"
+        desc = f"{body}\n\n### Your Balance\n{I.s('wallet')} **{bal:,}** Points"
         e = discord.Embed(title=f"{I.s('coins')} ∫ Role Shop", color=BLURPLE, description=desc[:4096])
         thumb = self.cog.shop_settings(self.guild.id).get("thumbnail") or (self.guild.icon.url if self.guild.icon else None)
         if thumb:
@@ -145,11 +142,6 @@ class StoreView(OwnedView):
     @discord.ui.button(label="Previous", style=discord.ButtonStyle.secondary, row=0)
     async def prev(self, interaction: discord.Interaction, button: discord.ui.Button):
         await self.go(interaction, self.page - 1)
-
-    @discord.ui.button(label="Balance", style=discord.ButtonStyle.secondary, row=0)
-    async def bal(self, interaction: discord.Interaction, button: discord.ui.Button):
-        bal = self.cog.db.user(self.guild.id, self.author.id)["points"]
-        await interaction.response.send_message(f"{I.s('wallet')} You have **{bal:,}** points.", ephemeral=True)
 
     @discord.ui.button(label="Next", style=discord.ButtonStyle.secondary, row=0)
     async def next(self, interaction: discord.Interaction, button: discord.ui.Button):

@@ -39,7 +39,7 @@
 
 - *not configured*
 
-### Role commands ($giverole)
+### Role commands ($setrole)
 
 - *not configured*
 

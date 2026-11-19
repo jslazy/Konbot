@@ -24,7 +24,7 @@
 - **other_keys**: *(empty)*
 - **active_custom_vcs**:
   - **1572796602043727892** → #suhani subah:
-    - **owner**: `1299765230011678834` → Meow-Gamer (soul_reaperx2)
+    - **owner**: `650534818517483526` → Lazy (jslazy)
     - **banned**: *(empty)*
     - **block_drags**: no
     - **created**: 1795054331 (2026-11-19 02:12 UTC)
@@ -130,7 +130,7 @@
     - **role_id**: `1488691203858890833` → @ゝ2x XP Boost ⌝
     - **price**: 500
     - **stock**: 4
-    - **emoji**: `<:Spider_Sparkle:1569557530735026359>`
+    - **emoji**: `<:winner:1517495079181488280>`
     - **position**: 5
   - #6
     - **id**: 5
@@ -138,7 +138,7 @@
     - **role_id**: `1488691204785963128` → @ゝ4x XP Boost ⌝
     - **price**: 1000
     - **stock**: 5
-    - **emoji**: `<:Spider_Sparkle:1569557530735026359>`
+    - **emoji**: `<:winner:1517495079181488280>`
     - **position**: 6
   - #7
     - **id**: 6
@@ -146,7 +146,7 @@
     - **role_id**: `1488691205637279785` → @ゝ8x XP Boost ⌝
     - **price**: 2000
     - **stock**: 4
-    - **emoji**: `<:Spider_Sparkle:1569557530735026359>`
+    - **emoji**: `<:winner:1517495079181488280>`
     - **position**: 7
 
 ### No-prefix
@@ -162,7 +162,7 @@
 
 - *not configured*
 
-### Role commands ($giverole)
+### Role commands ($setrole)
 
 - **setmemer**:
   - **role**: `1488691235970351105` → @︲Memer」

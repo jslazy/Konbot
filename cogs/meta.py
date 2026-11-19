@@ -22,10 +22,10 @@ CATEGORIES = {
     "Meta": ("General", "home"), "Autoreact": ("Auto Reacter", "sparkles"), "RoleCmds": ("Role Commands", "crown"),
     "SelfRoles": ("Self Roles", "crown"), "Expressions": ("Emojis & Stickers", "sparkles"), "Purge": ("Cleanup", "tools"),
     "Aura": ("Aura", "fire"), "RoleTransfer": ("Role Transfer", "crown"), "TicTacToe": ("Tic Tac Toe", "gamepad"), "CmdControl": ("Command Control", "lock"),
-    "BlackTea": ("BlackTea", "gamepad"), "Webhook": ("Webhook", "link"), "ImageHost": ("Image Links", "image"),
+    "BlackTea": ("BlackTea", "leaf"), "TimeTap": ("TimeTap", "stopwatch"), "Handfight": ("Handfight", "rock"), "Games": ("Games", "gamepad"), "Webhook": ("Webhook", "link"), "ImageHost": ("Image Links", "image"),
 }
 # order of the pages in $help (anything not listed goes at the end, A-Z)
-ORDER = ["Meta", "Points", "Shop", "RoleCmds", "VC", "Drag", "AFK", "SelfRoles", "Autoreact", "Aura", "BlackTea", "TicTacToe",
+ORDER = ["Meta", "Points", "Shop", "RoleCmds", "VC", "Drag", "AFK", "SelfRoles", "Autoreact", "Aura", "Games", "TimeTap", "Handfight", "BlackTea", "TicTacToe",
          "Expressions", "Webhook", "ImageHost", "Purge", "Prefixes", "CmdControl", "RoleTransfer", "Admin", "Backup"]
 
 # short, plain descriptions (key = command name without prefix). Anything missing falls back to the docstring.
@@ -68,9 +68,16 @@ DESC = {
     "aura": "Show your aura (or @member's)", "aura config": "Fix aura, random on/off, switch a person off",
     "transfer": "Move roles from one member to another (Kon admins)",
     "tictactoe": "Tic Tac Toe info", "tictactoe play": "Challenge a member (only in the game channel)",
-    "tictactoe admin": "Set the Tic Tac Toe channel",
+    "tictactoe admin": "Set the Tic Tac Toe channel (`$tictactoe set` opens a channel menu)",
+    "games": "All games, the channel each one works in and how to start them",
+    "timetap": "Open TimeTap - reaction game (pick Training / Duo / Trio / Squad)", "timetap play": "Open TimeTap (`$tt`)",
+    "timetap channel": "Pick the TimeTap channel from a menu (`$timetap set`)", "timetap stats": "Your reaction stats and records",
+    "timetap stop": "Stop the running TimeTap game",
+    "handfight": "Open Handfight - rock paper scissors (Duo / Squad)", "handfight play": "Open Handfight (`$hf`)",
+    "handfight channel": "Pick the Handfight channel from a menu (`$handfight set`)", "handfight stats": "Your Handfight record",
+    "handfight stop": "Stop the running Handfight game",
     "blacktea": "Start a BlackTea word game (`$bt easy|medium|hard`)", "blacktea play": "Start a BlackTea word game",
-    "blacktea channel": "Set the BlackTea channel", "setblacktea": "Set the BlackTea channel",
+    "blacktea channel": "Pick the BlackTea channel from a menu (`$blacktea set`)", "setblacktea": "Set the BlackTea channel",
     "blacktea reset": "Remove the BlackTea channel", "blacktea stop": "Stop the running BlackTea game",
     "imgchannel": "Set the private channel that stores converted images", "imgchannelreset": "Remove the image channel",
     "tolink": "Turn an image / GIF / banner into a saved link (attach, reply or paste a link)",

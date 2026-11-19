@@ -1,7 +1,8 @@
 """BlackTea - a word-bomb game (like tictactoe: it only works in the channel an admin sets).
 
 $blacktea [easy|medium|hard]   open a lobby right away (no "play" needed; alias: $bt) - works only in the BlackTea channel
-$blacktea channel [#channel]   (admin) set the BlackTea channel (no channel given = the current one)
+                               the game NEVER starts by itself - the host presses Start
+$blacktea set                  (admin) pick the BlackTea channel from a menu (also: $blacktea channel [#channel])
 $setblacktea [#channel]        same as above
 $blacktea reset                (admin) remove the BlackTea channel setting
 $blacktea stop                 stop the running game (host or admin)
@@ -33,6 +34,7 @@ from discord.ext import commands
 
 from core.config import BASE, DATA_DIR, PREFIX
 from core.icons import I
+from core.minigames import LOBBY_IDLE, open_channel_picker
 
 log = logging.getLogger("kon.blacktea")
 
@@ -44,7 +46,6 @@ TEA = 0xC47F3B           # tea brown
 WIN = 0xF5C542
 RED = 0xED4245
 
-LOBBY_SECONDS = 30
 MAX_PLAYERS = 20
 LIVES = 3
 
@@ -131,10 +132,10 @@ class LobbyView(discord.ui.View):
         g.players.remove(interaction.user.id)
         await interaction.response.edit_message(embed=g.lobby_embed(), view=self)
 
-    @discord.ui.button(label="Start now", emoji=I.e("play"), style=discord.ButtonStyle.primary)
+    @discord.ui.button(label="Start", emoji=I.e("play"), style=discord.ButtonStyle.primary)
     async def start(self, interaction: discord.Interaction, button: discord.ui.Button):
         if not self.is_host(interaction.user):
-            return await interaction.response.send_message("Only the host can start early.", ephemeral=True)
+            return await interaction.response.send_message("Only the host can start the game.", ephemeral=True)
         if len(self.game.players) < 2:
             return await interaction.response.send_message("You need at least **2 players** to start.", ephemeral=True)
         self.game.start_event.set()
@@ -189,11 +190,10 @@ class Game:
             f"• No answer = you lose a life. Words can't be repeated.\n"
             f"• Last one standing wins {I.s('trophy')}"))
         e.add_field(name="Difficulty", value=f"{I.s(c['icon'])} **{c['label']}**\n{c['info']}", inline=True)
-        e.add_field(name="Starts", value=f"<t:{self.start_ts}:R>", inline=True)
         names = "\n".join(f"{i}. <@{uid}>" + (f" {I.s('crown')}" if uid == self.host.id else "")
                           for i, uid in enumerate(self.players, 1))
         e.add_field(name=f"Players ({len(self.players)}/{MAX_PLAYERS})", value=names, inline=False)
-        e.set_footer(text="Press Join to play · the host can pick the difficulty or start early")
+        e.set_footer(text="Press Join · the host picks the difficulty and presses Start (it never starts by itself)")
         return e
 
     def turn_embed(self, rnd: int) -> discord.Embed:
@@ -233,24 +233,26 @@ class Game:
             self.cog.games.pop(self.channel.id, None)
 
     async def lobby(self):
-        self.start_ts = int(time.time()) + LOBBY_SECONDS
         self.view = LobbyView(self)
         self.lobby_msg = await self.channel.send(embed=self.lobby_embed(), view=self.view)
+        expired = False
         try:
-            await asyncio.wait_for(self.start_event.wait(), LOBBY_SECONDS)
+            await asyncio.wait_for(self.start_event.wait(), LOBBY_IDLE)      # NO autostart: only the host's Start button
         except asyncio.TimeoutError:
-            pass
+            expired = True
+            self.stopped = True
         self.view.stop()
         for item in self.view.children:
             item.disabled = True
         e = self.lobby_embed()
-        if self.stopped:
+        if expired:
+            e.title, e.color = f"{I.s('leaf')} BlackTea - lobby expired (nobody pressed Start)", RED
+        elif self.stopped:
             e.title, e.color = f"{I.s('leaf')} BlackTea - cancelled", RED
         elif len(self.players) < 2:
             e.title, e.color = f"{I.s('leaf')} BlackTea - cancelled (not enough players)", RED
         else:
             e.title = f"{I.s('leaf')} BlackTea - started!"
-        e.remove_field(1)    # the countdown field
         try:
             await self.lobby_msg.edit(embed=e, view=self.view)
         except discord.HTTPException:
@@ -448,11 +450,22 @@ class BlackTea(commands.Cog):
             await ctx.send(f"{I.s('leaf')} Opening the lobby...", ephemeral=True)
         game.task = asyncio.create_task(game.run())
 
-    @blacktea.command(name="channel", description="(Admin) Set the channel where BlackTea works")
+    def _save_channel(self, gid: int, cid: int):
+        self.settings["channels"][str(gid)] = cid
+        save_settings(self.settings)
+
+    def _clear_channel(self, gid: int):
+        if self.settings["channels"].pop(str(gid), None) is not None:
+            save_settings(self.settings)
+
+    @blacktea.command(name="channel", aliases=["set"], description="(Admin) Set the channel where BlackTea works")
     @commands.has_permissions(manage_guild=True)
     @commands.guild_only()
     async def bt_channel(self, ctx: commands.Context, channel: Optional[discord.TextChannel] = None):
-        channel = channel or ctx.channel
+        if channel is None:                       # "$blacktea set" -> channel select menu (no ping needed)
+            return await open_channel_picker(
+                ctx, label="BlackTea", icon="leaf", command="blacktea", current=self.game_channel(ctx.guild.id),
+                save=self._save_channel, clear=self._clear_channel, extra_perms=("add_reactions", "read_message_history"))
         me = channel.permissions_for(ctx.guild.me)
         if not (me.send_messages and me.embed_links and me.add_reactions and me.read_message_history):
             return await ctx.send(f"I need Send Messages, Embed Links, Add Reactions and Read Message History in "

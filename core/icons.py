@@ -27,6 +27,8 @@ FALLBACK = {
     "image": "🖼️", "palette": "🎨", "upload": "📤", "tag": "🏷️", "diamond": "💠",     # self-role editor
     "heart_broken": "🖤", "skull": "💀", "stop": "🛑", "repeat": "🔁",
     "fire": "🔥", "gamepad": "🎮", "target": "🎯", "folder": "📁", "user_star": "🌟", "grid": "🔲",   # aura / games / info
+    "rock": "🪨", "paper": "📄", "scissors": "✂️", "tap": "👆", "team_red": "🔴", "team_blue": "🔵",     # Handfight / TimeTap
+    "light_red": "🔴", "light_green": "🟢", "shield_star": "🛡️", "swap_small": "⚔️", "thumbs_up": "👍",
 }
 
 # every icon used anywhere in the bot (kept small: emoji uploads are rate limited)

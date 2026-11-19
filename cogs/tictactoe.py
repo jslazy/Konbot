@@ -18,6 +18,7 @@ from core import ratelimit
 from core.config import BLURPLE, BRAND
 from core.errors import VCError
 from core.icons import I, err, ok
+from core.minigames import open_channel_picker
 
 KEY = "tictactoe"
 LINES = ((0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6))
@@ -175,16 +176,20 @@ class TicTacToe(commands.Cog):
     async def tictactoe(self, ctx: commands.Context):
         """$tictactoe play @member - challenge someone (only in the Tic Tac Toe channel)."""
         ch = self.channel_id(ctx.guild.id)
-        where = f"<#{ch}>" if ch else "*not set. An admin can use* `/tictactoe admin`"
+        where = f"<#{ch}>" if ch else "*not set. An admin can use* `$tictactoe set`"
         await ctx.reply(embed=discord.Embed(color=BLURPLE, title=f"{I.s('gamepad')} Tic Tac Toe", description=(
-            f"**Channel:** {where}\n`/tictactoe play @member` or `$ttt play @member`")), mention_author=False)
+            f"**Channel:** {where}\n`/tictactoe play @member` or `$ttt play @member`\nAdmins: `$tictactoe set` picks the channel from a menu.")), mention_author=False)
 
-    @tictactoe.command(name="admin", description="Set the dedicated channel for Tic Tac Toe games")
+    @tictactoe.command(name="admin", aliases=["set", "channel"], description="Set the dedicated channel for Tic Tac Toe games")
     @app_commands.describe(channel="Channel where Tic Tac Toe can be played")
     @commands.has_permissions(manage_guild=True)
     @commands.guild_only()
     async def ttt_admin(self, ctx: commands.Context, channel: Optional[discord.TextChannel] = None):
-        channel = channel or ctx.channel
+        if channel is None:                       # "$tictactoe set" -> channel select menu (no ping needed)
+            return await open_channel_picker(
+                ctx, label="Tic Tac Toe", icon="gamepad", command="tictactoe", current=self.channel_id(ctx.guild.id),
+                save=lambda gid, cid: self.bot.db.set_settings(gid, KEY, {"channel": cid}),
+                clear=lambda gid: self.bot.db.set_settings(gid, KEY, {}))
         perms = channel.permissions_for(ctx.guild.me)
         if not (perms.send_messages and perms.embed_links):
             raise VCError(f"I need **Send Messages** and **Embed Links** in {channel.mention}.")
@@ -197,7 +202,7 @@ class TicTacToe(commands.Cog):
     async def ttt_play(self, ctx: commands.Context, opponent: discord.Member):
         ch = self.channel_id(ctx.guild.id)
         if not ch:
-            raise VCError("Not set up yet. An admin needs to run `/tictactoe admin #channel`.")
+            raise VCError("Not set up yet. An admin needs to run `$tictactoe set`.")
         if ctx.channel.id != ch:
             raise VCError(f"Play it in <#{ch}>.")
         me = ctx.author

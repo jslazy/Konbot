@@ -1,9 +1,9 @@
 {
   "bot": "Kon#9118",
-  "created": "2026-11-19T02:54:55.835058+00:00",
+  "created": "2026-11-19T03:46:40.550788+00:00",
   "reason": "Automatic (every 30s)",
   "status": "online",
-  "backup_number": 217,
+  "backup_number": 25,
   "kind": "code",
   "files": [
     {
@@ -18,8 +18,8 @@
     },
     {
       "path": "README.md",
-      "size": 14224,
-      "sha1": "6c3c0bb4a52c752a26ca8398daff280fff7d07b7"
+      "size": 14937,
+      "sha1": "941cb6d74a928b252a58080406f292698ed7bad3"
     },
     {
       "path": "assets/icon_sheet.png",
@@ -718,8 +718,8 @@
     },
     {
       "path": "cogs/backup.py",
-      "size": 31094,
-      "sha1": "12585291ad2842eeee3901ed9c4508252722945d"
+      "size": 34800,
+      "sha1": "a6f78028673f925ba1a680e40e3cdf7ce22c67e5"
     },
     {
       "path": "cogs/blacktea.py",
@@ -728,8 +728,8 @@
     },
     {
       "path": "cogs/cmdcontrol.py",
-      "size": 22135,
-      "sha1": "664c586c0d2bd8f730fe491f676bec89e733331d"
+      "size": 22130,
+      "sha1": "0a58aeee65989683038dd605bb0e645540b7a614"
     },
     {
       "path": "cogs/drag.py",
@@ -758,8 +758,8 @@
     },
     {
       "path": "cogs/meta.py",
-      "size": 19640,
-      "sha1": "b1335313d060e706ad0d8fcb55a35569ce1970d2"
+      "size": 23028,
+      "sha1": "7897116d3d62459266711f9ba9097d238bc2102f"
     },
     {
       "path": "cogs/points.py",
@@ -778,8 +778,8 @@
     },
     {
       "path": "cogs/rolecmds.py",
-      "size": 10299,
-      "sha1": "42367a453bec6f2343e0733c6181555ea07ca54e"
+      "size": 10564,
+      "sha1": "f47fde2235e8aa960e5f7b97461e72bea005cb1b"
     },
     {
       "path": "cogs/roletransfer.py",
@@ -793,8 +793,8 @@
     },
     {
       "path": "cogs/shop.py",
-      "size": 17556,
-      "sha1": "f83deb5eedf3c19ab34b55512459e7eaa868f243"
+      "size": 19987,
+      "sha1": "cdd71b0c73548dcebd5526990f96a340f8a21041"
     },
     {
       "path": "cogs/tictactoe.py",
@@ -808,8 +808,8 @@
     },
     {
       "path": "cogs/webhook.py",
-      "size": 25425,
-      "sha1": "c25bbef83dc1f3c9a44c2def759e54b6623b5a08"
+      "size": 30166,
+      "sha1": "ea15605d34b0a33a341391d7a04adab6aebb5d3e"
     },
     {
       "path": "core/checks.py",
@@ -828,8 +828,8 @@
     },
     {
       "path": "core/emoji.py",
-      "size": 5811,
-      "sha1": "d06b032662ae9ec8b68ece1d4a59737627856f99"
+      "size": 7380,
+      "sha1": "123bee08c8b076a409c2d166cc084cf9f1811190"
     },
     {
       "path": "core/errors.py",
@@ -838,8 +838,8 @@
     },
     {
       "path": "core/export.py",
-      "size": 20138,
-      "sha1": "f954e58e21d3beecce0926834805b51a91a3580f"
+      "size": 20136,
+      "sha1": "10cbef67dba64d59f751ce16419a571020052560"
     },
     {
       "path": "core/icons.py",
@@ -873,13 +873,13 @@
     },
     {
       "path": "export/SERVER_CONFIG.json",
-      "size": 24240,
-      "sha1": "f949af6b5c8faa1d7f390c31d8e11f10b84c1809"
+      "size": 24215,
+      "sha1": "761d1bcfbc1610d8026520c30b848a330c7481f4"
     },
     {
       "path": "export/SERVER_CONFIG.md",
-      "size": 25477,
-      "sha1": "1d1a1d8f3bfa7c3f263c9228c6d9fd2734d5a2bc"
+      "size": 25434,
+      "sha1": "30f4df384be95d5feda89b67aa679f1ed8b00817"
     },
     {
       "path": "export/afk.json",
@@ -888,23 +888,23 @@
     },
     {
       "path": "export/custom_vc_channels.json",
-      "size": 1357,
-      "sha1": "098c50bfc311a67e9a1895280341252ba83be3b1"
+      "size": 1356,
+      "sha1": "4d5b362bd84a90814934ec6521ca2a39436c4b3e"
     },
     {
       "path": "export/db_dump.json",
-      "size": 1553326,
-      "sha1": "922785c01eccaf0ffba98eaff23e5bad9db88341"
+      "size": 1561145,
+      "sha1": "ebc1e53a98bf175a36ec57ab549129eddc0b6d00"
     },
     {
       "path": "export/players_1154838258027606117.csv",
       "size": 219,
-      "sha1": "d86888ff0e9e4130a776caec853143b3f2adb89e"
+      "sha1": "0e413d16d9affc0ae5cf2d06dd798908fcc3012b"
     },
     {
       "path": "export/players_1488690726870057165.csv",
-      "size": 9428,
-      "sha1": "475fa580548c5cf9e38e27415a1ef0f664eed60e"
+      "size": 9429,
+      "sha1": "1eb7253dfe864b13200a312ed10ef4ed23076f1b"
     },
     {
       "path": "export/players_1524797937836621874.csv",
@@ -913,8 +913,8 @@
     },
     {
       "path": "export/players_1547650379448188999.csv",
-      "size": 22997,
-      "sha1": "bf8e157dae56429953cf8fcacf71c63f7907e2da"
+      "size": 22996,
+      "sha1": "a5f66332ca95239d01f87c4db6bcda00d8d09c0d"
     },
     {
       "path": "export/servers/0/config.json",
@@ -923,8 +923,8 @@
     },
     {
       "path": "export/servers/0/config.md",
-      "size": 1499,
-      "sha1": "5c82ed8c07c8e99b08db8454cb06feee36cc7182"
+      "size": 1498,
+      "sha1": "44db42d9b510a2fb9f708175416441f489eddb4b"
     },
     {
       "path": "export/servers/0/data.json",
@@ -943,8 +943,8 @@
     },
     {
       "path": "export/servers/1154838258027606117/config.md",
-      "size": 2281,
-      "sha1": "8fb4a0da2194d7caa9feb08a94b839c4164b761f"
+      "size": 2280,
+      "sha1": "47a509a87ab244428e1c199988c300510449ae91"
     },
     {
       "path": "export/servers/1154838258027606117/data.json",
@@ -954,27 +954,27 @@
     {
       "path": "export/servers/1154838258027606117/database.json",
       "size": 1026,
-      "sha1": "0abe2d807c175e749e3c22986f6f52430001b5e7"
+      "sha1": "41724151a182ce8c4e23397ca2f99836ae59b497"
     },
     {
       "path": "export/servers/1488690726870057165/config.json",
-      "size": 13411,
-      "sha1": "8e559d6b86522e37c3b68416f85b47ab579fd576"
+      "size": 13386,
+      "sha1": "13b036c3f825fdea89378730ef46816bb31e4902"
     },
     {
       "path": "export/servers/1488690726870057165/config.md",
-      "size": 15633,
-      "sha1": "3792bdd54be9619e829727beef75b0d0d225f34f"
+      "size": 15594,
+      "sha1": "3aff724793c626a21d0dca2d64966c1a1b2da5f0"
     },
     {
       "path": "export/servers/1488690726870057165/data.json",
-      "size": 4295,
-      "sha1": "ca4078f39d0deb060eb41dfd6ddb409f19d2b620"
+      "size": 4294,
+      "sha1": "b3d5fd26b38dcb6c74edd5a8ee5ae1c0261dc281"
     },
     {
       "path": "export/servers/1488690726870057165/database.json",
-      "size": 1416932,
-      "sha1": "3dc306ad33311647d5e8d29411e7727766507bdb"
+      "size": 1424590,
+      "sha1": "d9a77f9ae6e408cd116fce62ee92f0de7c2b34f8"
     },
     {
       "path": "export/servers/1524797937836621874/config.json",
@@ -983,8 +983,8 @@
     },
     {
       "path": "export/servers/1524797937836621874/config.md",
-      "size": 1402,
-      "sha1": "2206912dddc5ed7322640c8a96d5f2e744cdb2aa"
+      "size": 1401,
+      "sha1": "ebd1942bb62d2e2866de43f76cec6a43abc94aba"
     },
     {
       "path": "export/servers/1524797937836621874/data.json",
@@ -1003,8 +1003,8 @@
     },
     {
       "path": "export/servers/1547650379448188999/config.md",
-      "size": 4488,
-      "sha1": "4f6cada9b0751a057db36bf5df3bb9c370632c7a"
+      "size": 4487,
+      "sha1": "7f53b70d64e76183065e4ad8e38d609269245114"
     },
     {
       "path": "export/servers/1547650379448188999/data.json",
@@ -1013,13 +1013,13 @@
     },
     {
       "path": "export/servers/1547650379448188999/database.json",
-      "size": 132255,
-      "sha1": "78de7f05da1f9b855170d4cebed1441c1f62ab97"
+      "size": 132416,
+      "sha1": "80292c6a2a2ea190072bdbeb2ee54311fc38b3c8"
     },
     {
       "path": "main.py",
-      "size": 10663,
-      "sha1": "863105e0cb3c48d6d391eb123a63348903239216"
+      "size": 10744,
+      "sha1": "32a67ac08a8383a5564202b70b73866248d6e047"
     },
     {
       "path": "requirements-tools.txt",

@@ -8,7 +8,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **name**: Kon#9118
   - **id**: `1569712165932236842` → Kon#9118
 - **voice_mutes_running**: *(empty)*
-- **slash_sync_hash**: e00646dfe574aecc10f0dfcb0826fb2b827fe014
+- **slash_sync_hash**: 737bc301b23f16a6730f865e4935db154e0092a5
 
 ## (server 0 - bot not in it)  (`0`)
 
@@ -64,6 +64,18 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Tic Tac Toe channel
 
 - *not configured*
+
+### Game channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)
+
+- **tictactoe**: *none*
+- **blacktea**: *none*
+- **timetap**: *none*
+- **handfight**: *none*
+
+### Game stats (TimeTap, Handfight)
+
+- **timetap**: *none*
+- **handfight**: *none*
 
 ### Webhook sender (name, avatar, embed, images)
 
@@ -151,6 +163,18 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - *not configured*
 
+### Game channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)
+
+- **tictactoe**: *none*
+- **blacktea**: *none*
+- **timetap**: *none*
+- **handfight**: *none*
+
+### Game stats (TimeTap, Handfight)
+
+- **timetap**: *none*
+- **handfight**: *none*
+
 ### Webhook sender (name, avatar, embed, images)
 
 - *not configured*
@@ -221,12 +245,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **interface**: *none*
   - **panel_message_id**: *none*
 - **other_keys**: *(empty)*
-- **active_custom_vcs**:
-  - **1572796602043727892** → #suhani subah:
-    - **owner**: `650534818517483526` → Lazy (jslazy)
-    - **banned**: *(empty)*
-    - **block_drags**: no
-    - **created**: 1795054331 (2026-11-19 02:12 UTC)
+- **active_custom_vcs**: *(empty)*
 
 ### Custom VC protection ($customvc config)
 
@@ -266,7 +285,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **emoji**: `<:Spider_blue_verified:1570309169720987720>`
     - **line**: Social Feeds
     - **line_emoji**: `<:Spider_blue_verified:1570309169720987720>`
-- **banner_url**: https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6afe2aca&is=6afcd94a&hm=2261b8b925161da0290d85c0eedb58c78ae658627103db92a10d7ee61c47916f&
+- **banner_url**: https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6aff7c4a&is=6afe2aca&hm=98f7a3cb202c2f416dcf7d75f4d4179a3e7f9e95918755e8a7a30e464e834f92&
 - **banner_ref**:
   - **c**: `1572381729233051669` → #︲🛠・bot-kon」
   - **m**: `1572382470312296601`
@@ -281,6 +300,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 - **vc_mins**: 1
 - **vc_points**: 1
 - **vc_need_others**: no
+- **vc_need_muted**: no
 - **cooldown**: 0
 - **channel_rules**: *(empty)*
 - **disabled_channels**: *(empty)*
@@ -416,6 +436,63 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - **channel**: `1572117193712209960` → #🎄︲tic_tac_toe⌝
 
+### Game channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)
+
+- **tictactoe**: `1572117193712209960` → #🎄︲tic_tac_toe⌝
+- **blacktea**: `1572286596735303771` → #🎄︲blacktea⌝
+- **timetap**: `1572828188332007465` → #🎄︲timetap⌝
+- **handfight**: `1572828244758241330` → #🎄︲handfight⌝
+
+### Game stats (TimeTap, Handfight)
+
+- **timetap**:
+  - **650534818517483526** → Lazy (jslazy):
+    - **games**: 3
+    - **false_starts**: 2
+    - **taps**: 14
+    - **total_ms**: 17834
+    - **rounds_won**: 14
+    - **match_wins**: 1
+    - **titles**: 1
+    - **train_runs**: 2
+    - **best_clean**: 6
+    - **best_ms**: 1067
+    - **train_best_avg**: 1172
+  - **1028298097664733215** → Demon King of Salvation (nontastic_player):
+    - **games**: 1
+    - **false_starts**: 1
+    - **taps**: 2
+    - **total_ms**: 3566
+    - **rounds_won**: 2
+    - **match_wins**: 0
+    - **titles**: 0
+    - **train_runs**: 0
+    - **best_clean**: 0
+    - **best_ms**: 1160
+- **handfight**:
+  - **650534818517483526** → Lazy (jslazy):
+    - **games**: 1
+    - **titles**: 1
+    - **rounds_won**: 2
+    - **rounds_lost**: 0
+    - **draws**: 0
+    - **match_wins**: 1
+    - **match_losses**: 0
+    - **rock**: 0
+    - **paper**: 0
+    - **scissors**: 2
+  - **1154489620499800127** → Dark Ojas (darkojas):
+    - **games**: 1
+    - **titles**: 0
+    - **rounds_won**: 0
+    - **rounds_lost**: 2
+    - **draws**: 0
+    - **match_wins**: 0
+    - **match_losses**: 1
+    - **rock**: 0
+    - **paper**: 2
+    - **scissors**: 0
+
 ### Webhook sender (name, avatar, embed, images)
 
 - **username**: Kon
@@ -435,6 +512,11 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **c**: `1572663742091632681`
     - **m**: `1572763332946165792`
 - **thumb**: *none*
+- **buttons**:
+  - #1
+    - **label**: Meow
+    - **url**: https://google.com
+    - **emoji**: `<:Kool:1569605493607890995>`
 
 ### Saved images ($tolink)
 
@@ -468,6 +550,9 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - `1488691384138338395` → #🌵︲protocols⌝
     - `1488691376962011216` → #🌵︲welcome⌝
     - `1488691367986069685` → #admin-area
+    - `1488691349212495892` → #╰ ¤〢Games ︲🎄︲
+    - `1488691338026418288` → #╰ ¤〢Lounge ︲🍃︲
+    - `1488691331848208415` → #╰ ¤〢Dashboard ︲🌿︲
 
 ### Extra owners ($konextra - this server only)
 
@@ -556,6 +641,34 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
       - `1488691384138338395` → #🌵︲protocols⌝
       - `1488691376962011216` → #🌵︲welcome⌝
       - `1488691367986069685` → #admin-area
+      - `1488691349212495892` → #╰ ¤〢Games ︲🎄︲
+      - `1488691338026418288` → #╰ ¤〢Lounge ︲🍃︲
+      - `1488691331848208415` → #╰ ¤〢Dashboard ︲🌿︲
+- **handfight**:
+  - **channel**: `1572828244758241330` → #🎄︲handfight⌝
+- **handfight_stats**:
+  - **650534818517483526** → Lazy (jslazy):
+    - **games**: 1
+    - **titles**: 1
+    - **rounds_won**: 2
+    - **rounds_lost**: 0
+    - **draws**: 0
+    - **match_wins**: 1
+    - **match_losses**: 0
+    - **rock**: 0
+    - **paper**: 0
+    - **scissors**: 2
+  - **1154489620499800127** → Dark Ojas (darkojas):
+    - **games**: 1
+    - **titles**: 0
+    - **rounds_won**: 0
+    - **rounds_lost**: 2
+    - **draws**: 0
+    - **match_wins**: 0
+    - **match_losses**: 1
+    - **rock**: 0
+    - **paper**: 2
+    - **scissors**: 0
 - **imagehost**:
   - **channel**: `1572381729233051669` → #︲🛠・bot-kon」
   - **items**:
@@ -583,6 +696,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **vc_mins**: 1
   - **vc_points**: 1
   - **vc_need_others**: no
+  - **vc_need_muted**: no
   - **cooldown**: 0
   - **channel_rules**: *(empty)*
   - **disabled_channels**: *(empty)*
@@ -609,6 +723,32 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **allowed**: *none*
 - **tictactoe**:
   - **channel**: `1572117193712209960` → #🎄︲tic_tac_toe⌝
+- **timetap**:
+  - **channel**: `1572828188332007465` → #🎄︲timetap⌝
+- **timetap_stats**:
+  - **650534818517483526** → Lazy (jslazy):
+    - **games**: 3
+    - **false_starts**: 2
+    - **taps**: 14
+    - **total_ms**: 17834
+    - **rounds_won**: 14
+    - **match_wins**: 1
+    - **titles**: 1
+    - **train_runs**: 2
+    - **best_clean**: 6
+    - **best_ms**: 1067
+    - **train_best_avg**: 1172
+  - **1028298097664733215** → Demon King of Salvation (nontastic_player):
+    - **games**: 1
+    - **false_starts**: 1
+    - **taps**: 2
+    - **total_ms**: 3566
+    - **rounds_won**: 2
+    - **match_wins**: 0
+    - **titles**: 0
+    - **train_runs**: 0
+    - **best_clean**: 0
+    - **best_ms**: 1160
 - **webhook**:
   - **username**: Kon
   - **avatar**:
@@ -627,10 +767,15 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
       - **c**: `1572663742091632681`
       - **m**: `1572763332946165792`
   - **thumb**: *none*
+  - **buttons**:
+    - #1
+      - **label**: Meow
+      - **url**: https://google.com
+      - **emoji**: `<:Kool:1569605493607890995>`
 
 ### Players
 
-- 142 players stored in `data/kon.db` (full list: `export/players_1488690726870057165.csv`)
+- 148 players stored in `data/kon.db` (full list: `export/players_1488690726870057165.csv`)
 
 ## Twin's Empire 2.0  (`1524797937836621874`)
 
@@ -686,6 +831,18 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Tic Tac Toe channel
 
 - *not configured*
+
+### Game channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)
+
+- **tictactoe**: *none*
+- **blacktea**: *none*
+- **timetap**: *none*
+- **handfight**: *none*
+
+### Game stats (TimeTap, Handfight)
+
+- **timetap**: *none*
+- **handfight**: *none*
 
 ### Webhook sender (name, avatar, embed, images)
 
@@ -810,6 +967,18 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Tic Tac Toe channel
 
 - *not configured*
+
+### Game channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)
+
+- **tictactoe**: *none*
+- **blacktea**: *none*
+- **timetap**: *none*
+- **handfight**: *none*
+
+### Game stats (TimeTap, Handfight)
+
+- **timetap**: *none*
+- **handfight**: *none*
 
 ### Webhook sender (name, avatar, embed, images)
 

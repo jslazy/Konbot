@@ -41,21 +41,13 @@
         "line_emoji": "<:Spider_blue_verified:1570309169720987720>"
       }
     ],
-    "banner_url": "https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6afe2aca&is=6afcd94a&hm=2261b8b925161da0290d85c0eedb58c78ae658627103db92a10d7ee61c47916f&",
+    "banner_url": "https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6aff7c4a&is=6afe2aca&hm=98f7a3cb202c2f416dcf7d75f4d4179a3e7f9e95918755e8a7a30e464e834f92&",
     "banner_ref": {
       "c": 1572381729233051669,
       "m": 1572382470312296601
     }
   },
-  "vc_data.vcs": {
-    "1572796602043727892": {
-      "guild": 1488690726870057165,
-      "owner": 650534818517483526,
-      "banned": [],
-      "block_drags": false,
-      "created": 1795054331.3185208
-    }
-  },
+  "vc_data.vcs": {},
   "vc_data.mutes": {},
   "vc_data.guild_owners": [
     1262248731353546763,

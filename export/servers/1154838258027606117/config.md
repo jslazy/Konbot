@@ -55,6 +55,18 @@
 
 - *not configured*
 
+### Game channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)
+
+- **tictactoe**: *none*
+- **blacktea**: *none*
+- **timetap**: *none*
+- **handfight**: *none*
+
+### Game stats (TimeTap, Handfight)
+
+- **timetap**: *none*
+- **handfight**: *none*
+
 ### Webhook sender (name, avatar, embed, images)
 
 - *not configured*

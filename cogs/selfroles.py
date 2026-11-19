@@ -9,19 +9,17 @@ Banner storage: the image/GIF itself is NOT kept in data/ any more. Only a LINK 
 (cfg["banner_url"], plus cfg["banner_ref"] = the Discord message that hosts an uploaded file, so a fresh link can
 always be fetched - Discord CDN links expire).  Set ASSET_CHANNEL_ID in .env to host uploads in a private channel.
 """
-import asyncio
 import io
 import logging
 import re
 import time
 from pathlib import Path
 from typing import Optional
-from urllib.parse import urlparse
 
-import aiohttp
 import discord
 from discord.ext import commands
 
+from core import emoji as emo
 from core import ratelimit
 from core.config import ASSET_CHANNEL_ID, BLURPLE, DATA_DIR, BRAND, PREFIX
 from core.errors import VCError
@@ -72,9 +70,11 @@ def risky(role: discord.Role) -> bool:
 
 
 class RoleButton(discord.ui.Button):
-    def __init__(self, entry: dict, prefix: str = "kon"):      # prefix "leafy" = buttons of panels posted before the rebrand
+    def __init__(self, entry: dict, prefix: str = "kon", fallback: bool = False):      # prefix "leafy" = buttons of panels posted before the rebrand
+        # fallback=True -> the entry's emoji was deleted: show Kon's own icon instead (the stored emoji is kept)
+        icon = I.e("diamond") if fallback else to_partial(entry.get("emoji"))
         super().__init__(style=discord.ButtonStyle.secondary, label=entry["label"][:80] or None,
-                         emoji=to_partial(entry.get("emoji")), custom_id=f"{prefix}:sr:{entry['role']}")
+                         emoji=icon, custom_id=f"{prefix}:sr:{entry['role']}")
         self.role_id = entry["role"]
 
     async def callback(self, interaction: discord.Interaction):
@@ -84,32 +84,26 @@ class RoleButton(discord.ui.Button):
 
 
 class BannerModal(discord.ui.Modal):
-    """Upload a banner (PNG / JPG / GIF / WEBP) or paste an image link."""
+    """Upload a banner (PNG / JPG / GIF / WEBP). Upload only - no links."""
 
     def __init__(self, editor: "SelfRoleEditor"):
         super().__init__(title="Banner image", timeout=300)
         self.editor = editor
-        self.upload = discord.ui.FileUpload(required=False, min_values=0, max_values=1)
-        self.link = discord.ui.TextInput(placeholder="https://...", max_length=1000, required=False)
+        self.upload = discord.ui.FileUpload(required=True, min_values=1, max_values=1)
         self.add_item(discord.ui.Label(text="Upload image or GIF", description=f"PNG, JPG, GIF or WEBP · max {MAX_BANNER_MB} MB",
                                        component=self.upload))
-        self.add_item(discord.ui.Label(text="...or an image link", component=self.link))
 
     async def on_submit(self, interaction: discord.Interaction):
         await interaction.response.defer(ephemeral=True)
         cog = self.editor.cog
         try:
             files = list(self.upload.values)
-            link = (self.link.value or "").strip()
-            if files:
-                att = files[0]
-                if att.size > MAX_BANNER:
-                    raise VCError(f"That file is over **{MAX_BANNER_MB} MB**.")
-                await cog.store_banner(self.editor.guild, await att.read(), self.editor.fallback_channel())
-            elif link:
-                await cog.set_banner_url(self.editor.guild, link, self.editor.fallback_channel())
-            else:
-                raise VCError("Upload a file or paste a link. (**Remove banner** deletes it.)")
+            if not files:
+                raise VCError("Upload an image or GIF. (**Remove banner** deletes it.)")
+            att = files[0]
+            if att.size > MAX_BANNER:
+                raise VCError(f"That file is over **{MAX_BANNER_MB} MB**.")
+            await cog.store_banner(self.editor.guild, await att.read(), self.editor.fallback_channel())
         except VCError as e:
             return await interaction.followup.send(err(str(e)), ephemeral=True)
         except discord.HTTPException:
@@ -143,12 +137,17 @@ class SelfRoleEditor(OwnedView):
         cfg = self.cog.cfg(self.guild.id)
         ch = self.guild.get_channel(cfg["channel"]) if cfg["channel"] else None
         rows = []
+        gone = set(cfg.get("missing") or [])
         for n, r in enumerate(cfg["roles"], 1):
             role = self.guild.get_role(r["role"])
-            rows.append(f"`{n}.` {r.get('line_emoji') or I.s('diamond')} **{r['line']}** → "
+            line_e = self.cog.shown(r.get("line_emoji"), gone) or I.s("diamond")
+            btn_e = self.cog.shown(r.get("emoji"), gone) or ""
+            lost = any(i in gone for i in emo.ids_in(r.get("emoji")) + emo.ids_in(r.get("line_emoji")))
+            rows.append(f"`{n}.` {line_e} **{r['line']}** → "
                         f"{role.mention if role else '*deleted role*'}\n"
-                        f"      button: {r.get('emoji') or ''} {r['label']}")
-        title = f"{cfg['title_emoji'] + ' ' if cfg['title_emoji'] else ''}{cfg['title']}"
+                        f"      button: {btn_e} {r['label']}" + (f"\n      {I.s('warning')} emoji was deleted - default icon shown, edit the role to change it" if lost else ""))
+        title_e = self.cog.shown(cfg["title_emoji"], gone, "leaf")
+        title = f"{title_e + ' ' if title_e else ''}{cfg['title']}"
         e = discord.Embed(title=f"{I.s('settings')} Self Roles - Editor", color=cfg["color"], description=(
             f"{I.s('message')} **Channel:** {ch.mention if ch else f'not set (`{PREFIX}setsr #channel`)'}\n"
             f"{I.s('image')} **Banner:** {self.cog.banner_info(cfg)}\n"
@@ -208,8 +207,8 @@ class SelfRoleEditor(OwnedView):
                     err("That role has strong permissions, so it can't be a self role."), ephemeral=True)
 
             async def cb(i2: discord.Interaction, v):
-                entry = {"role": role.id, "label": v[0], "emoji": emoji_or_none(v[1]),
-                         "line": v[2], "line_emoji": emoji_or_none(v[3])}
+                entry = {"role": role.id, "label": v[0], "emoji": await self.cog.clean_emoji(v[1], self.guild),
+                         "line": v[2], "line_emoji": await self.cog.clean_emoji(v[3], self.guild)}
                 cfg["roles"].append(entry)
                 self.cog.save()
                 await self.saved(i2, f"{role.mention} added.")
@@ -226,8 +225,10 @@ class SelfRoleEditor(OwnedView):
         opts = []
         for n, r in enumerate(cfg["roles"]):
             role = self.guild.get_role(r["role"])
+            lost = any(i in set(cfg.get("missing") or []) for i in emo.ids_in(r.get("emoji")))
             opts.append(discord.SelectOption(label=(role.name if role else "deleted role")[:100], value=str(n),
-                                             description=r["line"][:100], emoji=to_partial(r.get("emoji"))))
+                                             description=r["line"][:100],
+                                             emoji=I.e("diamond") if lost else to_partial(r.get("emoji"))))
         view = discord.ui.View(timeout=120)
         sel = discord.ui.Select(placeholder=placeholder, options=opts[:25], max_values=len(opts[:25]) if multi else 1)
 
@@ -245,7 +246,8 @@ class SelfRoleEditor(OwnedView):
             entry = cfg["roles"][idx[0]]
 
             async def cb(i2: discord.Interaction, v):
-                entry.update(label=v[0], emoji=emoji_or_none(v[1]), line=v[2], line_emoji=emoji_or_none(v[3]))
+                entry.update(label=v[0], emoji=await self.cog.clean_emoji(v[1], self.guild), line=v[2],
+                             line_emoji=await self.cog.clean_emoji(v[3], self.guild))
                 self.cog.save()
                 await self.saved(i2, "Role updated.")
             await i.response.send_modal(self._entry_modal("Edit role", entry, cb))
@@ -295,7 +297,7 @@ class SelfRoleEditor(OwnedView):
         async def cb(i: discord.Interaction, v):
             if not v[0]:
                 raise VCError("Title can't be empty.")
-            cfg["title"], cfg["title_emoji"] = v[0], emoji_or_none(v[1])
+            cfg["title"], cfg["title_emoji"] = v[0], await self.cog.clean_emoji(v[1], self.guild)
             self.cog.save()
             await self.saved(i, "Title updated.")
         await interaction.response.send_modal(FieldsModal("Title", [
@@ -383,7 +385,44 @@ class SelfRoles(commands.Cog):
                 if guild is not None:
                     await self.migrate_legacy_banner(guild)
 
-    # ---------- banner (stored as a LINK only) ----------
+    # ---------- emojis that can disappear ----------
+    @staticmethod
+    def shown(text, gone, icon: str = "diamond"):
+        """Emoji text for messages / embeds: a deleted custom emoji becomes Kon's own icon."""
+        if text and any(i in gone for i in emo.ids_in(text)):
+            return I.s(icon)
+        return text
+
+    async def clean_emoji(self, text: str, guild: discord.Guild) -> Optional[str]:
+        """What the person typed -> the emoji we store. Accepts 🔥, <:name:id>, :name: and a bare emoji ID,
+        and refuses a custom emoji that doesn't exist."""
+        text = await emo.resolve(self.bot, (text or "").strip(), guild)
+        value = emoji_or_none(text)
+        if value and emo.ids_in(value) and await emo.missing(self.bot, value):
+            raise VCError("That emoji doesn't exist (anymore). Pick another one.")
+        return value
+
+    async def find_missing(self, cfg: dict) -> set:
+        texts = [cfg.get("title_emoji")]
+        for r in cfg["roles"]:
+            texts += [r.get("emoji"), r.get("line_emoji")]
+        return await emo.missing(self.bot, *texts)
+
+    @commands.Cog.listener()
+    async def on_guild_emojis_update(self, guild: discord.Guild, before, after):
+        """An emoji was deleted somewhere: every self-role message that used it switches to Kon's icon at once."""
+        gone = {e.id for e in before} - {e.id for e in after}
+        if not gone:
+            return
+        emo.forget(gone)
+        for gid, c in list(self.all().items()):
+            blob = repr([c.get("title_emoji"), [(r.get("emoji"), r.get("line_emoji")) for r in c.get("roles", [])]])
+            if c.get("message") and any(str(i) in blob for i in gone):
+                g = self.bot.get_guild(int(gid))
+                if g is not None:
+                    await self.sync(g)
+
+    # ---------- banner (stored as a LINK only, uploaded as a file) ----------
     def has_banner(self, cfg: dict) -> bool:
         return bool(cfg.get("banner_url") or cfg.get("banner_ref") or self.legacy_path(cfg))
 
@@ -450,50 +489,6 @@ class SelfRoles(commands.Cog):
         self.save()
         await self._forget_host(guild, old)
 
-    async def _probe_image(self, url: str) -> bytes:
-        """Download only the first bytes to check the link is a real image. Returns those bytes."""
-        try:
-            async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=20),
-                                             headers={"User-Agent": "Mozilla/5.0 (Kon bot)"}) as s:
-                async with s.get(url) as r:
-                    if r.status != 200:
-                        raise VCError("I couldn't open that link. It may have expired.")
-                    return await r.content.read(32)
-        except (aiohttp.ClientError, asyncio.TimeoutError):
-            raise VCError("I couldn't open that link.")
-
-    async def set_banner_url(self, guild: discord.Guild, url: str, fallback=None):
-        if not url.startswith(("http://", "https://")):
-            raise VCError("Give an image link starting with `https://`.")
-        host = (urlparse(url).hostname or "").lower()
-        if host.endswith(("discordapp.com", "discordapp.net", "discord.com")):
-            # Discord links expire after a while -> download once and re-host it, so the saved link keeps working
-            data = bytearray()
-            try:
-                async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=30),
-                                                 headers={"User-Agent": "Mozilla/5.0 (Kon bot)"}) as s:
-                    async with s.get(url) as r:
-                        if r.status != 200:
-                            raise VCError("I couldn't download that image. The link may have expired.")
-                        async for chunk in r.content.iter_chunked(64 * 1024):
-                            data += chunk
-                            if len(data) > MAX_BANNER:
-                                raise VCError(f"That image is over **{MAX_BANNER_MB} MB**.")
-            except (aiohttp.ClientError, asyncio.TimeoutError):
-                raise VCError("I couldn't download that image.")
-            return await self.store_banner(guild, bytes(data), fallback)
-        head = await self._probe_image(url)
-        if sniff_ext(head) is None:
-            raise VCError("That link isn't a direct PNG / JPG / GIF / WEBP image.")
-        c = self.cfg(guild.id)
-        old = c.get("banner_ref")
-        c["banner_url"], c["banner_ref"] = url, None             # a normal link: just save the link, nothing else
-        if c.get("banner"):
-            (BANNER_DIR / c["banner"]).unlink(missing_ok=True)
-            c["banner"] = None
-        self.save()
-        await self._forget_host(guild, old)
-
     async def drop_banner(self, guild: discord.Guild):
         c = self.cfg(guild.id)
         await self._forget_host(guild, c.get("banner_ref"))
@@ -531,15 +526,23 @@ class SelfRoles(commands.Cog):
         return cfg.get("banner_url")
 
     # ---------- the message ----------
-    def build_view(self, cfg: dict, banner_url: Optional[str] = None, prefix: str = "kon"):
-        """-> LayoutView. The banner is shown from a link (nothing is uploaded with the message)."""
+    def build_view(self, cfg: dict, banner_url: Optional[str] = None, prefix: str = "kon",
+                   gone: frozenset = frozenset(), bad: frozenset = frozenset()):
+        """-> LayoutView. The banner is shown from a link (nothing is uploaded with the message).
+        gone = IDs of deleted custom emojis, bad = role positions Discord refused -> Kon's own icon is shown there."""
         items = []
         if banner_url:
             items += [discord.ui.MediaGallery(discord.MediaGalleryItem(banner_url)),
                       discord.ui.Separator()]
-        head = f"{cfg['title_emoji'] + ' ' if cfg['title_emoji'] else ''}__{cfg['title']}__"
+        title_e = self.shown(cfg["title_emoji"], gone, "leaf")
+        head = f"{title_e + ' ' if title_e else ''}__{cfg['title']}__"
         items += [discord.ui.TextDisplay(f"## {head}"), discord.ui.Separator()]
-        lines = [f"{r['line_emoji'] + ' ' if r.get('line_emoji') else ''}**{r['line']}**" for r in cfg["roles"]]
+        lines = []
+        for n, r in enumerate(cfg["roles"]):
+            le = self.shown(r.get("line_emoji"), gone)
+            if n in bad and emo.ids_in(r.get("line_emoji")):
+                le = I.s("diamond")
+            lines.append(f"{le + ' ' if le else ''}**{r['line']}**")
         items.append(discord.ui.TextDisplay("\n".join(lines) or "*No roles yet.*"))
         if cfg["footer"]:
             quote = "\n".join(f"> {ln}" for ln in cfg["footer"].splitlines() or [cfg["footer"]])
@@ -548,8 +551,9 @@ class SelfRoles(commands.Cog):
         view.add_item(discord.ui.Container(*items, accent_colour=discord.Colour(cfg["color"])))
         for i in range(0, len(cfg["roles"]), 5):
             row = discord.ui.ActionRow()
-            for entry in cfg["roles"][i:i + 5]:
-                row.add_item(RoleButton(entry, prefix))
+            for n, entry in enumerate(cfg["roles"][i:i + 5], i):
+                lost = n in bad or any(x in gone for x in emo.ids_in(entry.get("emoji")))
+                row.add_item(RoleButton(entry, prefix, fallback=lost and bool(emo.ids_in(entry.get("emoji")))))
             view.add_item(row)
         return view
 
@@ -565,18 +569,37 @@ class SelfRoles(commands.Cog):
             raise VCError(f"I need **View Channel, Send Messages and Attach Files** in {ch.mention}.")
         await self.migrate_legacy_banner(guild)
         url = await self.banner_link(guild, cfg)
-        try:
-            msg = None
-            view = self.build_view(cfg, url)
-            if cfg["message"]:
-                try:
-                    msg = await ch.get_partial_message(cfg["message"]).edit(view=view, attachments=[])
-                except discord.NotFound:
-                    msg = None
-            if msg is None:
-                msg = await ch.send(view=view, allowed_mentions=discord.AllowedMentions.none())
-        except discord.HTTPException as e:
-            raise VCError(f"Discord said no: {e.text}\nCheck the emojis and banner.")
+        gone = await self.find_missing(cfg)
+        bad: set = set()
+        msg = None
+        for attempt in range(len(cfg["roles"]) + 2):
+            view = self.build_view(cfg, url, gone=frozenset(gone), bad=frozenset(bad))
+            try:
+                msg = None
+                if cfg["message"]:
+                    try:
+                        msg = await ch.get_partial_message(cfg["message"]).edit(view=view, attachments=[])
+                    except discord.NotFound:
+                        msg = None
+                if msg is None:
+                    msg = await ch.send(view=view, allowed_mentions=discord.AllowedMentions.none())
+                break
+            except discord.HTTPException as e:
+                text = f"{e.text} {e}"
+                if "emoji" not in text.lower() or attempt >= len(cfg["roles"]) + 1:
+                    raise VCError(f"Discord said no: {e.text}\nCheck the banner.")
+                # "components.1.components.3.emoji.id" -> row 1, button 3 -> role number (row - 1) * 5 + button
+                m = re.search(r"components\.(\d+)\.components\.(\d+)\.emoji", text)
+                idx = (int(m.group(1)) - 1) * 5 + int(m.group(2)) if m else None
+                if idx is None or idx in bad or idx >= len(cfg["roles"]):
+                    bad = set(range(len(cfg["roles"])))          # can't tell which one -> Kon's icon on every custom emoji
+                else:
+                    bad.add(idx)
+        if msg is None:
+            raise VCError("Couldn't post the self-role message.")
+        for n in bad:                                           # remember what Discord refused, so the editor can warn
+            gone |= set(emo.ids_in(cfg["roles"][n].get("emoji")))
+        cfg["missing"] = sorted(gone)
         cfg["message"] = msg.id
         self.save()
         return msg

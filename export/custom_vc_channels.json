@@ -29,14 +29,7 @@
     },
     "interface": null,
     "panel_message_id": null,
-    "active_custom_vcs": {
-      "1572796602043727892": {
-        "owner": 650534818517483526,
-        "banned": [],
-        "block_drags": false,
-        "created": 1795054331.3185208
-      }
-    }
+    "active_custom_vcs": {}
   },
   "1524797937836621874": {
     "server_name": "Twin's Empire 2.0",

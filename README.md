@@ -137,16 +137,13 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
 - **Kon owners control every custom VC** (all `$vc...` commands): from the VC they sit in, or by typing the command in that VC's own chat.
 - Every Kon message was rewritten shorter and lighter.
 
-## Image links, webhook, emoji IDs
+## Image links, emoji IDs
 - **Image host** (admins): `$imgchannel #channel` sets a private storage channel (`$imgchannelreset` removes it). `$tolink [name]` (aliases `$link`,
   `$imglink`) turns an attached image / GIF, an image in the message you reply to, or a pasted link into a saved link (PNG/JPG/GIF/WEBP, up to 5 at once).
   `$links` lists them, `$linkget <name>` gives a fresh link + preview, `$linkdel <name>` deletes one. Only the link and the hosting message id are saved in
   `data/` (inside `kon.db`), never the file. Discord CDN links expire, so Kon re-fetches a fresh link from the hosting message whenever it needs one.
   The self-role banner is hosted in this channel too (before `ASSET_CHANNEL_ID`).
-- **Webhook** (Manage Webhooks): `$webhook` opens an editor (channel, message, name, avatar, Send, Edit sent message); `$webhook #channel text` sends at once;
-  `$webhookedit <message link> new text` (`$whe`) edits. Animated emojis work without Nitro: paste the emoji **ID** or `:name:` in the text.
-  The avatar can be a link or the name of a saved image.
-- **`$ei`**: animated emojis (of the servers you share with Kon) with their IDs, paginated. `$ei here`, `$ei <name>`, `$ei <emoji id>`.
+- **`$ei`** (help category **Emojis & Stickers**, next to `$ae` / `$as`): animated emojis (of the servers you share with Kon) with their IDs, paginated. `$ei here`, `$ei <name>`, `$ei <emoji id>`.
 
 ## Update: leaderboard, webhook embeds, image uploads, expressions, VC, backup
 - **`$lb`** (opens POINTS; menu switches to messages / voice) - Ordinal-style board (10 per page, `Previous` / `Find Me` / `Next`, select for Messages / Points / Voice, Kon icons).
@@ -165,8 +162,15 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
 
 ## Update 2026-11-19
 - `$store` redesigned like the leaderboard: 4 roles per page, Previous / Next, select menu to buy. Deleted emojis can no longer crash it.
-- Pointshop emoji field (and webhook buttons) accept an **emoji ID**, `:name:` or a normal emoji.
-- `$webhook` panel: **Add Button / Remove Button** - link buttons (text, link, emoji or emoji ID), up to 10, saved per server.
+- Pointshop emoji field accepts an **emoji ID**, `:name:` or a normal emoji.
 - `$backupload`: reply to a data file (`kon_data.zip`, `kon.db`, `db_dump.json`, `vc_data.json` ...) with `$backupload` (or attach it).
 - `$giverole` removed - only `$setrole`. Role commands exist only as `$set<name>`.
 - `$adminhelp` removed - `$help` is the menu now (ordered categories, aliases, pages for long lists).
+
+## Update 5 (from kon_update, merged)
+- **`$webhook` / `$webhookedit` removed** (`cogs/webhook.py` deleted). **`$ei` stays** and now lives in `cogs/expressions.py` -> `$help` -> **Emojis & Stickers**.
+- **Deleted emojis can't break messages any more**: if a custom emoji used in the point shop or in a self-role panel is deleted, Kon shows its own
+  diamond icon there instead (the stored emoji is kept). Typing an emoji that doesn't exist is refused. Self-role / shop emoji fields accept an emoji,
+  `:name:` or an emoji ID.
+- **`$pointshop config` -> Slot**: how many roles one shop page shows (1 - 10, default 4).
+- **Upload only**: the shop picture and the self-role banner are uploaded as a file (no link field). Empty shop picture = server icon.

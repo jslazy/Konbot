@@ -13,6 +13,8 @@ from core.ui import FieldsModal, OwnedView, parse_int, to_partial
 
 RED = 0xED4245
 MAX_ITEMS = 25
+DEFAULT_SLOTS = 4                 # roles on one shop page (change it with the Slot button in $pointshop config)
+MAX_SLOTS = 10
 
 
 def stock_text(stock: int) -> str:
@@ -27,15 +29,18 @@ def stock_long(stock: int) -> str:
     return f"{stock} remaining"
 
 
-def safe_partial(bot, text):
-    """Emoji for a select option. Deleted / unreachable custom emojis make Discord reject the whole
-    message (50035 Invalid emoji), so a custom emoji is used only if the bot can actually see it."""
-    pe = to_partial(text)
-    if pe is None:
-        return None
-    if pe.id is not None and bot.get_emoji(pe.id) is None:
-        return None
-    return pe
+def icon_for(text, gone):
+    """Emoji for a select option / button: a deleted custom emoji becomes Kon's own icon (the stored emoji is kept)."""
+    if text and gone and any(i in gone for i in emojis.ids_in(text)):
+        return I.e("diamond")
+    return to_partial(text)
+
+
+def shown_text(text, gone):
+    """Emoji for message text: a deleted custom emoji becomes Kon's own icon."""
+    if text and gone and any(i in gone for i in emojis.ids_in(text)):
+        return I.s("diamond")
+    return text or ""
 
 
 class ItemView(discord.ui.View):
@@ -61,9 +66,6 @@ class ItemView(discord.ui.View):
         await self.cog.purchase(interaction, self.item["id"])
 
 
-STORE_PER_PAGE = 4
-
-
 class StoreSelect(discord.ui.Select):
     def __init__(self, cog, options):
         super().__init__(placeholder="Select a role to purchase...", options=options, min_values=1, max_values=1, row=1)
@@ -74,13 +76,14 @@ class StoreSelect(discord.ui.Select):
 
 
 class StoreView(OwnedView):
-    """Leaderboard-style shop: 4 roles per page, Previous / Next and a select to buy."""
+    """Leaderboard-style shop: N roles per page (Slot button), Previous / Next and a select to buy."""
 
     def __init__(self, cog: "Shop", ctx: commands.Context):
         super().__init__(ctx.author.id, timeout=300)
         self.cog, self.guild, self.author = cog, ctx.guild, ctx.author
         self.page = 0
         self.emoji_ok = True                       # False = dropdown without emojis (Discord refused one)
+        self.gone: set = set()                     # IDs of deleted custom emojis (shown as Kon's own icon)
         self.select = None
         self.prev.emoji, self.next.emoji = I.e("left"), I.e("right")
         self.reload()
@@ -93,9 +96,16 @@ class StoreView(OwnedView):
                 out.append((it, role))
         return out
 
+    async def refresh_gone(self):
+        self.gone = await emojis.missing(self.cog.bot, *[it["emoji"] for it in self.cog.db.shop_list(self.guild.id)])
+
+    @property
+    def per(self) -> int:
+        return self.cog.slots(self.guild.id)
+
     def reload(self):
         self.all = self.entries()
-        self.pages = max(1, -(-len(self.all) // STORE_PER_PAGE))
+        self.pages = max(1, -(-len(self.all) // self.per))
         self.page = min(max(self.page, 0), self.pages - 1)
         chunk = self.chunk()
         if self.select is not None:
@@ -108,21 +118,21 @@ class StoreView(OwnedView):
                     label=(f"{role.name} (Sold Out)" if it["stock"] == 0 else role.name)[:100],
                     value=str(it["id"]),
                     description=f"Price: {it['price']} pts — Stock: {stock_text(it['stock'])}"[:100],
-                    emoji=safe_partial(self.cog.bot, it["emoji"]) if self.emoji_ok else None))
+                    emoji=icon_for(it["emoji"], self.gone) if self.emoji_ok else None))
             self.select = StoreSelect(self.cog, opts)
             self.add_item(self.select)
         self.prev.disabled = self.page <= 0
         self.next.disabled = self.page >= self.pages - 1
 
     def chunk(self) -> list:
-        return self.all[self.page * STORE_PER_PAGE:(self.page + 1) * STORE_PER_PAGE]
+        return self.all[self.page * self.per:(self.page + 1) * self.per]
 
     def embed(self) -> discord.Embed:
         blocks = []
         for it, role in self.chunk():
             owned = role in getattr(self.author, "roles", ())
             tag = f" · {I.s('check')} Owned" if owned else ""
-            blocks.append(f"{it['emoji'] or ''} {role.mention}\n"
+            blocks.append(f"{shown_text(it['emoji'], self.gone)} {role.mention}\n"
                           f"{I.s('coins')} Price: `{it['price']}` | Stock: `{stock_text(it['stock'])}`{tag}")
         body = "\n\n".join(blocks) if blocks else "The shop is empty."
         bal = self.cog.db.user(self.guild.id, self.author.id)["points"]
@@ -136,6 +146,7 @@ class StoreView(OwnedView):
 
     async def go(self, interaction: discord.Interaction, page: int):
         self.page = page
+        await self.refresh_gone()
         self.reload()
         await interaction.response.edit_message(embed=self.embed(), view=self)
 
@@ -158,6 +169,7 @@ class ShopConfigView(OwnedView):
             ("Edit Item", "edit", self.edit_item_btn, discord.ButtonStyle.secondary),
             ("Remove Item", "minus", self.remove_item_btn, discord.ButtonStyle.danger),
             ("Position", "swap", self.position_btn, discord.ButtonStyle.primary),
+            ("Slot", "grid", self.slot_btn, discord.ButtonStyle.primary),
             ("Thumbnail", "sparkles", self.thumb_btn, discord.ButtonStyle.secondary),
             ("Close", "cross", self.close_btn, discord.ButtonStyle.secondary),
         ):
@@ -173,7 +185,8 @@ class ShopConfigView(OwnedView):
             lines.append(f"`{n}.` {it['emoji'] or ''} {role.mention if role else '*deleted role*'} — "
                          f"`{it['price']}` pts · stock `{stock_text(it['stock'])}`")
         body = "\n".join(lines) if lines else "The shop is empty. Tap **Add Item**."
-        body += f"\n-# Stock `-1` = unlimited, `0` = sold out · **Position** changes the order"
+        body += f"\n\n{I.s('grid')} **Slots:** `{self.cog.slots(self.guild.id)}` roles per page"
+        body += f"\n-# Stock `-1` = unlimited, `0` = sold out · **Position** changes the order · **Slot** = roles per page"
         e = discord.Embed(title="Shop Configuration", color=BRAND, description=body)
         return e
 
@@ -198,7 +211,7 @@ class ShopConfigView(OwnedView):
             async def cb(i2, v):
                 price = parse_int(v[0], 1, 10_000_000, "Price")
                 stock = parse_int(v[1], -1, 1_000_000, "Stock")
-                emoji = await emojis.normalize(self.cog.bot, self.guild, v[2])
+                emoji = await self.cog.check_emoji(await emojis.normalize(self.cog.bot, self.guild, v[2]))
                 self.cog.db.shop_upsert(self.guild.id, role.id, price, stock, emoji)
                 await i2.response.send_message(ok(f"{role.mention} added to the shop for **{price}** pts."),
                                                ephemeral=True, allowed_mentions=discord.AllowedMentions.none())
@@ -211,16 +224,17 @@ class ShopConfigView(OwnedView):
         await interaction.response.send_message("Which role?", view=view, ephemeral=True)
 
     # ----- edit / remove -----
-    def _item_select(self, placeholder, handler):
+    async def _item_select(self, placeholder, handler):
         items = self.cog.db.shop_list(self.guild.id)
         if not items:
             return None
         opts = []
+        gone = await emojis.missing(self.cog.bot, *[x["emoji"] for x in items[:25]])
         for it in items[:25]:
             role = self.guild.get_role(it["role_id"])
             opts.append(discord.SelectOption(label=(role.name if role else f"deleted role {it['role_id']}")[:100],
                                              value=str(it["id"]), description=f"{it['price']} pts · stock {stock_text(it['stock'])}",
-                                             emoji=safe_partial(self.cog.bot, it["emoji"])))
+                                             emoji=icon_for(it["emoji"], gone)))
         view = discord.ui.View(timeout=120)
         sel = discord.ui.Select(placeholder=placeholder, options=opts)
 
@@ -237,15 +251,15 @@ class ShopConfigView(OwnedView):
                 return await i.response.send_message(err("That item is gone."), ephemeral=True)
 
             async def cb(i2, v):
-                self.cog.db.shop_update(self.guild.id, item_id, parse_int(v[0], 1, 10_000_000, "Price"),
-                                        parse_int(v[1], -1, 1_000_000, "Stock"),
-                                        await emojis.normalize(self.cog.bot, self.guild, v[2]))
+                price, stock = parse_int(v[0], 1, 10_000_000, "Price"), parse_int(v[1], -1, 1_000_000, "Stock")
+                new_emoji = await self.cog.check_emoji(await emojis.normalize(self.cog.bot, self.guild, v[2]))
+                self.cog.db.shop_update(self.guild.id, item_id, price, stock, new_emoji)
                 await i2.response.send_message(ok("Updated."), ephemeral=True)
                 await self.refresh()
             await i.response.send_modal(FieldsModal("Edit item", [
                 ("Price (points)", str(it["price"]), 8, True), ("Stock (-1 = unlimited)", str(it["stock"]), 7, True),
                 ("Emoji or emoji ID (optional)", it["emoji"] or "", 64, False)], cb))
-        view = self._item_select("Select an item to edit...", handler)
+        view = await self._item_select("Select an item to edit...", handler)
         if view is None:
             return await interaction.response.send_message(err("The shop is empty."), ephemeral=True)
         await interaction.response.send_message("Which item?", view=view, ephemeral=True)
@@ -255,7 +269,7 @@ class ShopConfigView(OwnedView):
             self.cog.db.shop_remove(self.guild.id, item_id)
             await i.response.edit_message(content=ok("Item removed."), view=None)
             await self.refresh()
-        view = self._item_select("Select an item to remove...", handler)
+        view = await self._item_select("Select an item to remove...", handler)
         if view is None:
             return await interaction.response.send_message(err("The shop is empty."), ephemeral=True)
         await interaction.response.send_message("Remove which item?", view=view, ephemeral=True)
@@ -275,13 +289,13 @@ class ShopConfigView(OwnedView):
                 await self.refresh()
             await i.response.send_modal(FieldsModal("Change position", [
                 (f"New position (1 - {total})", str(cur), 3, True)], cb))
-        view = self._item_select("Select the role to move...", handler)
+        view = await self._item_select("Select the role to move...", handler)
         if view is None:
             return await interaction.response.send_message(err("The shop is empty."), ephemeral=True)
         await interaction.response.send_message("Move which role?", view=view, ephemeral=True)
 
     async def thumb_btn(self, interaction):
-        """Upload an image (or paste a link; empty = back to the server icon)."""
+        """Upload an image / GIF (upload only - no links; sending it empty = back to the server icon)."""
         async def done(i, item):
             s = self.cog.shop_settings(self.guild.id)
             await media.forget(self.cog.bot, {"ref": s.get("thumbnail_ref")})
@@ -290,8 +304,21 @@ class ShopConfigView(OwnedView):
             self.cog.db.set_settings(self.guild.id, "shop", s)
             await i.followup.send(ok("Thumbnail updated." if item else "Thumbnail reset to the server icon."), ephemeral=True)
         await interaction.response.send_modal(media.ImageModal(
-            self.cog.bot, self.guild, "Shop thumbnail", done, label="Shop thumbnail", allow_clear=True,
-            fallback=interaction.channel))
+            self.cog.bot, self.guild, "Shop picture", done, label="Shop thumbnail", allow_clear=True,
+            fallback=interaction.channel, upload_only=True))
+
+    async def slot_btn(self, interaction):
+        cur = self.cog.slots(self.guild.id)
+
+        async def cb(i, v):
+            n = parse_int(v[0], 1, MAX_SLOTS, "Slots")
+            st = self.cog.shop_settings(self.guild.id)
+            st["per_page"] = n
+            self.cog.db.set_settings(self.guild.id, "shop", st)
+            await i.response.send_message(ok(f"The shop now shows **{n}** role{'s' if n != 1 else ''} per page."), ephemeral=True)
+            await self.refresh()
+        await interaction.response.send_modal(FieldsModal("Slots", [
+            (f"Roles per page (1 - {MAX_SLOTS})", str(cur), 2, True)], cb))
 
     async def close_btn(self, interaction):
         self.stop()
@@ -307,6 +334,25 @@ class Shop(commands.Cog):
     def shop_settings(self, gid: int) -> dict:
         return self.db.get_settings(gid, "shop")
 
+    # ---------- slots / emojis ----------
+    def slots(self, gid: int) -> int:
+        try:
+            return max(1, min(MAX_SLOTS, int(self.shop_settings(gid).get("per_page", DEFAULT_SLOTS))))
+        except (TypeError, ValueError):
+            return DEFAULT_SLOTS
+
+    async def check_emoji(self, value):
+        """A custom emoji that doesn't exist is refused when it is typed in."""
+        if value and emojis.ids_in(value) and await emojis.missing(self.bot, value):
+            raise VCError("That emoji doesn't exist (anymore). Pick another one.")
+        return value
+
+    @commands.Cog.listener()
+    async def on_guild_emojis_update(self, guild, before, after):
+        gone = {e.id for e in before} - {e.id for e in after}
+        if gone:
+            emojis.forget(gone)
+
     async def refresh_thumb(self, gid: int):
         """Ask Discord for a fresh link of an uploaded thumbnail (CDN links expire)."""
         s = self.shop_settings(gid)
@@ -320,6 +366,8 @@ class Shop(commands.Cog):
     async def show_shop(self, ctx: commands.Context):
         await self.refresh_thumb(ctx.guild.id)
         view = StoreView(self, ctx)
+        await view.refresh_gone()
+        view.reload()
         kw = dict(mention_author=False, allowed_mentions=discord.AllowedMentions.none())
         try:
             view.message = await ctx.reply(embed=view.embed(), view=view, **kw)
@@ -345,7 +393,7 @@ class Shop(commands.Cog):
         bal = self.db.user(guild.id, member.id)["points"]
         sold_out = it["stock"] == 0
         embed = discord.Embed(
-            title=f"{it['emoji'] or ''} Item Details: {role.name}".strip(),
+            title=f"{shown_text(it['emoji'], await emojis.missing(self.bot, it['emoji']))} Item Details: {role.name}".strip(),
             description=(f"### Price\n{I.s('coins')} {it['price']} Points\n"
                          f"### Stock\n{I.s('gift_box')} {stock_long(it['stock'])}\n"
                          f"### Your Balance\n{I.s('wallet')} {bal} Points\n\n"

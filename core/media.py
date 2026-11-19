@@ -136,22 +136,24 @@ class ImageModal(discord.ui.Modal):
     (ephemeral), answer with interaction.followup."""
 
     def __init__(self, bot, guild: discord.Guild, title: str, on_done: Callable[[discord.Interaction, Optional[dict]], Awaitable],
-                 *, label: str = "Image", allow_clear: bool = False, fallback=None):
+                 *, label: str = "Image", allow_clear: bool = False, fallback=None, upload_only: bool = False):
         super().__init__(title=title[:45], timeout=300)
         self.bot, self.guild, self.on_done = bot, guild, on_done
-        self.label, self.allow_clear, self.fallback = label, allow_clear, fallback
-        self.upload = discord.ui.FileUpload(required=False, min_values=0, max_values=1)
+        self.label, self.allow_clear, self.fallback, self.upload_only = label, allow_clear, fallback, upload_only
+        need = upload_only and not allow_clear                # upload-only without "remove" = a file is a must
+        self.upload = discord.ui.FileUpload(required=need, min_values=1 if need else 0, max_values=1)
         self.link = discord.ui.TextInput(placeholder="https://...", max_length=1000, required=False)
-        self.add_item(discord.ui.Label(text="Upload image or GIF", description=f"PNG, JPG, GIF or WEBP · max {MAX_MB} MB",
-                                       component=self.upload))
-        self.add_item(discord.ui.Label(text="...or paste an image link" + (" (empty = remove)" if allow_clear else ""),
-                                       component=self.link))
+        hint = f"PNG, JPG, GIF or WEBP · max {MAX_MB} MB" + (" · empty = remove" if (upload_only and allow_clear) else "")
+        self.add_item(discord.ui.Label(text="Upload image or GIF", description=hint, component=self.upload))
+        if not upload_only:                                   # upload-only pickers have no link field
+            self.add_item(discord.ui.Label(text="...or paste an image link" + (" (empty = remove)" if allow_clear else ""),
+                                           component=self.link))
 
     async def on_submit(self, interaction: discord.Interaction):
         await interaction.response.defer(ephemeral=True)
         try:
             files = list(self.upload.values)
-            link = (self.link.value or "").strip()
+            link = "" if self.upload_only else (self.link.value or "").strip()
             fb = self.fallback or interaction.channel
             if files:
                 att = files[0]
@@ -163,7 +165,7 @@ class ImageModal(discord.ui.Modal):
             elif self.allow_clear:
                 item = None
             else:
-                raise VCError("Upload a file or paste a link.")
+                raise VCError("Upload an image or GIF." if self.upload_only else "Upload a file or paste a link.")
             await self.on_done(interaction, item)
         except VCError as e:
             await interaction.followup.send(err(str(e)), ephemeral=True)

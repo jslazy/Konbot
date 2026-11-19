@@ -5,7 +5,7 @@
       "id": 1569712165932236842
     },
     "voice_mutes_running": {},
-    "slash_sync_hash": "e00646dfe574aecc10f0dfcb0826fb2b827fe014"
+    "slash_sync_hash": "737bc301b23f16a6730f865e4935db154e0092a5"
   },
   "servers": {
     "0": {
@@ -41,6 +41,16 @@
       "aura": null,
       "custom_vc_rules": null,
       "tictactoe": null,
+      "game_channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)": {
+        "tictactoe": null,
+        "blacktea": null,
+        "timetap": null,
+        "handfight": null
+      },
+      "game_stats (TimeTap, Handfight)": {
+        "timetap": null,
+        "handfight": null
+      },
       "webhook_sender (name, avatar, embed, images)": null,
       "saved_images ($tolink names -> links)": null,
       "command_disable ($disablecommand)": null,
@@ -90,6 +100,16 @@
       "aura": null,
       "custom_vc_rules": null,
       "tictactoe": null,
+      "game_channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)": {
+        "tictactoe": null,
+        "blacktea": null,
+        "timetap": null,
+        "handfight": null
+      },
+      "game_stats (TimeTap, Handfight)": {
+        "timetap": null,
+        "handfight": null
+      },
       "webhook_sender (name, avatar, embed, images)": null,
       "saved_images ($tolink names -> links)": {
         "channel": null,
@@ -135,7 +155,7 @@
         "name": "Dark ︲ Spider's Web",
         "bot_is_in_server": true,
         "owner_id": 1400039022855852113,
-        "members": 187
+        "members": 192
       },
       "custom_vc": {
         "join_to_create_channel": 1488691385266864208,
@@ -158,14 +178,7 @@
           "panel_message_id": null
         },
         "other_keys": {},
-        "active_custom_vcs": {
-          "1572796602043727892": {
-            "owner": 650534818517483526,
-            "banned": [],
-            "block_drags": false,
-            "created": 1795054331.3185208
-          }
-        }
+        "active_custom_vcs": {}
       },
       "self_roles": {
         "channel": 1488691387653161131,
@@ -205,7 +218,7 @@
             "line_emoji": "<:Spider_blue_verified:1570309169720987720>"
           }
         ],
-        "banner_url": "https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6afe2aca&is=6afcd94a&hm=2261b8b925161da0290d85c0eedb58c78ae658627103db92a10d7ee61c47916f&",
+        "banner_url": "https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6aff7c4a&is=6afe2aca&hm=98f7a3cb202c2f416dcf7d75f4d4179a3e7f9e95918755e8a7a30e464e834f92&",
         "banner_ref": {
           "c": 1572381729233051669,
           "m": 1572382470312296601
@@ -220,6 +233,7 @@
         "vc_mins": 1,
         "vc_points": 1,
         "vc_need_others": false,
+        "vc_need_muted": false,
         "cooldown": 0,
         "channel_rules": {},
         "disabled_channels": [],
@@ -371,6 +385,67 @@
       "tictactoe": {
         "channel": 1572117193712209960
       },
+      "game_channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)": {
+        "tictactoe": 1572117193712209960,
+        "blacktea": 1572286596735303771,
+        "timetap": 1572828188332007465,
+        "handfight": 1572828244758241330
+      },
+      "game_stats (TimeTap, Handfight)": {
+        "timetap": {
+          "650534818517483526": {
+            "games": 3,
+            "false_starts": 2,
+            "taps": 14,
+            "total_ms": 17834,
+            "rounds_won": 14,
+            "match_wins": 1,
+            "titles": 1,
+            "train_runs": 2,
+            "best_clean": 6,
+            "best_ms": 1067,
+            "train_best_avg": 1172
+          },
+          "1028298097664733215": {
+            "games": 1,
+            "false_starts": 1,
+            "taps": 2,
+            "total_ms": 3566,
+            "rounds_won": 2,
+            "match_wins": 0,
+            "titles": 0,
+            "train_runs": 0,
+            "best_clean": 0,
+            "best_ms": 1160
+          }
+        },
+        "handfight": {
+          "650534818517483526": {
+            "games": 1,
+            "titles": 1,
+            "rounds_won": 2,
+            "rounds_lost": 0,
+            "draws": 0,
+            "match_wins": 1,
+            "match_losses": 0,
+            "rock": 0,
+            "paper": 0,
+            "scissors": 2
+          },
+          "1154489620499800127": {
+            "games": 1,
+            "titles": 0,
+            "rounds_won": 0,
+            "rounds_lost": 2,
+            "draws": 0,
+            "match_wins": 0,
+            "match_losses": 1,
+            "rock": 0,
+            "paper": 2,
+            "scissors": 0
+          }
+        }
+      },
       "webhook_sender (name, avatar, embed, images)": {
         "username": "Kon",
         "avatar": {
@@ -393,7 +468,14 @@
             "m": 1572763332946165792
           }
         },
-        "thumb": null
+        "thumb": null,
+        "buttons": [
+          {
+            "label": "Meow",
+            "url": "https://google.com",
+            "emoji": "<:Kool:1569605493607890995>"
+          }
+        ]
       },
       "saved_images ($tolink names -> links)": {
         "channel": 1572381729233051669,
@@ -426,7 +508,10 @@
             1488691386273370273,
             1488691384138338395,
             1488691376962011216,
-            1488691367986069685
+            1488691367986069685,
+            1488691349212495892,
+            1488691338026418288,
+            1488691331848208415
           ]
         }
       },
@@ -532,8 +617,40 @@
               1488691386273370273,
               1488691384138338395,
               1488691376962011216,
-              1488691367986069685
+              1488691367986069685,
+              1488691349212495892,
+              1488691338026418288,
+              1488691331848208415
             ]
+          }
+        },
+        "handfight": {
+          "channel": 1572828244758241330
+        },
+        "handfight_stats": {
+          "650534818517483526": {
+            "games": 1,
+            "titles": 1,
+            "rounds_won": 2,
+            "rounds_lost": 0,
+            "draws": 0,
+            "match_wins": 1,
+            "match_losses": 0,
+            "rock": 0,
+            "paper": 0,
+            "scissors": 2
+          },
+          "1154489620499800127": {
+            "games": 1,
+            "titles": 0,
+            "rounds_won": 0,
+            "rounds_lost": 2,
+            "draws": 0,
+            "match_wins": 0,
+            "match_losses": 1,
+            "rock": 0,
+            "paper": 2,
+            "scissors": 0
           }
         },
         "imagehost": {
@@ -568,6 +685,7 @@
           "vc_mins": 1,
           "vc_points": 1,
           "vc_need_others": false,
+          "vc_need_muted": false,
           "cooldown": 0,
           "channel_rules": {},
           "disabled_channels": [],
@@ -603,6 +721,36 @@
         "tictactoe": {
           "channel": 1572117193712209960
         },
+        "timetap": {
+          "channel": 1572828188332007465
+        },
+        "timetap_stats": {
+          "650534818517483526": {
+            "games": 3,
+            "false_starts": 2,
+            "taps": 14,
+            "total_ms": 17834,
+            "rounds_won": 14,
+            "match_wins": 1,
+            "titles": 1,
+            "train_runs": 2,
+            "best_clean": 6,
+            "best_ms": 1067,
+            "train_best_avg": 1172
+          },
+          "1028298097664733215": {
+            "games": 1,
+            "false_starts": 1,
+            "taps": 2,
+            "total_ms": 3566,
+            "rounds_won": 2,
+            "match_wins": 0,
+            "titles": 0,
+            "train_runs": 0,
+            "best_clean": 0,
+            "best_ms": 1160
+          }
+        },
         "webhook": {
           "username": "Kon",
           "avatar": {
@@ -625,10 +773,17 @@
               "m": 1572763332946165792
             }
           },
-          "thumb": null
+          "thumb": null,
+          "buttons": [
+            {
+              "label": "Meow",
+              "url": "https://google.com",
+              "emoji": "<:Kool:1569605493607890995>"
+            }
+          ]
         }
       },
-      "players_in_database": 142
+      "players_in_database": 148
     },
     "1524797937836621874": {
       "server": {
@@ -663,6 +818,16 @@
       "aura": null,
       "custom_vc_rules": null,
       "tictactoe": null,
+      "game_channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)": {
+        "tictactoe": null,
+        "blacktea": null,
+        "timetap": null,
+        "handfight": null
+      },
+      "game_stats (TimeTap, Handfight)": {
+        "timetap": null,
+        "handfight": null
+      },
       "webhook_sender (name, avatar, embed, images)": null,
       "saved_images ($tolink names -> links)": null,
       "command_disable ($disablecommand)": null,
@@ -680,7 +845,7 @@
         "name": "The Blaze Nebula | Drag GW",
         "bot_is_in_server": true,
         "owner_id": 1519731963244580987,
-        "members": 931
+        "members": 930
       },
       "custom_vc": {
         "join_to_create_channel": null,
@@ -761,6 +926,16 @@
       "aura": null,
       "custom_vc_rules": null,
       "tictactoe": null,
+      "game_channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)": {
+        "tictactoe": null,
+        "blacktea": null,
+        "timetap": null,
+        "handfight": null
+      },
+      "game_stats (TimeTap, Handfight)": {
+        "timetap": null,
+        "handfight": null
+      },
       "webhook_sender (name, avatar, embed, images)": null,
       "saved_images ($tolink names -> links)": null,
       "command_disable ($disablecommand)": null,

@@ -9,6 +9,8 @@
     $as name  + attach an image / GIF, or reply to one  ->  that image becomes a sticker
     (needs Pillow - big images are shrunk to fit Discord's size limits automatically)
 
+    $ei [search | here | <emoji id>]  -> list animated emojis with their IDs (all servers you share with Kon), or look up one ID
+
 After adding, the message has two buttons: **Undo** (delete everything that command just added) and **Remove**
 (pick which of them to delete). Text versions:
     $ae undo  |  $ae remove <:emoji:> or name ...        $as undo  |  $as remove <sticker name>
@@ -21,8 +23,11 @@ from pathlib import Path
 
 import aiohttp
 import discord
+from discord import app_commands
 from discord.ext import commands
 
+from core import emoji as emojis
+from core.config import BLURPLE
 from core.errors import VCError
 from core.icons import I, err, ok
 from core.ui import OwnedView, replied_message
@@ -221,6 +226,35 @@ class UndoView(OwnedView):
                 await self.message.edit(view=None)
             except discord.HTTPException:
                 pass
+
+
+EI_PER_PAGE = 10
+
+
+class EmojiPages(OwnedView):
+    """Previous / Next over the pages of $ei."""
+
+    def __init__(self, invoker_id: int, pages: list):
+        super().__init__(invoker_id, timeout=180)
+        self.pages, self.i = pages, 0
+        self.prev.emoji, self.nxt.emoji = I.e("left"), I.e("right")
+        self.sync()
+
+    def sync(self):
+        self.prev.disabled = self.i == 0
+        self.nxt.disabled = self.i >= len(self.pages) - 1
+
+    @discord.ui.button(label="Previous", style=discord.ButtonStyle.secondary)
+    async def prev(self, interaction: discord.Interaction, _):
+        self.i -= 1
+        self.sync()
+        await interaction.response.edit_message(embed=self.pages[self.i], view=self)
+
+    @discord.ui.button(label="Next", style=discord.ButtonStyle.secondary)
+    async def nxt(self, interaction: discord.Interaction, _):
+        self.i += 1
+        self.sync()
+        await interaction.response.edit_message(embed=self.pages[self.i], view=self)
 
 
 class Expressions(commands.Cog):
@@ -425,6 +459,66 @@ class Expressions(commands.Cog):
             view.message = await ctx.reply(text_out, mention_author=False, view=view)
         else:
             await ctx.reply(text_out, mention_author=False)
+
+    # ---------- $ei ----------
+    @commands.hybrid_command(name="ei", aliases=["emojiids", "animated"],
+                             description="List animated emojis with their IDs (or look up one emoji ID)")
+    @app_commands.describe(search="Part of a name, `here` (this server only) or an emoji ID")
+    @commands.guild_only()
+    async def ei(self, ctx: commands.Context, *, search: str = ""):
+        """$ei [search | here | <emoji id>] - animated emojis with their IDs."""
+        search = search.strip()
+        if search.isdigit():                                       # $ei <id> -> what is it?
+            hit = await emojis.find_emoji(self.bot, int(search))
+            if hit is None:
+                raise VCError("I can't find an emoji with that ID.")
+            name, animated = hit
+            e = discord.Embed(color=BLURPLE, title=f"{I.s('sparkles')} {name}",
+                              description=f"{emojis.code(name, animated, int(search))}\n"
+                                          f"**{'Animated' if animated else 'Static'}** · ID `{search}`")
+            return await ctx.reply(embed=e, mention_author=False)
+
+        here_only = search.lower() == "here"
+        needle = "" if here_only else search.lower()
+        groups = []
+        guilds = [ctx.guild] if here_only else [ctx.guild, *[g for g in self.bot.guilds
+                                                          if g.id != ctx.guild.id and g.get_member(ctx.author.id)]]
+        for g in guilds:
+            ems = sorted((x for x in g.emojis if x.animated and needle in x.name.lower()), key=lambda x: x.name.lower())
+            if ems:
+                groups.append((g.name, ems))
+        if not here_only:
+            own = sorted((x for x in await emojis.app_emojis(self.bot) if x.animated and needle in x.name.lower()),
+                         key=lambda x: x.name.lower())
+            if own:
+                groups.append(("Kon's own emojis", own))
+        total = sum(len(ems) for _, ems in groups)
+        if not total:
+            raise VCError("No animated emojis found." + ("" if here_only else " (Only servers you and Kon share are listed.)"))
+
+        pages_txt, cur, n = [], [], 0
+        for title, ems in groups:
+            new_group = True
+            for em in ems:
+                if new_group:
+                    cur.append(f"**{title}**")
+                    new_group = False
+                cur.append(f"{em} `{em.id}` · {em.name}")
+                n += 1
+                if n == EI_PER_PAGE:
+                    pages_txt.append("\n".join(cur))
+                    cur, n, new_group = [], 0, True
+        if cur:
+            pages_txt.append("\n".join(cur))
+        pages = []
+        for i, body in enumerate(pages_txt, 1):
+            e = discord.Embed(color=BLURPLE, title=f"{I.s('sparkles')} Animated emojis ({total})", description=body)
+            e.set_footer(text=f"Page {i}/{len(pages_txt)}")
+            pages.append(e)
+        if len(pages) == 1:
+            return await ctx.reply(embed=pages[0], mention_author=False)
+        view = EmojiPages(ctx.author.id, pages)
+        view.message = await ctx.reply(embed=pages[0], view=view, mention_author=False)
 
 
 async def setup(bot):

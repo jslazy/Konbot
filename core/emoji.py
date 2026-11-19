@@ -1,6 +1,6 @@
-"""Emoji helpers for $webhook and $ei.
+"""Emoji helpers for $ei, the shop and the self-roles.
 
-Animated emojis work WITHOUT Nitro because the bot / webhook sends the message, not the member.
+Emoji IDs and :name: are turned into real emoji codes, so animated emojis can be used without Nitro.
 In a message you can write
     123456789012345678        a bare emoji ID
     :name:                    the plain name Discord sends for external emojis
@@ -10,6 +10,7 @@ and `resolve_text` turns all of them into the real `<a:name:id>` / `<:name:id>` 
 Lookup order for an ID: emojis of every server the bot is in -> the bot's own application emojis ->
 the Discord CDN (works for emojis of servers the bot is NOT in; the name is unknown then, which Discord doesn't need).
 """
+import asyncio
 import logging
 import re
 import time
@@ -194,3 +195,74 @@ def to_partial_checked(text: Optional[str]) -> Optional[discord.PartialEmoji]:
     except Exception:
         return None
     return pe if (pe.id is not None or pe.name) else None
+
+
+# ---------------------------------------------------------------------------------------------
+# Deleted-emoji safety: a custom emoji that was deleted from its server makes Discord reject any button / select option
+# that still uses it ("Invalid Form Body ... emoji.id: Invalid emoji"). These helpers tell whether an emoji still exists,
+# so the bot can show one of ITS OWN icons in that place instead (the stored emoji is kept).
+# ---------------------------------------------------------------------------------------------
+TTL = 300                                           # seconds a CDN answer is trusted
+_cdn_cache: dict[int, tuple[float, bool]] = {}
+_gone: set[int] = set()                             # IDs we KNOW were deleted (guild emoji update event)
+
+
+def ids_in(text: Optional[str]) -> list[int]:
+    return [int(m.group(3)) for m in CUSTOM.finditer(text or "")]
+
+
+def forget(ids) -> None:
+    """These emojis were just deleted: never trust a cached 'exists' answer for them again."""
+    for i in ids:
+        _gone.add(int(i))
+        _cdn_cache.pop(int(i), None)
+        _probe_cache.pop(int(i), None)
+
+
+def restore(ids) -> None:
+    for i in ids:
+        _gone.discard(int(i))
+        _cdn_cache.pop(int(i), None)
+
+
+async def exists(bot, eid: int) -> bool:
+    """Does this custom emoji still exist? Unknown (network trouble) counts as True so nothing is hidden by mistake."""
+    if eid in _gone:
+        return False
+    if bot.get_emoji(eid) is not None:
+        return True
+    if any(e.id == eid for e in await app_emojis(bot)):
+        return True
+    hit = _cdn_cache.get(eid)
+    if hit and time.monotonic() - hit[0] < TTL:
+        return hit[1]
+    try:
+        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=6)) as s:
+            async with s.get(f"https://cdn.discordapp.com/emojis/{eid}.png?size=16") as r:
+                if r.status == 200:
+                    _cdn_cache[eid] = (time.monotonic(), True)
+                    return True
+                if r.status in (404, 400):
+                    _cdn_cache[eid] = (time.monotonic(), False)
+                    return False
+    except (aiohttp.ClientError, asyncio.TimeoutError):
+        pass
+    return True
+
+
+async def missing(bot, *texts) -> set[int]:
+    """IDs of the custom emojis in these texts that no longer exist."""
+    out: set[int] = set()
+    for t in texts:
+        for eid in ids_in(t):
+            if eid not in out and not await exists(bot, eid):
+                out.add(eid)
+    return out
+
+
+async def resolve(bot, text: str, guild: Optional[discord.Guild] = None) -> str:
+    """What the person typed -> a real emoji string (emoji ID, :name: and <:name:id> all work; no Nitro needed)."""
+    text = (text or "").strip()
+    if not text:
+        return text
+    return (await resolve_text(bot, text, guild))[0]

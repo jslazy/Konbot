@@ -4,7 +4,7 @@
     "name": "The Blaze Nebula | Drag GW",
     "bot_is_in_server": true,
     "owner_id": 1519731963244580987,
-    "members": 931
+    "members": 930
   },
   "custom_vc": {
     "join_to_create_channel": null,
@@ -85,6 +85,16 @@
   "aura": null,
   "custom_vc_rules": null,
   "tictactoe": null,
+  "game_channels (Tic Tac Toe, BlackTea, TimeTap, Handfight)": {
+    "tictactoe": null,
+    "blacktea": null,
+    "timetap": null,
+    "handfight": null
+  },
+  "game_stats (TimeTap, Handfight)": {
+    "timetap": null,
+    "handfight": null
+  },
   "webhook_sender (name, avatar, embed, images)": null,
   "saved_images ($tolink names -> links)": null,
   "command_disable ($disablecommand)": null,

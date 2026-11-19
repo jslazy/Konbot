@@ -22,11 +22,11 @@ CATEGORIES = {
     "Meta": ("General", "home"), "Autoreact": ("Auto Reacter", "sparkles"), "RoleCmds": ("Role Commands", "crown"),
     "SelfRoles": ("Self Roles", "crown"), "Expressions": ("Emojis & Stickers", "sparkles"), "Purge": ("Cleanup", "tools"),
     "Aura": ("Aura", "fire"), "RoleTransfer": ("Role Transfer", "crown"), "TicTacToe": ("Tic Tac Toe", "gamepad"), "CmdControl": ("Command Control", "lock"),
-    "BlackTea": ("BlackTea", "leaf"), "TimeTap": ("TimeTap", "stopwatch"), "Handfight": ("Handfight", "rock"), "Games": ("Games", "gamepad"), "Webhook": ("Webhook", "link"), "ImageHost": ("Image Links", "image"),
+    "BlackTea": ("BlackTea", "leaf"), "TimeTap": ("TimeTap", "stopwatch"), "Handfight": ("Handfight", "rock"), "Games": ("Games", "gamepad"), "ImageHost": ("Image Links", "image"),
 }
 # order of the pages in $help (anything not listed goes at the end, A-Z)
 ORDER = ["Meta", "Points", "Shop", "RoleCmds", "VC", "Drag", "AFK", "SelfRoles", "Autoreact", "Aura", "Games", "TimeTap", "Handfight", "BlackTea", "TicTacToe",
-         "Expressions", "Webhook", "ImageHost", "Purge", "Prefixes", "CmdControl", "RoleTransfer", "Admin", "Backup"]
+         "Expressions", "ImageHost", "Purge", "Prefixes", "CmdControl", "RoleTransfer", "Admin", "Backup"]
 
 # short, plain descriptions (key = command name without prefix). Anything missing falls back to the docstring.
 DESC = {
@@ -82,8 +82,6 @@ DESC = {
     "imgchannel": "Set the private channel that stores converted images", "imgchannelreset": "Remove the image channel",
     "tolink": "Turn an image / GIF / banner into a saved link (attach, reply or paste a link)",
     "links": "List saved image links", "linkget": "Fresh link + preview of a saved image", "linkdel": "Delete a saved image",
-    "webhook": "Webhook editor: message, embed, embed image, avatar upload (or `$webhook #channel text`)",
-    "webhookedit": "Edit a message the webhook sent: `$whe <message link> new text`",
     "ei": "List animated emojis with their IDs (`$ei name`, `$ei here`, `$ei <id>`)",
     "point enable": "Count points in a channel again", "point disable": "Stop counting points in a channel",
     "disablecommand": "Turn commands off in channels / whole categories (`$db`, no arguments = menu)",

@@ -1,9 +1,9 @@
 {
   "bot": "Kon#9118",
-  "created": "2026-11-19T03:46:40.550788+00:00",
-  "reason": "Automatic (every 30s)",
+  "created": "2026-11-19T07:00:31.088295+00:00",
+  "reason": "Merged kon_update + $ei restored",
   "status": "online",
-  "backup_number": 25,
+  "backup_number": 267,
   "kind": "code",
   "files": [
     {
@@ -18,8 +18,8 @@
     },
     {
       "path": "README.md",
-      "size": 14937,
-      "sha1": "941cb6d74a928b252a58080406f292698ed7bad3"
+      "size": 17429,
+      "sha1": "2a6b9b0e85fa3055a9854e7217f71babd680424b"
     },
     {
       "path": "assets/icon_sheet.png",
@@ -297,6 +297,16 @@
       "sha1": "ebbde5fa5cd14a455ae9e4e0602e733816ae3a20"
     },
     {
+      "path": "assets/icons/light_green.png",
+      "size": 9598,
+      "sha1": "dca2ff6ece49330a1753e2171327465b6bbde6f9"
+    },
+    {
+      "path": "assets/icons/light_red.png",
+      "size": 9195,
+      "sha1": "2079d06fa73fdfb4e6c5b6dbb76db7dc39631cdd"
+    },
+    {
       "path": "assets/icons/link.png",
       "size": 10376,
       "sha1": "0f261b5b779eddedaa6a373bc62d1ba35ad96c17"
@@ -382,6 +392,11 @@
       "sha1": "c058d3cfd9d34e37c3cd3d03702bd98d80b262d9"
     },
     {
+      "path": "assets/icons/paper.png",
+      "size": 7701,
+      "sha1": "c9bb5bfd8b8e30a4a2fed88ebab65fe33ddb4afd"
+    },
+    {
       "path": "assets/icons/party.png",
       "size": 11041,
       "sha1": "6c4eb1fa84e61604e3215126d4dafcf6cf6608d8"
@@ -442,9 +457,19 @@
       "sha1": "fc8a32d519c2fce276156c048a8f3f3c73f7a19c"
     },
     {
+      "path": "assets/icons/rock.png",
+      "size": 9388,
+      "sha1": "7275be66585d29f5da867e262666e55f4d2cc1ba"
+    },
+    {
       "path": "assets/icons/rocket.png",
       "size": 8092,
       "sha1": "3b6c289a693b616d6aa28b3399ffa7e3b04df47d"
+    },
+    {
+      "path": "assets/icons/scissors.png",
+      "size": 15149,
+      "sha1": "57eb7770beb8fd910e53ec324a791ca385220667"
     },
     {
       "path": "assets/icons/settings.png",
@@ -557,9 +582,24 @@
       "sha1": "f2ec5799f1bdb87c6600608878cc269e46ef789a"
     },
     {
+      "path": "assets/icons/tap.png",
+      "size": 19053,
+      "sha1": "3569045af0340efaf4dc10f09baa087dd75dae0b"
+    },
+    {
       "path": "assets/icons/target.png",
       "size": 10264,
       "sha1": "a0478b7d06127f5b7cde168002ff1e54a677f0df"
+    },
+    {
+      "path": "assets/icons/team_blue.png",
+      "size": 5487,
+      "sha1": "541f678b1e585accaa76651b7df54df165c2375d"
+    },
+    {
+      "path": "assets/icons/team_red.png",
+      "size": 5439,
+      "sha1": "015c47429bbc56fa7415bc628a0fb70a3c2bd4e4"
     },
     {
       "path": "assets/icons/terminal.png",
@@ -723,8 +763,8 @@
     },
     {
       "path": "cogs/blacktea.py",
-      "size": 22334,
-      "sha1": "5979b00fe17b7abc4f3eb30e7ded707051019101"
+      "size": 23197,
+      "sha1": "45270893c597377cc8f451972fe915d43ae3ab55"
     },
     {
       "path": "cogs/cmdcontrol.py",
@@ -743,8 +783,18 @@
     },
     {
       "path": "cogs/expressions.py",
-      "size": 20478,
-      "sha1": "d630ac5a645b3b7d7dd814313925b633f4443cc7"
+      "size": 24877,
+      "sha1": "957648049b1fdebdb7f034a72194960739721ea2"
+    },
+    {
+      "path": "cogs/games.py",
+      "size": 1913,
+      "sha1": "55278571c1d65250a574f8f5fb4bc3f330c4ec76"
+    },
+    {
+      "path": "cogs/handfight.py",
+      "size": 15049,
+      "sha1": "f18fbd44f097e95afd558da25172df80521e5cc0"
     },
     {
       "path": "cogs/imagehost.py",
@@ -758,8 +808,8 @@
     },
     {
       "path": "cogs/meta.py",
-      "size": 23028,
-      "sha1": "7897116d3d62459266711f9ba9097d238bc2102f"
+      "size": 23687,
+      "sha1": "9d727faaadfb9f0e16096266457c42eae200e9d3"
     },
     {
       "path": "cogs/points.py",
@@ -788,28 +838,28 @@
     },
     {
       "path": "cogs/selfroles.py",
-      "size": 35949,
-      "sha1": "e21e80a3ce575cbe1be5662a4090034ff1c2482a"
+      "size": 37460,
+      "sha1": "e3baabb852faa8032346773e67ebe6b0f23c5d18"
     },
     {
       "path": "cogs/shop.py",
-      "size": 19987,
-      "sha1": "cdd71b0c73548dcebd5526990f96a340f8a21041"
+      "size": 22521,
+      "sha1": "70c8335a4779e4339592980cee0e294676425489"
     },
     {
       "path": "cogs/tictactoe.py",
-      "size": 10158,
-      "sha1": "b9c9286398bd33f2e9e897fa7f444eef601d269a"
+      "size": 10675,
+      "sha1": "9618da80d0dc93b7569eb4415935a2c659d56fd1"
+    },
+    {
+      "path": "cogs/timetap.py",
+      "size": 25166,
+      "sha1": "0cc02450a67dc695f1b4235fdf5d4659b7c6c240"
     },
     {
       "path": "cogs/vc.py",
       "size": 31746,
       "sha1": "b64836c67fd4fd4c0c02f5d3853984404cdbad82"
-    },
-    {
-      "path": "cogs/webhook.py",
-      "size": 30166,
-      "sha1": "ea15605d34b0a33a341391d7a04adab6aebb5d3e"
     },
     {
       "path": "core/checks.py",
@@ -828,8 +878,8 @@
     },
     {
       "path": "core/emoji.py",
-      "size": 7380,
-      "sha1": "123bee08c8b076a409c2d166cc084cf9f1811190"
+      "size": 10257,
+      "sha1": "2e3239ad9c7d9a058cb6f14ec19cdeb54ed3745f"
     },
     {
       "path": "core/errors.py",
@@ -838,18 +888,23 @@
     },
     {
       "path": "core/export.py",
-      "size": 20136,
-      "sha1": "10cbef67dba64d59f751ce16419a571020052560"
+      "size": 21033,
+      "sha1": "cde80aceac446d3bed2f6c744ede7310674fa50b"
     },
     {
       "path": "core/icons.py",
-      "size": 3359,
-      "sha1": "0790bc6959b1b5a90ef4489cc93a59f8516d3531"
+      "size": 3619,
+      "sha1": "9cb48055210ad25dd780e1317bd297d8438dd7e0"
     },
     {
       "path": "core/media.py",
-      "size": 8340,
-      "sha1": "1faef195caa0eb30243a3275ed3bba3b3914f9fa"
+      "size": 8761,
+      "sha1": "501994e9836c2393f3f9fb096362e9710e4c1b5e"
+    },
+    {
+      "path": "core/minigames.py",
+      "size": 25492,
+      "sha1": "4ba91a60bdb41544efd64cb3aa15688aeb6b1019"
     },
     {
       "path": "core/ratelimit.py",
@@ -869,17 +924,17 @@
     {
       "path": "export/LINKS.md",
       "size": 1753,
-      "sha1": "43d55de932d1c286159200e41ae85a25b809d2ec"
+      "sha1": "6b094f0460e088ce5115d0c420810f6faad9d46a"
     },
     {
       "path": "export/SERVER_CONFIG.json",
-      "size": 24215,
-      "sha1": "761d1bcfbc1610d8026520c30b848a330c7481f4"
+      "size": 29001,
+      "sha1": "afec0a04a2b7a8afbbc2d5e2f6bfe10cd7cc9e27"
     },
     {
       "path": "export/SERVER_CONFIG.md",
-      "size": 25434,
-      "sha1": "30f4df384be95d5feda89b67aa679f1ed8b00817"
+      "size": 29754,
+      "sha1": "6c941b340380addde7b90392889e83981daee97d"
     },
     {
       "path": "export/afk.json",
@@ -888,13 +943,13 @@
     },
     {
       "path": "export/custom_vc_channels.json",
-      "size": 1356,
-      "sha1": "4d5b362bd84a90814934ec6521ca2a39436c4b3e"
+      "size": 1185,
+      "sha1": "08effa5af3d3a6ab23bbcba1c566b861c751fada"
     },
     {
       "path": "export/db_dump.json",
-      "size": 1561145,
-      "sha1": "ebc1e53a98bf175a36ec57ab549129eddc0b6d00"
+      "size": 1567918,
+      "sha1": "5b3ef7bae503f7a9db55f3b23d2416b7fcca7bc1"
     },
     {
       "path": "export/players_1154838258027606117.csv",
@@ -903,28 +958,28 @@
     },
     {
       "path": "export/players_1488690726870057165.csv",
-      "size": 9429,
-      "sha1": "1eb7253dfe864b13200a312ed10ef4ed23076f1b"
+      "size": 9811,
+      "sha1": "d1982f7351ef724279b94c666090be285276520e"
     },
     {
       "path": "export/players_1524797937836621874.csv",
-      "size": 1199,
-      "sha1": "05b7b2f83ef862cfe2d2b179725d91e48cf6caba"
+      "size": 1200,
+      "sha1": "f4c55992da91a12bed339689a4df602ecf0f7d84"
     },
     {
       "path": "export/players_1547650379448188999.csv",
-      "size": 22996,
-      "sha1": "a5f66332ca95239d01f87c4db6bcda00d8d09c0d"
+      "size": 22924,
+      "sha1": "bfd9172493a3f281389c03158b80d17e75e63f02"
     },
     {
       "path": "export/servers/0/config.json",
-      "size": 1095,
-      "sha1": "58bbeece4e2874d08c640d148f00a8c71893af54"
+      "size": 1340,
+      "sha1": "c89a3ab44cdeb11c314c12e4ddafa056bcc62da1"
     },
     {
       "path": "export/servers/0/config.md",
-      "size": 1498,
-      "sha1": "44db42d9b510a2fb9f708175416441f489eddb4b"
+      "size": 1739,
+      "sha1": "fafb4f95d08cd476c5aadeca50d1965e78819284"
     },
     {
       "path": "export/servers/0/data.json",
@@ -938,13 +993,13 @@
     },
     {
       "path": "export/servers/1154838258027606117/config.json",
-      "size": 1942,
-      "sha1": "5e2c25da81de8fd3923d3ffac9bb8f94326cbfd2"
+      "size": 2187,
+      "sha1": "7992b42d8c7d9d0aefb077297fb7d23d57c24076"
     },
     {
       "path": "export/servers/1154838258027606117/config.md",
-      "size": 2280,
-      "sha1": "47a509a87ab244428e1c199988c300510449ae91"
+      "size": 2521,
+      "sha1": "a8ca70c349e927ed249d9ffc8f23cf257452283f"
     },
     {
       "path": "export/servers/1154838258027606117/data.json",
@@ -958,33 +1013,33 @@
     },
     {
       "path": "export/servers/1488690726870057165/config.json",
-      "size": 13386,
-      "sha1": "13b036c3f825fdea89378730ef46816bb31e4902"
+      "size": 16492,
+      "sha1": "262f3846c8eeeac0b1cc9e08959def8178e24598"
     },
     {
       "path": "export/servers/1488690726870057165/config.md",
-      "size": 15594,
-      "sha1": "3aff724793c626a21d0dca2d64966c1a1b2da5f0"
+      "size": 18950,
+      "sha1": "59e3053524639588902fa7c51868f7cfe782c645"
     },
     {
       "path": "export/servers/1488690726870057165/data.json",
-      "size": 4294,
-      "sha1": "b3d5fd26b38dcb6c74edd5a8ee5ae1c0261dc281"
+      "size": 4101,
+      "sha1": "b34b27e885741cc270a35b7ad46d3169a0ec6900"
     },
     {
       "path": "export/servers/1488690726870057165/database.json",
-      "size": 1424590,
-      "sha1": "d9a77f9ae6e408cd116fce62ee92f0de7c2b34f8"
+      "size": 1431044,
+      "sha1": "1494f0f83d0fd732692b5e36394f059a48165b53"
     },
     {
       "path": "export/servers/1524797937836621874/config.json",
-      "size": 1036,
-      "sha1": "9b5a6972df527c6043fe3cb9ea46acac05a0a384"
+      "size": 1281,
+      "sha1": "727f139fcf637b3d57b2be159bcc4284f87af3bc"
     },
     {
       "path": "export/servers/1524797937836621874/config.md",
-      "size": 1401,
-      "sha1": "ebd1942bb62d2e2866de43f76cec6a43abc94aba"
+      "size": 1642,
+      "sha1": "a990a39c94ecd9b714ae7d699d55cf40407bbd8a"
     },
     {
       "path": "export/servers/1524797937836621874/data.json",
@@ -993,18 +1048,18 @@
     },
     {
       "path": "export/servers/1524797937836621874/database.json",
-      "size": 3502,
-      "sha1": "66202e0e0f198becfab8f7ecabf21dce5c12c571"
+      "size": 3821,
+      "sha1": "ace51106afdab319489afdc79b8983df174fdfc1"
     },
     {
       "path": "export/servers/1547650379448188999/config.json",
-      "size": 3229,
-      "sha1": "75ce92fdcc097bcc4bb0ace1dbcfdcad2f6e54ad"
+      "size": 3474,
+      "sha1": "7c1f7b2a5f912c173c77b65ccb9c59b71b1a162e"
     },
     {
       "path": "export/servers/1547650379448188999/config.md",
-      "size": 4487,
-      "sha1": "7f53b70d64e76183065e4ad8e38d609269245114"
+      "size": 4728,
+      "sha1": "fa4de1aef5acffc6a0a72e22bc3d1a68c303b822"
     },
     {
       "path": "export/servers/1547650379448188999/data.json",
@@ -1014,12 +1069,12 @@
     {
       "path": "export/servers/1547650379448188999/database.json",
       "size": 132416,
-      "sha1": "80292c6a2a2ea190072bdbeb2ee54311fc38b3c8"
+      "sha1": "830739aa05888b5092a07733c479eb36a13db9e5"
     },
     {
       "path": "main.py",
-      "size": 10744,
-      "sha1": "32a67ac08a8383a5564202b70b73866248d6e047"
+      "size": 10776,
+      "sha1": "940c3b012840e85ca0a323643cdb7298afa838b6"
     },
     {
       "path": "requirements-tools.txt",
@@ -1035,6 +1090,11 @@
       "path": "tools/make_assets.py",
       "size": 7187,
       "sha1": "20e4efd80e6f3a7734183bdced36556f93d37232"
+    },
+    {
+      "path": "tools/make_game_icons.py",
+      "size": 6980,
+      "sha1": "3379eeec33e00ccdc3b75d8ef35b0a0ae588a7c4"
     },
     {
       "path": "tools/restore.py",

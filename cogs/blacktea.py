@@ -8,12 +8,12 @@ $blacktea reset                (admin) remove the BlackTea channel setting
 $blacktea stop                 stop the running game (host or admin)
 
 How it plays: everybody gets 3 lives. On your turn the bot shows 2-3 letters and you must send a real
-English word that contains ALL of those letters (any order, any position) before the timer ends. Time out = lose a life. Last player standing wins.
-A word can only be used once per game.
+English word that STARTS WITH those letters (e.g. `STR` -> strong, street) before the timer ends. Time out = lose a life.
+Last player standing wins. A word can only be used once per game.
 
-Modes:   easy   2 letters (very common), 15s
-         medium 3 letters, 10s
-         hard   3 rarer letters, 7s, words must be 4+ letters
+Modes:   easy   2 starting letters (very common), 15s
+         medium 3 starting letters, 10s
+         hard   3 rarer starting letters, 7s, words must be 4+ letters
 
 Files:   assets/words.txt  - the word list (one lowercase word per line); assets/words_extra.txt - your own extra words
          data/blacktea.json - the channel settings (inside data/, so it is part of the backup)
@@ -50,12 +50,12 @@ MAX_PLAYERS = 20
 LIVES = 3
 
 MODES = {
-    "easy":   {"label": "Easy",   "icon": "thumbs_up", "seconds": 15, "n": 2, "lo": 1500, "hi": 10**9, "min_len": 3,
-               "info": "2 letters · 15s per turn"},
-    "medium": {"label": "Medium", "icon": "bolt", "seconds": 10, "n": 3, "lo": 150,  "hi": 3000,  "min_len": 3,
-               "info": "3 letters · 10s per turn"},
-    "hard":   {"label": "Hard",   "icon": "fire", "seconds": 7,  "n": 3, "lo": 50,   "hi": 160,   "min_len": 4,
-               "info": "3 rare letters · 7s per turn · words 4+ letters"},
+    "easy":   {"label": "Easy",   "icon": "thumbs_up", "seconds": 15, "n": 2, "lo": 300,  "hi": 10**9, "min_len": 3,
+               "info": "2 starting letters · 15s per turn"},
+    "medium": {"label": "Medium", "icon": "bolt", "seconds": 10, "n": 3, "lo": 100,  "hi": 3000,  "min_len": 3,
+               "info": "3 starting letters · 10s per turn"},
+    "hard":   {"label": "Hard",   "icon": "fire", "seconds": 7,  "n": 3, "lo": 30,   "hi": 100,   "min_len": 4,
+               "info": "3 rare starting letters · 7s per turn · words 4+ letters"},
 }
 DEFAULT_MODE = "medium"
 ONE_WORD = re.compile(r"[a-z]{2,20}")
@@ -184,8 +184,8 @@ class Game:
             f"A word is hiding in every turn - **find it before the tea gets cold!**\n\n"
             f"**How to play**\n"
             f"• You get **{LIVES}** {I.s('heart')} lives.\n"
-            f"• On your turn the bot shows some letters - send a **real English word** that has **all of them** "
-            f"(any order, anywhere in the word - e.g. `IM` → **minion**) "
+            f"• On your turn the bot shows some letters - send a **real English word** that **starts with them** "
+            f"(e.g. `ST` → **storm**, `STR` → **street**) "
             f"within **{c['seconds']}s**.\n"
             f"• No answer = you lose a life. Words can't be repeated.\n"
             f"• Last one standing wins {I.s('trophy')}"))
@@ -199,7 +199,7 @@ class Game:
     def turn_embed(self, rnd: int) -> discord.Embed:
         c = self.cfg
         e = discord.Embed(color=TEA, description=(
-            f"<@{self.current}>, send a word with these letters\n"
+            f"<@{self.current}>, send a word that **starts with**\n"
             f"# `{self.fragment.upper()}`\n"
             f"{I.s('hourglass')} ends <t:{self.deadline}:R>"))
         board = "\n".join(
@@ -334,7 +334,7 @@ class Game:
         try:
             if word in self.used:
                 return await react(message, "repeat", "🔁")
-            if (collections.Counter(self.fragment) - collections.Counter(word)     # letters can be anywhere, any order
+            if (not word.startswith(self.fragment)                                 # the word must START with the letters
                     or len(word) < c["min_len"] or word not in self.cog.words):
                 return await react(message, "cross", "❌")
             self.answer = word
@@ -376,14 +376,16 @@ class BlackTea(commands.Cog):
         words = frozenset(words)
         counts = {2: collections.Counter(), 3: collections.Counter()}
         for w in words:
+            if not w.isalpha():
+                continue
             for n, cnt in counts.items():
-                cnt.update({w[i:i + n] for i in range(len(w) - n + 1)})
+                if len(w) >= n:
+                    cnt[w[:n]] += 1                      # how many words START with these letters
         pools = {}
         for key, m in MODES.items():
-            pool = [s for s, k in counts[m["n"]].items()
-                    if m["lo"] <= k <= m["hi"] and any(ch in "aeiou" for ch in s)    # readable letters only
-                    and (m["n"] == 2 or sum(ch in "aeiou" for ch in s) < 3)]
-            pools[key] = pool
+            pools[key] = [s for s, k in counts[m["n"]].items()
+                          if m["lo"] <= k <= m["hi"] and any(ch in "aeiouy" for ch in s)
+                          and (m["n"] == 2 or sum(ch in "aeiou" for ch in s) < 3)]
         return words, pools
 
     def pick(self, mode: str, recent) -> str:

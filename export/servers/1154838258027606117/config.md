@@ -81,7 +81,7 @@
     - **url**: https://cdn.discordapp.com/attachments/1572663742091632681/1572762221292032173/img-1.png?ex=6aff8c76&is=6afe3af6&hm=f83907cf51458460f6aec025318bc5b3cadab1ac349c7ba4199ed96d88c46e4e&
     - **t**: png
     - **s**: 408181
-    - **by**: `650534818517483526` → Lazy (jslazy)
+    - **by**: `650534818517483526` → Lazy (whysolayz)
     - **ts**: 1795046134
 
 ### Disabled commands
@@ -108,7 +108,7 @@
       - **url**: https://cdn.discordapp.com/attachments/1572663742091632681/1572762221292032173/img-1.png?ex=6aff8c76&is=6afe3af6&hm=f83907cf51458460f6aec025318bc5b3cadab1ac349c7ba4199ed96d88c46e4e&
       - **t**: png
       - **s**: 408181
-      - **by**: `650534818517483526` → Lazy (jslazy)
+      - **by**: `650534818517483526` → Lazy (whysolayz)
       - **ts**: 1795046134
 
 ### Players

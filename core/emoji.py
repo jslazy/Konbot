@@ -266,3 +266,81 @@ async def resolve(bot, text: str, guild: Optional[discord.Guild] = None) -> str:
     if not text:
         return text
     return (await resolve_text(bot, text, guild))[0]
+
+
+# ---------------------------------------------------------------------------------------------
+# Name sanitizer (VC rename, AFK reason): only emojis the bot can really use stay in the text.
+# usable = an emoji of the CURRENT server, of any server the bot is in, or one of the bot's own application emojis.
+# Anything else (emoji of a foreign server, deleted emoji, unknown :name: / ID) is removed automatically, so no
+# "name:id" garbage ever ends up in a channel name.
+# ---------------------------------------------------------------------------------------------
+async def usable(bot, guild: Optional[discord.Guild], eid: int) -> Optional[tuple]:
+    """(name, animated) when the bot can use this emoji, else None. No network probing."""
+    em = guild.get_emoji(eid) if guild is not None else None
+    if em is None:
+        em = bot.get_emoji(eid)
+    if em is not None:
+        return (em.name, em.animated) if getattr(em, "available", True) else None
+    em = next((e for e in await app_emojis(bot) if e.id == eid), None)
+    return (em.name, em.animated) if em is not None else None
+
+
+async def sanitize(bot, guild: Optional[discord.Guild], text: str, limit: Optional[int] = None) -> tuple[str, int]:
+    """-> (clean text, number of emojis that were removed).
+
+    * `<:name:id>` / `<a:name:id>` stays (animated flag fixed) only if the emoji is usable, otherwise it is removed
+    * `:name:` and bare emoji IDs become the real code when a usable emoji matches, otherwise they are removed
+    * `limit` cuts the text without ever splitting an emoji code in half
+    """
+    text = text or ""
+    removed = 0
+
+    hits: dict[int, Optional[tuple]] = {}
+    for m in CUSTOM.finditer(text):
+        eid = int(m.group(3))
+        if eid not in hits:
+            hits[eid] = await usable(bot, guild, eid)
+
+    def fix_code(m: re.Match) -> str:
+        nonlocal removed
+        hit = hits.get(int(m.group(3)))
+        if hit is None:
+            removed += 1
+            return ""
+        return code(hit[0], hit[1], int(m.group(3)))
+
+    text = CUSTOM.sub(fix_code, text)
+
+    by_name: dict[str, Optional[str]] = {}
+    for m in NAME.finditer(text):
+        n = m.group(1)
+        if n not in by_name:
+            em = await find_by_name(bot, n, guild)
+            by_name[n] = str(em) if em is not None else None
+
+    def fix_name(m: re.Match) -> str:
+        nonlocal removed
+        hit = by_name.get(m.group(1))
+        if hit:
+            return hit
+        removed += 1
+        return ""
+
+    text = NAME.sub(fix_name, text)
+
+    ids: dict[str, Optional[str]] = {}
+    for m in BARE_ID.finditer(text):
+        raw = m.group(1)
+        if raw not in ids:
+            hit = await usable(bot, guild, int(raw))
+            ids[raw] = code(hit[0], hit[1], int(raw)) if hit else None
+    text = BARE_ID.sub(lambda m: ids.get(m.group(1)) or m.group(0), text)       # a plain number that is no emoji stays
+
+    text = re.sub(r"[ \t]{2,}", " ", text).strip()
+    if limit is not None and len(text) > limit:
+        cut = text[:limit]
+        last = cut.rfind("<")
+        if last != -1 and ">" not in cut[last:]:        # the cut went through an emoji code -> drop the broken half
+            cut = cut[:last]
+        text = cut.rstrip()
+    return text, removed

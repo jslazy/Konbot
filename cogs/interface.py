@@ -1,11 +1,17 @@
 """The 'Voice Channel Control Panel' (persistent buttons + modals + member pickers)."""
+import asyncio
+import hashlib
+import logging
+
 import discord
 from discord.ext import commands
 
 from core import ratelimit
 from core.config import BRAND, PANEL_IMAGE
 from core.errors import VCError
-from core.icons import I, err, ok
+from core.icons import HASH_FILE, I, err, ok
+
+log = logging.getLogger("kon.interface")
 
 # (icon, action) rows exactly like the panel screenshot (4 x 3)
 LAYOUT = [
@@ -142,6 +148,43 @@ class Interface(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.store = bot.store
+        self._refreshed = False
+
+    @staticmethod
+    def panel_version() -> str:
+        """Fingerprint of the panel image + the uploaded icon set (changes when the colours/icons change)."""
+        h = hashlib.sha1()
+        for f in (PANEL_IMAGE, HASH_FILE):
+            try:
+                h.update(f.read_bytes())
+            except OSError:
+                pass
+        return h.hexdigest()[:16]
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        """Panels posted with an older (green) image / icon set are edited in place -> new orange image + buttons."""
+        if self._refreshed:
+            return
+        self._refreshed = True
+        ver = self.panel_version()
+        for gid, g in list(self.store.data["guilds"].items()):
+            ch_id, msg_id = g.get("interface"), g.get("panel_msg")
+            if not (ch_id and msg_id) or g.get("panel_ver") == ver:
+                continue
+            ch = self.bot.get_channel(ch_id)
+            if ch is None:
+                continue
+            try:
+                await ch.get_partial_message(msg_id).edit(
+                    embed=panel_embed(), attachments=[discord.File(PANEL_IMAGE, filename="panel.png")],
+                    view=PanelView(self.bot.vc_service))
+                g["panel_ver"] = ver
+                self.store.save_soon()
+                log.info("control panel refreshed in %s", ch_id)
+            except discord.HTTPException as e:
+                log.warning("could not refresh the panel in %s: %s", ch_id, e)
+            await asyncio.sleep(1)
 
     async def post_panel(self, channel: discord.TextChannel) -> discord.Message:
         """Send a fresh panel and remember it; the old one (if any) is deleted."""
@@ -156,7 +199,7 @@ class Interface(commands.Cog):
                     pass
         msg = await channel.send(
             embed=panel_embed(), file=discord.File(PANEL_IMAGE, filename="panel.png"), view=PanelView(self.bot.vc_service))
-        g["interface"], g["panel_msg"] = channel.id, msg.id
+        g["interface"], g["panel_msg"], g["panel_ver"] = channel.id, msg.id, self.panel_version()
         self.store.save_soon()
         return msg
 

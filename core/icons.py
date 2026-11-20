@@ -4,14 +4,31 @@ On startup every icon in USED is uploaded once (as `kon_<name>`) from assets/ico
 If an upload fails the bot falls back to a unicode emoji, so nothing breaks.
 """
 import asyncio
+import hashlib
+import json
 import logging
 
 import discord
 
-from .config import ICON_DIR
+from .config import DATA_DIR, ICON_DIR
 
 log = logging.getLogger("kon.icons")
 EMOJI_PREFIX = "kon_"
+HASH_FILE = DATA_DIR / "icon_hashes.json"      # which image (sha1) is uploaded for every kon_<name> emoji
+
+
+def _load_hashes() -> dict:
+    try:
+        return json.loads(HASH_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def _save_hashes(d: dict):
+    try:
+        HASH_FILE.write_text(json.dumps(d, indent=1, sort_keys=True), encoding="utf-8")
+    except OSError as e:
+        log.warning("could not save icon hashes: %s", e)
 
 FALLBACK = {
     "lock": "🔒", "unlock": "🔓", "hide": "🙈", "show": "👁️", "logout": "🚪", "ban": "🚫",
@@ -38,6 +55,7 @@ USED = list(FALLBACK.keys() - {"member"})
 class Icons:
     def __init__(self):
         self.map: dict[str, discord.Emoji] = {}
+        self.refreshed = False                           # True when icons were re-uploaded (emoji IDs changed)
 
     async def load(self, bot: discord.Client):
         try:
@@ -45,20 +63,38 @@ class Icons:
         except Exception as e:  # old discord.py / no permission
             log.warning("Could not fetch application emojis (%s) - using unicode fallbacks", e)
             return
+        hashes = _load_hashes()
+        changed = False
         for name in USED:
             key = EMOJI_PREFIX + name
-            if key in existing:
-                self.map[name] = existing[key]
-                continue
             path = ICON_DIR / f"{name}.png"
-            if not path.exists():
+            data = path.read_bytes() if path.exists() else None
+            digest = hashlib.sha1(data).hexdigest() if data else None
+            cur = existing.get(key)
+            if cur is not None and (data is None or hashes.get(name) == digest):
+                self.map[name] = cur                     # up to date
                 continue
+            if data is None:
+                continue
+            if cur is not None:                          # stale image on Discord (e.g. the old green icon) -> replace it
+                try:
+                    await cur.delete()
+                    await asyncio.sleep(0.4)
+                except Exception as e:
+                    log.warning("could not delete old icon %s: %s", key, e)
+                    self.map[name] = cur
+                    continue
             try:
-                self.map[name] = await bot.create_application_emoji(name=key, image=path.read_bytes())
+                self.map[name] = await bot.create_application_emoji(name=key, image=data)
+                hashes[name] = digest
+                changed = True
+                self.refreshed = True
                 log.info("uploaded icon %s", key)
                 await asyncio.sleep(0.7)
             except Exception as e:
                 log.warning("icon upload failed for %s: %s", key, e)
+        if changed:
+            _save_hashes(hashes)
         log.info("icons ready: %d/%d custom", len(self.map), len(USED))
 
     def s(self, name: str) -> str:

@@ -1,9 +1,9 @@
 {
   "bot": "Kon#9118",
-  "created": "2026-11-19T07:00:31.088295+00:00",
-  "reason": "Merged kon_update + $ei restored",
+  "created": "2026-11-20T22:42:16.959353+00:00",
+  "reason": "Manual update: orange icon resync, VC rename/AFK emoji fix, BlackTea starts-with mode",
   "status": "online",
-  "backup_number": 267,
+  "backup_number": 3690,
   "kind": "code",
   "files": [
     {
@@ -18,8 +18,8 @@
     },
     {
       "path": "README.md",
-      "size": 17429,
-      "sha1": "2a6b9b0e85fa3055a9854e7217f71babd680424b"
+      "size": 18205,
+      "sha1": "bb5edc9ff1f1f53447925414751b48e3b94455ae"
     },
     {
       "path": "assets/icon_sheet.png",
@@ -743,8 +743,8 @@
     },
     {
       "path": "cogs/afk.py",
-      "size": 8787,
-      "sha1": "379d490dcce4881c37d312ec283e6b0f16d25049"
+      "size": 9001,
+      "sha1": "c4ff41beb01e828fb753c605ef621e1b63aad66a"
     },
     {
       "path": "cogs/aura.py",
@@ -763,8 +763,8 @@
     },
     {
       "path": "cogs/blacktea.py",
-      "size": 23197,
-      "sha1": "45270893c597377cc8f451972fe915d43ae3ab55"
+      "size": 23322,
+      "sha1": "d2bc7a60eda6eaa442a5285cb1918a5cf0ed7c30"
     },
     {
       "path": "cogs/cmdcontrol.py",
@@ -803,8 +803,8 @@
     },
     {
       "path": "cogs/interface.py",
-      "size": 7108,
-      "sha1": "eb2cb0a383c18421912908d8b248c60f8414783b"
+      "size": 8799,
+      "sha1": "a407f656aed9c7367d3a7eddb5936680731b6aab"
     },
     {
       "path": "cogs/meta.py",
@@ -858,8 +858,8 @@
     },
     {
       "path": "cogs/vc.py",
-      "size": 31746,
-      "sha1": "b64836c67fd4fd4c0c02f5d3853984404cdbad82"
+      "size": 32295,
+      "sha1": "4c23f677793458ed250eb0da73806afa339f1529"
     },
     {
       "path": "core/checks.py",
@@ -878,8 +878,8 @@
     },
     {
       "path": "core/emoji.py",
-      "size": 10257,
-      "sha1": "2e3239ad9c7d9a058cb6f14ec19cdeb54ed3745f"
+      "size": 13522,
+      "sha1": "ce9e2520831247f19896f5bae597c0a161991870"
     },
     {
       "path": "core/errors.py",
@@ -893,8 +893,8 @@
     },
     {
       "path": "core/icons.py",
-      "size": 3619,
-      "sha1": "9cb48055210ad25dd780e1317bd297d8438dd7e0"
+      "size": 5079,
+      "sha1": "c8534d7906321c5f9a220c8c3cf817b2574b4e61"
     },
     {
       "path": "core/media.py",
@@ -924,52 +924,52 @@
     {
       "path": "export/LINKS.md",
       "size": 1753,
-      "sha1": "6b094f0460e088ce5115d0c420810f6faad9d46a"
+      "sha1": "e7287cd66f2003d792686a303eddb0fa40b30d67"
     },
     {
       "path": "export/SERVER_CONFIG.json",
-      "size": 29001,
-      "sha1": "afec0a04a2b7a8afbbc2d5e2f6bfe10cd7cc9e27"
+      "size": 31946,
+      "sha1": "fe957b924a87d7fbb1d21bbf5b1d61a6cd4883da"
     },
     {
       "path": "export/SERVER_CONFIG.md",
-      "size": 29754,
-      "sha1": "6c941b340380addde7b90392889e83981daee97d"
+      "size": 32582,
+      "sha1": "465075ea66a4a1bad1ed216d7e1bb4abc794e02d"
     },
     {
       "path": "export/afk.json",
-      "size": 2029,
-      "sha1": "26510a41cf8ce11f07ebc01a80fe1ad3b0465aaf"
+      "size": 2972,
+      "sha1": "aaaff6be750fb3e1aad7e48d8183659e468d29a0"
     },
     {
       "path": "export/custom_vc_channels.json",
-      "size": 1185,
-      "sha1": "08effa5af3d3a6ab23bbcba1c566b861c751fada"
+      "size": 1360,
+      "sha1": "f78325cf422e81c34afba727f8065139275545c4"
     },
     {
       "path": "export/db_dump.json",
-      "size": 1567918,
-      "sha1": "5b3ef7bae503f7a9db55f3b23d2416b7fcca7bc1"
+      "size": 2168011,
+      "sha1": "e2b732e5b07c15412119b0a263f0c43ed5e59d25"
     },
     {
       "path": "export/players_1154838258027606117.csv",
-      "size": 219,
-      "sha1": "0e413d16d9affc0ae5cf2d06dd798908fcc3012b"
+      "size": 222,
+      "sha1": "34392a68abaab69aa23028393436f08829cae2f5"
     },
     {
       "path": "export/players_1488690726870057165.csv",
-      "size": 9811,
-      "sha1": "d1982f7351ef724279b94c666090be285276520e"
+      "size": 10174,
+      "sha1": "0c7ce6e1c3824dcf92c3644dbfbcaed8ea3bff67"
     },
     {
       "path": "export/players_1524797937836621874.csv",
-      "size": 1200,
-      "sha1": "f4c55992da91a12bed339689a4df602ecf0f7d84"
+      "size": 1992,
+      "sha1": "1c82fb6314feb4595cfbfebfafbb7c55f5ef8666"
     },
     {
       "path": "export/players_1547650379448188999.csv",
-      "size": 22924,
-      "sha1": "bfd9172493a3f281389c03158b80d17e75e63f02"
+      "size": 27172,
+      "sha1": "a4b7a27bcb38639b195c143012abdbec81a0e8e7"
     },
     {
       "path": "export/servers/0/config.json",
@@ -998,8 +998,8 @@
     },
     {
       "path": "export/servers/1154838258027606117/config.md",
-      "size": 2521,
-      "sha1": "a8ca70c349e927ed249d9ffc8f23cf257452283f"
+      "size": 2527,
+      "sha1": "2ba22617827f6f2ca96fd64f2e754fab3383840b"
     },
     {
       "path": "export/servers/1154838258027606117/data.json",
@@ -1013,33 +1013,33 @@
     },
     {
       "path": "export/servers/1488690726870057165/config.json",
-      "size": 16492,
-      "sha1": "262f3846c8eeeac0b1cc9e08959def8178e24598"
+      "size": 19000,
+      "sha1": "e2dac259044a98e6733f33f4fea815dc30ae883c"
     },
     {
       "path": "export/servers/1488690726870057165/config.md",
-      "size": 18950,
-      "sha1": "59e3053524639588902fa7c51868f7cfe782c645"
+      "size": 21744,
+      "sha1": "c3bdec20c11abea50d5ca904bd4a8e702a71efad"
     },
     {
       "path": "export/servers/1488690726870057165/data.json",
-      "size": 4101,
-      "sha1": "b34b27e885741cc270a35b7ad46d3169a0ec6900"
+      "size": 5256,
+      "sha1": "d7f37922590c58c1114fa25d57fd0169bc2db974"
     },
     {
       "path": "export/servers/1488690726870057165/database.json",
-      "size": 1431044,
-      "sha1": "1494f0f83d0fd732692b5e36394f059a48165b53"
+      "size": 1999026,
+      "sha1": "95dd98a5037bcb4b100f9021fdd63d9d52d87d0e"
     },
     {
       "path": "export/servers/1524797937836621874/config.json",
       "size": 1281,
-      "sha1": "727f139fcf637b3d57b2be159bcc4284f87af3bc"
+      "sha1": "42b8b61794b199c2f24d2ac65cdb8a1c02759ff0"
     },
     {
       "path": "export/servers/1524797937836621874/config.md",
       "size": 1642,
-      "sha1": "a990a39c94ecd9b714ae7d699d55cf40407bbd8a"
+      "sha1": "307ab223b0a5408a49df264c5f1855d622014472"
     },
     {
       "path": "export/servers/1524797937836621874/data.json",
@@ -1048,18 +1048,18 @@
     },
     {
       "path": "export/servers/1524797937836621874/database.json",
-      "size": 3821,
-      "sha1": "ace51106afdab319489afdc79b8983df174fdfc1"
+      "size": 6428,
+      "sha1": "8f5f65f2db3003353a5824ddf4e8f5eda02a604f"
     },
     {
       "path": "export/servers/1547650379448188999/config.json",
-      "size": 3474,
-      "sha1": "7c1f7b2a5f912c173c77b65ccb9c59b71b1a162e"
+      "size": 3475,
+      "sha1": "fb0dccf7deb5ad003a3c7003f3706202be9f8368"
     },
     {
       "path": "export/servers/1547650379448188999/config.md",
-      "size": 4728,
-      "sha1": "fa4de1aef5acffc6a0a72e22bc3d1a68c303b822"
+      "size": 4756,
+      "sha1": "51964f4419c4d60ff6a0e4e7d86d0f337c981eab"
     },
     {
       "path": "export/servers/1547650379448188999/data.json",
@@ -1068,8 +1068,8 @@
     },
     {
       "path": "export/servers/1547650379448188999/database.json",
-      "size": 132416,
-      "sha1": "830739aa05888b5092a07733c479eb36a13db9e5"
+      "size": 161920,
+      "sha1": "f44f916fd30e7741693de84fe8764c2d91ff03c0"
     },
     {
       "path": "main.py",

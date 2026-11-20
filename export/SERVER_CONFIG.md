@@ -8,7 +8,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **name**: Kon#9118
   - **id**: `1569712165932236842` → Kon#9118
 - **voice_mutes_running**: *(empty)*
-- **slash_sync_hash**: 737bc301b23f16a6730f865e4935db154e0092a5
+- **slash_sync_hash**: 8dcccfa13cfa4173e5a6adf1b70f02deced049f7
 
 ## (server 0 - bot not in it)  (`0`)
 
@@ -189,7 +189,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **url**: https://cdn.discordapp.com/attachments/1572663742091632681/1572762221292032173/img-1.png?ex=6aff8c76&is=6afe3af6&hm=f83907cf51458460f6aec025318bc5b3cadab1ac349c7ba4199ed96d88c46e4e&
     - **t**: png
     - **s**: 408181
-    - **by**: `650534818517483526` → Lazy (jslazy)
+    - **by**: `650534818517483526` → Lazy (whysolayz)
     - **ts**: 1795046134
 
 ### Disabled commands
@@ -216,7 +216,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
       - **url**: https://cdn.discordapp.com/attachments/1572663742091632681/1572762221292032173/img-1.png?ex=6aff8c76&is=6afe3af6&hm=f83907cf51458460f6aec025318bc5b3cadab1ac349c7ba4199ed96d88c46e4e&
       - **t**: png
       - **s**: 408181
-      - **by**: `650534818517483526` → Lazy (jslazy)
+      - **by**: `650534818517483526` → Lazy (whysolayz)
       - **ts**: 1795046134
 
 ### Players
@@ -227,13 +227,13 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 ### Custom VC (join-to-create + control panel + live VCs)
 
-- **join_to_create_channel**: `1488691385266864208` → #🌱︲Custom VC⌝
+- **join_to_create_channel**: `1488691385266864208` → #🌱︲Dark Custom VC⌝
 - **interface_channel**: *none*
 - **interface_message_id**: *none*
 - **saved_setup (last known, survives channel deletion)**:
   - **join_to_create**:
-    - **id**: `1488691385266864208` → #🌱︲Custom VC⌝
-    - **name**: 🌱︲Custom VC⌝
+    - **id**: `1488691385266864208` → #🌱︲Dark Custom VC⌝
+    - **name**: 🌱︲Dark Custom VC⌝
     - **type**: voice
     - **category_id**: `1488691343382286338` → #╰ ¤〢Custom VC ︲🌱︲
     - **category**: ╰ ¤〢Custom VC ︲🌱︲
@@ -245,7 +245,12 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **interface**: *none*
   - **panel_message_id**: *none*
 - **other_keys**: *(empty)*
-- **active_custom_vcs**: *(empty)*
+- **active_custom_vcs**:
+  - **1573458588771291217** → #Sky Dancer:
+    - **owner**: `650534818517483526` → Lazy (whysolayz)
+    - **banned**: *(empty)*
+    - **block_drags**: no
+    - **created**: 1795212161 (2026-11-20 22:02 UTC)
 
 ### Custom VC protection ($customvc config)
 
@@ -254,7 +259,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Self roles ($setsr / $editsr)
 
 - **channel**: `1488691387653161131` → #🌵︲self_roles⌝
-- **message**: `1570315881425141783`
+- **message**: `1573004560971079892`
 - **title**: Self Roles :
 - **title_emoji**: `<:Spider_Diamond:1570309161198293013>`
 - **footer**: Click the buttons below to toggle your roles.
@@ -282,34 +287,38 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - #4
     - **role**: `1488691273446719489` → @ゝSocial Feed ⌝
     - **label**: Social Feeds
-    - **emoji**: `<:Spider_blue_verified:1570309169720987720>`
+    - **emoji**: `<:Senpai_Information:1517499045117952060>`
     - **line**: Social Feeds
-    - **line_emoji**: `<:Spider_blue_verified:1570309169720987720>`
-- **banner_url**: https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6aff7c4a&is=6afe2aca&hm=98f7a3cb202c2f416dcf7d75f4d4179a3e7f9e95918755e8a7a30e464e834f92&
+    - **line_emoji**: `<:Senpai_Information:1517499045117952060>`
+- **banner_url**: https://cdn.discordapp.com/attachments/1572381729233051669/1572382469939011624/banner_1488690726870057165.gif?ex=6b00250a&is=6afed38a&hm=cc8806b939ea85d7d95df02c8276839444e69fde897cbf07edc3160bc530f326&
 - **banner_ref**:
   - **c**: `1572381729233051669` → #︲🛠・bot-kon」
   - **m**: `1572382470312296601`
+- **missing**: *(empty)*
 
 ### Points ($point config)
 
 - **chat_enabled**: yes
-- **chat_msgs**: 25
-- **chat_points**: 1
+- **chat_msgs**: 10
+- **chat_points**: 2
 - **chat_everywhere**: yes
 - **vc_enabled**: yes
 - **vc_mins**: 1
-- **vc_points**: 1
+- **vc_points**: 2
 - **vc_need_others**: no
 - **vc_need_muted**: no
 - **cooldown**: 0
 - **channel_rules**: *(empty)*
-- **disabled_channels**: *(empty)*
+- **disabled_channels**:
+  - `1570386957056348251` → #╰ ¤〢Casino ︲☃️︲
+  - `1488691349212495892` → #╰ ¤〢Games ︲🎄︲
 - **enabled_channels**: *(empty)*
 - **vc_disabled_channels**: *(empty)*
 
 ### Point shop
 
-- **settings**: *none*
+- **settings**:
+  - **per_page**: 5
 - **items**:
   - #1
     - **id**: 7
@@ -332,7 +341,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **guild_id**: `1488690726870057165` → server Dark ︲ Spider's Web
     - **role_id**: `1488691206375608330` → @ゝLoop ⌝
     - **price**: 500
-    - **stock**: 3
+    - **stock**: 1
     - **emoji**: `<:cute:1569605481364852909>`
     - **position**: 3
   - #4
@@ -340,7 +349,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **guild_id**: `1488690726870057165` → server Dark ︲ Spider's Web
     - **role_id**: `1488691206891503758` → @ゝNot Bull ⌝
     - **price**: 500
-    - **stock**: 4
+    - **stock**: 3
     - **emoji**: `<:cute:1569605481364852909>`
     - **position**: 4
   - #5
@@ -348,7 +357,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **guild_id**: `1488690726870057165` → server Dark ︲ Spider's Web
     - **role_id**: `1488691203858890833` → @ゝ2x XP Boost ⌝
     - **price**: 500
-    - **stock**: 4
+    - **stock**: 3
     - **emoji**: `<:winner:1517495079181488280>`
     - **position**: 5
   - #6
@@ -372,10 +381,10 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - **role**: `1569999856171229255` → @︲No Prefix 」
 - **users**:
-  - `1262248731353546763` → Anshu >_< (anshumanfr_)
+  - `1262248731353546763` → [AFK]Some? Oops (anshumanfr_)
   - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
-  - `650534818517483526` → Lazy (jslazy)
-  - `1473667943186305172` → v ¡ r u 💢 (thviru)
+  - `650534818517483526` → Lazy (whysolayz)
+  - `1473667943186305172` → [T MOD] Viru (thviru)
 
 ### Aliases
 
@@ -411,23 +420,25 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - `1488691206891503758` → @ゝNot Bull ⌝
   - `1488691206375608330` → @ゝLoop ⌝
 - **users**:
-  - **1262248731353546763** → Anshu >_< (anshumanfr_):
-    - `<:Akame_Bodmash:1570284017868214472>`
-  - **650534818517483526** → Lazy (jslazy):
-    - `<a:scrajj:1570284076609568919>`
-  - **1425991437396217960** → Sky !'Queen of nightmares'! (sky_bauni):
-    - `<:RainyMM_Naksh_goodboy:1570285035989508096>`
+  - **650534818517483526** → Lazy (whysolayz):
+    - `<:darkManager:1573139364727230675>`
+  - **1425991437396217960** → TheSky (sky_bauni):
+    - `<:IND_azzy_mastiii:1573018958813208587>`
   - **1548153523709943863** → 🜲 | Aizal (meerab_76):
     - `<a:Madira_eating:1570284028093792286>`
   - **743845224287043665** → !       Whoknow (whoknow_008):
     - `<a:Cat:1570284005067198464>`
   - **1086203964300730449** → 𝑪𝒂𝒍𝒊𝒃𝒆𝒓 (arionx_774):
     - `<a:Oliviaaa_nooooo:1570284034532188210>`
+  - **1299765230011678834** → Meow-Gamer (soul_reaperx2):
+    - `<:LazyCafeCat:1570284011136491742>`
+  - **1409148182944022699** → [T MOD] BRAVY (bravyrz):
+    - `<:cute:1569605481364852909>`
 
 ### Aura ($aura config)
 
 - **members**:
-  - **1262248731353546763** → Anshu >_< (anshumanfr_): 99
+  - **1262248731353546763** → [AFK]Some? Oops (anshumanfr_): 99
 - **roles**: *(empty)*
 - **random**: yes
 - **disabled**: *(empty)*
@@ -446,7 +457,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Game stats (TimeTap, Handfight)
 
 - **timetap**:
-  - **650534818517483526** → Lazy (jslazy):
+  - **650534818517483526** → Lazy (whysolayz):
     - **games**: 3
     - **false_starts**: 2
     - **taps**: 14
@@ -458,7 +469,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **best_clean**: 6
     - **best_ms**: 1067
     - **train_best_avg**: 1172
-  - **1028298097664733215** → Demon King of Salvation (nontastic_player):
+  - **1028298097664733215** → Nope {>.<} (nontastic_player):
     - **games**: 1
     - **false_starts**: 1
     - **taps**: 2
@@ -470,17 +481,17 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **best_clean**: 0
     - **best_ms**: 1160
 - **handfight**:
-  - **650534818517483526** → Lazy (jslazy):
-    - **games**: 1
-    - **titles**: 1
-    - **rounds_won**: 2
-    - **rounds_lost**: 0
-    - **draws**: 0
-    - **match_wins**: 1
-    - **match_losses**: 0
-    - **rock**: 0
-    - **paper**: 0
-    - **scissors**: 2
+  - **650534818517483526** → Lazy (whysolayz):
+    - **games**: 5
+    - **titles**: 4
+    - **rounds_won**: 9
+    - **rounds_lost**: 3
+    - **draws**: 5
+    - **match_wins**: 4
+    - **match_losses**: 1
+    - **rock**: 2
+    - **paper**: 6
+    - **scissors**: 9
   - **1154489620499800127** → Dark Ojas (darkojas):
     - **games**: 1
     - **titles**: 0
@@ -492,6 +503,39 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **rock**: 0
     - **paper**: 2
     - **scissors**: 0
+  - **1425991437396217960** → TheSky (sky_bauni):
+    - **games**: 1
+    - **titles**: 1
+    - **rounds_won**: 2
+    - **rounds_lost**: 1
+    - **draws**: 4
+    - **match_wins**: 1
+    - **match_losses**: 0
+    - **rock**: 2
+    - **paper**: 4
+    - **scissors**: 1
+  - **1554945105981603880** → [H MOD] Mexzon (mexzon_0205):
+    - **games**: 1
+    - **titles**: 0
+    - **rounds_won**: 0
+    - **rounds_lost**: 2
+    - **draws**: 0
+    - **match_wins**: 0
+    - **match_losses**: 1
+    - **rock**: 0
+    - **paper**: 1
+    - **scissors**: 1
+  - **1508094918118211655** → Dark | IronDevil (the_skull_god):
+    - **games**: 2
+    - **titles**: 0
+    - **rounds_won**: 1
+    - **rounds_lost**: 4
+    - **draws**: 1
+    - **match_wins**: 0
+    - **match_losses**: 2
+    - **rock**: 3
+    - **paper**: 2
+    - **scissors**: 1
 
 ### Webhook sender (name, avatar, embed, images)
 
@@ -528,7 +572,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **url**: https://cdn.discordapp.com/attachments/1572381729233051669/1572382140719566910/img-1.jpg?ex=6afe2a7b&is=6afcd8fb&hm=7dc1873b7f51d216fcd45fa9d66a08d3670041fe7dcdf081e0dd6ef0b57cb025&
     - **t**: jpg
     - **s**: 99697
-    - **by**: `650534818517483526` → Lazy (jslazy)
+    - **by**: `650534818517483526` → Lazy (whysolayz)
     - **ts**: 1794955515
 
 ### Disabled commands
@@ -557,8 +601,8 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Extra owners ($konextra - this server only)
 
 - #1
-  - **id**: `1262248731353546763` → Anshu >_< (anshumanfr_)
-  - **name**: Anshu >_< (anshumanfr_)
+  - **id**: `1262248731353546763` → [AFK]Some? Oops (anshumanfr_)
+  - **name**: [AFK]Some? Oops (anshumanfr_)
   - **found**: yes
 - #2
   - **id**: `1154489620499800127` → Dark Ojas (darkojas)
@@ -574,32 +618,42 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **since**: 1794505671 (2026-11-12 17:47 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 0
-  - **1567891350710657266** → Its_Riya (.its_riya):
-    - **reason**: `<:Roast:1569605305011015711>`
-    - **since**: 1794849840 (2026-11-16 17:24 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 0
   - **1502235313081290855** → Locked In (gottalockin_.):
     - **reason**: gn
     - **since**: 1794852924 (2026-11-16 18:15 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 1
-  - **1473667943186305172** → v ¡ r u 💢 (thviru):
-    - **reason**: school
-    - **since**: 1795050215 (2026-11-19 01:03 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 2
-  - **1425991437396217960** → Sky !'Queen of nightmares'! (sky_bauni):
-    - **reason**: bye bye
-    - **since**: 1795054651 (2026-11-19 02:17 UTC)
+  - **1476239945172648142** → THUNDER (thunderz_gamer1):
+    - **reason**: AFK
+    - **since**: 1795095062 (2026-11-19 13:31 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 1
+  - **743845224287043665** → !       Whoknow (whoknow_008):
+    - **reason**: Aaya wait
+    - **since**: 1795193581 (2026-11-20 16:53 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 0
+  - **1262248731353546763** → [AFK]Some? Oops (anshumanfr_):
+    - **reason**: shiiii
+    - **since**: 1795196917 (2026-11-20 17:48 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 3
+  - **1299765230011678834** → Meow-Gamer (soul_reaperx2):
+    - **reason**: `tuta hua saaz hu mei <:sad:1570501583660126249> <:sad:1569605312170823803>`
+    - **since**: 1795199980 (2026-11-20 18:39 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 1
+  - **1538573910839140575** → Patrick Badmosh (patrickbadmosh):
+    - **reason**: sleep bro very tired
+    - **since**: 1795200761 (2026-11-20 18:52 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 0
 
 ### EVERYTHING saved for this server (raw settings, nothing left out)
 
 - **aura**:
   - **members**:
-    - **1262248731353546763** → Anshu >_< (anshumanfr_): 99
+    - **1262248731353546763** → [AFK]Some? Oops (anshumanfr_): 99
   - **roles**: *(empty)*
   - **random**: yes
   - **disabled**: *(empty)*
@@ -611,18 +665,20 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - `1488691206891503758` → @ゝNot Bull ⌝
     - `1488691206375608330` → @ゝLoop ⌝
   - **users**:
-    - **1262248731353546763** → Anshu >_< (anshumanfr_):
-      - `<:Akame_Bodmash:1570284017868214472>`
-    - **650534818517483526** → Lazy (jslazy):
-      - `<a:scrajj:1570284076609568919>`
-    - **1425991437396217960** → Sky !'Queen of nightmares'! (sky_bauni):
-      - `<:RainyMM_Naksh_goodboy:1570285035989508096>`
+    - **650534818517483526** → Lazy (whysolayz):
+      - `<:darkManager:1573139364727230675>`
+    - **1425991437396217960** → TheSky (sky_bauni):
+      - `<:IND_azzy_mastiii:1573018958813208587>`
     - **1548153523709943863** → 🜲 | Aizal (meerab_76):
       - `<a:Madira_eating:1570284028093792286>`
     - **743845224287043665** → !       Whoknow (whoknow_008):
       - `<a:Cat:1570284005067198464>`
     - **1086203964300730449** → 𝑪𝒂𝒍𝒊𝒃𝒆𝒓 (arionx_774):
       - `<a:Oliviaaa_nooooo:1570284034532188210>`
+    - **1299765230011678834** → Meow-Gamer (soul_reaperx2):
+      - `<:LazyCafeCat:1570284011136491742>`
+    - **1409148182944022699** → [T MOD] BRAVY (bravyrz):
+      - `<:cute:1569605481364852909>`
 - **cmd_disable**:
   - **rules**:
     - **cog:Purge**:
@@ -647,17 +703,17 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 - **handfight**:
   - **channel**: `1572828244758241330` → #🎄︲handfight⌝
 - **handfight_stats**:
-  - **650534818517483526** → Lazy (jslazy):
-    - **games**: 1
-    - **titles**: 1
-    - **rounds_won**: 2
-    - **rounds_lost**: 0
-    - **draws**: 0
-    - **match_wins**: 1
-    - **match_losses**: 0
-    - **rock**: 0
-    - **paper**: 0
-    - **scissors**: 2
+  - **650534818517483526** → Lazy (whysolayz):
+    - **games**: 5
+    - **titles**: 4
+    - **rounds_won**: 9
+    - **rounds_lost**: 3
+    - **draws**: 5
+    - **match_wins**: 4
+    - **match_losses**: 1
+    - **rock**: 2
+    - **paper**: 6
+    - **scissors**: 9
   - **1154489620499800127** → Dark Ojas (darkojas):
     - **games**: 1
     - **titles**: 0
@@ -669,6 +725,39 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **rock**: 0
     - **paper**: 2
     - **scissors**: 0
+  - **1425991437396217960** → TheSky (sky_bauni):
+    - **games**: 1
+    - **titles**: 1
+    - **rounds_won**: 2
+    - **rounds_lost**: 1
+    - **draws**: 4
+    - **match_wins**: 1
+    - **match_losses**: 0
+    - **rock**: 2
+    - **paper**: 4
+    - **scissors**: 1
+  - **1554945105981603880** → [H MOD] Mexzon (mexzon_0205):
+    - **games**: 1
+    - **titles**: 0
+    - **rounds_won**: 0
+    - **rounds_lost**: 2
+    - **draws**: 0
+    - **match_wins**: 0
+    - **match_losses**: 1
+    - **rock**: 0
+    - **paper**: 1
+    - **scissors**: 1
+  - **1508094918118211655** → Dark | IronDevil (the_skull_god):
+    - **games**: 2
+    - **titles**: 0
+    - **rounds_won**: 1
+    - **rounds_lost**: 4
+    - **draws**: 1
+    - **match_wins**: 0
+    - **match_losses**: 2
+    - **rock**: 3
+    - **paper**: 2
+    - **scissors**: 1
 - **imagehost**:
   - **channel**: `1572381729233051669` → #︲🛠・bot-kon」
   - **items**:
@@ -678,28 +767,30 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
       - **url**: https://cdn.discordapp.com/attachments/1572381729233051669/1572382140719566910/img-1.jpg?ex=6afe2a7b&is=6afcd8fb&hm=7dc1873b7f51d216fcd45fa9d66a08d3670041fe7dcdf081e0dd6ef0b57cb025&
       - **t**: jpg
       - **s**: 99697
-      - **by**: `650534818517483526` → Lazy (jslazy)
+      - **by**: `650534818517483526` → Lazy (whysolayz)
       - **ts**: 1794955515
 - **noprefix**:
   - **role**: `1569999856171229255` → @︲No Prefix 」
   - **users**:
-    - `1262248731353546763` → Anshu >_< (anshumanfr_)
+    - `1262248731353546763` → [AFK]Some? Oops (anshumanfr_)
     - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
-    - `650534818517483526` → Lazy (jslazy)
-    - `1473667943186305172` → v ¡ r u 💢 (thviru)
+    - `650534818517483526` → Lazy (whysolayz)
+    - `1473667943186305172` → [T MOD] Viru (thviru)
 - **points**:
   - **chat_enabled**: yes
-  - **chat_msgs**: 25
-  - **chat_points**: 1
+  - **chat_msgs**: 10
+  - **chat_points**: 2
   - **chat_everywhere**: yes
   - **vc_enabled**: yes
   - **vc_mins**: 1
-  - **vc_points**: 1
+  - **vc_points**: 2
   - **vc_need_others**: no
   - **vc_need_muted**: no
   - **cooldown**: 0
   - **channel_rules**: *(empty)*
-  - **disabled_channels**: *(empty)*
+  - **disabled_channels**:
+    - `1570386957056348251` → #╰ ¤〢Casino ︲☃️︲
+    - `1488691349212495892` → #╰ ¤〢Games ︲🎄︲
   - **enabled_channels**: *(empty)*
   - **vc_disabled_channels**: *(empty)*
 - **rolecmds**:
@@ -721,12 +812,14 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **manager**:
     - **role**: `1488691176306639008` → @ゝDark Manager ⌝
     - **allowed**: *none*
+- **shop**:
+  - **per_page**: 5
 - **tictactoe**:
   - **channel**: `1572117193712209960` → #🎄︲tic_tac_toe⌝
 - **timetap**:
   - **channel**: `1572828188332007465` → #🎄︲timetap⌝
 - **timetap_stats**:
-  - **650534818517483526** → Lazy (jslazy):
+  - **650534818517483526** → Lazy (whysolayz):
     - **games**: 3
     - **false_starts**: 2
     - **taps**: 14
@@ -738,7 +831,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **best_clean**: 6
     - **best_ms**: 1067
     - **train_best_avg**: 1172
-  - **1028298097664733215** → Demon King of Salvation (nontastic_player):
+  - **1028298097664733215** → Nope {>.<} (nontastic_player):
     - **games**: 1
     - **false_starts**: 1
     - **taps**: 2
@@ -775,7 +868,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 ### Players
 
-- 148 players stored in `data/kon.db` (full list: `export/players_1488690726870057165.csv`)
+- 152 players stored in `data/kon.db` (full list: `export/players_1488690726870057165.csv`)
 
 ## Twin's Empire 2.0  (`1524797937836621874`)
 
@@ -871,7 +964,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 ### Players
 
-- 17 players stored in `data/kon.db` (full list: `export/players_1524797937836621874.csv`)
+- 29 players stored in `data/kon.db` (full list: `export/players_1524797937836621874.csv`)
 
 ## The Blaze Nebula | Drag GW  (`1547650379448188999`)
 
@@ -931,8 +1024,8 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - `1556600326617042959` → 4LC_DR4K3N (4lc_dr4k3n)
   - `1519731963244580987` → Blaze zzz (btwkartikxz)
   - `1340198074387267634` → HM | TacticalShower (.mlx_rinn)
-  - `1554945105981603880` → Mexzon (mexzon_0205)
-  - `829689719633215498` → Vortex (_vortexog)
+  - `1554945105981603880` → Mexzon | Blaze (mexzon_0205)
+  - `829689719633215498` → Vortex (.vortextheog)
   - `1537639385879683212` → T-MOD | Ruler (hellruler08457)
   - `1554280108632842295` → *not found (deleted / bot not in server)*
   - `1423371939556233247` → Life is hard 💔🥀 (whitebeardxz)
@@ -951,7 +1044,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 - **users**:
   - **1562817118641062029** → Raven (_raven.exe09):
     - `<a:Oliviaaa_nooooo:1570865411195543645>`
-  - **829689719633215498** → Vortex (_vortexog):
+  - **829689719633215498** → Vortex (.vortextheog):
     - `<:nebula_Bored:1561078200325382194>`
   - **1556600326617042959** → 4LC_DR4K3N (4lc_dr4k3n):
     - `<:Nebula_Angry:1549341308546449459>`
@@ -1008,7 +1101,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **users**:
     - **1562817118641062029** → Raven (_raven.exe09):
       - `<a:Oliviaaa_nooooo:1570865411195543645>`
-    - **829689719633215498** → Vortex (_vortexog):
+    - **829689719633215498** → Vortex (.vortextheog):
       - `<:nebula_Bored:1561078200325382194>`
     - **1556600326617042959** → 4LC_DR4K3N (4lc_dr4k3n):
       - `<:Nebula_Angry:1549341308546449459>`
@@ -1026,12 +1119,12 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - `1556600326617042959` → 4LC_DR4K3N (4lc_dr4k3n)
     - `1519731963244580987` → Blaze zzz (btwkartikxz)
     - `1340198074387267634` → HM | TacticalShower (.mlx_rinn)
-    - `1554945105981603880` → Mexzon (mexzon_0205)
-    - `829689719633215498` → Vortex (_vortexog)
+    - `1554945105981603880` → Mexzon | Blaze (mexzon_0205)
+    - `829689719633215498` → Vortex (.vortextheog)
     - `1537639385879683212` → T-MOD | Ruler (hellruler08457)
     - `1554280108632842295` → *not found (deleted / bot not in server)*
     - `1423371939556233247` → Life is hard 💔🥀 (whitebeardxz)
 
 ### Players
 
-- 344 players stored in `data/kon.db` (full list: `export/players_1547650379448188999.csv`)
+- 405 players stored in `data/kon.db` (full list: `export/players_1547650379448188999.csv`)

@@ -17,7 +17,7 @@
     "server_name": "Dark ︲ Spider's Web",
     "join_to_create": {
       "id": 1488691385266864208,
-      "name": "🌱︲Custom VC⌝",
+      "name": "🌱︲Dark Custom VC⌝",
       "type": "voice",
       "category_id": 1488691343382286338,
       "category": "╰ ¤〢Custom VC ︲🌱︲",
@@ -29,7 +29,14 @@
     },
     "interface": null,
     "panel_message_id": null,
-    "active_custom_vcs": {}
+    "active_custom_vcs": {
+      "1573458588771291217": {
+        "owner": 650534818517483526,
+        "banned": [],
+        "block_drags": false,
+        "created": 1795212161.193033
+      }
+    }
   },
   "1524797937836621874": {
     "server_name": "Twin's Empire 2.0",

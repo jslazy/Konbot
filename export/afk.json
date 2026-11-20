@@ -7,13 +7,6 @@
       "old_nick": null,
       "mentions": []
     },
-    "1567891350710657266": {
-      "reason": "<:Roast:1569605305011015711>",
-      "since": 1794849840.3807216,
-      "guild_id": 1488690726870057165,
-      "old_nick": null,
-      "mentions": []
-    },
     "1502235313081290855": {
       "reason": "gn",
       "since": 1794852923.8723984,
@@ -28,39 +21,73 @@
         }
       ]
     },
-    "1473667943186305172": {
-      "reason": "school",
-      "since": 1795050215.0071063,
+    "1476239945172648142": {
+      "reason": "AFK",
+      "since": 1795095061.9590423,
       "guild_id": 1488690726870057165,
       "old_nick": null,
       "mentions": [
         {
-          "author": "Lazy",
+          "author": "🜲 SeNvaTor 'メD | 神",
           "channel_id": 1488691402039627776,
-          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1572782992835874828",
-          "content": "Samm"
-        },
-        {
-          "author": "NOT AVAILABLE TILL 25",
-          "channel_id": 1488691402039627776,
-          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1572794157959876770",
-          "content": "<@1473667943186305172> partnerships"
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1573366469935243455",
+          "content": "<@1476239945172648142>"
         }
       ]
     },
-    "1425991437396217960": {
-      "reason": "bye bye",
-      "since": 1795054650.8185434,
+    "743845224287043665": {
+      "reason": "Aaya wait",
+      "since": 1795193581.1193664,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
+    },
+    "1262248731353546763": {
+      "reason": "shiiii",
+      "since": 1795196916.8074968,
       "guild_id": 1488690726870057165,
       "old_nick": null,
       "mentions": [
         {
-          "author": "Anshu >_<",
-          "channel_id": 1572624812688277524,
-          "url": "https://discord.com/channels/1488690726870057165/1572624812688277524/1572802877079162992",
-          "content": "<@1425991437396217960> logs dikhre hai ab?"
+          "author": "itz_NOXY|on-leave",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1573394678303166537",
+          "content": "Sunlo lala"
+        },
+        {
+          "author": "Meow-Gamer",
+          "channel_id": 1570388769394135150,
+          "url": "https://discord.com/channels/1488690726870057165/1570388769394135150/1573394683173019671",
+          "content": "Leol idk <:Roast:1569605305011015711>"
+        },
+        {
+          "author": "Nope {>.<}",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1573401793042579530",
+          "content": "<@1262248731353546763> online?"
         }
       ]
+    },
+    "1299765230011678834": {
+      "reason": "tuta hua saaz hu mei <:sad:1570501583660126249> <:sad:1569605312170823803>",
+      "since": 1795199980.0513644,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": [
+        {
+          "author": "Nope {>.<}",
+          "channel_id": 1488691402039627776,
+          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1573407747192528980",
+          "content": "chala gaya 🥀"
+        }
+      ]
+    },
+    "1538573910839140575": {
+      "reason": "sleep bro very tired",
+      "since": 1795200761.0500762,
+      "guild_id": 1488690726870057165,
+      "old_nick": null,
+      "mentions": []
     }
   },
   "tag": {

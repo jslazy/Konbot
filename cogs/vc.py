@@ -10,7 +10,7 @@ from discord import app_commands
 from discord.ext import commands, tasks
 from discord.http import Route
 
-from core import ratelimit
+from core import emoji, ratelimit
 from core.config import BLURPLE, VC_PREFIX
 from core.errors import VCError
 from core.icons import I, ok
@@ -260,9 +260,14 @@ class VCService:
 
     async def rename(self, member, name: str):
         ch, _ = self.owned(member)
-        new = name.strip()[:100]          # exactly what the owner typed - no automatic prefix
-        if not new:
+        if not name.strip():
             raise VCError("Give me a name.")
+        # exactly what the owner typed - no automatic prefix. Emojis stay only when they are from this server / the bot's
+        # servers / the bot's own emojis; any other emoji (or :name:) is removed so no "name:id" text lands in the name.
+        new, dropped = await emoji.sanitize(self.bot, member.guild, name, limit=100)
+        if not new:
+            raise VCError("That emoji isn't from this server or the bot's servers, so it can't be used - "
+                          "nothing is left for the name. Add some text or use another emoji.")
         ra = ratelimit.check("rename", ch.id)
         if ra:
             raise VCError(f"Discord allows 2 renames per 10 minutes. Try again in **{ratelimit.fmt(ra)}**.")
@@ -270,7 +275,8 @@ class VCService:
             await ch.edit(name=new, reason=f"VC rename by {member}")
         except discord.HTTPException as e:
             raise self._http(e)
-        return f"Renamed to **{new}**."
+        note = " (an emoji I can't use was removed)" if dropped else ""
+        return f"Renamed to **{new}**.{note}"
 
     async def status(self, member, text: str):
         ch, _ = self.owned(member)

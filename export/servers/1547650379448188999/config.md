@@ -58,8 +58,8 @@
   - `1556600326617042959` → 4LC_DR4K3N (4lc_dr4k3n)
   - `1519731963244580987` → Blaze zzz (btwkartikxz)
   - `1340198074387267634` → HM | TacticalShower (.mlx_rinn)
-  - `1554945105981603880` → Mexzon (mexzon_0205)
-  - `829689719633215498` → Vortex (_vortexog)
+  - `1554945105981603880` → Mexzon | Blaze (mexzon_0205)
+  - `829689719633215498` → Vortex (.vortextheog)
   - `1537639385879683212` → T-MOD | Ruler (hellruler08457)
   - `1554280108632842295` → *not found (deleted / bot not in server)*
   - `1423371939556233247` → Life is hard 💔🥀 (whitebeardxz)
@@ -78,7 +78,7 @@
 - **users**:
   - **1562817118641062029** → Raven (_raven.exe09):
     - `<a:Oliviaaa_nooooo:1570865411195543645>`
-  - **829689719633215498** → Vortex (_vortexog):
+  - **829689719633215498** → Vortex (.vortextheog):
     - `<:nebula_Bored:1561078200325382194>`
   - **1556600326617042959** → 4LC_DR4K3N (4lc_dr4k3n):
     - `<:Nebula_Angry:1549341308546449459>`
@@ -135,7 +135,7 @@
   - **users**:
     - **1562817118641062029** → Raven (_raven.exe09):
       - `<a:Oliviaaa_nooooo:1570865411195543645>`
-    - **829689719633215498** → Vortex (_vortexog):
+    - **829689719633215498** → Vortex (.vortextheog):
       - `<:nebula_Bored:1561078200325382194>`
     - **1556600326617042959** → 4LC_DR4K3N (4lc_dr4k3n):
       - `<:Nebula_Angry:1549341308546449459>`
@@ -153,12 +153,12 @@
     - `1556600326617042959` → 4LC_DR4K3N (4lc_dr4k3n)
     - `1519731963244580987` → Blaze zzz (btwkartikxz)
     - `1340198074387267634` → HM | TacticalShower (.mlx_rinn)
-    - `1554945105981603880` → Mexzon (mexzon_0205)
-    - `829689719633215498` → Vortex (_vortexog)
+    - `1554945105981603880` → Mexzon | Blaze (mexzon_0205)
+    - `829689719633215498` → Vortex (.vortextheog)
     - `1537639385879683212` → T-MOD | Ruler (hellruler08457)
     - `1554280108632842295` → *not found (deleted / bot not in server)*
     - `1423371939556233247` → Life is hard 💔🥀 (whitebeardxz)
 
 ### Players
 
-- 344 players stored in `data/kon.db` (full list: `export/players_1547650379448188999.csv`)
+- 405 players stored in `data/kon.db` (full list: `export/players_1547650379448188999.csv`)

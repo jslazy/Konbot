@@ -174,3 +174,11 @@ Messages older than 14 days can't be bulk-deleted by Discord and are skipped.
   `:name:` or an emoji ID.
 - **`$pointshop config` -> Slot**: how many roles one shop page shows (1 - 10, default 4).
 - **Upload only**: the shop picture and the self-role banner are uploaded as a file (no link field). Empty shop picture = server icon.
+
+## Changelog (latest)
+- **Icons / control panel:** icons are checked by hash on every start. An old (green) `kon_*` application emoji is deleted and
+  re-uploaded in the orange Kon palette automatically (hashes in `data/icon_hashes.json`). Control panels that were posted earlier
+  (`$interface`) are edited in place at start (new orange image + new buttons) - no need to post a new one.
+- **VC rename / AFK reason:** an emoji stays only if it is from the current server, from a server the bot is in, or one of the bot's own
+  emojis. Any other emoji (or unknown `:name:` / emoji ID) is removed automatically - no `name:id` text in the channel name.
+- **BlackTea:** the word must now START with the shown letters (`STR` -> street). Easy = 2 letters, Medium/Hard = 3 letters.

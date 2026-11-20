@@ -9,6 +9,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
+from core import emoji
 from core.config import AFK_FILE, BLURPLE, MENTIONS_PER_PAGE, TIMEZONE
 from core.icons import I
 
@@ -169,7 +170,9 @@ class AFK(commands.Cog):
     @app_commands.describe(reason="Why are you away?")
     @commands.guild_only()
     async def afk_cmd(self, ctx: commands.Context, *, reason: str = "AFK"):
-        reason = reason.strip() or "AFK"
+        # emojis stay only when they are from this server / the bot's servers / the bot's own emojis; others are removed
+        reason, _ = await emoji.sanitize(self.bot, ctx.guild, reason.strip())
+        reason = reason or "AFK"
         n = afk_len(reason)
         if n > AFK_MAX:
             return await ctx.reply(f"{I.s('cross')} Keep the reason under **{AFK_MAX}** characters (yours is {n}).", mention_author=False,

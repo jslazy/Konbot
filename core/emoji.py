@@ -285,7 +285,8 @@ async def usable(bot, guild: Optional[discord.Guild], eid: int) -> Optional[tupl
     return (em.name, em.animated) if em is not None else None
 
 
-async def sanitize(bot, guild: Optional[discord.Guild], text: str, limit: Optional[int] = None) -> tuple[str, int]:
+async def sanitize(bot, guild: Optional[discord.Guild], text: str, limit: Optional[int] = None,
+                   keep_custom: bool = True) -> tuple[str, int]:
     """-> (clean text, number of emojis that were removed).
 
     * `<:name:id>` / `<a:name:id>` stays (animated flag fixed) only if the emoji is usable, otherwise it is removed
@@ -336,6 +337,9 @@ async def sanitize(bot, guild: Optional[discord.Guild], text: str, limit: Option
             ids[raw] = code(hit[0], hit[1], int(raw)) if hit else None
     text = BARE_ID.sub(lambda m: ids.get(m.group(1)) or m.group(0), text)       # a plain number that is no emoji stays
 
+    if not keep_custom:                                 # channel names can't show custom emojis (Discord prints the raw code)
+        removed += len(CUSTOM.findall(text))
+        text = CUSTOM.sub("", text)
     text = re.sub(r"[ \t]{2,}", " ", text).strip()
     if limit is not None and len(text) > limit:
         cut = text[:limit]

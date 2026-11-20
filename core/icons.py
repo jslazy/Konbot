@@ -5,30 +5,18 @@ If an upload fails the bot falls back to a unicode emoji, so nothing breaks.
 """
 import asyncio
 import hashlib
-import json
 import logging
+import re
 
 import discord
 
-from .config import DATA_DIR, ICON_DIR
+from .config import ICON_DIR
 
 log = logging.getLogger("kon.icons")
 EMOJI_PREFIX = "kon_"
-HASH_FILE = DATA_DIR / "icon_hashes.json"      # which image (sha1) is uploaded for every kon_<name> emoji
 
-
-def _load_hashes() -> dict:
-    try:
-        return json.loads(HASH_FILE.read_text(encoding="utf-8"))
-    except Exception:
-        return {}
-
-
-def _save_hashes(d: dict):
-    try:
-        HASH_FILE.write_text(json.dumps(d, indent=1, sort_keys=True), encoding="utf-8")
-    except OSError as e:
-        log.warning("could not save icon hashes: %s", e)
+UPLOAD_PARALLEL = 12                          # emoji uploads running at the same time (discord.py waits by itself on a rate limit)
+NAME_RE = re.compile(r"(kon_.+?)_([0-9a-f]{6})")   # kon_<icon>_<6 hex of the image hash>: a changed image = a new name = re-upload
 
 FALLBACK = {
     "lock": "🔒", "unlock": "🔓", "hide": "🙈", "show": "👁️", "logout": "🚪", "ban": "🚫",
@@ -63,38 +51,40 @@ class Icons:
         except Exception as e:  # old discord.py / no permission
             log.warning("Could not fetch application emojis (%s) - using unicode fallbacks", e)
             return
-        hashes = _load_hashes()
-        changed = False
-        for name in USED:
+        by_base: dict[str, list] = {}
+        for e in existing.values():
+            if e.name.startswith(EMOJI_PREFIX):
+                m = NAME_RE.fullmatch(e.name)
+                by_base.setdefault(m.group(1) if m else e.name, []).append(e)
+        sem = asyncio.Semaphore(UPLOAD_PARALLEL)
+
+        async def one(name: str):
             key = EMOJI_PREFIX + name
             path = ICON_DIR / f"{name}.png"
-            data = path.read_bytes() if path.exists() else None
-            digest = hashlib.sha1(data).hexdigest() if data else None
-            cur = existing.get(key)
-            if cur is not None and (data is None or hashes.get(name) == digest):
-                self.map[name] = cur                     # up to date
-                continue
-            if data is None:
-                continue
-            if cur is not None:                          # stale image on Discord (e.g. the old green icon) -> replace it
+            olds = by_base.get(key, [])
+            if not path.exists():
+                if olds:
+                    self.map[name] = olds[0]
+                return
+            data = path.read_bytes()
+            want = f"{key}_{hashlib.sha1(data).hexdigest()[:6]}"
+            for e in olds:
+                if e.name == want:                      # already uploaded with this exact image
+                    self.map[name] = e
+                    return
+            async with sem:
+                for e in olds:                          # old / green image -> remove
+                    try:
+                        await e.delete()
+                    except Exception as ex:
+                        log.warning("could not delete old icon %s: %s", e.name, ex)
                 try:
-                    await cur.delete()
-                    await asyncio.sleep(0.4)
-                except Exception as e:
-                    log.warning("could not delete old icon %s: %s", key, e)
-                    self.map[name] = cur
-                    continue
-            try:
-                self.map[name] = await bot.create_application_emoji(name=key, image=data)
-                hashes[name] = digest
-                changed = True
-                self.refreshed = True
-                log.info("uploaded icon %s", key)
-                await asyncio.sleep(0.7)
-            except Exception as e:
-                log.warning("icon upload failed for %s: %s", key, e)
-        if changed:
-            _save_hashes(hashes)
+                    self.map[name] = await bot.create_application_emoji(name=want, image=data)
+                    self.refreshed = True
+                except Exception as ex:
+                    log.warning("icon upload failed for %s: %s", want, ex)
+
+        await asyncio.gather(*(one(n) for n in USED))
         log.info("icons ready: %d/%d custom", len(self.map), len(USED))
 
     def s(self, name: str) -> str:

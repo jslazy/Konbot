@@ -9,7 +9,7 @@ from discord.ext import commands
 from core import ratelimit
 from core.config import BRAND, PANEL_IMAGE
 from core.errors import VCError
-from core.icons import HASH_FILE, I, err, ok
+from core.icons import I, err, ok
 
 log = logging.getLogger("kon.interface")
 
@@ -154,11 +154,11 @@ class Interface(commands.Cog):
     def panel_version() -> str:
         """Fingerprint of the panel image + the uploaded icon set (changes when the colours/icons change)."""
         h = hashlib.sha1()
-        for f in (PANEL_IMAGE, HASH_FILE):
-            try:
-                h.update(f.read_bytes())
-            except OSError:
-                pass
+        try:
+            h.update(PANEL_IMAGE.read_bytes())
+        except OSError:
+            pass
+        h.update(",".join(f"{k}:{e.id}" for k, e in sorted(I.map.items())).encode())    # emoji IDs change when icons are re-uploaded
         return h.hexdigest()[:16]
 
     @commands.Cog.listener()

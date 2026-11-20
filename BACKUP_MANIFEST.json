@@ -18,8 +18,8 @@
     },
     {
       "path": "README.md",
-      "size": 18205,
-      "sha1": "bb5edc9ff1f1f53447925414751b48e3b94455ae"
+      "size": 18362,
+      "sha1": "0e7657fca8b7f6bc4d4e069e77d53b91e96c3ba3"
     },
     {
       "path": "assets/icon_sheet.png",
@@ -803,8 +803,8 @@
     },
     {
       "path": "cogs/interface.py",
-      "size": 8799,
-      "sha1": "a407f656aed9c7367d3a7eddb5936680731b6aab"
+      "size": 8873,
+      "sha1": "a5dfd9c07df8ddc86470addc01cfb3134d8e1efe"
     },
     {
       "path": "cogs/meta.py",
@@ -858,8 +858,8 @@
     },
     {
       "path": "cogs/vc.py",
-      "size": 32295,
-      "sha1": "4c23f677793458ed250eb0da73806afa339f1529"
+      "size": 32569,
+      "sha1": "9dcb1a0f4261fa7aefa22557bfb4b271accbdf90"
     },
     {
       "path": "core/checks.py",
@@ -878,8 +878,8 @@
     },
     {
       "path": "core/emoji.py",
-      "size": 13522,
-      "sha1": "ce9e2520831247f19896f5bae597c0a161991870"
+      "size": 13775,
+      "sha1": "d6a9fd65c428e74d4d193bdb20eeeef88bf1fff6"
     },
     {
       "path": "core/errors.py",
@@ -893,8 +893,8 @@
     },
     {
       "path": "core/icons.py",
-      "size": 5079,
-      "sha1": "c8534d7906321c5f9a220c8c3cf817b2574b4e61"
+      "size": 4942,
+      "sha1": "a8c2984149c79e65768f823cdc085db836403af4"
     },
     {
       "path": "core/media.py",

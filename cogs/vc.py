@@ -262,12 +262,12 @@ class VCService:
         ch, _ = self.owned(member)
         if not name.strip():
             raise VCError("Give me a name.")
-        # exactly what the owner typed - no automatic prefix. Emojis stay only when they are from this server / the bot's
-        # servers / the bot's own emojis; any other emoji (or :name:) is removed so no "name:id" text lands in the name.
-        new, dropped = await emoji.sanitize(self.bot, member.guild, name, limit=100)
+        # exactly what the owner typed - no automatic prefix. Discord shows custom / animated emojis in channel names as raw
+        # "<:name:id>" text, so they are removed here; normal (unicode) emojis stay. Custom emojis work in the VC status.
+        new, dropped = await emoji.sanitize(self.bot, member.guild, name, limit=100, keep_custom=False)
         if not new:
-            raise VCError("That emoji isn't from this server or the bot's servers, so it can't be used - "
-                          "nothing is left for the name. Add some text or use another emoji.")
+            raise VCError("Custom/animated emojis can't be shown in a VC **name** (Discord only allows normal emojis there), "
+                          "so nothing is left. Add some text, or put the custom emoji in the VC status.")
         ra = ratelimit.check("rename", ch.id)
         if ra:
             raise VCError(f"Discord allows 2 renames per 10 minutes. Try again in **{ratelimit.fmt(ra)}**.")
@@ -275,12 +275,13 @@ class VCService:
             await ch.edit(name=new, reason=f"VC rename by {member}")
         except discord.HTTPException as e:
             raise self._http(e)
-        note = " (an emoji I can't use was removed)" if dropped else ""
+        note = " (custom emoji removed - Discord can't show them in VC names; use VC status for those)" if dropped else ""
         return f"Renamed to **{new}**.{note}"
 
     async def status(self, member, text: str):
         ch, _ = self.owned(member)
-        text = text.strip()[:500]
+        # custom + animated emojis work here: <:name:id>, :name: or a plain emoji ID (only emojis the bot can use)
+        text, _ = await emoji.sanitize(self.bot, member.guild, text.strip(), limit=500)
         try:
             await self.bot.http.request(
                 Route("PUT", "/channels/{channel_id}/voice-status", channel_id=ch.id),

@@ -1,9 +1,9 @@
 {
   "bot": "Kon#9118",
-  "created": "2026-11-20T22:42:16.959353+00:00",
-  "reason": "Manual update: orange icon resync, VC rename/AFK emoji fix, BlackTea starts-with mode",
+  "created": "2026-11-21T01:12:58.470216+00:00",
+  "reason": "Automatic (every 30s)",
   "status": "online",
-  "backup_number": 3690,
+  "backup_number": 10,
   "kind": "code",
   "files": [
     {
@@ -928,28 +928,28 @@
     },
     {
       "path": "export/SERVER_CONFIG.json",
-      "size": 31946,
-      "sha1": "fe957b924a87d7fbb1d21bbf5b1d61a6cd4883da"
+      "size": 32365,
+      "sha1": "d87b3412ada75548fd08487a47fdf94740f0bf63"
     },
     {
       "path": "export/SERVER_CONFIG.md",
-      "size": 32582,
-      "sha1": "465075ea66a4a1bad1ed216d7e1bb4abc794e02d"
+      "size": 33060,
+      "sha1": "6e239953e17aca11a21b1abb84af2dca639c18f2"
     },
     {
       "path": "export/afk.json",
-      "size": 2972,
-      "sha1": "aaaff6be750fb3e1aad7e48d8183659e468d29a0"
+      "size": 3235,
+      "sha1": "59dfe2f4654a19f96d4229035691d913a8d6072f"
     },
     {
       "path": "export/custom_vc_channels.json",
-      "size": 1360,
-      "sha1": "f78325cf422e81c34afba727f8065139275545c4"
+      "size": 1644,
+      "sha1": "21d486a0a5247b227b85467415ee245af96a812c"
     },
     {
       "path": "export/db_dump.json",
-      "size": 2168011,
-      "sha1": "e2b732e5b07c15412119b0a263f0c43ed5e59d25"
+      "size": 2210684,
+      "sha1": "3f0492d20f1575a1c54631dd12034302dbeaaa78"
     },
     {
       "path": "export/players_1154838258027606117.csv",
@@ -958,18 +958,18 @@
     },
     {
       "path": "export/players_1488690726870057165.csv",
-      "size": 10174,
-      "sha1": "0c7ce6e1c3824dcf92c3644dbfbcaed8ea3bff67"
+      "size": 10173,
+      "sha1": "113766d0eda0e2de559d7884e48c22153708d208"
     },
     {
       "path": "export/players_1524797937836621874.csv",
       "size": 1992,
-      "sha1": "1c82fb6314feb4595cfbfebfafbb7c55f5ef8666"
+      "sha1": "f810af2fc67c148bc3ca5e648ec7e928692b42de"
     },
     {
       "path": "export/players_1547650379448188999.csv",
-      "size": 27172,
-      "sha1": "a4b7a27bcb38639b195c143012abdbec81a0e8e7"
+      "size": 27171,
+      "sha1": "4b7b51b430d8ac10e1713802efa518ec9c7d42e2"
     },
     {
       "path": "export/servers/0/config.json",
@@ -1013,23 +1013,23 @@
     },
     {
       "path": "export/servers/1488690726870057165/config.json",
-      "size": 19000,
-      "sha1": "e2dac259044a98e6733f33f4fea815dc30ae883c"
+      "size": 19375,
+      "sha1": "6a80a4d2fded290663ae1ec98c5f5baa6c9b935f"
     },
     {
       "path": "export/servers/1488690726870057165/config.md",
-      "size": 21744,
-      "sha1": "c3bdec20c11abea50d5ca904bd4a8e702a71efad"
+      "size": 22222,
+      "sha1": "82b635d6086c0925aa04431fd4566fcaf62502dd"
     },
     {
       "path": "export/servers/1488690726870057165/data.json",
-      "size": 5256,
-      "sha1": "d7f37922590c58c1114fa25d57fd0169bc2db974"
+      "size": 5914,
+      "sha1": "4c7c633589c5ac4694092def6b03d1063c33d911"
     },
     {
       "path": "export/servers/1488690726870057165/database.json",
-      "size": 1999026,
-      "sha1": "95dd98a5037bcb4b100f9021fdd63d9d52d87d0e"
+      "size": 2041699,
+      "sha1": "51fec2a58a2ad1e6d8a9d06a7054cc69ceb4ea4b"
     },
     {
       "path": "export/servers/1524797937836621874/config.json",
@@ -1049,12 +1049,12 @@
     {
       "path": "export/servers/1524797937836621874/database.json",
       "size": 6428,
-      "sha1": "8f5f65f2db3003353a5824ddf4e8f5eda02a604f"
+      "sha1": "99ebc79fd54e6f0b7a477dab53aeadf7ae04e1b3"
     },
     {
       "path": "export/servers/1547650379448188999/config.json",
       "size": 3475,
-      "sha1": "fb0dccf7deb5ad003a3c7003f3706202be9f8368"
+      "sha1": "bfb175f01da5f0d4d31658c6d09f8103a72c9019"
     },
     {
       "path": "export/servers/1547650379448188999/config.md",
@@ -1069,7 +1069,7 @@
     {
       "path": "export/servers/1547650379448188999/database.json",
       "size": 161920,
-      "sha1": "f44f916fd30e7741693de84fe8764c2d91ff03c0"
+      "sha1": "a36e190a304bd18e1fee23b7b31de377449c8c0b"
     },
     {
       "path": "main.py",

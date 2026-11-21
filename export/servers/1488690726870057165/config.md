@@ -167,7 +167,7 @@
 
 - **role**: `1569999856171229255` → @︲No Prefix 」
 - **users**:
-  - `1262248731353546763` → Some? Oops (anshumanfr_)
+  - `1262248731353546763` → Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_)
   - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
   - `650534818517483526` → Lazy (whysolayz)
   - `1473667943186305172` → [T MOD] Viru (thviru)
@@ -224,7 +224,7 @@
 ### Aura ($aura config)
 
 - **members**:
-  - **1262248731353546763** → Some? Oops (anshumanfr_): 99
+  - **1262248731353546763** → Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_): 99
 - **roles**: *(empty)*
 - **random**: yes
 - **disabled**: *(empty)*
@@ -387,8 +387,8 @@
 ### Extra owners ($konextra - this server only)
 
 - #1
-  - **id**: `1262248731353546763` → Some? Oops (anshumanfr_)
-  - **name**: Some? Oops (anshumanfr_)
+  - **id**: `1262248731353546763` → Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_)
+  - **name**: Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_)
   - **found**: yes
 - #2
   - **id**: `1154489620499800127` → Dark Ojas (darkojas)
@@ -429,12 +429,17 @@
     - **since**: 1795200761 (2026-11-20 18:52 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 1
+  - **1543476735469691002** → Ryomen (ryomentheog.):
+    - **reason**: bahne logz
+    - **since**: 1795233345 (2026-11-21 03:55 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 0
 
 ### EVERYTHING saved for this server (raw settings, nothing left out)
 
 - **aura**:
   - **members**:
-    - **1262248731353546763** → Some? Oops (anshumanfr_): 99
+    - **1262248731353546763** → Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_): 99
   - **roles**: *(empty)*
   - **random**: yes
   - **disabled**: *(empty)*
@@ -553,7 +558,7 @@
 - **noprefix**:
   - **role**: `1569999856171229255` → @︲No Prefix 」
   - **users**:
-    - `1262248731353546763` → Some? Oops (anshumanfr_)
+    - `1262248731353546763` → Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_)
     - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
     - `650534818517483526` → Lazy (whysolayz)
     - `1473667943186305172` → [T MOD] Viru (thviru)

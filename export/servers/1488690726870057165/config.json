@@ -430,7 +430,7 @@
   "extra_owners": [
     {
       "id": 1262248731353546763,
-      "name": "Some? Oops (anshumanfr_)",
+      "name": "Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_)",
       "found": true
     },
     {
@@ -477,6 +477,12 @@
         "since": 1795200761.0500762,
         "old_nick": null,
         "mentions_waiting": 1
+      },
+      "1543476735469691002": {
+        "reason": "bahne logz",
+        "since": 1795233344.6211426,
+        "old_nick": null,
+        "mentions_waiting": 0
       }
     }
   },

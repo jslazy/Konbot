@@ -17,7 +17,7 @@ class Games(commands.Cog):
         get = lambda key: self.bot.db.get_settings(gid, key).get("channel")
         return {"tictactoe": get("tictactoe"),
                 "blacktea": bt.game_channel(gid) if bt else None,
-                "timetap": get("timetap"), "handfight": get("handfight"), "ludo": get("ludo")}
+                "timetap": get("timetap"), "handfight": get("handfight")}
 
     @commands.hybrid_command(name="games", aliases=["gamechannels"], description="All games and the channel each one works in")
     @commands.guild_only()
@@ -26,8 +26,7 @@ class Games(commands.Cog):
         rows = (("Tic Tac Toe", "gamepad", "tictactoe", f"`{PREFIX}ttt play @member`"),
                 ("BlackTea", "leaf", "blacktea", f"`{PREFIX}blacktea` · word bomb, up to 20 players"),
                 ("TimeTap", "stopwatch", "timetap", f"`{PREFIX}timetap` · reaction duel: Training, Duo, Trio, Squad"),
-                ("Handfight", "rock", "handfight", f"`{PREFIX}handfight` · rock paper scissors: Duo, Squad"),
-                ("Ludo", "dice", "ludo", f"`{PREFIX}ludo` · real animated board, 2-4 players"))
+                ("Handfight", "rock", "handfight", f"`{PREFIX}handfight` · rock paper scissors: Duo, Squad"))
         lines = []
         for name, icon, key, how in rows:
             where = f"<#{ch[key]}>" if ch[key] else "*not set*"

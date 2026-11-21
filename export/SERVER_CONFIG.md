@@ -184,7 +184,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 - **channel**: *none*
 - **items**:
   - **img-1**:
-    - **c**: `1572663742091632681` → #kon-image
+    - **c**: `1572663742091632681` → #🌼︲kon_image
     - **m**: `1572762221564399626`
     - **url**: https://cdn.discordapp.com/attachments/1572663742091632681/1572762221292032173/img-1.png?ex=6aff8c76&is=6afe3af6&hm=f83907cf51458460f6aec025318bc5b3cadab1ac349c7ba4199ed96d88c46e4e&
     - **t**: png
@@ -211,7 +211,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
   - **channel**: *none*
   - **items**:
     - **img-1**:
-      - **c**: `1572663742091632681` → #kon-image
+      - **c**: `1572663742091632681` → #🌼︲kon_image
       - **m**: `1572762221564399626`
       - **url**: https://cdn.discordapp.com/attachments/1572663742091632681/1572762221292032173/img-1.png?ex=6aff8c76&is=6afe3af6&hm=f83907cf51458460f6aec025318bc5b3cadab1ac349c7ba4199ed96d88c46e4e&
       - **t**: png
@@ -390,7 +390,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 
 - **role**: `1569999856171229255` → @︲No Prefix 」
 - **users**:
-  - `1262248731353546763` → Some? Oops (anshumanfr_)
+  - `1262248731353546763` → Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_)
   - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
   - `650534818517483526` → Lazy (whysolayz)
   - `1473667943186305172` → [T MOD] Viru (thviru)
@@ -447,7 +447,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Aura ($aura config)
 
 - **members**:
-  - **1262248731353546763** → Some? Oops (anshumanfr_): 99
+  - **1262248731353546763** → Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_): 99
 - **roles**: *(empty)*
 - **random**: yes
 - **disabled**: *(empty)*
@@ -610,8 +610,8 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 ### Extra owners ($konextra - this server only)
 
 - #1
-  - **id**: `1262248731353546763` → Some? Oops (anshumanfr_)
-  - **name**: Some? Oops (anshumanfr_)
+  - **id**: `1262248731353546763` → Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_)
+  - **name**: Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_)
   - **found**: yes
 - #2
   - **id**: `1154489620499800127` → Dark Ojas (darkojas)
@@ -652,12 +652,17 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
     - **since**: 1795200761 (2026-11-20 18:52 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 1
+  - **1543476735469691002** → Ryomen (ryomentheog.):
+    - **reason**: bahne logz
+    - **since**: 1795233345 (2026-11-21 03:55 UTC)
+    - **old_nick**: *none*
+    - **mentions_waiting**: 0
 
 ### EVERYTHING saved for this server (raw settings, nothing left out)
 
 - **aura**:
   - **members**:
-    - **1262248731353546763** → Some? Oops (anshumanfr_): 99
+    - **1262248731353546763** → Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_): 99
   - **roles**: *(empty)*
   - **random**: yes
   - **disabled**: *(empty)*
@@ -776,7 +781,7 @@ Every channel / role / user ID below is followed by its name (as the bot sees it
 - **noprefix**:
   - **role**: `1569999856171229255` → @︲No Prefix 」
   - **users**:
-    - `1262248731353546763` → Some? Oops (anshumanfr_)
+    - `1262248731353546763` → Ohhhhhhhhhhhhhhh... What's That? (anshumanfr_)
     - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
     - `650534818517483526` → Lazy (whysolayz)
     - `1473667943186305172` → [T MOD] Viru (thviru)

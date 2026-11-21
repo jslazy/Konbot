@@ -34,7 +34,6 @@ FALLBACK = {
     "fire": "🔥", "gamepad": "🎮", "target": "🎯", "folder": "📁", "user_star": "🌟", "grid": "🔲",   # aura / games / info
     "rock": "🪨", "paper": "📄", "scissors": "✂️", "tap": "👆", "team_red": "🔴", "team_blue": "🔵",     # Handfight / TimeTap
     "light_red": "🔴", "light_green": "🟢", "shield_star": "🛡️", "swap_small": "⚔️", "thumbs_up": "👍",
-    "dice": "🎲", "pawn_red": "🔴", "pawn_green": "🟢", "pawn_yellow": "🟡", "pawn_blue": "🔵",              # Ludo
 }
 
 # every icon used anywhere in the bot (kept small: emoji uploads are rate limited)

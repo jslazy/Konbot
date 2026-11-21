@@ -42,32 +42,6 @@
       "old_nick": null,
       "mentions": []
     },
-    "1262248731353546763": {
-      "reason": "shiiii",
-      "since": 1795196916.8074968,
-      "guild_id": 1488690726870057165,
-      "old_nick": null,
-      "mentions": [
-        {
-          "author": "itz_NOXY|on-leave",
-          "channel_id": 1488691402039627776,
-          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1573394678303166537",
-          "content": "Sunlo lala"
-        },
-        {
-          "author": "Meow-Gamer",
-          "channel_id": 1570388769394135150,
-          "url": "https://discord.com/channels/1488690726870057165/1570388769394135150/1573394683173019671",
-          "content": "Leol idk <:Roast:1569605305011015711>"
-        },
-        {
-          "author": "Nope {>.<}",
-          "channel_id": 1488691402039627776,
-          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1573401793042579530",
-          "content": "<@1262248731353546763> online?"
-        }
-      ]
-    },
     "1299765230011678834": {
       "reason": "tuta hua saaz hu mei <:sad:1570501583660126249> <:sad:1569605312170823803>",
       "since": 1795199980.0513644,
@@ -87,7 +61,14 @@
       "since": 1795200761.0500762,
       "guild_id": 1488690726870057165,
       "old_nick": null,
-      "mentions": []
+      "mentions": [
+        {
+          "author": "Goku",
+          "channel_id": 1526981496462901399,
+          "url": "https://discord.com/channels/1524797937836621874/1526981496462901399/1573498093805117451",
+          "content": "<@1538573910839140575> on hai?"
+        }
+      ]
     }
   },
   "tag": {

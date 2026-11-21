@@ -155,12 +155,12 @@
         "name": "Dark ︲ Spider's Web",
         "bot_is_in_server": true,
         "owner_id": 1400039022855852113,
-        "members": 200
+        "members": 199
       },
       "custom_vc": {
         "join_to_create_channel": 1488691385266864208,
-        "interface_channel": null,
-        "interface_message_id": null,
+        "interface_channel": 1488691445769568306,
+        "interface_message_id": 1573473132516212869,
         "saved_setup (last known, survives channel deletion)": {
           "join_to_create": {
             "id": 1488691385266864208,
@@ -174,16 +174,27 @@
             "currently_set": true,
             "exists_now": true
           },
-          "interface": null,
-          "panel_message_id": null
+          "interface": {
+            "id": 1488691445769568306,
+            "name": "🌱︲dark_interface⌝",
+            "type": "text",
+            "category_id": 1488691343382286338,
+            "category": "╰ ¤〢Custom VC ︲🌱︲",
+            "position": 46,
+            "currently_set": true,
+            "exists_now": true
+          },
+          "panel_message_id": 1573473132516212869
         },
-        "other_keys": {},
+        "other_keys": {
+          "panel_ver": "cf4fe9877c500fc2"
+        },
         "active_custom_vcs": {
-          "1573458588771291217": {
+          "1573513094372790432": {
             "owner": 650534818517483526,
             "banned": [],
             "block_drags": false,
-            "created": 1795212161.193033
+            "created": 1795225156.2974296
           }
         }
       },
@@ -306,7 +317,7 @@
             "guild_id": 1488690726870057165,
             "role_id": 1488691204785963128,
             "price": 1000,
-            "stock": 5,
+            "stock": 4,
             "emoji": "<:winner:1517495079181488280>",
             "position": 6
           },
@@ -570,7 +581,7 @@
       "extra_owners": [
         {
           "id": 1262248731353546763,
-          "name": "[AFK]Some? Oops (anshumanfr_)",
+          "name": "Some? Oops (anshumanfr_)",
           "found": true
         },
         {
@@ -606,12 +617,6 @@
             "old_nick": null,
             "mentions_waiting": 0
           },
-          "1262248731353546763": {
-            "reason": "shiiii",
-            "since": 1795196916.8074968,
-            "old_nick": null,
-            "mentions_waiting": 3
-          },
           "1299765230011678834": {
             "reason": "tuta hua saaz hu mei <:sad:1570501583660126249> <:sad:1569605312170823803>",
             "since": 1795199980.0513644,
@@ -622,7 +627,7 @@
             "reason": "sleep bro very tired",
             "since": 1795200761.0500762,
             "old_nick": null,
-            "mentions_waiting": 0
+            "mentions_waiting": 1
           }
         }
       },
@@ -954,7 +959,7 @@
         "name": "The Blaze Nebula | Drag GW",
         "bot_is_in_server": true,
         "owner_id": 1519731963244580987,
-        "members": 1001
+        "members": 999
       },
       "custom_vc": {
         "join_to_create_channel": null,

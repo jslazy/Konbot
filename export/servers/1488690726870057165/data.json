@@ -1,7 +1,10 @@
 {
   "server_id": 1488690726870057165,
   "vc_data.guilds": {
-    "create": 1488691385266864208
+    "create": 1488691385266864208,
+    "interface": 1488691445769568306,
+    "panel_msg": 1573473132516212869,
+    "panel_ver": "cf4fe9877c500fc2"
   },
   "vc_data.selfroles": {
     "channel": 1488691387653161131,
@@ -49,12 +52,12 @@
     "missing": []
   },
   "vc_data.vcs": {
-    "1573458588771291217": {
+    "1573513094372790432": {
       "guild": 1488690726870057165,
       "owner": 650534818517483526,
       "banned": [],
       "block_drags": false,
-      "created": 1795212161.193033
+      "created": 1795225156.2974296
     }
   },
   "vc_data.mutes": {},
@@ -72,7 +75,16 @@
       "position": 7,
       "bitrate": 64000,
       "user_limit": 1
-    }
+    },
+    "interface": {
+      "id": 1488691445769568306,
+      "name": "🌱︲dark_interface⌝",
+      "type": "text",
+      "category_id": 1488691343382286338,
+      "category": "╰ ¤〢Custom VC ︲🌱︲",
+      "position": 46
+    },
+    "panel_message_id": 1573473132516212869
   },
   "afk_data.afk": {
     "1512822379061969028": {
@@ -117,32 +129,6 @@
       "old_nick": null,
       "mentions": []
     },
-    "1262248731353546763": {
-      "reason": "shiiii",
-      "since": 1795196916.8074968,
-      "guild_id": 1488690726870057165,
-      "old_nick": null,
-      "mentions": [
-        {
-          "author": "itz_NOXY|on-leave",
-          "channel_id": 1488691402039627776,
-          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1573394678303166537",
-          "content": "Sunlo lala"
-        },
-        {
-          "author": "Meow-Gamer",
-          "channel_id": 1570388769394135150,
-          "url": "https://discord.com/channels/1488690726870057165/1570388769394135150/1573394683173019671",
-          "content": "Leol idk <:Roast:1569605305011015711>"
-        },
-        {
-          "author": "Nope {>.<}",
-          "channel_id": 1488691402039627776,
-          "url": "https://discord.com/channels/1488690726870057165/1488691402039627776/1573401793042579530",
-          "content": "<@1262248731353546763> online?"
-        }
-      ]
-    },
     "1299765230011678834": {
       "reason": "tuta hua saaz hu mei <:sad:1570501583660126249> <:sad:1569605312170823803>",
       "since": 1795199980.0513644,
@@ -162,7 +148,14 @@
       "since": 1795200761.0500762,
       "guild_id": 1488690726870057165,
       "old_nick": null,
-      "mentions": []
+      "mentions": [
+        {
+          "author": "Goku",
+          "channel_id": 1526981496462901399,
+          "url": "https://discord.com/channels/1524797937836621874/1526981496462901399/1573498093805117451",
+          "content": "<@1538573910839140575> on hai?"
+        }
+      ]
     }
   },
   "afk_data.tag": false

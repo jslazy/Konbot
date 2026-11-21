@@ -5,8 +5,8 @@
 ### Custom VC (join-to-create + control panel + live VCs)
 
 - **join_to_create_channel**: `1488691385266864208` → #🌱︲Dark Custom VC⌝
-- **interface_channel**: *none*
-- **interface_message_id**: *none*
+- **interface_channel**: `1488691445769568306` → #🌱︲dark_interface⌝
+- **interface_message_id**: `1573473132516212869` → *not found (deleted / bot not in server)*
 - **saved_setup (last known, survives channel deletion)**:
   - **join_to_create**:
     - **id**: `1488691385266864208` → #🌱︲Dark Custom VC⌝
@@ -19,15 +19,24 @@
     - **user_limit**: 1
     - **currently_set**: yes
     - **exists_now**: yes
-  - **interface**: *none*
-  - **panel_message_id**: *none*
-- **other_keys**: *(empty)*
+  - **interface**:
+    - **id**: `1488691445769568306` → #🌱︲dark_interface⌝
+    - **name**: 🌱︲dark_interface⌝
+    - **type**: text
+    - **category_id**: `1488691343382286338` → #╰ ¤〢Custom VC ︲🌱︲
+    - **category**: ╰ ¤〢Custom VC ︲🌱︲
+    - **position**: 46
+    - **currently_set**: yes
+    - **exists_now**: yes
+  - **panel_message_id**: `1573473132516212869`
+- **other_keys**:
+  - **panel_ver**: cf4fe9877c500fc2
 - **active_custom_vcs**:
-  - **1573458588771291217** → #Sky Dancer:
+  - **1573513094372790432** → #whysolayz:
     - **owner**: `650534818517483526` → Lazy (whysolayz)
     - **banned**: *(empty)*
     - **block_drags**: no
-    - **created**: 1795212161 (2026-11-20 22:02 UTC)
+    - **created**: 1795225156 (2026-11-21 01:39 UTC)
 
 ### Custom VC protection ($customvc config)
 
@@ -142,7 +151,7 @@
     - **guild_id**: `1488690726870057165` → server Dark ︲ Spider's Web
     - **role_id**: `1488691204785963128` → @ゝ4x XP Boost ⌝
     - **price**: 1000
-    - **stock**: 5
+    - **stock**: 4
     - **emoji**: `<:winner:1517495079181488280>`
     - **position**: 6
   - #7
@@ -158,7 +167,7 @@
 
 - **role**: `1569999856171229255` → @︲No Prefix 」
 - **users**:
-  - `1262248731353546763` → [AFK]Some? Oops (anshumanfr_)
+  - `1262248731353546763` → Some? Oops (anshumanfr_)
   - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
   - `650534818517483526` → Lazy (whysolayz)
   - `1473667943186305172` → [T MOD] Viru (thviru)
@@ -215,7 +224,7 @@
 ### Aura ($aura config)
 
 - **members**:
-  - **1262248731353546763** → [AFK]Some? Oops (anshumanfr_): 99
+  - **1262248731353546763** → Some? Oops (anshumanfr_): 99
 - **roles**: *(empty)*
 - **random**: yes
 - **disabled**: *(empty)*
@@ -378,8 +387,8 @@
 ### Extra owners ($konextra - this server only)
 
 - #1
-  - **id**: `1262248731353546763` → [AFK]Some? Oops (anshumanfr_)
-  - **name**: [AFK]Some? Oops (anshumanfr_)
+  - **id**: `1262248731353546763` → Some? Oops (anshumanfr_)
+  - **name**: Some? Oops (anshumanfr_)
   - **found**: yes
 - #2
   - **id**: `1154489620499800127` → Dark Ojas (darkojas)
@@ -410,11 +419,6 @@
     - **since**: 1795193581 (2026-11-20 16:53 UTC)
     - **old_nick**: *none*
     - **mentions_waiting**: 0
-  - **1262248731353546763** → [AFK]Some? Oops (anshumanfr_):
-    - **reason**: shiiii
-    - **since**: 1795196917 (2026-11-20 17:48 UTC)
-    - **old_nick**: *none*
-    - **mentions_waiting**: 3
   - **1299765230011678834** → Meow-Gamer (soul_reaperx2):
     - **reason**: `tuta hua saaz hu mei <:sad:1570501583660126249> <:sad:1569605312170823803>`
     - **since**: 1795199980 (2026-11-20 18:39 UTC)
@@ -424,13 +428,13 @@
     - **reason**: sleep bro very tired
     - **since**: 1795200761 (2026-11-20 18:52 UTC)
     - **old_nick**: *none*
-    - **mentions_waiting**: 0
+    - **mentions_waiting**: 1
 
 ### EVERYTHING saved for this server (raw settings, nothing left out)
 
 - **aura**:
   - **members**:
-    - **1262248731353546763** → [AFK]Some? Oops (anshumanfr_): 99
+    - **1262248731353546763** → Some? Oops (anshumanfr_): 99
   - **roles**: *(empty)*
   - **random**: yes
   - **disabled**: *(empty)*
@@ -549,7 +553,7 @@
 - **noprefix**:
   - **role**: `1569999856171229255` → @︲No Prefix 」
   - **users**:
-    - `1262248731353546763` → [AFK]Some? Oops (anshumanfr_)
+    - `1262248731353546763` → Some? Oops (anshumanfr_)
     - `1418875905085935637` → 🜲 SeNvaTor 'メD | 神 (senvator.)
     - `650534818517483526` → Lazy (whysolayz)
     - `1473667943186305172` → [T MOD] Viru (thviru)

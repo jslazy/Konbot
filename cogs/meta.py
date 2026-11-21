@@ -22,10 +22,10 @@ CATEGORIES = {
     "Meta": ("General", "home"), "Autoreact": ("Auto Reacter", "sparkles"), "RoleCmds": ("Role Commands", "crown"),
     "SelfRoles": ("Self Roles", "crown"), "Expressions": ("Emojis & Stickers", "sparkles"), "Purge": ("Cleanup", "tools"),
     "Aura": ("Aura", "fire"), "RoleTransfer": ("Role Transfer", "crown"), "TicTacToe": ("Tic Tac Toe", "gamepad"), "CmdControl": ("Command Control", "lock"),
-    "BlackTea": ("BlackTea", "leaf"), "TimeTap": ("TimeTap", "stopwatch"), "Handfight": ("Handfight", "rock"), "Games": ("Games", "gamepad"), "ImageHost": ("Image Links", "image"),
+    "BlackTea": ("BlackTea", "leaf"), "TimeTap": ("TimeTap", "stopwatch"), "Handfight": ("Handfight", "rock"), "Ludo": ("Ludo", "dice"), "Games": ("Games", "gamepad"), "ImageHost": ("Image Links", "image"),
 }
 # order of the pages in $help (anything not listed goes at the end, A-Z)
-ORDER = ["Meta", "Points", "Shop", "RoleCmds", "VC", "Drag", "AFK", "SelfRoles", "Autoreact", "Aura", "Games", "TimeTap", "Handfight", "BlackTea", "TicTacToe",
+ORDER = ["Meta", "Points", "Shop", "RoleCmds", "VC", "Drag", "AFK", "SelfRoles", "Autoreact", "Aura", "Games", "TimeTap", "Handfight", "Ludo", "BlackTea", "TicTacToe",
          "Expressions", "ImageHost", "Purge", "Prefixes", "CmdControl", "RoleTransfer", "Admin", "Backup"]
 
 # short, plain descriptions (key = command name without prefix). Anything missing falls back to the docstring.
@@ -76,6 +76,9 @@ DESC = {
     "handfight": "Open Handfight - rock paper scissors (Duo / Squad)", "handfight play": "Open Handfight (`$hf`)",
     "handfight channel": "Pick the Handfight channel from a menu (`$handfight set`)", "handfight stats": "Your Handfight record",
     "handfight stop": "Stop the running Handfight game",
+    "ludo": "Open a Ludo lobby - real animated board, 2-4 players (`$ludo`)", "ludo play": "Open a Ludo lobby",
+    "ludo channel": "Pick the Ludo channel from a menu (`$ludo set`)", "ludo stats": "Your Ludo record (wins, kills, sixes)",
+    "ludo stop": "Stop the running Ludo game (host or admin)",
     "blacktea": "Start a BlackTea word game (`$bt easy|medium|hard`)", "blacktea play": "Start a BlackTea word game",
     "blacktea channel": "Pick the BlackTea channel from a menu (`$blacktea set`)", "setblacktea": "Set the BlackTea channel",
     "blacktea reset": "Remove the BlackTea channel", "blacktea stop": "Stop the running BlackTea game",

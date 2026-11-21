@@ -27,14 +27,23 @@
       "currently_set": true,
       "exists_now": true
     },
-    "interface": null,
-    "panel_message_id": null,
+    "interface": {
+      "id": 1488691445769568306,
+      "name": "🌱︲dark_interface⌝",
+      "type": "text",
+      "category_id": 1488691343382286338,
+      "category": "╰ ¤〢Custom VC ︲🌱︲",
+      "position": 46,
+      "currently_set": true,
+      "exists_now": true
+    },
+    "panel_message_id": 1573473132516212869,
     "active_custom_vcs": {
-      "1573458588771291217": {
+      "1573513094372790432": {
         "owner": 650534818517483526,
         "banned": [],
         "block_drags": false,
-        "created": 1795212161.193033
+        "created": 1795225156.2974296
       }
     }
   },

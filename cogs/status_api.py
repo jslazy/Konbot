@@ -35,7 +35,7 @@ class StatusAPI(commands.Cog):
         app.router.add_get("/", self.status)
         self.runner = web.AppRunner(app, access_log=None)
         await self.runner.setup()
-        port = int(os.getenv("STATUS_PORT", "8095"))
+        port = int(os.getenv("PORT", os.getenv("STATUS_PORT", "8095")))
         await web.TCPSite(self.runner, "0.0.0.0", port).start()
         print(f"[status_api] serving http://0.0.0.0:{port}/status")
         self.measure_api.start()

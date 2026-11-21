@@ -23,27 +23,17 @@ class StatusAPI(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.started = time.time()
-        self.runner: web.AppRunner | None = None
         self.api_ms: float | None = None
         self._cache: tuple[float, dict] | None = None
 
     # ---------- lifecycle ----------
     async def cog_load(self):
-        app = web.Application()
-        app.router.add_get("/status", self.status)
-        app.router.add_route("OPTIONS", "/status", self.preflight)
-        app.router.add_get("/", self.status)
-        self.runner = web.AppRunner(app, access_log=None)
-        await self.runner.setup()
-        port = int(os.getenv("PORT", os.getenv("STATUS_PORT", "8095")))
-        await web.TCPSite(self.runner, "0.0.0.0", port).start()
-        print(f"[status_api] serving http://0.0.0.0:{port}/status")
+        # The dashboard API owns the single Railway HTTP listener and mounts this
+        # handler, avoiding two cogs binding to the same PORT.
         self.measure_api.start()
 
     async def cog_unload(self):
         self.measure_api.cancel()
-        if self.runner:
-            await self.runner.cleanup()
 
     @tasks.loop(seconds=API_CHECK_SECONDS)
     async def measure_api(self):

@@ -75,6 +75,8 @@ class DashboardAPI(commands.Cog):
     async def cog_load(self):
         self.http = aiohttp.ClientSession()
         app = web.Application(middlewares=[self.cors])
+        app.router.add_get("/status", self.status_route)
+        app.router.add_get("/", self.status_route)
         app.router.add_get("/dashboard/guilds", self.list_guilds)
         app.router.add_get("/dashboard/guilds/{gid}", self.get_guild)
         app.router.add_patch("/dashboard/guilds/{gid}/{mod}", self.patch_module)
@@ -110,6 +112,12 @@ class DashboardAPI(commands.Cog):
         resp.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type"
         resp.headers["Access-Control-Allow-Methods"] = "GET, PATCH, OPTIONS"
         return resp
+
+    async def status_route(self, request):
+        status_cog = self.bot.get_cog("StatusAPI")
+        if status_cog is None:
+            return web.json_response({"online": self.bot.is_ready()}, headers={"Cache-Control": "no-store"})
+        return await status_cog.status(request)
 
     async def user_guilds(self, request) -> list:
         auth = request.headers.get("Authorization", "")
